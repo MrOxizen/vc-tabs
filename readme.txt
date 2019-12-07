@@ -3,7 +3,7 @@ Contributors: biplob018
 Donate link: https://www.oxilab.org
 Tags: tab, tabs, responsive tabs,  bootstrap tabs, tabs content, jQuery tabs, wordpress tabs, accordion
 Requires at least: 3.8
-Stable tag: 3.1
+Stable tag: 3.2
 Requires PHP: 5.4
 Tested up to: 5.3
 License: GPLv2 or later
@@ -247,8 +247,12 @@ On Non Responsive Themes Our Responsive Tabs with Accordions plugin also work Pe
 
 
 == Changelog ==
+= 3.2 =
+*Solved Template 4 Bugs
+*Update Shortcode Info Panel
+
 = 3.1 =
-Update admin panel
+*Update admin panel
 
 = 3.0 =
 *Update with Page Builders
@@ -307,6 +311,9 @@ Update admin panel
 
 
 == Upgrade Notice ==
+= 3.2 =
+Solved Template 4 Bugs
+Update Shortcode Info Panel
 
 = 3.1 =
 Update admin panel

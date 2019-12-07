@@ -96,7 +96,7 @@ trait Admin_helper {
             ];
             set_transient(self::ADMINMENU, $response, 10 * DAY_IN_SECONDS);
         endif;
-        $bgimage = OXI_TABS_URL . 'Assets/Image/sa-logo.png';
+        $bgimage = OXI_TABS_URL . 'assets/image/sa-logo.png';
         $sub = '';
 
         $menu = '<div class="oxi-addons-wrapper">
@@ -180,7 +180,7 @@ trait Admin_helper {
         if (!empty($styleid) && $styleid > 0):
             $style = $this->wpdb->get_row($this->wpdb->prepare('SELECT style_name FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             $style = ucfirst($style['style_name']);
-            $cls = '\OXI_TABS_PLUGINS\Admin\\' . $style;
+            $cls = '\OXI_TABS_PLUGINS\Admin_Render\\' . $style;
             new $cls();
         else:
             new \OXI_TABS_PLUGINS\Page\Create();

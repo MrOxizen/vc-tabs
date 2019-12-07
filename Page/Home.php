@@ -67,7 +67,7 @@ class Home {
      * @return void
      */
     public function admin_ajax_load() {
-        wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/Assets/Backend/js/home.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/assets/backend/js/home.js', false, OXI_TABS_TEXTDOMAIN);
         wp_localize_script('oxi-tabs-home', 'oxi_tabs_editor', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxi-tabs-editor')));
     }
 

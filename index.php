@@ -5,7 +5,7 @@
   Description: Tabs - Responsive Tabs with  Accordions is essayist way to awesome WordPress responsive Content Tabs Plugin with many features.
   Author: Biplob Adhikari
   Author URI: http://www.oxilab.org/
-  Version: 3.1
+  Version: 3.2
  */
 if (!defined('ABSPATH'))
     exit;
@@ -14,7 +14,7 @@ define('OXI_TABS_FILE', __FILE__);
 define('OXI_TABS_BASENAME', plugin_basename(__FILE__));
 define('OXI_TABS_PATH', plugin_dir_path(__FILE__));
 define('OXI_TABS_URL', plugins_url('/', __FILE__));
-define('OXI_TABS_PLUGIN_VERSION', '3.1.0');
+define('OXI_TABS_PLUGIN_VERSION', '3.2.0');
 define('OXI_TABS_TEXTDOMAIN', 'oxi-tabs-plugin');
 
 /**
@@ -47,7 +47,7 @@ register_activation_hook(__FILE__, function () {
 /**
  * Deactivation hook
  *
- * @since 8.0.0
+ * @since 3.1.0
  */
 register_deactivation_hook(__FILE__, function () {
     $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
@@ -57,7 +57,7 @@ register_deactivation_hook(__FILE__, function () {
 /**
  * Upgrade hook
  *
- * @since 8.0.0
+ * @since 3.1.0
  */
 add_action('upgrader_process_complete', function ($upgrader_object, $options) {
     $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();

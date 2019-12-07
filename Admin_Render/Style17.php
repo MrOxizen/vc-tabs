@@ -1,6 +1,6 @@
 <?php
 
-namespace OXI_TABS_PLUGINS\Admin;
+namespace OXI_TABS_PLUGINS\Admin_Render;
 
 /**
  * Description of Style1

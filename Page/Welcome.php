@@ -15,7 +15,7 @@ class Welcome {
     }
 
     public function admin_css() {
-        wp_enqueue_style('tabs-admin-welcome', OXI_TABS_URL . '/Assets/Backend/css/admin-welcome.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('tabs-admin-welcome', OXI_TABS_URL . '/assets/backend/css/admin-welcome.css', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     public function Public_Render() {
@@ -54,7 +54,7 @@ class Welcome {
             </div>
             <div class="feature-section">
                 <h3>Have any Bugs or Suggestion</h3>
-                <p>Your suggestions will make this plugin even better, Even if you get any bugs on Image Hover Effects with Carousel so let us to know, We will try to solved within few hours</p>
+                <p>Your suggestions will make this plugin even better, Even if you get any bugs on Responsive Tabs with  Accordions so let us to know, We will try to solved within few hours</p>
                 <p><a href="https://www.oxilab.org/contact-us" target="_blank" rel="noopener" class="image-features-button button button-primary">Contact Us</a>
                     <a href="https://wordpress.org/support/plugin/vc-tabs" target="_blank" rel="noopener" class="image-features-button button button-primary">Support Forum</a></p>
 

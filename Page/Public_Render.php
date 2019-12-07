@@ -38,8 +38,8 @@ class Public_Render {
 
     public function public_jquery_css() {
         wp_enqueue_script("jquery");
-        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/Assets/Frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
-        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/Assets/Frontend/js/tabs.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/tabs.js', false, OXI_TABS_TEXTDOMAIN);
     }
 
     public function inline_public_jquery() {
