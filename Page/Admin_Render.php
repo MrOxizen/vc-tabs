@@ -353,11 +353,11 @@ class Admin_Render {
                     <em>Shortcode for posts/pages/plugins</em>
                     <p>Copy &amp;
                         paste the shortcode directly into any WordPress post, page or Page Builder.</p>
-                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;'.$this->styleid.'&quot;]">
+                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $this->styleid . '&quot;]">
                     <span></span>
                     <em>Shortcode for templates/themes</em>
                     <p>Copy &amp; paste this code into a template file to include the slideshow within your theme.</p>
-                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="<?php echo do_shortcode(\'[ctu_ultimate_oxi  id=&quot;'.$this->styleid.'&quot;]\'); ?>">
+                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="<?php echo do_shortcode(\'[ctu_ultimate_oxi  id=&quot;' . $this->styleid . '&quot;]\'); ?>">
                     <span></span>
                 </div>
             </div>';
@@ -418,13 +418,13 @@ class Admin_Render {
                                             </li>
                                         </ul>
                                         <div class="oxilab-tabs-content">
-        <?php echo $this->admin_field($this->styledata); ?>
+                                            <?php echo $this->admin_field($this->styledata); ?>
                                         </div>
                                     </div>
                                     <div class="oxi-addons-setting-save">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         <input type="submit" class="btn btn-primary" name="data-submit" value="Save">
-        <?php wp_nonce_field("oxitabsstylecss") ?>
+                                        <?php wp_nonce_field("oxitabsstylecss") ?>
                                     </div>
                                 </div>
                             </form>
@@ -483,7 +483,7 @@ class Admin_Render {
                                     <input type="submit" class="btn btn-primary" id="item-submit" name="item-submit" value="Submit">
                                 </div>
                             </div>
-        <?php wp_nonce_field("oxitabschildnonce") ?>
+                            <?php wp_nonce_field("oxitabschildnonce") ?>
                         </form>
                     </div>
                 </div>
