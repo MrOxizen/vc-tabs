@@ -57,6 +57,15 @@ class Import {
         $this->Render();
     }
 
+    /**
+     * Admin Notice JS file loader
+     * @return void
+     */
+    public function admin_ajax_load() {
+        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/js/import.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_localize_script('oxi-tabs-create', 'oxi_tabs_editor', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxi-tabs-editor')));
+    }
+
     public function CSSJS_load() {
         $this->admin_css_loader();
         $this->admin_ajax_load();
@@ -65,15 +74,6 @@ class Import {
         foreach ($import as $value) {
             $this->IMPORT[$value['name']] = $value['name'];
         }
-    }
-
-    /**
-     * Admin Notice JS file loader
-     * @return void
-     */
-    public function admin_ajax_load() {
-        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/js/import.js', false, OXI_TABS_TEXTDOMAIN);
-        wp_localize_script('oxi-tabs-create', 'oxi_tabs_editor', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxi-tabs-editor')));
     }
 
     public function Render() {

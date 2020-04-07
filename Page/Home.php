@@ -55,6 +55,10 @@ class Home {
         $this->Render();
     }
 
+    public function database_data() {
+        return $this->wpdb->get_results("SELECT * FROM $this->parent_table ORDER BY id DESC", ARRAY_A);
+    }
+
     public function CSSJS_load() {
         $this->admin_css_loader();
         $this->admin_home();
@@ -93,53 +97,6 @@ class Home {
             </div>
         </div>
         <?php
-    }
-
-    public function database_data() {
-        return $this->wpdb->get_results("SELECT * FROM $this->parent_table ORDER BY id DESC", ARRAY_A);
-    }
-
-    public function created_shortcode() {
-        $return = _(' <div class="oxi-addons-row"> <div class="oxi-addons-row table-responsive abop" style="margin-bottom: 20px; opacity: 0; height: 0px">
-                        <table class="table table-hover widefat oxi_addons_table_data" style="background-color: #fff; border: 1px solid #ccc">
-                            <thead>
-                                <tr>
-                                    <th style="width: 5%">ID</th>
-                                    <th style="width: 15%">Name</th>
-                                    <th style="width: 10%">Templates</th>
-                                    <th style="width: 30%">Shortcode</th>
-                                    <th style="width: 40%">Edit Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>');
-        foreach ($this->database_data() as $value) {
-            $id = $value['id'];
-            $return .= _('<tr>');
-            $return .= _('<td>' . $id . '</td>');
-            $return .= _('<td>' . $this->name_converter($value['name']) . '</td>');
-            $return .= _('<td>' . $this->name_converter($value['style_name']) . '</td>');
-            $return .= _('<td><span>Shortcode &nbsp;&nbsp;<input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $id . '&quot;]"></span> <br>'
-                    . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
-            $return .= _('<td> 
-                        <button type="button" class="btn btn-success oxi-addons-style-clone"  style="float:left" oxiaddonsdataid="' . $id . '">Clone</button>
-                        <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
-                       <form method="post" class="oxi-addons-style-delete">
-                               <input type="hidden" name="oxideleteid" id="oxideleteid" value="' . $id . '">
-                               <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>  
-                       </form>
-                       <form method="post" class="oxi-addons-style-export">
-                               <input type="hidden" name="oxiexportid" id="oxiexportid" value="' . $id . '">
-                               <button class="btn btn-info" style="float:left; margin-left: 5px;"  title="Export"  type="submit" value="export" name="export">Export</button>  
-                       </form>
-                </td>');
-            $return .= _(' </tr>');
-        }
-        $return .= _('      </tbody>
-                </table>
-            </div>
-            <br>
-            <br></div>');
-        echo $return;
     }
 
     public function create_new() {
@@ -204,6 +161,49 @@ class Home {
                             </div>
                         </form>
                     </div>');
+    }
+
+    public function created_shortcode() {
+        $return = _(' <div class="oxi-addons-row"> <div class="oxi-addons-row table-responsive abop" style="margin-bottom: 20px; opacity: 0; height: 0px">
+                        <table class="table table-hover widefat oxi_addons_table_data" style="background-color: #fff; border: 1px solid #ccc">
+                            <thead>
+                                <tr>
+                                    <th style="width: 5%">ID</th>
+                                    <th style="width: 15%">Name</th>
+                                    <th style="width: 10%">Templates</th>
+                                    <th style="width: 30%">Shortcode</th>
+                                    <th style="width: 40%">Edit Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>');
+        foreach ($this->database_data() as $value) {
+            $id = $value['id'];
+            $return .= _('<tr>');
+            $return .= _('<td>' . $id . '</td>');
+            $return .= _('<td>' . $this->name_converter($value['name']) . '</td>');
+            $return .= _('<td>' . $this->name_converter($value['style_name']) . '</td>');
+            $return .= _('<td><span>Shortcode &nbsp;&nbsp;<input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $id . '&quot;]"></span> <br>'
+                    . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
+            $return .= _('<td> 
+                        <button type="button" class="btn btn-success oxi-addons-style-clone"  style="float:left" oxiaddonsdataid="' . $id . '">Clone</button>
+                        <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
+                       <form method="post" class="oxi-addons-style-delete">
+                               <input type="hidden" name="oxideleteid" id="oxideleteid" value="' . $id . '">
+                               <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>  
+                       </form>
+                       <form method="post" class="oxi-addons-style-export">
+                               <input type="hidden" name="oxiexportid" id="oxiexportid" value="' . $id . '">
+                               <button class="btn btn-info" style="float:left; margin-left: 5px;"  title="Export"  type="submit" value="export" name="export">Export</button>  
+                       </form>
+                </td>');
+            $return .= _(' </tr>');
+        }
+        $return .= _('      </tbody>
+                </table>
+            </div>
+            <br>
+            <br></div>');
+        echo $return;
     }
 
 }

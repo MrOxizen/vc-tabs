@@ -121,6 +121,50 @@ class Create {
         <?php
     }
 
+    public function create_new() {
+        echo _('<div class="oxi-addons-row">
+                        <div class="oxi-addons-col-1 oxi-import">
+                            <div class="oxi-addons-style-preview">
+                                <div class="oxilab-admin-style-preview-top">
+                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-import") . '">
+                                        <div class="oxilab-admin-add-new-item">
+                                            <span>
+                                                <i class="fas fa-plus-circle oxi-icons"></i>  
+                                                Import Templates
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>');
+
+        echo __('<div class="modal fade" id="oxi-addons-style-create-modal" >
+                        <form method="post" id="oxi-addons-style-modal-form">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">                    
+                                        <h4 class="modal-title">New Tabs</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class=" form-group row">
+                                            <label for="addons-style-name" class="col-sm-6 col-form-label" oxi-addons-tooltip="Give your Shortcode Name Here">Name</label>
+                                            <div class="col-sm-6 addons-dtm-laptop-lock">
+                                                <input class="form-control" type="text" value="" id="addons-style-name"  name="addons-style-name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" id="oxistyledata" name="oxistyledata" value="">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>');
+    }
     public function template() {
         ?>
         <div class="oxi-addons-row">
@@ -176,49 +220,6 @@ class Create {
         <?php
     }
 
-    public function create_new() {
-        echo _('<div class="oxi-addons-row">
-                        <div class="oxi-addons-col-1 oxi-import">
-                            <div class="oxi-addons-style-preview">
-                                <div class="oxilab-admin-style-preview-top">
-                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-import") . '">
-                                        <div class="oxilab-admin-add-new-item">
-                                            <span>
-                                                <i class="fas fa-plus-circle oxi-icons"></i>  
-                                                Import Templates
-                                            </span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>');
-
-        echo __('<div class="modal fade" id="oxi-addons-style-create-modal" >
-                        <form method="post" id="oxi-addons-style-modal-form">
-                            <div class="modal-dialog modal-sm">
-                                <div class="modal-content">
-                                    <div class="modal-header">                    
-                                        <h4 class="modal-title">New Tabs</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class=" form-group row">
-                                            <label for="addons-style-name" class="col-sm-6 col-form-label" oxi-addons-tooltip="Give your Shortcode Name Here">Name</label>
-                                            <div class="col-sm-6 addons-dtm-laptop-lock">
-                                                <input class="form-control" type="text" value="" id="addons-style-name"  name="addons-style-name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input type="hidden" id="oxistyledata" name="oxistyledata" value="">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>');
-    }
+    
 
 }

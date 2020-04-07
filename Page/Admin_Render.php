@@ -176,6 +176,17 @@ class Admin_Render {
         }
     }
 
+    public function Delete_child_data() {
+        if (!empty($_POST['delete']) && is_numeric($_POST['item-id'])) {
+            if (!wp_verify_nonce($this->nonce, 'oxitabsdeletedata')) {
+                die('You do not have sufficient permissions to access this page.');
+            } else {
+                $item_id = (int) $_POST['item-id'];
+                $this->wpdb->query($this->wpdb->prepare("DELETE FROM {$this->child_table} WHERE id = %d ", $item_id));
+            }
+        }
+    }
+
     public function child_edit() {
         if (!empty($_POST['edit']) && is_numeric($_POST['item-id'])) {
             if (!wp_verify_nonce($this->nonce, 'oxitabseditdata')) {
@@ -196,28 +207,11 @@ class Admin_Render {
         }
     }
 
-    public function Delete_child_data() {
-        if (!empty($_POST['delete']) && is_numeric($_POST['item-id'])) {
-            if (!wp_verify_nonce($this->nonce, 'oxitabsdeletedata')) {
-                die('You do not have sufficient permissions to access this page.');
-            } else {
-                $item_id = (int) $_POST['item-id'];
-                $this->wpdb->query($this->wpdb->prepare("DELETE FROM {$this->child_table} WHERE id = %d ", $item_id));
-            }
-        }
-    }
-
     public function CSS_JS() {
         $this->admin_css_loader();
         $this->admin_load();
         $this->admin_database_data_loader();
         apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
-    }
-
-    public function admin_database_data_loader() {
-        $this->style = $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM $this->parent_table WHERE id = %d ", $this->styleid), ARRAY_A);
-        $this->styledata = explode('|', $this->style['css']);
-        $this->child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
     }
 
     /**
@@ -232,12 +226,10 @@ class Admin_Render {
         wp_localize_script('oxi-tabs-editor', 'oxi_tabs_editor', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxi-tabs-editor')));
     }
 
-    public function admin_field($styledata) {
-        
-    }
-
-    public function admin_child_field() {
-        
+    public function admin_database_data_loader() {
+        $this->style = $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM $this->parent_table WHERE id = %d ", $this->styleid), ARRAY_A);
+        $this->styledata = explode('|', $this->style['css']);
+        $this->child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
     }
 
     public function admin_child_rearrange() {
@@ -247,6 +239,14 @@ class Admin_Render {
             echo '<li class="list-group-item" id ="' . $value['id'] . '">' . $titlefiles[0] . '</li>';
         }
         echo '</ul>';
+    }
+
+    public function admin_field($styledata) {
+        
+    }
+
+    public function admin_child_field() {
+        
     }
 
     public function add_new_form_opener() {

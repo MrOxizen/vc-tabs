@@ -34,6 +34,41 @@ class Installation {
 
         return self::$lfe_instance;
     }
+    
+    public function Tabs_Datatase() {
+        global $wpdb;
+        $parent_table = $wpdb->prefix . 'content_tabs_ultimate_style';
+        $child_table = $wpdb->prefix . 'content_tabs_ultimate_list';
+        $import_table = $wpdb->prefix . 'content_tabs_ultimate_import';
+
+        $headersize = 0;
+        $fawesome = '5.3.1||https://use.fontawesome.com/releases/v5.3.1/css/all.css';
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql1 = "CREATE TABLE $parent_table (
+		id mediumint(5) NOT NULL AUTO_INCREMENT,
+                name varchar(50) NOT NULL,
+		style_name varchar(10) NOT NULL,
+                css text NOT NULL,
+		PRIMARY KEY  (id)
+	) $charset_collate;";
+        $sql2 = "CREATE TABLE $child_table (
+                id mediumint(5) NOT NULL AUTO_INCREMENT,
+                styleid mediumint(6) NOT NULL,
+		title text,
+                files text,
+                css varchar(100),
+		PRIMARY KEY  (id)
+	)$charset_collate;";
+        $sql3 = "CREATE TABLE $import_table (id mediumint(5) NOT NULL AUTO_INCREMENT, name mediumint(5) NOT NULL,PRIMARY KEY (id), UNIQUE name (name)) $charset_collate;";
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta($sql1);
+        dbDelta($sql2);
+        dbDelta($sql3);
+        add_option('content_tabs_ultimate_version', OXI_TABS_PLUGIN_VERSION);
+        add_option('oxi_addons_font_awesome_version', $fawesome);
+        add_option('oxi_addons_fixed_header_size', $headersize);
+    }
 
     /**
      * Get  Oxi Tabs Menu.
@@ -70,40 +105,6 @@ class Installation {
         delete_transient(self::ADMINMENU);
     }
 
-    public function Tabs_Datatase() {
-        global $wpdb;
-        $parent_table = $wpdb->prefix . 'content_tabs_ultimate_style';
-        $child_table = $wpdb->prefix . 'content_tabs_ultimate_list';
-        $import_table = $wpdb->prefix . 'content_tabs_ultimate_import';
-
-        $headersize = 0;
-        $fawesome = '5.3.1||https://use.fontawesome.com/releases/v5.3.1/css/all.css';
-        $charset_collate = $wpdb->get_charset_collate();
-
-        $sql1 = "CREATE TABLE $parent_table (
-		id mediumint(5) NOT NULL AUTO_INCREMENT,
-                name varchar(50) NOT NULL,
-		style_name varchar(10) NOT NULL,
-                css text NOT NULL,
-		PRIMARY KEY  (id)
-	) $charset_collate;";
-        $sql2 = "CREATE TABLE $child_table (
-                id mediumint(5) NOT NULL AUTO_INCREMENT,
-                styleid mediumint(6) NOT NULL,
-		title text,
-                files text,
-                css varchar(100),
-		PRIMARY KEY  (id)
-	)$charset_collate;";
-        $sql3 = "CREATE TABLE $import_table (id mediumint(5) NOT NULL AUTO_INCREMENT, name mediumint(5) NOT NULL,PRIMARY KEY (id), UNIQUE name (name)) $charset_collate;";
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-        dbDelta($sql1);
-        dbDelta($sql2);
-        dbDelta($sql3);
-        add_option('content_tabs_ultimate_version', OXI_TABS_PLUGIN_VERSION);
-        add_option('oxi_addons_font_awesome_version', $fawesome);
-        add_option('oxi_addons_fixed_header_size', $headersize);
-    }
 
     /**
      * Plugin activation hook

@@ -61,7 +61,7 @@ trait Admin_helper {
                     <div class="oxi-addons-admin-notifications-holder">
                         <div class="oxi-addons-admin-notifications-alert">
                             <p>Thank you for using my Responsive Tabs with Accordions. I Just wanted to see if you have any questions or concerns about my plugins. If you do, Please do not hesitate to <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">file a bug report</a>. </p>
-                            '.(apply_filters('oxi-tabs-plugin/pro_version', false) ? '': '<p>By the way, did you know we also have a <a href="https://www.oxilab.org/downloads/responsive-tabs-with-accordions/">Premium Version</a>? It offers lots of options with automatic update. It also comes with 16/5 personal support.</p>').'
+                            ' . (apply_filters('oxi-tabs-plugin/pro_version', false) ? '' : '<p>By the way, did you know we also have a <a href="https://www.oxilab.org/downloads/responsive-tabs-with-accordions/">Premium Version</a>? It offers lots of options with automatic update. It also comes with 16/5 personal support.</p>') . '
                             <p>Thanks Again!</p>
                             <p></p>
                         </div>                     
@@ -169,7 +169,7 @@ trait Admin_helper {
         add_submenu_page('oxi-tabs-ultimate', 'Oxilab Addons', 'Oxilab Addons', $first_key, 'oxi-tabs-ultimate-addons', [$this, 'Tabs_Addons']);
         add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-settings', [$this, 'Tabs_Settings']);
         add_dashboard_page('Welcome To Responsive Tabs with  Accordions', 'Welcome To Responsive Tabs with  Accordions', 'read', 'oxi-tabs-activation', [$this, 'oxi_tabs_activation']);
-        }
+    }
 
     public function Tabs_Home() {
         new \OXI_TABS_PLUGINS\Page\Home();
@@ -198,6 +198,7 @@ trait Admin_helper {
     public function Tabs_Settings() {
         new \OXI_TABS_PLUGINS\Page\Settings();
     }
+
     public function oxi_tabs_activation() {
         new \OXI_TABS_PLUGINS\Page\Welcome();
     }
@@ -215,6 +216,25 @@ trait Admin_helper {
             return;
         endif;
         die();
+    }
+
+    public function redirect_on_activation() {
+        if (get_transient('oxi_tabs_activation_redirect')):
+            delete_transient('oxi_tabs_activation_redirect');
+            if (is_network_admin() || isset($_GET['activate-multi'])):
+                return;
+            endif;
+            wp_safe_redirect(admin_url("admin.php?page=oxi-tabs-activation"));
+        endif;
+    }
+
+    public function welcome_remove_menus() {
+        remove_submenu_page('index.php', 'oxi-tabs-activation');
+    }
+
+    public function User_Reviews() {
+        $this->admin_recommended();
+        $this->admin_notice();
     }
 
     /**
@@ -241,11 +261,6 @@ trait Admin_helper {
         return $data;
     }
 
-    public function User_Reviews() {
-        $this->admin_recommended();
-        $this->admin_notice();
-    }
-
     /**
      * Admin Notice Check
      *
@@ -260,7 +275,7 @@ trait Admin_helper {
         if (!empty($this->admin_recommended_status())):
             return;
         endif;
-        if (strtotime('-30 minute') < $this->installation_date()):
+        if (strtotime('-1 days') < $this->installation_date()):
             return;
         endif;
         new \OXI_TABS_PLUGINS\Classes\Support_Recommended();
@@ -276,16 +291,4 @@ trait Admin_helper {
         new \OXI_TABS_PLUGINS\Classes\Support_Reviews();
     }
 
-    public function redirect_on_activation() {
-        if (get_transient('oxi_tabs_activation_redirect')):
-            delete_transient('oxi_tabs_activation_redirect');
-            if (is_network_admin() || isset($_GET['activate-multi'])):
-                return;
-            endif;
-            wp_safe_redirect(admin_url("admin.php?page=oxi-tabs-activation"));
-        endif;
-    }
-    public function welcome_remove_menus() {
-         remove_submenu_page('index.php', 'oxi-tabs-activation');
-    }
 }

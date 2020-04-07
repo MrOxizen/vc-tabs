@@ -19,6 +19,26 @@ class Support_Reviews {
         add_action('wp_ajax_oxilab_tabs_notice_dissmiss', array($this, 'notice_dissmiss'));
         add_action('admin_notices', array($this, 'dismiss_button_scripts'));
     }
+     /**
+     * Admin Notice Ajax  loader
+     * @return void
+     */
+    public function notice_dissmiss() {
+        if (isset($_POST['_wpnonce']) || wp_verify_nonce(sanitize_key(wp_unslash($_POST['_wpnonce'])), 'oxilab_tabs-admin-notice')):
+            $notice = isset($_POST['notice']) ? sanitize_text_field($_POST['notice']) : '';
+            if ($notice == 'maybe'):
+                $data = strtotime("now");
+                update_option('responsive_tabs_with_accordions_activation_date', $data);
+            else:
+                update_option('responsive_tabs_with_accordions_no_bug', $notice);
+            endif;
+            echo 'Its Complete';
+        else:
+            return;
+        endif;
+
+        die();
+    }
 
     /**
      * First Installation Track
@@ -28,7 +48,7 @@ class Support_Reviews {
         if (!current_user_can('manage_options')) {
             return;
         }
-        $image = OXI_TABS_URL . 'assets/image/logo.png';
+        $image = OXI_TABS_URL . 'image/logo.png';
         echo _(' <div class="notice notice-info put-dismiss-noticenotice-has-thumbnail shortcode-addons-review-notice">
                     <div class="shortcode-addons-notice-thumbnail">
                         <img src="' . $image . '" alt=""></div>
@@ -84,25 +104,6 @@ class Support_Reviews {
         wp_localize_script('oxilab_tabs-admin-notice', 'oxilab_tabs_admin_notice', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxilab_tabs-admin-notice')));
     }
 
-    /**
-     * Admin Notice Ajax  loader
-     * @return void
-     */
-    public function notice_dissmiss() {
-        if (isset($_POST['_wpnonce']) || wp_verify_nonce(sanitize_key(wp_unslash($_POST['_wpnonce'])), 'oxilab_tabs-admin-notice')):
-            $notice = isset($_POST['notice']) ? sanitize_text_field($_POST['notice']) : '';
-            if ($notice == 'maybe'):
-                $data = strtotime("now");
-                update_option('responsive_tabs_with_accordions_activation_date', $data);
-            else:
-                update_option('responsive_tabs_with_accordions_no_bug', $notice);
-            endif;
-            echo 'Its Complete';
-        else:
-            return;
-        endif;
-
-        die();
-    }
+   
 
 }

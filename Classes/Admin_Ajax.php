@@ -7,7 +7,6 @@ namespace OXI_TABS_PLUGINS\Classes;
  *
  * @author biplo
  */
-
 class Admin_Ajax {
 
     /**
@@ -55,7 +54,7 @@ class Admin_Ajax {
     }
 
     public function create_tabs($data = '', $styleid = '', $itemid = '') {
-      
+
         if (!empty($styleid)):
             $styleid = (int) $styleid;
             $newdata = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
@@ -122,17 +121,6 @@ class Admin_Ajax {
         endif;
     }
 
-    public function shortcode_active($data = '', $styleid = '', $itemid = '') {
-        parse_str($data, $params);
-        $styleid = (int) $params['oxiimportstyle'];
-        if ($styleid):
-            $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->import_table} (name) VALUES (%d)", array($styleid)));
-            echo admin_url("admin.php?page=oxi-tabs-ultimate-new#Style" . $styleid);
-        else:
-            echo 'Silence is Golden';
-        endif;
-    }
-
     public function addons_rearrange($data = '', $styleid = '', $itemid = '') {
         $list = explode(',', $data);
         foreach ($list as $value) {
@@ -148,6 +136,17 @@ class Admin_Ajax {
         }
         echo 'ajshdjsad';
         return;
+    }
+
+    public function shortcode_active($data = '', $styleid = '', $itemid = '') {
+        parse_str($data, $params);
+        $styleid = (int) $params['oxiimportstyle'];
+        if ($styleid):
+            $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->import_table} (name) VALUES (%d)", array($styleid)));
+            echo admin_url("admin.php?page=oxi-tabs-ultimate-new#Style" . $styleid);
+        else:
+            echo 'Silence is Golden';
+        endif;
     }
 
 }
