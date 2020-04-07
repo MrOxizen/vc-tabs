@@ -48,7 +48,7 @@ class Support_Reviews {
         if (!current_user_can('manage_options')) {
             return;
         }
-        $image = OXI_TABS_URL . 'image/logo.png';
+        $image = OXI_TABS_URL . 'assets/image/logo.png';
         echo _(' <div class="notice notice-info put-dismiss-noticenotice-has-thumbnail shortcode-addons-review-notice">
                     <div class="shortcode-addons-notice-thumbnail">
                         <img src="' . $image . '" alt=""></div>
