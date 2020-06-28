@@ -41,12 +41,6 @@ class Public_Render {
         wp_enqueue_script("jquery");
         wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
         wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/tabs.js', false, OXI_TABS_TEXTDOMAIN);
-        if (FALSE !== get_post_status()) {
-            wp_register_script('rank-math-tabs-integration', OXI_TABS_URL . '/assets/frontend/js/rank-math-integration.js', array('wp-hooks', 'rank-math-analyzer', 'wp-api'), '1.0.0', true);
-            wp_localize_script('rank-math-tabs-integration', 'rankMathTabsIntegration', array(
-                'TabsID' => $this->ID,
-            ));
-        }
     }
 
     public function inline_public_jquery() {
