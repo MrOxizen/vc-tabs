@@ -239,7 +239,7 @@ class Style5 extends Public_Render {
              <div class="ctu-ulimate-style-' . $styleid . '">';
 
         $jquery = $linkopening = '';
-        if (!empty($styledata[67]) || $styledata[67] != 'new-tab') {
+        if (!empty($styledata[67]) && $styledata[67] != 'new-tab') {
             $linkopening = ", '_self'";
         }
         foreach ($this->child as $value) {

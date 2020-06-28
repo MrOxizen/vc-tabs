@@ -214,7 +214,7 @@ class Style19 extends Public_Render {
              <div class="ctu-ulimate-style-' . $styleid . '">';
 
         $linkopening = '';
-        if (!empty($styledata[61]) || $styledata[61] != 'new-tab') {
+        if (!empty($styledata[61]) && $styledata[61] != 'new-tab') {
             $linkopening = ", '_self'";
         }
         foreach ($this->child as $value) {

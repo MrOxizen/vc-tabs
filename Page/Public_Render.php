@@ -37,18 +37,18 @@ class Public_Render {
         $this->inline_load();
     }
 
-    public function public_jquery_css() {
-        wp_enqueue_script("jquery");
-        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
-        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/tabs.js', false, OXI_TABS_TEXTDOMAIN);
-    }
-
     public function inline_public_jquery() {
         echo '';
     }
 
     public function inline_public_css() {
         echo '';
+    }
+
+    public function public_jquery_css() {
+        wp_enqueue_script("jquery");
+        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/tabs.js', false, OXI_TABS_TEXTDOMAIN);
     }
 
     public function default_render() {

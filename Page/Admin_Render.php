@@ -138,10 +138,6 @@ class Admin_Render {
         }
     }
 
-    public function style() {
-        return '';
-    }
-
     public function style_data() {
         if (!empty($_POST['data-submit']) && $_POST['data-submit'] == 'Save') {
             if (!wp_verify_nonce($this->nonce, 'oxitabsstylecss')) {
@@ -153,8 +149,8 @@ class Admin_Render {
         }
     }
 
-    public function clild() {
-        return ['title' => '', 'files' => ''];
+    public function style() {
+        return '';
     }
 
     public function child_save() {
@@ -174,6 +170,10 @@ class Admin_Render {
                 }
             }
         }
+    }
+
+    public function clild() {
+        return ['title' => '', 'files' => ''];
     }
 
     public function Delete_child_data() {

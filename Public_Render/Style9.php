@@ -208,7 +208,7 @@ class Style9 extends Public_Render {
         $styleid = $this->ID;
         echo '<div class="ctu-ultimate-wrapper-' . $styleid . '">';
         $linkopening = '';
-        if (!empty($styledata[75]) || $styledata[75] != 'new-tab') {
+        if (!empty($styledata[75]) && $styledata[75] != 'new-tab') {
             $linkopening = ", '_self'";
         }
         echo '<div class="ctu-ulimate-style-' . $styleid . '">';

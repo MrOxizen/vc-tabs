@@ -227,14 +227,14 @@ class Style1 extends Public_Render {
         $styledata = $this->style;
         $styleid = $this->ID;
         $linkopening = '';
-        if (!empty($styledata[75]) || $styledata[75] != 'new-tab') {
+        if (!empty($styledata[75]) && $styledata[75] != 'new-tab') {
             $linkopening = ", '_self'";
         }
         echo '<div class="ctu-ultimate-wrapper ctu-ultimate-wrapper-' . $styleid . '"><div class="ctu-ulimate-style-' . $styleid . '">';
 
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            if (!empty($titlefiles[1]) && $this->user != 'admin') {
+            if (!empty($titlefiles[1])) {
                 $this->JQUERY .= '$(".vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '").click(function() {window.open("' . $titlefiles[1] . '" ' . $linkopening . ');});';
             }
             echo '<div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">

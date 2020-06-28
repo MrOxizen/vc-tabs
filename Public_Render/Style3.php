@@ -229,7 +229,7 @@ class Style3 extends Public_Render {
         $linkopening = '';
         echo '<div class="ctu-ultimate-wrapper-' . $styleid . '">
              <div class="ctu-ulimate-style-' . $styleid . '">';
-        if (!empty($styledata[77]) || $styledata[77] != 'new-tab') {
+        if (!empty($styledata[77]) && $styledata[77] != 'new-tab') {
             $linkopening = ", '_self'";
         }
         foreach ($this->child as $value) {
