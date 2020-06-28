@@ -34,12 +34,19 @@ class Public_Render {
         $this->user = $user;
         $this->JS_CSS();
         $this->Template();
+        $this->inline_load();
     }
 
     public function public_jquery_css() {
         wp_enqueue_script("jquery");
         wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
         wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/tabs.js', false, OXI_TABS_TEXTDOMAIN);
+        if (FALSE !== get_post_status()) {
+            wp_register_script('rank-math-tabs-integration', OXI_TABS_URL . '/assets/frontend/js/rank-math-integration.js', array('wp-hooks', 'rank-math-analyzer', 'wp-api'), '1.0.0', true);
+            wp_localize_script('rank-math-tabs-integration', 'rankMathTabsIntegration', array(
+                'TabsID' => $this->ID,
+            ));
+        }
     }
 
     public function inline_public_jquery() {
@@ -54,10 +61,8 @@ class Public_Render {
         echo '';
     }
 
-    public function JS_CSS() {
-        $this->public_jquery_css();
-        $this->inline_public_css();
-        $this->inline_public_jquery();
+    public function inline_load() {
+        echo $this->JQUERY;
         $inlinejs = $this->JQUERY;
         $inlinecss = $this->CSS;
         if ($inlinejs != ''):
@@ -82,6 +87,12 @@ class Public_Render {
                 wp_add_inline_style('vc-tabs-style', $inlinecss);
             endif;
         endif;
+    }
+
+    public function JS_CSS() {
+        $this->public_jquery_css();
+        $this->inline_public_css();
+        $this->inline_public_jquery();
     }
 
     public function Template() {
