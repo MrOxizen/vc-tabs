@@ -56,7 +56,6 @@ class Public_Render {
     }
 
     public function inline_load() {
-        echo $this->JQUERY;
         $inlinejs = $this->JQUERY;
         $inlinecss = $this->CSS;
         if ($inlinejs != ''):
