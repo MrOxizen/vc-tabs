@@ -34,7 +34,7 @@ class Installation {
 
         return self::$lfe_instance;
     }
-    
+
     public function Tabs_Datatase() {
         global $wpdb;
         $parent_table = $wpdb->prefix . 'content_tabs_ultimate_style';
@@ -49,18 +49,23 @@ class Installation {
 		id mediumint(5) NOT NULL AUTO_INCREMENT,
                 name varchar(50) NOT NULL,
 		style_name varchar(10) NOT NULL,
-                css text NOT NULL,
+                rawdata longtext,
+                stylesheet longtext,
+                font_family text,
 		PRIMARY KEY  (id)
 	) $charset_collate;";
         $sql2 = "CREATE TABLE $child_table (
                 id mediumint(5) NOT NULL AUTO_INCREMENT,
                 styleid mediumint(6) NOT NULL,
-		title text,
-                files text,
-                css varchar(100),
+		rawdata longtext,
 		PRIMARY KEY  (id)
 	)$charset_collate;";
-        $sql3 = "CREATE TABLE $import_table (id mediumint(5) NOT NULL AUTO_INCREMENT, name mediumint(5) NOT NULL,PRIMARY KEY (id), UNIQUE name (name)) $charset_collate;";
+        $sql3 = "CREATE TABLE $import_table (
+                id mediumint(5) NOT NULL AUTO_INCREMENT,
+                name mediumint(5) NOT NULL,
+                PRIMARY KEY (id),
+                UNIQUE name (name)
+                ) $charset_collate;";
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta($sql1);
         dbDelta($sql2);
@@ -104,7 +109,6 @@ class Installation {
     public function Tabs_Menu_Deactive() {
         delete_transient(self::ADMINMENU);
     }
-
 
     /**
      * Plugin activation hook

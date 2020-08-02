@@ -5,18 +5,21 @@ jQuery.noConflict();
     function Oxi_Tabs_Admin_Home(functionname, rawdata, styleid, childid, callback) {
         if (functionname !== "") {
             $.ajax({
-                url: oxi_tabs_editor.ajaxurl,
-                type: "post",
+                url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
+                method: 'POST',
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-WP-Nonce', oxilabtabsultimate.nonce);
+                },
                 data: {
-                    action: "oxi_tabs_data",
-                    _wpnonce: oxi_tabs_editor.nonce,
-                    functionname: functionname,
                     styleid: styleid,
                     childid: childid,
                     rawdata: rawdata
                 },
                 success: function (response) {
+                    console.log(response);
                     callback(response);
+
                 }
             });
         }
@@ -47,7 +50,7 @@ jQuery.noConflict();
         e.preventDefault();
         var rawdata = $('#addons-style-name').val();
         var styleid = $('#oxistyleid').val();
-        var functionname = "create_tabs";
+        var functionname = "create_new";
         $('.modal-footer').prepend('<span class="spinner sa-spinner-open-left"></span>');
         Oxi_Tabs_Admin_Home(functionname, rawdata, styleid, childid, function (callback) {
             console.log(callback);

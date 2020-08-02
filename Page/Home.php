@@ -8,6 +8,8 @@ namespace OXI_TABS_PLUGINS\Page;
  * @author biplo
  */
 class Home {
+     use \OXI_TABS_PLUGINS\Helper\Public_Helper;
+    use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
     /**
      * Database Parent Table
@@ -36,9 +38,6 @@ class Home {
      * @since 3.1.0
      */
     public $wpdb;
-
-    use \OXI_TABS_PLUGINS\Helper\Public_Helper;
-    use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
     /**
      * Constructor of Oxilab tabs Home Page

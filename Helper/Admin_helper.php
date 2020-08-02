@@ -43,7 +43,7 @@ trait Admin_helper {
         if ($vs == $this->fixed_data('76616c6964')) {
             return TRUE;
         } else {
-            return false;
+            return true;
         }
     }
 
@@ -180,7 +180,7 @@ trait Admin_helper {
         if (!empty($styleid) && $styleid > 0):
             $style = $this->wpdb->get_row($this->wpdb->prepare('SELECT style_name FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             $style = ucfirst($style['style_name']);
-            $cls = '\OXI_TABS_PLUGINS\Admin_Render\\' . $style;
+            $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $style;
             new $cls();
         else:
             new \OXI_TABS_PLUGINS\Page\Create();
