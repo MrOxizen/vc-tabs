@@ -188,7 +188,7 @@ trait Admin_helper {
     }
 
     public function Tabs_Import() {
-        new \OXI_TABS_PLUGINS\Page\Import();
+        new \OXI_TABS_PLUGINS\Page\Create();
     }
 
     public function Tabs_Addons() {

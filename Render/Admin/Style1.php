@@ -846,7 +846,7 @@ class Style1 extends Admin {
                 <div class="modal-body">';
         $this->add_control(
                 'oxi-tabs-modal-title', $this->style, [
-            'label' => esc_html__('Title', SHORTCODE_ADDOONS),
+            'label' => esc_html__('Title', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::TEXT,
             'default' => 'Lorem Ipsum',
             'description' => 'Text Shadow property adds shadow to Description.',
@@ -854,7 +854,7 @@ class Style1 extends Admin {
         );
         $this->add_control(
                 'oxi-tabs-modal-icon', $this->style, [
-            'label' => esc_html__('Icon', SHORTCODE_ADDOONS),
+            'label' => esc_html__('Icon', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::ICON,
             'default' => '',
             'description' => 'Text Shadow property adds shadow to Description.',
@@ -862,7 +862,7 @@ class Style1 extends Admin {
         );
         $this->add_group_control(
                 'oxi-tabs-modal-link', $this->style, [
-            'label' => esc_html__('Link', SHORTCODE_ADDOONS),
+            'label' => esc_html__('Link', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::URL,
             'description' => 'Text Shadow property adds shadow to Description.',
                 ]

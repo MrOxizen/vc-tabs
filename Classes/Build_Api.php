@@ -96,7 +96,7 @@ class Build_Api {
         $stylelist = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->parent_table ORDER by id ASC"), ARRAY_A);
         foreach ($stylelist as $value) {
             $raw = json_decode(stripslashes($value['rawdata']), true);
-            $raw['image-hover-style-id'] = $value['id'];
+            $raw['style-id'] = $value['id'];
             $name = ucfirst($value['style_name']);
             $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
             $C = new $cls('admin');
@@ -106,6 +106,7 @@ class Build_Api {
     }
 
     public function post_create_new() {
+
         if (!empty($this->styleid)):
             $styleid = (int) $this->styleid;
             $newdata = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
@@ -125,15 +126,15 @@ class Build_Api {
             endif;
         else:
             $params = json_decode(stripslashes($this->rawdata), true);
-            $newname = $params['name'];
-            $rawdata = $params['style'];
+            $newname = $params['addons-style-name'];
+            $rawdata = json_decode(stripslashes($params['oxistyledata']), true);
             $style = $rawdata['style'];
             $child = $rawdata['child'];
             $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($newname, $style['style_name'], $style['rawdata'])));
             $redirect_id = $this->wpdb->insert_id;
             if ($redirect_id > 0):
                 $raw = json_decode(stripslashes($style['rawdata']), true);
-                $raw['image-hover-style-id'] = $redirect_id;
+                $raw['style-id'] = $redirect_id;
                 $name = ucfirst($style['style_name']);
                 $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
                 $C = new $CLASS('admin');
@@ -186,10 +187,10 @@ class Build_Api {
     }
 
     public function post_shortcode_deactive() {
-        $id = $this->rawdata . '-' . (int) $this->styleid;
-        $effects = $this->rawdata . '-ultimate';
-        if ($this->styleid > 0):
-            $this->wpdb->query($this->wpdb->prepare("DELETE FROM {$this->import_table} WHERE name = %s and type = %s", $id, $effects));
+        $params = json_decode(stripslashes($this->rawdata), true);
+        $id = (int) $params['oxideletestyle'];
+        if ($id > 0):
+            $this->wpdb->query($this->wpdb->prepare("DELETE FROM {$this->import_table} WHERE name = %s", $id));
             return 'done';
         else:
             return 'Silence is Golden';
@@ -197,11 +198,11 @@ class Build_Api {
     }
 
     public function post_shortcode_active() {
-        $id = $this->rawdata . '-' . (int) $this->styleid;
-        $effects = $this->rawdata . '-ultimate';
-        if ($this->styleid > 0):
-            $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->import_table} (type, name) VALUES (%s, %s)", array($effects, $id)));
-            return admin_url("admin.php?page=oxi-image-hover-ultimate&effects=$this->rawdata#" . $id);
+        $params = json_decode(stripslashes($this->rawdata), true);
+        $id = (int) $params['oxiimportstyle'];
+        if ($id > 0):
+            $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->import_table} (name) VALUES ( %d)", array($id)));
+            return admin_url("admin.php?page=oxi-tabs-ultimate-new#Style" . $id);
         else:
             return 'Silence is Golden';
         endif;
@@ -314,10 +315,10 @@ class Build_Api {
      */
     public function post_elements_template_render_data() {
         $settings = json_decode(stripslashes($this->rawdata), true);
-       
+
         $child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
         $name = ucfirst($settings['style-name']);
-        
+
         ob_start();
         $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $name;
         $CLASS = new $cls;

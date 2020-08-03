@@ -25,6 +25,7 @@ trait CSS_JS_Loader {
         wp_enqueue_script("jquery");
         wp_enqueue_script('oxilab-popper', OXI_TABS_URL . 'assets/backend/js/popper.min.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxilab-bootstrap', OXI_TABS_URL . 'assets/backend/js/bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('jquery.serializejson.min', OXI_TABS_URL . 'assets/backend/js/jquery.serializejson.min.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_localize_script('oxilab-bootstrap', 'oxilabtabsultimate', array(
             'root' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest')
@@ -68,7 +69,6 @@ trait CSS_JS_Loader {
         wp_enqueue_script('jquery.conditionize2.min', OXI_TABS_URL . 'assets/backend/js/jquery.conditionize2.min.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('select2.min', OXI_TABS_URL . 'assets/backend/css/select2.min.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('select2.min', OXI_TABS_URL . 'assets/backend/js/select2.min.js', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('jquery.serializejson.min', OXI_TABS_URL . 'assets/backend/js/jquery.serializejson.min.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . 'assets/backend/css/jquery.fontselect.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-addons-vendor', OXI_TABS_URL . 'assets/backend/js/vendor.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-editor', OXI_TABS_URL . 'assets/backend/js/editor.js', false, OXI_TABS_PLUGIN_VERSION);

@@ -37,10 +37,17 @@ class Create {
      */
     public $wpdb;
 
+    /**
+     * Define Page Type
+     *
+     * @since 3.1.0
+     */
+    public $opage;
+
     use \OXI_TABS_PLUGINS\Helper\Public_Helper;
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
-    public $IMPORT = '';
+    public $IMPORT = [];
     public $TEMPLATE = [
         'Style1' => '{"plugin":"tabs","style":{"id":1,"name":"Style 1","style_name":"style1","css":"heading-font-size |20| heading-font-color |#b5b5b5| heading-background-color |rgba(255, 255, 255, 1)| heading-font-active-color |#ffffff| heading-background-active-color |rgba(50, 222, 212, 1)| heading-font-familly |Open+Sans| heading-font-weight |500| heading-text-align |flex-start| heading-width |170| heading-padding |15| heading-Border-radius |5| heading-box-shadow-Blur |20| heading-box-shadow-color |rgba(225, 225, 225, 0.57)| content-font-size |16| content-font-color |#585a61| content-background-color |rgba(255, 255, 255, 1)| content-padding-top |30| content-padding-right |20| content-padding-bottom |20| content-padding-left |20| content-line-height |1.5| content-font-familly |Open+Sans| content-font-weight |200| content-font-align |left| content-box-shadow-Blur |17| content-box-shadow-color |rgba(225, 225, 225, 0.57)| heading-border-top |3| heading-margin-bottom |17| heading-box-shadow-Horizontal |0| heading-box-shadow-Vertical |0| heading-box-shadow-Spread |0| content-box-shadow-Horizontal |0| content-box-shadow-Vertical |0| content-box-shadow-Spread |0| custom-css ||||||||"},"child":[{"id":1,"styleid":1,"title":"Default Title","files":"<p><strong>Lorem ipsum<\/strong> dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<\/p> <p> <\/p><p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<\/p> <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste<\/p>","css":"fas fa-address-book"},{"id":2,"styleid":1,"title":"Default Title","files":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<\/p>  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste<\/p>","css":"fab fa-algolia"},{"id":3,"styleid":1,"title":"Default Title","files":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<\/p>   <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<\/p>  <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste<\/p>","css":"fab fa-adn"},{"id":4,"styleid":1,"title":"Default Title","files":" <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue lorem vel molestie rutrum.<\/p>   <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam arcu nunc, hendrerit sed vestibulum ut, semper eu lectus.<\/p>  <p>Curabitur non ex fringilla, cursus quam eu, hendrerit lectus. Mauris tempor nibh erat, eget lacinia justo porta ut.<\/p>","css":"fas fa-ambulance"}]}',
         'Style2' => '{"plugin":"tabs","style":{"id":2,"name":"Style 2","style_name":"style2","css":"heading-font-size |20| heading-font-color |#828282| heading-background-color |rgba(55, 61, 67, 1)| heading-font-active-color |#ffffff| heading-font-familly |Open+Sans| heading-font-weight |500| heading-text-align |center| heading-width |220| heading-padding |15| heading-Border-radius |7| content-font-size |16| content-font-color |#6e6e6e| content-background-color |#ffffff| content-padding-top |20| content-padding-right |20| content-padding-bottom |20| content-padding-left |20| content-line-height |1.2| content-font-familly |Open+Sans| content-font-weight |300| content-font-align |left| content-box-shadow-Blur |20| content-box-shadow-color |rgba(204, 204, 204, 1)| heading-font-style |normal| content-box-shadow-Horizontal |0| content-box-shadow-Vertical |0| content-box-shadow-Spread |0| custom-css |||||||||"},"child":[{"id":1,"styleid":2,"title":"Default Title","files":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<\/p> <p> <\/p> <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste<\/p>","css":"fas fa-address-book"},{"id":2,"styleid":2,"title":"Default Title","files":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident<\/p> <p> <\/p> <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste<\/p>","css":"fab fa-algolia"},{"id":3,"styleid":2,"title":"Default Title","files":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<\/p> <p> <\/p> <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident<\/p>","css":"fab fa-adn"},{"id":4,"styleid":2,"title":"Default Title","files":"<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<\/p> <p> <\/p> <p> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident<\/p>","css":"fas fa-ambulance"}]}',
@@ -77,6 +84,7 @@ class Create {
         $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
         $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
         $this->import_table = $this->wpdb->prefix . 'content_tabs_ultimate_import';
+        $this->opage = (isset($_GET['page']) && $_GET['page'] == 'oxi-tabs-ultimate-import' ? 'import' : 'create');
         $this->CSSJS_load();
         $this->Render();
     }
@@ -85,7 +93,21 @@ class Create {
         $this->admin_css_loader();
         $this->admin_ajax_load();
         apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
-        $this->IMPORT = $this->wpdb->get_results("SELECT name FROM $this->import_table ORDER by name ASC ", ARRAY_A);
+        $import = $this->wpdb->get_results("SELECT name FROM $this->import_table ORDER by name ASC ", ARRAY_A);
+        if (count($import) == 0):
+            $this->wpdb->query("INSERT INTO {$this->import_table} (name) VALUES (1),(2),(3),(4),(5)");
+            $this->IMPORT = [
+                [1 => 1],
+                [2 => 2],
+                [3 => 3],
+                [4 => 4],
+                [5 => 5],
+            ];
+        else:
+            foreach ($import as $value) {
+                $this->IMPORT[$value['name']] = $value['name'];
+            }
+        endif;
     }
 
     /**
@@ -94,22 +116,38 @@ class Create {
      */
     public function admin_ajax_load() {
         wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/js/create.js', false, OXI_TABS_TEXTDOMAIN);
-        wp_localize_script('oxi-tabs-create', 'oxi_tabs_editor', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxi-tabs-editor')));
     }
 
     public function Render() {
         ?>
         <div class="oxi-addons-row">
             <?php
-            $this->Admin_header();
-            $this->template();
-            $this->create_new();
+            if ($this->opage == 'import'):
+                $this->Import_header();
+                $this->Import_template();
+            else:
+                $this->Create_header();
+                $this->Create_template();
+                $this->Create_new();
+            endif;
             ?>
         </div>
         <?php
     }
 
-    public function Admin_header() {
+    public function Import_header() {
+        ?>
+        <div class="oxi-addons-wrapper">
+            <div class="oxi-addons-import-layouts">
+                <h1>Responsive Tabs › Import Template
+                </h1>
+                <p> Select Tabs layout and import for feture use. </p>
+            </div>
+        </div>
+        <?php
+    }
+
+    public function Create_header() {
         ?>
         <div class="oxi-addons-wrapper">
             <div class="oxi-addons-import-layouts">
@@ -121,7 +159,7 @@ class Create {
         <?php
     }
 
-    public function create_new() {
+    public function Create_new() {
         echo _('<div class="oxi-addons-row">
                         <div class="oxi-addons-col-1 oxi-import">
                             <div class="oxi-addons-style-preview">
@@ -165,22 +203,13 @@ class Create {
                         </form>
                     </div>');
     }
-    public function template() {
+
+    public function Create_template() {
         ?>
         <div class="oxi-addons-row">
             <?php
-            if (count($this->IMPORT) == 0):
-                $this->wpdb->query("INSERT INTO {$this->import_table} (name) VALUES (1),(2),(3),(4),(5)");
-                $this->IMPORT = [
-                    ['name' => 1],
-                    ['name' => 2],
-                    ['name' => 3],
-                    ['name' => 4],
-                    ['name' => 5],
-                ];
-            endif;
             foreach ($this->IMPORT as $value) {
-                $Style = 'Style' . $value['name'];
+                $Style = 'Style' . $value;
                 $number = rand();
                 if (array_key_exists($Style, $this->TEMPLATE)):
                     $REND = json_decode($this->TEMPLATE[$Style], true);
@@ -201,11 +230,11 @@ class Create {
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <form method="post" style=" display: inline-block; " class="shortcode-addons-template-deactive">
-                                        <input type="hidden" name="oxideletestyle" value="<?php echo $value['name']; ?>">
+                                        <input type="hidden" name="oxideletestyle" value="<?php echo $value; ?>">
                                         <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Delete"  type="submit" value="Deactive" name="addonsstyledelete">Deactive</button>  
                                     </form>
                                     <textarea style="display:none" id="oxistyle<?php echo $number; ?>data"  value=""><?php echo $this->TEMPLATE[$Style]; ?></textarea>
-                                    <button type="button" class="btn btn-success oxi-addons-addons-template-create" data-toggle="modal" addons-data="oxistyle<?php echo $number; ?>data">Create Style</button>
+                                    <button type="button" class="btn btn-success oxi-addons-addons-template-create oxi-addons-addons-js-create" data-toggle="modal" addons-data="oxistyle<?php echo $number; ?>data">Create Style</button>
                                 </div>
                             </div>
                         </div>
@@ -214,12 +243,62 @@ class Create {
                 endif;
             }
             ?>
-
-
         </div>
         <?php
     }
 
-    
+    public function Import_template() {
+        ?>
+        <div class="oxi-addons-row">
+            <?php
+            foreach ($this->TEMPLATE as $k => $value) {
+                $id = (int) explode('tyle', $k)[1];
+
+                if (!array_key_exists($id, $this->IMPORT)):
+                    $REND = json_decode($this->TEMPLATE[$k], true);
+                    $C = 'OXI_TABS_PLUGINS\Public_Render\\' . $k;
+                    ?>
+                    <div class="oxi-addons-col-1" id="<?php echo $k; ?>">
+                        <div class="oxi-addons-style-preview">
+                            <div class="oxi-addons-style-preview-top oxi-addons-center">
+                                <?php
+                                if (class_exists($C)):
+                                    new $C($REND['style'], $REND['child']);
+                                endif;
+                                ?>
+                            </div>
+                            <div class="oxi-addons-style-preview-bottom">
+                                <div class="oxi-addons-style-preview-bottom-left">
+                                    <?php echo $REND['style']['name']; ?>
+                                </div>
+                                <div class="oxi-addons-style-preview-bottom-right">
+                                    <?php
+                                    $checking = apply_filters('oxi-tabs-plugin/pro_version', true);
+                                    if ($id > 10 && $checking == false):
+                                        ?>
+                                        <form method="post" style=" display: inline-block; " class="shortcode-addons-template-pro-only">
+                                            <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Pro Only"  type="submit" value="pro only" name="addonsstyleproonly">Pro Only</button>  
+                                        </form>
+                                        <?php
+                                    else:
+                                        ?>
+                                        <form method="post" style=" display: inline-block; " class="shortcode-addons-template-import">
+                                            <input type="hidden" name="oxiimportstyle" value="<?php echo $id; ?>">
+                                            <button class="btn btn-success oxi-addons-addons-template-create" title="import"  type="submit" value="Import" name="addonsstyleimport">Import</button>  
+                                        </form>
+                                    <?php
+                                    endif;
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                endif;
+            }
+            ?>
+        </div>
+        <?php
+    }
 
 }
