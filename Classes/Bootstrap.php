@@ -118,7 +118,6 @@ class Bootstrap {
     }
 
     public function Admin_Filters() {
-        //  echo $this->fixed_debug_data('SupportAndComments');
         add_filter($this->fixed_data('76632d746162732d737570706f72742d616e642d636f6d6d656e7473'), array($this, $this->fixed_data('537570706f7274416e64436f6d6d656e7473')));
         add_filter($this->fixed_data('6f78692d746162732d706c7567696e2f70726f5f76657273696f6e'), array($this, $this->fixed_data('636865636b5f63757272656e745f74616273')));
         add_filter($this->fixed_data('6f78692d746162732d706c7567696e2f61646d696e5f6d656e75'), array($this, $this->fixed_data('6f78696c61625f61646d696e5f6d656e75')));
