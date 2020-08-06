@@ -1,29 +1,96 @@
 jQuery.noConflict();
 (function ($) {
     "use strict";
+    var urlParams = new URLSearchParams(window.location.search);
+    var styleid = urlParams.get("styleid");
+    var childid = "";
+    function NEWRegExp(par = '') {
+        return new RegExp(par, "g");
+    }
 
-    var styleid = '';
-    var childid = '';
-    function Oxi_Tabs_Admin_Editor(functionname, rawdata, styleid, childid, callback) {
-        if (functionname !== "") {
+    function replaceStr(str, find, replace) {
+        for (var i = 0; i < find.length; i++) {
+            str = str.replace(new RegExp(find[i], 'gi'), replace[i]);
+        }
+        return str;
+    }
+
+
+    function OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, callback) {
+        var active = false;
+        if (functionname !== "" && active === false) {
+            active = true;
             $.ajax({
-                url: oxi_tabs_editor.ajaxurl,
-                type: "post",
+                url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
+                method: 'POST',
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-WP-Nonce', oxilabtabsultimate.nonce);
+                },
                 data: {
-                    action: "oxi_tabs_data",
-                    _wpnonce: oxi_tabs_editor.nonce,
-                    functionname: functionname,
                     styleid: styleid,
                     childid: childid,
                     rawdata: rawdata
-                },
-                success: function (response) {
-                    callback(response);
                 }
+            }).done(function (response) {
+                callback(response);
+                active = false;
             });
         }
     }
-    $('#oxi-addons-admin-add-new-item').on("click", function (e) {
+    $("#oxi-addons-rearrange-data-modal-open").on("click", function () {
+        var functionname = "elements_older_rearrange_modal_data";
+        $("#modal-rearrange-store-file").hide();
+        $("#oxi-addons-list-rearrange-saving").show();
+        $("#oxi-addons-modal-rearrange").hide();
+        $("#oxi-addons-list-rearrange-modal").modal("show");
+        $("#oxi-addons-modal-rearrange").html('');
+        var d = $("#modal-rearrange-store-file").html();
+        var rawdata = $("#modal-rearrange-store-file .list-group-item").attr('data-mod');
+        $("#oxi-addons-list-rearrange-data").val('');
+        OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
+            console.log(callback);
+            var $number = 1;
+            $.each($.parseJSON(callback), function (key, value) {
+                var data = d.replace(NEWRegExp("{{id}}"), key);
+                if (value === '') {
+                    value = 'Rearrange Title ' + $number;
+                }
+                data = data.replace(NEWRegExp('{{TITLE}}'), value);
+                $("#oxi-addons-modal-rearrange").append(data);
+                $("#oxi-addons-list-rearrange-saving").hide();
+                $("#oxi-addons-modal-rearrange").show();
+                $number++;
+            });
+        });
+    });
+
+    setTimeout(function () {
+        $("#oxi-addons-modal-rearrange").sortable({
+            axis: 'y',
+            update: function (event, ui) {
+                var list_sortable = $(this).sortable('toArray').toString();
+                $('#oxi-addons-list-rearrange-data').val(list_sortable);
+            }
+        });
+    }, 500);
+
+    $("#oxi-addons-list-rearrange-submit").on("click", function (e) {
+        e.preventDefault();
+        $(this).val('Savings..');
+        var rawdata = $('#oxi-addons-list-rearrange-data').val();
+        if (rawdata === '') {
+            alert('Kindly Rearrange, Then  Click to saved');
+            return false;
+        }
+        var functionname = "elements_template_rearrange_save_data";
+        OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
+            if (callback === "success") {
+                location.reload();
+            }
+        });
+    });
+    $('#oxi-addons-list-data-modal-open').on("click", function (e) {
         e.preventDefault();
         $('#item-id').val("");
         $('#cau-title').val("");
@@ -32,16 +99,6 @@ jQuery.noConflict();
         $("#oxilab-add-new-data").modal("show");
 
     });
-    $('#content-tabs-ultimate-drag-id').on("click", function (e) {
-        e.preventDefault();
-        $("#oxi-addons-drag-and-drop-data").modal("show");
-    });
-    setTimeout(function () {
-        jQuery('#oxi-addons-drag-drop').sortable({
-            axis: 'y',
-            opacity: 0.7
-        });
-    }, 500);
 
     jQuery('.oxilab-vendor-color').each(function () {
         jQuery(this).minicolors({
@@ -91,24 +148,6 @@ jQuery.noConflict();
         self.toggleClass("oxi-admin-head-d-none");
     });
 
-    jQuery(function () {
-        jQuery("#oxi-addons-drag-submit").submit(function (e) {
-            e.preventDefault();
-            var rawdata = jQuery('#oxi-addons-drag-drop').sortable('toArray').toString();
-            var functionname = "addons_rearrange";
-            jQuery("#oxi-addons-ultimate-drag-saving").slideDown();
-            jQuery("#oxi-addons-drag-drop").slideUp();
-            jQuery("#oxi-addons-drag-and-drop-data-close").slideUp();
-            jQuery('#oxi-addons-drag-and-drop-data-submit').val('Saving...');
-            Oxi_Tabs_Admin_Editor(functionname, rawdata, styleid, childid, function (callback) {
-                console.log(callback);
-                setTimeout(function () {
-                    location.reload();
-                }, 500);
-            });
-            return false;
-        });
-    });
     jQuery("#oxilab-preview-data-background").on('change', function (e) {
         e.preventDefault();
         $('#oxi-addons-preview-data').css("background-color", $(this).val());

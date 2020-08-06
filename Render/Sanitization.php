@@ -2529,17 +2529,17 @@ trait Sanitization {
                                 </div>
                                 <div class="modal-body">
                                     <div class="col-12 alert text-center" id="oxi-addons-list-rearrange-saving">
-                                    <i class="fa fa-spinner fa-spin"></i>
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                    </div>
+                                    <ul class="col-12 list-group" id="oxi-addons-modal-rearrange">
+                                    </ul>
                                 </div>
-                                <ul class="col-12 list-group" id="oxi-addons-modal-rearrange">
-                                </ul>
+                                <div class="modal-footer">
+                                    <input type="hidden" id="oxi-addons-list-rearrange-data">
+                                    <button type="button" id="oxi-addons-list-rearrange-close" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <input type="submit" id="oxi-addons-list-rearrange-submit" class="btn btn-primary" value="Save">
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <input type="hidden" id="oxi-addons-list-rearrange-data">
-                                <button type="button" id="oxi-addons-list-rearrange-close" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <input type="submit" id="oxi-addons-list-rearrange-submit" class="btn btn-primary" value="Save">
-                            </div>
-                        </div>
                         </form>
                     <div id="modal-rearrange-store-file">
                         ' . $id . '

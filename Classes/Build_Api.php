@@ -275,12 +275,34 @@ class Build_Api {
      *
      * @since 9.3.0
      */
+    public function post_elements_older_rearrange_modal_data() {
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
+        if ((int) $this->styleid && count($rawdata) == 2):
+            $child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
+            $render = [];
+            foreach ($child as $k => $value) {
+                $data = explode($rawdata[1], $value['title']);
+                $render[$value['id']] = $data[$rawdata[0]];
+            }
+            return json_encode($render);
+        endif;
+    }
+
+    /**
+     * Template Name Change
+     *
+     * @since 9.3.0
+     */
     public function post_elements_template_rearrange_save_data() {
         $params = explode(',', $this->rawdata);
         foreach ($params as $value) {
             if ((int) $value):
                 $data = $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE id = %d ", $value), ARRAY_A);
-                $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata) VALUES (%d, %s)", array($data['styleid'], $data['rawdata'])));
+                if (array_key_exists('title', $data)):
+                    $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($data['styleid'], $data['rawdata'], $data['title'], $data['files'], $data['css'])));
+                else:
+                    $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata) VALUES (%d, %s)", array($data['styleid'], $data['rawdata'])));
+                endif;
                 $redirect_id = $this->wpdb->insert_id;
                 if ($redirect_id == 0) {
                     return;

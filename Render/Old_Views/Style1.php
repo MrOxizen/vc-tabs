@@ -7,9 +7,9 @@ namespace OXI_TABS_PLUGINS\Render\Old_Views;
  *
  * @author biplob018
  */
-use OXI_TABS_PLUGINS\Render\Render;
+use OXI_TABS_PLUGINS\Render\Old_Render;
 
-class Style1 extends Render {
+class Style1 extends Old_Render {
 
     public function inline_public_jquery() {
         $styledata = $this->style;

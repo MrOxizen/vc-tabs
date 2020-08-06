@@ -153,9 +153,7 @@ class Old_Admin {
     }
 
     public function child_save() {
-
         if (!empty($_POST['item-submit']) && $_POST['item-submit'] == 'Submit') {
-
             if (!wp_verify_nonce($this->nonce, 'oxitabschildnonce')) {
                 die('You do not have sufficient permissions to access this page.');
             } else {
@@ -236,12 +234,7 @@ class Old_Admin {
     }
 
     public function admin_child_rearrange() {
-        echo ' <ul class="list-group" id="content-tabs-ultimate-drag-drop">';
-        foreach ($this->child as $value) {
-            $titlefiles = explode('{}{}{}', $value['title']);
-            echo '<li class="list-group-item" id ="' . $value['id'] . '">' . $titlefiles[0] . '</li>';
-        }
-        echo '</ul>';
+        return '<li class="list-group-item" id="{{id}}" data-mod=\'' . json_encode([0, '{}{}{}']) . '\'>{{TITLE}}</li>';
     }
 
     public function admin_field($styledata) {
@@ -254,14 +247,15 @@ class Old_Admin {
 
     public function add_new_form_opener() {
         ?>
-        <div class="oxi-addons-item-form">
-            <div class="oxi-addons-item-form-heading oxi-addons-form-heading">
-                Add New
+        <div class="oxi-addons-item-form shortcode-addons-templates-right-panel">
+            <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
+                Add New Tabs Content
+                <div class="oxi-head-toggle"></div>
             </div>
-            <div class="oxi-addons-admin-add-new-item oxi-addons-form-body" id="oxi-addons-admin-add-new-item">
+            <div class="oxi-addons-item-form-item shortcode-addons-templates-right-panel-body" id="oxi-addons-list-data-modal-open">
                 <span>
-                    <i class="fas fa-plus-circle"></i>
-                    Add new Items
+                    <i class="dashicons dashicons-plus-alt oxi-icons"></i>
+                    Open Content Form
                 </span>
             </div>
         </div>
@@ -290,109 +284,72 @@ class Old_Admin {
         <?php
     }
 
-    public function shortcode_collect() {
-        ?>
-        <div class="oxi-addons-shortcode">
-            <div class="oxi-addons-shortcode-heading oxi-addons-form-heading">
-                Shortcodes
-            </div>
-            <div class="oxi-addons-shortcode-body oxi-addons-form-body">
-                <em>Shortcode for posts/pages/plugins</em>
-                <p>Copy &amp; paste the shortcode directly into any WordPress post or page.</p>
-                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;<?php echo $this->styleid; ?>&quot;]">
-                <span></span>
-                <em>Shortcode for templates/themes</em>
-                <p>Copy &amp; paste this code into a template file to include the slideshow within your theme.</p>
-                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;<?php echo $this->styleid; ?>&quot;]&#039;); ?&gt;">
-                <span></span>
-                <em>Apply on Visual Composer</em>
-                <p>Go on Visual Composer and get Our element on Content bar as Content Tabs</p>
-            </div>
-        </div>
-        <?php
-    }
-
-    public function shortcode_quick_tutorials() {
-        /*
-          ?>
-
-          <div class="oxi-addons-shortcode">
-          <div class="oxi-addons-shortcode-heading oxi-addons-form-heading">
-          Quick Tutorials
-          </div>
-          <a class="oxi-addons-admin-add-new-item oxi-addons-tutorials oxi-addons-form-body" youtubeid="w8gb-CXxToA">
-          <span>
-          <i class="fab fa-youtube oxi-icons"></i>
-          </span>
-          </a>
-          </div>
-          <?php
-         * 
-         */
-    }
-
     public function rearrange_tab_opener() {
         ?>
-        <div class="oxi-addons-shortcode">
-            <div class="oxi-addons-shortcode-heading oxi-addons-form-heading">
+        <div class="oxi-addons-item-form shortcode-addons-templates-right-panel">
+            <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
                 Rearrange Tabs
+                <div class="oxi-head-toggle"></div>
             </div>
-            <div class="oxi-addons-admin-add-new-item oxi-addons-form-body" id="content-tabs-ultimate-drag-id">
+            <div class="oxi-addons-item-form-item shortcode-addons-templates-right-panel-body" id="oxi-addons-rearrange-data-modal-open">
                 <span>
-                    <i class="fas fa-cogs oxi-icons"></i>
+                    <i class="dashicons dashicons-plus-alt oxi-icons"></i>
                 </span>
+            </div>
+        </div>
+        <div id="oxi-addons-list-rearrange-modal" class="modal fade bd-example-modal-sm" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <form id="oxi-addons-form-rearrange-submit">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Tabs Rearrange</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-12 alert text-center" id="oxi-addons-list-rearrange-saving">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                            <ul class="col-12 list-group" id="oxi-addons-modal-rearrange">
+                            </ul>
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" id="oxi-addons-list-rearrange-data">
+                            <button type="button" id="oxi-addons-list-rearrange-close" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <input type="submit" id="oxi-addons-list-rearrange-submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </div>
+                    <div id="modal-rearrange-store-file">
+                        <?php echo $this->admin_child_rearrange(); ?>
+                    </div>
+                </form>
+
             </div>
         </div>
         <?php
     }
 
     public function shortcode_info() {
-        echo '<div class="oxi-addons-shortcode shortcode-addons-templates-right-panel ">
-                <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
-                    Shortcode
-                    <div class="oxi-head-toggle"></div>
-                </div>
-                <div class="oxi-addons-shortcode-body shortcode-addons-templates-right-panel-body">
-                    <em>Shortcode for posts/pages/plugins</em>
-                    <p>Copy &amp;
-                        paste the shortcode directly into any WordPress post, page or Page Builder.</p>
-                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $this->styleid . '&quot;]">
-                    <span></span>
-                    <em>Shortcode for templates/themes</em>
-                    <p>Copy &amp; paste this code into a template file to include the slideshow within your theme.</p>
-                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="<?php echo do_shortcode(\'[ctu_ultimate_oxi  id=&quot;' . $this->styleid . '&quot;]\'); ?>">
-                    <span></span>
-                </div>
-            </div>';
-    }
-
-    public function rearrange_tab() {
         ?>
-        <div id="oxi-addons-drag-and-drop-data" class="modal fade bd-example-modal-sm" role="dialog">
-            <div class="modal-dialog modal-sm">
-                <form id="oxi-addons-drag-submit">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Rearrange Tabs</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="alert text-center col-sm-12" id="oxi-addons-ultimate-drag-saving">
-                                <i class="fa fa-spinner fa-spin"></i>
-                            </div>
-                            <?php
-                            echo $this->admin_child_rearrange();
-                            ?>
-                        </div>
-                        <div class="modal-footer">    
-                            <input type="hidden" name="vc-tabs-ajax-nonce" id="vc-tabs-ajax-nonce" value="<?php echo wp_create_nonce("vc_tabs_ajax_data"); ?>"/>
-                            <button type="button" id="oxi-addons-drag-and-drop-data-close" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <input type="submit" id="oxi-addons-drag-and-drop-data-submit" class="btn btn-primary" value="submit">
-                        </div>
-                    </div>
-                </form>
+        <div class="oxi-addons-shortcode shortcode-addons-templates-right-panel">
+            <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
+                Shortcodes
+                <div class="oxi-head-toggle"></div>
             </div>
-        </div> 
+            <div class="oxi-addons-shortcode-body shortcode-addons-templates-right-panel-body">
+                <em>Shortcode for posts/pages/plugins</em>
+                <p>Copy &amp;
+                    paste the shortcode directly into any WordPress post, page or Page Builder.</p>
+                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;<?php echo $this->styleid; ?>&quot;]">
+                <span></span>
+                <em>Shortcode for templates/themes</em>
+                <p>Copy &amp;
+                    paste this code into a template file to include the slideshow within your theme.</p>
+                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi id=&quot;<?php echo $this->styleid; ?>&quot;]&#039;); ?&gt;">
+                <span></span>
+            </div>
+        </div>
         <?php
     }
 
@@ -437,9 +394,7 @@ class Old_Admin {
                             echo $this->add_new_form_opener();
                             echo $this->remane_shortcode();
                             echo $this->shortcode_info();
-                            echo $this->shortcode_quick_tutorials();
                             echo $this->rearrange_tab_opener();
-                            echo $this->rearrange_tab();
                             ?>
                         </div>
                     </div>
@@ -459,7 +414,7 @@ class Old_Admin {
                         <div class="oxi-addons-preview-data" id="oxi-addons-preview-data">
                             <?php
                             $style = ucfirst($this->style['style_name']);
-                            $cls = '\OXI_TABS_PLUGINS\Render\Old_Admin\\' . $style;
+                            $cls = '\OXI_TABS_PLUGINS\Render\Old_Views\\' . $style;
                             if (class_exists($cls)):
                                 new $cls($this->style, $this->child, 'admin');
                             endif;
@@ -863,7 +818,7 @@ class Old_Admin {
                             });
                         });';
         }
-        wp_add_inline_script('oxi-tabs-editor', $data);
+        wp_add_inline_script('oxi-tabs-old-editor', $data);
     }
 
 }

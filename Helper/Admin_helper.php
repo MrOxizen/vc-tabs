@@ -181,12 +181,11 @@ trait Admin_helper {
             $style = $this->wpdb->get_row($this->wpdb->prepare('SELECT style_name FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             $template = ucfirst($style['style_name']);
             $row = json_decode(stripslashes($style['rawdata']), true);
-            if(is_array($row)):
-                 $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $template;
+            if (is_array($row)):
+                $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $template;
             else:
                 $cls = '\OXI_TABS_PLUGINS\Render\Old_Admin\\' . $template;
             endif;
-           
             new $cls();
         else:
             new \OXI_TABS_PLUGINS\Page\Create();
