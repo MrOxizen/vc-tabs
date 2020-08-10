@@ -7,9 +7,9 @@ namespace OXI_TABS_PLUGINS\Render\Old_Views;
  *
  * @author biplob018
  */
-use OXI_TABS_PLUGINS\Render\Render;
+use OXI_TABS_PLUGINS\Render\Old_Render;
 
-class Style5 extends Render {
+class Style5 extends Old_Render {
 
     public function inline_public_jquery() {
         $oxi_fixed_header = get_option('oxi_addons_fixed_header_size');
@@ -261,7 +261,7 @@ class Style5 extends Render {
                         ' . $this->icon_font_selector($value['css']) . '   ' . $this->special_charecter($titlefiles[0]) . '
 
                     </div>
-                    <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxilab-ab-id' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+                    <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                         ' . $this->special_charecter($value['files']) . '
                         ' . $this->admin_edit_panel($value['id']) . '
                     </div>

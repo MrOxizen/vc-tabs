@@ -35,14 +35,13 @@ class Installation {
         return self::$lfe_instance;
     }
 
-    public function Tabs_Datatase() {
+    public function Datatase() {
         global $wpdb;
         $parent_table = $wpdb->prefix . 'content_tabs_ultimate_style';
         $child_table = $wpdb->prefix . 'content_tabs_ultimate_list';
         $import_table = $wpdb->prefix . 'content_tabs_ultimate_import';
 
-        $headersize = 0;
-        $fawesome = '5.3.1||https://use.fontawesome.com/releases/v5.3.1/css/all.css';
+
         $charset_collate = $wpdb->get_charset_collate();
 
         $sql1 = "CREATE TABLE $parent_table (
@@ -70,6 +69,12 @@ class Installation {
         dbDelta($sql1);
         dbDelta($sql2);
         dbDelta($sql3);
+    }
+
+    public function Tabs_Datatase() {
+        $this->Datatase();
+        $headersize = 0;
+        $fawesome = '5.3.1||https://use.fontawesome.com/releases/v5.3.1/css/all.css';
         add_option('content_tabs_ultimate_version', OXI_TABS_PLUGIN_VERSION);
         add_option('oxi_addons_font_awesome_version', $fawesome);
         add_option('oxi_addons_fixed_header_size', $headersize);

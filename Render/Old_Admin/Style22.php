@@ -726,14 +726,4 @@ class Style22 extends Old_Admin {
         </div>
         <?php
     }
-
-    public function admin_child_rearrange() {
-        echo ' <ul class="list-group col-sm-12" id="oxi-addons-drag-drop">';
-        foreach ($this->child as $value) {
-            $titlefiles = explode('{}{}{}', $value['title']);
-            echo '<li class="list-group-item" id ="' . $value['id'] . '">' . $titlefiles[0] . '</li>';
-        }
-        echo '</ul>';
-    }
-
 }

@@ -85,6 +85,7 @@ jQuery.noConflict();
         }
         var functionname = "elements_template_rearrange_save_data";
         OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
+            console.log(callback);
             if (callback === "success") {
                 location.reload();
             }
@@ -92,10 +93,6 @@ jQuery.noConflict();
     });
     $('#oxi-addons-list-data-modal-open').on("click", function (e) {
         e.preventDefault();
-        $('#item-id').val("");
-        $('#cau-title').val("");
-        $('#ctu-link').val("");
-        $('#ctu-details').val("");
         $("#oxilab-add-new-data").modal("show");
 
     });

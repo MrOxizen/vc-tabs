@@ -7,9 +7,9 @@ namespace OXI_TABS_PLUGINS\Render\Old_Views;
  *
  * @author biplob018
  */
-use OXI_TABS_PLUGINS\Render\Render;
+use OXI_TABS_PLUGINS\Render\Old_Render;
 
-class Style6 extends Render {
+class Style6 extends Old_Render {
 
     public function inline_public_jquery() {
         $styledata = $this->style;
@@ -230,7 +230,7 @@ class Style6 extends Render {
                                 ' . $this->special_charecter($titlefiles[0]) . '
                                 
                             </div>
-                            <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxilab-ab-id' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+                            <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                                 ' . $this->special_charecter($value['files']) . '
                                 ' . $this->admin_edit_panel($value['id']) . '
                                     </div> ';

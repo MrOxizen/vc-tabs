@@ -180,6 +180,10 @@ trait Admin_helper {
         if (!empty($styleid) && $styleid > 0):
             $style = $this->wpdb->get_row($this->wpdb->prepare('SELECT style_name FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             $template = ucfirst($style['style_name']);
+            if (!array_key_exists('rawdata', $style)):
+                $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
+                $Installation->Datatase();
+            endif;
             $row = json_decode(stripslashes($style['rawdata']), true);
             if (is_array($row)):
                 $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $template;
