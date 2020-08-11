@@ -110,7 +110,11 @@ class Build_Api {
         if (!empty($this->styleid)):
             $styleid = (int) $this->styleid;
             $newdata = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
+//            if (array_key_exists('css', $newdata) && $newdata['css'] != ''):
+//                $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($newdata['styleid'], $newdata['rawdata'], $newdata['title'], $newdata['files'], $newdata['css'])));
+//            else:
             $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'])));
+            // endif;
             $redirect_id = $this->wpdb->insert_id;
             if ($redirect_id > 0):
                 $raw = json_decode(stripslashes($newdata['rawdata']), true);

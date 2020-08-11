@@ -1896,7 +1896,7 @@ trait Sanitization {
             ],
             'range' => [
                 'px' => [
-                    'min' => -100,
+                    'min' => 0,
                     'max' => 100,
                     'step' => 1,
                 ],

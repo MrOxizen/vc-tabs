@@ -44,9 +44,6 @@ class Style1 extends Render {
                     <div class="oxi-tabs-ultimate-header">';
         foreach ($child as $key => $val) {
             $value = json_decode(stripslashes($val['rawdata']), true);
-            if (!is_array($value)):
-                $value = $this->old_data_render($val);
-            endif;
             echo '<div class=\'oxi-tabs-header-li oxi-tabs-header-li-' . $this->oxiid . '-' . $val['id'] . '\' ref=\'#oxi-tabs-trigger-' . $this->oxiid . '-' . $val['id'] . '\' ' . $this->data_js_url_render('oxi-tabs-modal-link', $value) . '>
                        ' . $this->font_awesome_render($value['oxi-tabs-modal-icon']) . $this->title_special_charecter($value['oxi-tabs-modal-title']);
             echo '</div>';
@@ -67,16 +64,4 @@ class Style1 extends Render {
         echo '      </div>
                 </div>';
     }
-
-    public function old_data_render($value) {
-        $return = [];
-        $titlefiles = explode('{}{}{}', $value['title']);
-        $return['oxi-tabs-modal-title'] = $titlefiles[0];
-        $return['oxi-tabs-modal-link-url'] = (array_key_exists(1, $return) ? $titlefiles[1] : '');
-        $return['oxi-tabs-modal-desc'] = $value['files'];
-        $return['oxi-tabs-modal-icon'] = '';
-        $return['oxi-tabs-modal-link-target'] = '';
-        return $return;
-    }
-
 }

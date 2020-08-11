@@ -7,82 +7,17 @@ namespace OXI_TABS_PLUGINS\Render\Admin;
  *
  * @author biplo
  */
-use OXI_TABS_PLUGINS\Render\Admin;
+use OXI_TABS_PLUGINS\Render\Helper;
 use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
-class Style1 extends Admin {
+class Style1 extends Helper {
 
-    public function register_controls() {
-        $this->start_section_header(
-                'shortcode-addons-start-tabs', [
-            'options' => [
-                'heading-settings' => esc_html__('Heading Settings', OXI_TABS_TEXTDOMAIN),
-                'descriptions-settings' => esc_html__('Descriptions Settings', OXI_TABS_TEXTDOMAIN),
-                'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
-            ]
-                ]
-        );
-        $this->start_section_tabs(
-                'oxi-tabs-start-tabs', [
-            'condition' => [
-                'oxi-tabs-start-tabs' => 'heading-settings'
-            ]
-                ]
-        );
-        $this->start_section_devider();
-        $this->register_general();
-
-        $this->end_section_devider();
-
-        $this->start_section_devider();
-        $this->register_heading();
-        $this->register_icon();
-        $this->end_section_devider();
-        $this->end_section_tabs();
-        $this->start_section_tabs(
-                'oxi-tabs-start-tabs', [
-            'condition' => [
-                'oxi-tabs-start-tabs' => 'descriptions-settings'
-            ]
-                ]
-        );
-        $this->start_section_devider();
-        $this->register_general();
-        $this->register_descriptions();
-        $this->end_section_devider();
-
-        $this->start_section_devider();
-        $this->register_heading();
-        $this->register_icon();
-        $this->end_section_devider();
-        $this->end_section_tabs();
-
-        $this->start_section_tabs(
-                'oxi-tabs-start-tabs', [
-            'condition' => [
-                'oxi-tabs-start-tabs' => 'custom'
-            ],
-            'padding' => '10px'
-                ]
-        );
-
-        $this->start_controls_section(
-                'oxi-tabs-start-tabs-css', [
-            'label' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
-            'showing' => TRUE,
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-custom-css', $this->style, [
-            'label' => __('', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::TEXTAREA,
-            'default' => '',
-            'description' => 'Custom CSS Section. You can add custom css into textarea.'
-                ]
-        );
-        $this->end_controls_section();
-        $this->end_section_tabs();
-    }
+  
+    
+    
+    
+    
+    
 
     public function register_general() {
         $this->start_controls_section(
