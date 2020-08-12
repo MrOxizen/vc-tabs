@@ -53,9 +53,6 @@ class Style1 extends Render {
                     <div class="oxi-tabs-ultimate-content">';
         foreach ($child as $key => $val) {
             $value = json_decode(stripslashes($val['rawdata']), true);
-            if (!is_array($value)):
-                $value = $this->old_data_render($val);
-            endif;
             echo '      <div class="oxi-tabs-body-tabs  ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $val['id'] . '">
                             ' . $this->special_charecter($value['oxi-tabs-modal-desc']) . '
                             ' . $this->admin_edit_panel($val['id']) . '     

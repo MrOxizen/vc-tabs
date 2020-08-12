@@ -326,7 +326,6 @@ class Render {
                 $link['target'] = '';
             endif;
         endif;
-
         return $link;
     }
 

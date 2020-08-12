@@ -11,7 +11,8 @@
     line-height: 1.3;
     letter-spacing: normal;
 }
-.oxi-addons-row .oxi-tabs-ultimate-style{
+.oxi-addons-row .oxi-tabs-ultimate-style,
+.oxi-addons-row .oxi-tabs-ultimate-style *{
     -webkit-transition: none;
     -moz-transition: none;
     transition: none;

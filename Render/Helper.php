@@ -18,7 +18,26 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 class Helper extends Admin {
 
+    public function get_initial_opening_list() {
+        $count = count($this->child);
+        $r = [];
+        for ($i = 0; $i < $count; $i++) {
+            if ($i == 0):
+                $r[':eq(' . $i . ')'] = 'First';
+            elseif ($i == 1):
+                $r[':eq(' . $i . ')'] = '2nd';
+            elseif ($i == 2):
+                $r[':eq(' . $i . ')'] = '3rd';
+            else:
+                $r[':eq(' . $i . ')'] = ($i+ 1).'th';
+            endif;
+        }
+        $r[':eq(100)'] = 'None';
+        return $r;
+    }
+
     public function register_controls() {
+        $this->get_initial_opening_list();
         $this->start_section_header(
                 'shortcode-addons-start-tabs', [
             'options' => [
@@ -91,16 +110,28 @@ class Helper extends Admin {
                 ]
         );
         $this->add_control(
+                'oxi-tabs-gen-event', $this->style, [
+            'label' => __('Activator Event', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'default' => '',
+            'options' => [
+                '1' => [
+                    'title' => __('Click', OXI_TABS_TEXTDOMAIN),
+                ],
+                '' => [
+                    'title' => __('Hover', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'description' => 'Select an activator event for tabs.',
+                ]
+        );
+        $this->add_control(
                 'oxi-tabs-gen-opening', $this->style, [
             'label' => __('Initial Opening', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
-            'default' => '',
-            'options' => [
-                ':eq(0)' => __('First', OXI_TABS_TEXTDOMAIN),
-                ':eq(1)' => __('2nd', OXI_TABS_TEXTDOMAIN),
-                ':eq(2)' => __('3rd', OXI_TABS_TEXTDOMAIN),
-                ':eq(109)' => __('None', OXI_TABS_TEXTDOMAIN),
-            ],
+            'default' => ':eq(0)',
+            'options' => $this->get_initial_opening_list(),
             'description' => 'Initial Opening, Which tab will Open at Page Load.',
                 ]
         );
@@ -122,22 +153,21 @@ class Helper extends Admin {
 
     public function register_gen_heading() {
         $this->start_controls_section(
-                'oxi-tabs-gen', [
+                'oxi-tabs-heading', [
             'label' => esc_html__('Header Settings', OXI_TABS_TEXTDOMAIN),
             'showing' => TRUE,
                 ]
         );
         $this->add_control(
-                'oxi-tabs-gen-alignment', $this->style, [
+                'oxi-tabs-heading-alignment', $this->style, [
             'label' => __('Tabs Alignment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
-            'default' => 'horizontal',
             'options' => [
-                'horizontal' => [
+                'oxi-tab-header-horizontal' => [
                     'title' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
                 ],
-                'vertical' => [
+                'oxi-tab-header-vertical' => [
                     'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
@@ -145,79 +175,46 @@ class Helper extends Admin {
                 ]
         );
         $this->add_control(
-                'oxi-tabs-gen-horizontal-position', $this->style, [
+                'oxi-tabs-heading-horizontal-position', $this->style, [
             'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::CHOOSE,
-            'operator' => Controls::OPERATOR_TEXT,
+            'type' => Controls::SELECT,
             'condition' => [
-                'oxi-tabs-gen-alignment' => 'horizontal'
+                'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal'
             ],
-            'default' => 'top',
             'options' => [
-                'top' => [
-                    'title' => __('Top', OXI_TABS_TEXTDOMAIN),
-                ],
-                'bottom' => [
-                    'title' => __('Bottom', OXI_TABS_TEXTDOMAIN),
-                ],
+                'oxi-tab-header-top-left-position' => __('Top Left', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-top-right-position' => __('Top Right', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-top-center-position' => __('Top Center', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-top-compact-position' => __('Top Compact', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-bottom-left-position' => __('Bottom Left', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-bottom-right-position' => __('Bottom Right', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-bottom-center-position' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-bottom-compact-position' => __('Bottom Compact', OXI_TABS_TEXTDOMAIN),
             ],
             'description' => 'Set Your Tabs Header Horizontal Position.',
                 ]
         );
-        $this->add_responsive_control(
-                'oxi-tabs-gen-horizontal-width', $this->style, [
-            'label' => __('Tabs Width', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::SLIDER,
-            'default' => [
-                'unit' => '%',
-                'size' => 100,
-            ],
-            'condition' => [
-                'oxi-tabs-gen-alignment' => 'horizontal'
-            ],
-            'range' => [
-                'px' => [
-                    'min' => 1,
-                    'max' => 1900,
-                    'step' => 1,
-                ],
-                '%' => [
-                    'min' => 1,
-                    'max' => 100,
-                    'step' => 1,
-                ],
-                'em' => [
-                    'min' => 1,
-                    'max' => 200,
-                    'step' => 0.1,
-                ],
-            ],
-            'selector' => [
-            //   '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li' => 'max-width:{{SIZE}}{{UNIT}};',
-            ],
-            'description' => 'Customize Single Header Width with several options as Pixel, Percent or EM.',
-                ]
-        );
         $this->add_control(
-                'oxi-tabs-gen-vertical-position', $this->style, [
-            'label' => __('Vertical Position', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::CHOOSE,
-            'operator' => Controls::OPERATOR_TEXT,
+                'oxi-tabs-heading-vertical-position', $this->style, [
+            'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
             'condition' => [
-                'oxi-tabs-gen-alignment' => 'vertical'
+                'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
             ],
-            'default' => 'left',
             'options' => [
-                'left' => [
-                    'title' => __('Left', OXI_TABS_TEXTDOMAIN),
-                ],
-                'right' => [
-                    'title' => __('Right', OXI_TABS_TEXTDOMAIN),
-                ],
+                'oxi-tab-header-top-left-position' => __('Top Left', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-top-right-position' => __('Top Right', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-top-center-position' => __('Top Center', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-top-compact-position' => __('Top Compact', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-bottom-left-position' => __('Bottom Left', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-bottom-right-position' => __('Bottom Right', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-bottom-center-position' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-bottom-compact-position' => __('Bottom Compact', OXI_TABS_TEXTDOMAIN),
             ],
             'description' => 'Set Your Tabs Header Vertical Position.',
                 ]
         );
+
         $this->add_responsive_control(
                 'oxi-tabs-gen-vertical-width', $this->style, [
             'label' => __('Tabs Width', OXI_TABS_TEXTDOMAIN),
@@ -227,7 +224,7 @@ class Helper extends Admin {
                 'size' => 100,
             ],
             'condition' => [
-                'oxi-tabs-gen-alignment' => 'vertical'
+                'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
             ],
             'range' => [
                 'px' => [
@@ -272,6 +269,7 @@ class Helper extends Admin {
         //Start Divider
         $this->start_section_devider();
         $this->register_header_title();
+        $this->register_header_sub_title();
         $this->register_header_icon();
         $this->register_header_number();
         $this->register_header_image();
@@ -286,93 +284,6 @@ class Helper extends Admin {
             'showing' => TRUE,
                 ]
         );
-        $this->add_control(
-                'oxi-tabs-head-link', $this->style, [
-            'label' => __('External Link', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::CHOOSE,
-            'operator' => Controls::OPERATOR_TEXT,
-            'default' => '',
-            'options' => [
-                '1' => [
-                    'title' => __('Enable', OXI_TABS_TEXTDOMAIN),
-                ],
-                '' => [
-                    'title' => __('Disable', OXI_TABS_TEXTDOMAIN),
-                ],
-            ],
-            'description' => 'Do You want to add External Link Beside Heading Title?',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-head-title', $this->style, [
-            'label' => __('Title', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::CHOOSE,
-            'operator' => Controls::OPERATOR_TEXT,
-            'default' => '1',
-            'options' => [
-                '1' => [
-                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                ],
-                '' => [
-                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                ],
-            ],
-            'description' => 'Do You want to Show Heading Title?',
-                ]
-        );
-
-        $this->add_control(
-                'oxi-tabs-head-additional', $this->style, [
-            'label' => __('Additional', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::SELECT,
-            'default' => '',
-            'options' => [
-                '' => __('Only Title', OXI_TABS_TEXTDOMAIN),
-                'icon' => __('Icon', OXI_TABS_TEXTDOMAIN),
-                'number' => __('Number', OXI_TABS_TEXTDOMAIN),
-                'image' => __('Image', OXI_TABS_TEXTDOMAIN),
-            ],
-            'description' => 'Add Icon or Image or Number Beside Title.',
-                ]
-        );
-
-        $this->add_responsive_control(
-                'oxi-tabs-head-additional-position',
-                $this->style,
-                [
-                    'label' => __('Additional Position', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_ICON,
-                    'default' => 'row',
-                    'condition' => [
-                        'oxi-tabs-head-additional' => ['icon', 'number', 'image']
-                    ],
-                    'options' => [
-                        'row' => [
-                            'title' => __('Left', OXI_TABS_TEXTDOMAIN),
-                            'icon' => 'fa fa-align-left',
-                        ],
-                        'column' => [
-                            'title' => __('Top', OXI_TABS_TEXTDOMAIN),
-                            'icon' => 'fas fa-sort-amount-up',
-                        ],
-                        'column-reverse' => [
-                            'title' => __('Bottom', OXI_TABS_TEXTDOMAIN),
-                            'icon' => 'fas fa-sort-amount-up-alt',
-                        ],
-                        'row-reverse' => [
-                            'title' => __('Right', OXI_TABS_TEXTDOMAIN),
-                            'icon' => 'fa fa-align-right',
-                        ],
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'flex-direction:{{VALUE}};',
-                    ],
-                    'description' => 'Allows you to set Additional Position as Left or Top or Bottom or Right.',
-                ]
-        );
-
-
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
                 [
@@ -424,7 +335,7 @@ class Helper extends Admin {
                     'type' => Controls::SINGLEBORDER,
                     'separator' => true,
                     'condition' => [
-                        'oxi-tabs-gen-alignment' => 'horizontal',
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
                     ],
                     'selector' => [
                         '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li' => 'border-right: {{SIZE}}px {{TYPE}} {{COLOR}};'
@@ -552,9 +463,6 @@ class Helper extends Admin {
         $this->start_controls_section(
                 'oxi-tabs-head-title', [
             'label' => esc_html__('Title Settings', OXI_TABS_TEXTDOMAIN),
-            'condition' => [
-                'oxi-tabs-head-title' => '1',
-            ],
             'showing' => TRUE,
                 ]
         );
@@ -661,14 +569,121 @@ class Helper extends Admin {
         $this->end_controls_section();
     }
 
+    public function register_header_sub_title() {
+        $this->start_controls_section(
+                'oxi-tabs-head-sub-title', [
+            'label' => esc_html__('Sub Title Settings', OXI_TABS_TEXTDOMAIN),
+            'showing' => false,
+                ]
+        );
+
+        $this->add_group_control(
+                'oxi-tabs-head-sub-title-typho', $this->style, [
+            'type' => Controls::TYPOGRAPHY,
+            'include' => Controls::ALIGNFLEX,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => '',
+            ]
+                ]
+        );
+        $this->start_controls_tabs(
+                'oxi-tabs-head-sub-title-tabs',
+                [
+                    'options' => [
+                        'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
+                        'hover' => esc_html__('Active or Hover', OXI_TABS_TEXTDOMAIN),
+                    ]
+                ]
+        );
+        $this->start_controls_tab();
+
+        $this->add_control(
+                'oxi-tabs-head-sub-title-color', $this->style, [
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '#ffffff',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Sub Title.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-head-sub-title-tx-shadow', $this->style, [
+            'type' => Controls::TEXTSHADOW,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => '',
+            ],
+            'description' => 'Text Shadow property adds shadow to Sub Title.',
+                ]
+        );
+
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-head-sub-title-ac-color', $this->style, [
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the active or hover color of Sub Title.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-head-sub-title-ac-tx-shadow', $this->style, [
+            'type' => Controls::TEXTSHADOW,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover .oxi-tabs-header-li-title' => '',
+            ],
+            'description' => 'Text Shadow property add shadow to active or hover at Sub Title.',
+                ]
+        );
+
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+        $this->add_responsive_control(
+                'oxi-tabs-head-sub-title-margin', $this->style, [
+            'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'separator' => true,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Margin properties are used to create space outside Sub Title.',
+                ]
+        );
+        $this->end_controls_section();
+    }
+
     public function register_header_icon() {
         $this->start_controls_section(
                 'oxi-tabs-head-icon', [
             'label' => esc_html__('Icon Settings', OXI_TABS_TEXTDOMAIN),
-            'condition' => [
-                'oxi-tabs-head-additional' => 'icon',
-            ],
-            'showing' => TRUE,
+            'showing' => false,
                 ]
         );
         $this->add_control(
@@ -958,10 +973,7 @@ class Helper extends Admin {
         $this->start_controls_section(
                 'oxi-tabs-head-number', [
             'label' => esc_html__('Number Settings', OXI_TABS_TEXTDOMAIN),
-            'condition' => [
-                'oxi-tabs-head-additional' => 'number',
-            ],
-            'showing' => TRUE,
+            'showing' => false,
                 ]
         );
         $this->add_control(
@@ -1228,10 +1240,7 @@ class Helper extends Admin {
         $this->start_controls_section(
                 'oxi-tabs-head-image', [
             'label' => esc_html__('Image Settings', OXI_TABS_TEXTDOMAIN),
-            'condition' => [
-                'oxi-tabs-head-additional' => 'image',
-            ],
-            'showing' => TRUE,
+            'showing' => false,
                 ]
         );
         $this->add_responsive_control(
@@ -1605,21 +1614,41 @@ class Helper extends Admin {
             'label' => esc_html__('Title', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::TEXT,
             'default' => 'Lorem Ipsum',
-            'condition' => [
-                'oxi-tabs-head-title' => '1',
-            ],
-            'description' => 'Text Shadow property adds shadow to Description.',
+            'description' => 'Add Title of your Tabs else Make it Blank.',
                 ]
         );
+        $this->add_control(
+                'oxi-tabs-modal-sub-title', $this->style, [
+            'label' => esc_html__('Sub Title', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::TEXT,
+            'description' => 'Add Sub Title of your Tabs else Make it Blank.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-modal-title-additional', $this->style, [
+            'label' => __('Title Additional', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'default' => '',
+            'options' => [
+                '' => __('None', OXI_TABS_TEXTDOMAIN),
+                'icon' => __('Icon', OXI_TABS_TEXTDOMAIN),
+                'number' => __('Number', OXI_TABS_TEXTDOMAIN),
+                'image' => __('Image', OXI_TABS_TEXTDOMAIN),
+            ],
+            'description' => 'Add Icon or Image or Number Beside Title.',
+                ]
+        );
+
+
         $this->add_control(
                 'oxi-tabs-modal-icon', $this->style, [
             'label' => esc_html__('Icon', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::ICON,
             'default' => 'fab fa-facebook-f',
             'condition' => [
-                'oxi-tabs-head-additional' => 'icon',
+                'oxi-tabs-modal-title-additional' => 'icon',
             ],
-            'description' => 'Text Shadow property adds shadow to Description.',
+            'description' => 'Select Icon from Font Awesome Icon list Panel.',
                 ]
         );
         $this->add_control(
@@ -1628,19 +1657,9 @@ class Helper extends Admin {
             'type' => Controls::NUMBER,
             'default' => 1,
             'condition' => [
-                'oxi-tabs-head-additional' => 'number',
+                'oxi-tabs-modal-title-additional' => 'number',
             ],
-            'description' => 'Text Shadow property adds shadow to Description.',
-                ]
-        );
-        $this->add_group_control(
-                'oxi-tabs-modal-link', $this->style, [
-            'label' => esc_html__('Link', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::URL,
-            'condition' => [
-                'oxi-tabs-head-link' => '1',
-            ],
-            'description' => 'Text Shadow property adds shadow to Description.',
+            'description' => 'Write Your Number Beside Title.',
                 ]
         );
         $this->add_group_control(
@@ -1649,9 +1668,32 @@ class Helper extends Admin {
                     'label' => __('Image', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::MEDIA,
                     'condition' => [
-                        'oxi-tabs-head-additional' => 'image',
+                        'oxi-tabs-modal-title-additional' => 'image',
                     ],
                     'description' => 'Add or Modify Your Header Image.'
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-modal-components-type', $this->style, [
+            'label' => __('Choose Components', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'default' => 'wysiwyg',
+            'options' => [
+                'wysiwyg' => __('WYSIWYG Editor', OXI_TABS_TEXTDOMAIN),
+                'link' => __('Custom Link', OXI_TABS_TEXTDOMAIN),
+            ],
+            'description' => 'Confirm Your Tabs Content Type as Content or Custom Link.',
+                ]
+        );
+
+        $this->add_group_control(
+                'oxi-tabs-modal-link', $this->style, [
+            'label' => esc_html__('Link', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::URL,
+            'condition' => [
+                'oxi-tabs-modal-components-type' => 'link',
+            ],
+            'description' => 'Add Custom link with opening type.',
                 ]
         );
 
@@ -1660,6 +1702,9 @@ class Helper extends Admin {
                 'oxi-tabs-modal-desc', $this->style, [
             'label' => __('Description', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::WYSIWYG,
+            'condition' => [
+                'oxi-tabs-modal-components-type' => 'wysiwyg',
+            ],
             'default' => '<p>Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p><p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged</p>',
                 ]
         );
