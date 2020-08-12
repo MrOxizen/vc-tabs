@@ -3404,6 +3404,15 @@ span.multiselect-native-select select {
 .shortcode-form-control.shortcode-control-type-control-tabs {
     padding: 0;
 }
+.shortcode-form-control.shortcode-control-type-control-tabs:before{
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: #e6e9ec;
+}
 
 .shortcode-control-type-control-tabs .shortcode-form-control-content-tabs .shortcode-form-control-field {
     padding: 0 20px 15px;

@@ -1,248 +1,174 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Frontend JS Script
  */
+jQuery(document).ready(function($) {
+       var maps = [];
+       var markers = [];
+       var woocommerce_enabled = etab_params.check_woocommerce_enabled;
 
+       $('.etab-group-wrap').each(function() {
+        //$(this).children('.ap_tab').find('.tab-title').prependTo($(this).find('.etab_tab_group'));
+        $(this).children('.etab-label').wrapAll("<div class='etab-header-wrap clearfix'><ul class='etab-title-tabs'></ul></div>");
+       });
 
-
-!function ($) {
-
-    "use strict";
-
-    // TABCOLLAPSE CLASS DEFINITION
-    // ======================
-
-    var TabCollapse = function (el, options) {
-        this.options   = options;
-        this.$tabs  = $(el);
-
-        this._accordionVisible = false; //content is attached to tabs at first
-        this._initAccordion();
-        this._checkStateOnResize();
-
-
-        // checkState() has gone to setTimeout for making it possible to attach listeners to
-        // shown-accordion.bs.tabcollapse event on page load.
-        // See https://github.com/flatlogic/bootstrap-tabcollapse/issues/23
-        var that = this;
-        setTimeout(function() {
-          that.checkState();
-        }, 0);
-    };
-
-    TabCollapse.DEFAULTS = {
-        accordionClass: 'visible-xs',
-        tabsClass: 'hidden-xs',
-        accordionTemplate: function(heading, groupId, parentId, active) {
-            return  '<div class="panel panel-default">' +
-                    '   <div class="panel-heading">' +
-                    '      <h4 class="panel-title">' +
-                    '      </h4>' +
-                    '   </div>' +
-                    '   <div id="' + groupId + '" class="panel-collapse collapse ' + (active ? 'in' : '') + '">' +
-                    '       <div class="panel-body js-tabcollapse-panel-body">' +
-                    '       </div>' +
-                    '   </div>' +
-                    '</div>'
-
+        if(woocommerce_enabled == "true"){
+          $('.everest-tab-main-wrapper').each(function(){
+               $(this).addClass('woocommerce');
+          });
+        
         }
-    };
 
-    TabCollapse.prototype.checkState = function(){
-        if (this.$tabs.is(':visible') && this._accordionVisible){
-            this.showTabs();
-            this._accordionVisible = false;
-        } else if (this.$accordion.is(':visible') && !this._accordionVisible){
-            this.showAccordion();
-            this._accordionVisible = true;
-        }
-    };
-
-    TabCollapse.prototype.showTabs = function(){
-        var view = this;
-        this.$tabs.trigger($.Event('show-tabs.bs.tabcollapse'));
-
-        var $panelHeadings = this.$accordion.find('.js-tabcollapse-panel-heading').detach();
-
-        $panelHeadings.each(function() {
-            var $panelHeading = $(this),
-            $parentLi = $panelHeading.data('bs.tabcollapse.parentLi');
-
-            var $oldHeading = view._panelHeadingToTabHeading($panelHeading);
-
-            $parentLi.removeClass('active');
-            if ($parentLi.parent().hasClass('dropdown-menu') && !$parentLi.siblings('li').hasClass('active')) {
-                $parentLi.parent().parent().removeClass('active');
+    $( window ).resize(function() {
+       if($(window).width() >= 570){
+          $('.everest-tab-main-wrapper').each(function(){
+            if($(this).hasClass('etab-top-compact-position') || $(this).hasClass('etab-bottom-compact-position')){
+             // var tabwidth = $(this).find('.etab-header-wrap').outerWidth();
+              //var win_width = $(window).width();
+              //var widthPercent = (parseInt(tabwidth) / parseInt(win_width))*100;
+              var num = $(this).find('.etab-header-wrap .etab-title-tabs li').length;
+              var eachwidth = 100 / parseInt(num);
+              $(this).find('.etab-header-wrap .etab-label').css({
+                width: eachwidth + '%'
+              }); 
             }
 
-            if (!$oldHeading.hasClass('collapsed')) {
-                $parentLi.addClass('active');
-                if ($parentLi.parent().hasClass('dropdown-menu')) {
-                    $parentLi.parent().parent().addClass('active');
-                }
-            } else {
-                $oldHeading.removeClass('collapsed');
+          });
+          }
+     }).resize();
+
+
+      // $('.etab_tab_group .tab-title').click(function() {
+      //   $(this).siblings().removeClass('active');
+      //   $(this).addClass('active');
+      //   $(this).parent('.etab_tab_group ').next('.ap_tab_content').find('.ap_tab').hide();
+      //   var ap_id = $(this).attr('id');
+      //   $(this).parent('.etab_tab_group ').next('.ap_tab_content').find('.' + ap_id).show();
+      // });
+
+       // $('.etab-label').prepend('<div class="etab-header-wrap clearfix"><ul class="etab-title-tabs"></ul></div>');
+      //   $('.etab-group-wrap').each(function() {
+      //   $(this).children('.etab-content-section').find('.etab-label').prependTo($(this).find('.etab-title-tabs'));
+      //   $(this).children('.etab-content-section').wrapAll("<div class='etab-content-wrap' />");
+      //  });
+
+      // $('.etab-group-wrap').each(function() {
+      //   $(this).find('.etab-label:first-child').addClass('etab-active-show');
+      //   $(this).find('.etab-content-section:first-child').addClass('etab-active-content');
+        
+      // });
+       $('.etab-label').each(function() {
+        if( $(this).hasClass('etab-active-show')){
+        var unique_id = $(this).parent().attr('data-id');
+         var id= $(this).attr('id');
+        $(this).closest('.etab-sc-main-wrapper').find('.'+unique_id+'.'+id).addClass("etab-active-content");
+        }     
+       });
+
+
+      // $('.etab-trigger-on_click .etab-header-wrap ul.etab-title-tabs .etab-label').click(function() {
+      //   $(this).siblings().removeClass('etab-active-show');
+      //   $(this).addClass('etab-active-show');
+      //   $(this).parent().parent().next('.etab-content-wrap').find('.etab-content-section').siblings().removeClass('etab-active-content');
+      //   var ap_id = $(this).attr('id');
+      //   var animation = $(this).parent().parent().next('.etab-content-wrap').find('.' + ap_id).data('animation');
+      //   $(this).parent().parent().next('.etab-content-wrap').find('.' + ap_id).addClass('etab-active-content').addClass(animation);
+      //   if($(this).parent().parent().next('.etab-content-wrap').find('.' + ap_id).find('.etab-google-map').length > 0){
+      //        initMap();
+      //    }
+      // });
+
+
+      
+      /*
+       * On Click Tab 
+       */
+      // $('.etab-trigger-on_click .etab-header-wrap ul.etab-title-tabs').on('click','.etab-label',function() {
+      $(".etab-trigger-on_click").on('click', '.etab-label',function(){
+           if(!$(this).hasClass('etab-active-show')){
+            var tabtype = $(this).find('a').attr('data-tabtype');
+            if(tabtype == "component_type"){
+            var tab_id = $(this).attr('id');
+            var tab_parent_id = $(this).parent().data('id');
+            var animation = $(this).closest('.etab-sc-main-wrapper').find('.'+tab_id).data('animation');
+            
+            if($(this).parent().data('deeplinking')){
+                 var hash = '#' + $(this).data('link');
+                 $(this).find('a').attr('href',hash);
             }
 
-            $parentLi.append($panelHeading);
+            $(this).siblings().removeClass('etab-active-show');
+            $(this).addClass("etab-active-show");
+            $(this).closest('.etab-sc-main-wrapper').find('.etab-content-section.'+tab_parent_id).removeClass('etab-active-content');
+            $(this).closest('.etab-sc-main-wrapper').find('.'+tab_id).addClass("etab-active-content").addClass(animation);;
+            if($('.'+tab_id).find('.etab-google-map').length > 0){
+               setTimeout(function () {
+                initMap();
+               }, 1500); 
+            }
+             }
+           }
         });
 
-        if (!$('li').hasClass('active')) {
-            $('li').first().addClass('active')
+       $('.etab-label').each(function(){
+        var hash = '#' + $(this).find('a').attr('href');
+        if(hash == window.location.hash){
+            $(this).click();
         }
+       });    
 
-        var $panelBodies = this.$accordion.find('.js-tabcollapse-panel-body');
-        $panelBodies.each(function(){
-            var $panelBody = $(this),
-                $tabPane = $panelBody.data('bs.tabcollapse.tabpane');
-            $tabPane.append($panelBody.contents().detach());
+       $(window).on('hashchange', function(){
+          //console.log( 'location.hash: ' + location.hash );
+          var hash =  $('.etab-label').find('a[href="'+location.hash+'"]');
+          $(hash).click();
+       });
+
+       /*
+       * On Hover Tab 
+       */
+      $('.etab-trigger-on_hover').on('hover','.etab-label',function() {
+           if(!$(this).hasClass('etab-active-show')){
+            var tabtype = $(this).find('a').attr('data-tabtype');
+            if(tabtype == "component_type"){
+            var tab_id = $(this).attr('id');
+            var tab_parent_id = $(this).parent().data('id');
+            var animation = $(this).closest('.etab-sc-main-wrapper').find('.'+tab_id).data('animation');
+            $(this).siblings().removeClass('etab-active-show');
+            $(this).addClass("etab-active-show");
+            $(this).closest('.etab-sc-main-wrapper').find('.etab-content-section.'+tab_parent_id).removeClass('etab-active-content');
+            $(this).closest('.etab-sc-main-wrapper').find('.'+tab_id).addClass("etab-active-content").addClass(animation);;
+            if($('.'+tab_id).find('.etab-google-map').length > 0){
+               setTimeout(function () {
+                initMap();
+               }, 1500); 
+            }
+            }
+           }
         });
-        this.$accordion.html('');
 
-        if(this.options.updateLinks) {
-            var $tabContents = this.getTabContentElement();
-            $tabContents.find('[data-toggle-was="tab"], [data-toggle-was="pill"]').each(function() {
-                var $el = $(this);
-                var href = $el.attr('href').replace(/-collapse$/g, '');
-                $el.attr({
-                    'data-toggle': $el.attr('data-toggle-was'),
-                    'data-toggle-was': '',
-                    'data-parent': '',
-                    href: href
+       
+        function initMap(var_lati,var_long) {
+            var $maps = $('.etab-google-map');
+            $.each($maps, function (i, value) {
+                var zoom_level = parseInt($(value).data('zoomlevel'));
+                var varlocation = { lat: parseFloat($(value).data('latitude')), lng: parseFloat($(value).data('longitude')) };
+
+                var mapDivId = $(value).attr('id');
+
+                maps[mapDivId] = new google.maps.Map(document.getElementById(mapDivId), {
+                    zoom: zoom_level,
+                    center: varlocation
+                });
+
+                markers[mapDivId] = new google.maps.Marker({
+                    position: varlocation,
+                    map: maps[mapDivId]
                 });
             });
         }
+        initMap();
 
-        this.$tabs.trigger($.Event('shown-tabs.bs.tabcollapse'));
-    };
+ });
 
-    TabCollapse.prototype.getTabContentElement = function(){
-        var $tabContents = $(this.options.tabContentSelector);
-        if($tabContents.length === 0) {
-            $tabContents = this.$tabs.siblings('.tab-content');
-        }
-        return $tabContents;
-    };
-
-    TabCollapse.prototype.showAccordion = function(){
-        this.$tabs.trigger($.Event('show-accordion.bs.tabcollapse'));
-
-        var $headings = this.$tabs.find('li:not(.dropdown) [data-toggle="tab"], li:not(.dropdown) [data-toggle="pill"]'),
-            view = this;
-        $headings.each(function(){
-            var $heading = $(this),
-                $parentLi = $heading.parent();
-            $heading.data('bs.tabcollapse.parentLi', $parentLi);
-            view.$accordion.append(view._createAccordionGroup(view.$accordion.attr('id'), $heading.detach()));
-        });
-
-        if(this.options.updateLinks) {
-            var parentId = this.$accordion.attr('id');
-            var $selector = this.$accordion.find('.js-tabcollapse-panel-body');
-            $selector.find('[data-toggle="tab"], [data-toggle="pill"]').each(function() {
-                var $el = $(this);
-                var href = $el.attr('href') + '-collapse';
-                $el.attr({
-                    'data-toggle-was': $el.attr('data-toggle'),
-                    'data-toggle': 'collapse',
-                    'data-parent': '#' + parentId,
-                    href: href
-                });
-            });
-        }
-
-        this.$tabs.trigger($.Event('shown-accordion.bs.tabcollapse'));
-    };
-
-    TabCollapse.prototype._panelHeadingToTabHeading = function($heading) {
-        var href = $heading.attr('href').replace(/-collapse$/g, '');
-        $heading.attr({
-            'data-toggle': 'tab',
-            'href': href,
-            'data-parent': ''
-        });
-        return $heading;
-    };
-
-    TabCollapse.prototype._tabHeadingToPanelHeading = function($heading, groupId, parentId, active) {
-        $heading.addClass('js-tabcollapse-panel-heading ' + (active ? '' : 'collapsed'));
-        $heading.attr({
-            'data-toggle': 'collapse',
-            'data-parent': '#' + parentId,
-            'href': '#' + groupId
-        });
-        return $heading;
-    };
-
-    TabCollapse.prototype._checkStateOnResize = function(){
-        var view = this;
-        $(window).resize(function(){
-            clearTimeout(view._resizeTimeout);
-            view._resizeTimeout = setTimeout(function(){
-                view.checkState();
-            }, 100);
-        });
-    };
-
-
-    TabCollapse.prototype._initAccordion = function(){
-        var randomString = function() {
-            var result = "",
-                possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            for( var i=0; i < 5; i++ ) {
-                result += possible.charAt(Math.floor(Math.random() * possible.length));
-            }
-            return result;
-        };
-
-        var srcId = this.$tabs.attr('id'),
-            accordionId = (srcId ? srcId : randomString()) + '-accordion';
-
-        this.$accordion = $('<div class="panel-group ' + this.options.accordionClass + '" id="' + accordionId +'"></div>');
-        this.$tabs.after(this.$accordion);
-        this.$tabs.addClass(this.options.tabsClass);
-        this.getTabContentElement().addClass(this.options.tabsClass);
-    };
-
-    TabCollapse.prototype._createAccordionGroup = function(parentId, $heading){
-        var tabSelector = $heading.attr('data-target'),
-            active = $heading.data('bs.tabcollapse.parentLi').is('.active');
-
-        if (!tabSelector) {
-            tabSelector = $heading.attr('href');
-            tabSelector = tabSelector && tabSelector.replace(/.*(?=#[^\s]*$)/, ''); //strip for ie7
-        }
-
-        var $tabPane = $(tabSelector),
-            groupId = $tabPane.attr('id') + '-collapse',
-            $panel = $(this.options.accordionTemplate($heading, groupId, parentId, active));
-        $panel.find('.panel-heading > .panel-title').append(this._tabHeadingToPanelHeading($heading, groupId, parentId, active));
-        $panel.find('.panel-body').append($tabPane.contents().detach())
-            .data('bs.tabcollapse.tabpane', $tabPane);
-
-        return $panel;
-    };
-
-
-
-    // TABCOLLAPSE PLUGIN DEFINITION
-    // =======================
-
-    $.fn.tabCollapse = function (option) {
-        return this.each(function () {
-            var $this   = $(this);
-            var data    = $this.data('bs.tabcollapse');
-            var options = $.extend({}, TabCollapse.DEFAULTS, $this.data(), typeof option === 'object' && option);
-
-            if (!data) $this.data('bs.tabcollapse', new TabCollapse(this, options));
-        });
-    };
-
-    $.fn.tabCollapse.Constructor = TabCollapse;
-
-
-}(window.jQuery);
 
 
 

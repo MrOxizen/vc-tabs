@@ -131,12 +131,7 @@ class Render {
             else:
                 $this->oxiid = rand(100000, 200000);
             endif;
-            if (!empty($dbdata['rawdata'])):
                 $this->loader();
-            else:
-                $this->old_loader();
-            endif;
-
         endif;
     }
 
@@ -152,14 +147,7 @@ class Render {
         $this->hooks();
     }
 
-    /**
-     * load old data since 3.2.0
-     *
-     * @since 3.3.0
-     */
-    public function old_loader() {
-        $this->old_render();
-    }
+    
 
     /**
      * load css and js hooks
@@ -217,15 +205,6 @@ class Render {
         wp_enqueue_style('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/css/style.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxi-tabs-' . strtolower($this->style_name), OXI_TABS_URL . 'Render/Files/' . strtolower($this->style_name) . '.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/js/tabs.js', false, OXI_TABS_PLUGIN_VERSION);
-    }
-
-    /**
-     * old empty old render
-     *
-     * @since 3.3.0
-     */
-    public function old_render() {
-        echo '';
     }
 
     /**
