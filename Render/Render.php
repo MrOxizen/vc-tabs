@@ -131,7 +131,7 @@ class Render {
             else:
                 $this->oxiid = rand(100000, 200000);
             endif;
-                $this->loader();
+            $this->loader();
         endif;
     }
 
@@ -146,8 +146,6 @@ class Render {
         $this->WRAPPER = 'oxi-tabs-wrapper-' . $this->dbdata['id'];
         $this->hooks();
     }
-
-    
 
     /**
      * load css and js hooks
@@ -298,18 +296,6 @@ class Render {
         return do_shortcode(str_replace('spTac', '&nbsp;', str_replace('spBac', '<br>', html_entity_decode($data))), $ignore_html = false);
     }
 
-    public function font_awesome_render($data) {
-        if (empty($data) || $data == ''):
-            return;
-        endif;
-        $fadata = get_option('oxi_addons_font_awesome');
-        if ($fadata == 'yes'):
-            wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
-        endif;
-        $files = '<i class="' . $data . ' oxi-icons"></i>';
-        return $files;
-    }
-
     public function CatStringToClassReplacce($string, $number = '000') {
         $entities = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', "t");
         $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", " ");
@@ -329,10 +315,29 @@ class Render {
         return $link;
     }
 
-    public function data_js_url_render($id, $style) {
-        $data = $this->url_render($id, $style);
-        if (count($data) >= 1):
-            return ' data-link=\'' . json_encode($data) . '\'';
+    public function media_render($id, $style) {
+        $url = '';
+        if (array_key_exists($id . '-select', $style)):
+            if ($style[$id . '-select'] == 'media-library'):
+                $url = $style[$id . '-image'];
+            else:
+                $url = $style[$id . '-url'];
+            endif;
+            if (array_key_exists($id . '-image-alt', $style) && $style[$id . '-image-alt'] != ''):
+                $r = 'src="' . $url . '" alt="' . $style[$id . '-image-alt'] . '" ';
+            else:
+                $r = 'src="' . $url . '" ';
+            endif;
+            return $r;
+        endif;
+    }
+
+    public function tabs_url_render($style) {
+        if ($style['oxi-tabs-modal-components-type'] == 'link'):
+            $data = $this->url_render('oxi-tabs-modal-link', $style);
+            if (count($data) >= 1):
+                return ' data-link=\'' . json_encode($data) . '\'';
+            endif;
         endif;
     }
 
@@ -344,9 +349,48 @@ class Render {
         return $data;
     }
 
-    public function title_special_charecter($data) {
+    public function title_special_charecter($array, $title, $subtitle) {
+        $r = '<div class=\'oxi-tabs-header-li-title\'>';
+
+        $t = false;
+        if (!empty($array[$title]) && $array[$title] != ''):
+            $t = true;
+            $r .= '<div class=\'oxi-tabs-main-title\'>' . $this->special_charecter($array[$title]) . '</div>';
+        endif;
+        if (!empty($array[$subtitle]) && $array[$subtitle] != ''):
+            $t = true;
+            $r .= '<div class=\'oxi-tabs-sub-title\'>' . $this->special_charecter($array[$subtitle]) . '</div>';
+        endif;
+        $r .= '</div>';
+
+
+        if ($t):
+            return $r;
+        endif;
+    }
+
+    public function number_special_charecter($data) {
         if (!empty($data) && $data != ''):
-            return '<div class=\'oxi-tabs-header-li-title\'>' . $this->special_charecter($data) . '</div>';
+            return '<div class=\'oxi-tabs-header-li-number\'>' . $this->special_charecter($data) . '</div>';
+        endif;
+    }
+
+    public function font_awesome_render($data) {
+        if (empty($data) || $data == ''):
+            return;
+        endif;
+        $fadata = get_option('oxi_addons_font_awesome');
+        if ($fadata == 'yes'):
+            wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
+        endif;
+        $files = '<i class="' . $data . ' oxi-icons"></i>';
+        return $files;
+    }
+
+    public function image_special_render($id = '', $array = []) {
+        $value = $this->media_render($id, $array);
+        if (!empty($value)):
+            return ' <img  class=\'oxi-tabs-header-li-image\' ' . $value . '>';
         endif;
     }
 

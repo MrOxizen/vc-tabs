@@ -29,7 +29,7 @@ class Helper extends Admin {
             elseif ($i == 2):
                 $r[':eq(' . $i . ')'] = '3rd';
             else:
-                $r[':eq(' . $i . ')'] = ($i+ 1).'th';
+                $r[':eq(' . $i . ')'] = ($i + 1) . 'th';
             endif;
         }
         $r[':eq(100)'] = 'None';
@@ -116,10 +116,10 @@ class Helper extends Admin {
             'operator' => Controls::OPERATOR_TEXT,
             'default' => '',
             'options' => [
-                '1' => [
+                'oxi-tabs-click-event' => [
                     'title' => __('Click', OXI_TABS_TEXTDOMAIN),
                 ],
-                '' => [
+                'oxi-tabs-hover-event' => [
                     'title' => __('Hover', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
@@ -171,6 +171,9 @@ class Helper extends Admin {
                     'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
             'description' => 'Set Your Tabs Alignment as Horizontal or Vertical.',
                 ]
         );
@@ -191,25 +194,29 @@ class Helper extends Admin {
                 'oxi-tab-header-bottom-center-position' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
                 'oxi-tab-header-bottom-compact-position' => __('Bottom Compact', OXI_TABS_TEXTDOMAIN),
             ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
             'description' => 'Set Your Tabs Header Horizontal Position.',
                 ]
         );
         $this->add_control(
                 'oxi-tabs-heading-vertical-position', $this->style, [
-            'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
+            'label' => __('Vertical Position', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'condition' => [
                 'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
             ],
             'options' => [
-                'oxi-tab-header-top-left-position' => __('Top Left', OXI_TABS_TEXTDOMAIN),
-                'oxi-tab-header-top-right-position' => __('Top Right', OXI_TABS_TEXTDOMAIN),
-                'oxi-tab-header-top-center-position' => __('Top Center', OXI_TABS_TEXTDOMAIN),
-                'oxi-tab-header-top-compact-position' => __('Top Compact', OXI_TABS_TEXTDOMAIN),
-                'oxi-tab-header-bottom-left-position' => __('Bottom Left', OXI_TABS_TEXTDOMAIN),
-                'oxi-tab-header-bottom-right-position' => __('Bottom Right', OXI_TABS_TEXTDOMAIN),
-                'oxi-tab-header-bottom-center-position' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
-                'oxi-tab-header-bottom-compact-position' => __('Bottom Compact', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-left-top-position' => __('Left Top', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-left-center-position' => __('Left Center', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-left-bottom-position' => __('Left Bottom', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-right-right-position' => __('Right Top', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-right-center-position' => __('Right Center', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-right-bottom-position' => __('Right Bottom', OXI_TABS_TEXTDOMAIN),
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
             ],
             'description' => 'Set Your Tabs Header Vertical Position.',
                 ]
@@ -217,7 +224,7 @@ class Helper extends Admin {
 
         $this->add_responsive_control(
                 'oxi-tabs-gen-vertical-width', $this->style, [
-            'label' => __('Tabs Width', OXI_TABS_TEXTDOMAIN),
+            'label' => __('Header Width', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => '%',
@@ -244,7 +251,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-            //   '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li' => 'max-width:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tab-header-vertical .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Customize Header Width with several options as Pixel, Percent or EM.',
                 ]
@@ -284,6 +291,22 @@ class Helper extends Admin {
             'showing' => TRUE,
                 ]
         );
+        $this->add_control(
+                'oxi-tabs-head-aditional-location', $this->style, [
+            'label' => __('Title Additional Location', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'options' => [
+                'oxi-tab-header-aditional-left-position' => __('Left', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-aditional-top-position' => __('Top', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-aditional-right-position' => __('Right', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-aditional-bottom-position' => __('Bottom', OXI_TABS_TEXTDOMAIN),
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-header-li' => '',
+            ],
+            'description' => 'Set Your Tabs Header Title Additional Location like Icon or Image or Number.',
+                ]
+        );
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
                 [
@@ -294,7 +317,6 @@ class Helper extends Admin {
                 ]
         );
 
-
         $this->start_controls_tab();
         $this->add_control(
                 'oxi-tabs-head-bg', $this->style, [
@@ -302,7 +324,7 @@ class Helper extends Admin {
             'type' => Controls::GRADIENT,
             'default' => 'rgba(171, 0, 201, 1)',
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'background: {{VALUE}};',
             ],
             'description' => 'Background property is used to set the Background of the Header.',
                 ]
@@ -318,8 +340,8 @@ class Helper extends Admin {
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li:hover' => 'background: {{VALUE}};',
             ],
             'description' => 'Background property is used to set the active or hover background of the Header.',
                 ]
@@ -338,7 +360,7 @@ class Helper extends Admin {
                         'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
                     ],
                     'selector' => [
-                        '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li' => 'border-right: {{SIZE}}px {{TYPE}} {{COLOR}};'
+                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border-right: {{SIZE}}px {{TYPE}} {{COLOR}};'
                     ],
                     'description' => 'Inner Border property is used to set Border Right with Color of the Header.',
                 ]
@@ -347,7 +369,7 @@ class Helper extends Admin {
                 'oxi-tabs-head-boxshadow', $this->style, [
             'type' => Controls::BOXSHADOW,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => '',
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => '',
             ],
             'description' => 'Allows you to attaches one or more shadows into Header Section.',
                 ]
@@ -358,7 +380,7 @@ class Helper extends Admin {
                 [
                     'type' => Controls::BORDER,
                     'selector' => [
-                        '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => ''
+                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => ''
                     ],
                     'description' => 'Border property is used to set the Border of the Header Section.',
                 ]
@@ -389,7 +411,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Allows you to add rounded corners to Header Section with options.',
                 ]
@@ -420,7 +442,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Padding used to generate space around Header Content include background color.',
                 ]
@@ -451,7 +473,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Margin properties are used to create space outside Header Section.',
                 ]
@@ -470,9 +492,9 @@ class Helper extends Admin {
         $this->add_group_control(
                 'oxi-tabs-head-title-typho', $this->style, [
             'type' => Controls::TYPOGRAPHY,
-            'include' => Controls::ALIGNFLEX,
+            'include' => Controls::ALIGNNORMAL,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-main-title' => '',
             ]
                 ]
         );
@@ -493,7 +515,7 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'default' => '#ffffff',
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-main-title' => 'color: {{VALUE}};',
             ],
             'description' => 'Color property is used to set the color of the Title.',
                 ]
@@ -502,7 +524,7 @@ class Helper extends Admin {
                 'oxi-tabs-head-title-tx-shadow', $this->style, [
             'type' => Controls::TEXTSHADOW,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-main-title' => '',
             ],
             'description' => 'Text Shadow property adds shadow to Title.',
                 ]
@@ -515,8 +537,8 @@ class Helper extends Admin {
             'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-main-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-main-title' => 'color: {{VALUE}};',
             ],
             'description' => 'Color property is used to set the active or hover color of the Title.',
                 ]
@@ -525,8 +547,8 @@ class Helper extends Admin {
                 'oxi-tabs-head-title-ac-tx-shadow', $this->style, [
             'type' => Controls::TEXTSHADOW,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active .oxi-tabs-header-li-title' => '',
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-main-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-main-title' => '',
             ],
             'description' => 'Text Shadow property add shadow to active or hover Title.',
                 ]
@@ -561,7 +583,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-main-title' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Margin properties are used to create space outside Title.',
                 ]
@@ -580,9 +602,9 @@ class Helper extends Admin {
         $this->add_group_control(
                 'oxi-tabs-head-sub-title-typho', $this->style, [
             'type' => Controls::TYPOGRAPHY,
-            'include' => Controls::ALIGNFLEX,
+            'include' => Controls::ALIGNNORMAL,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-sub-title' => '',
             ]
                 ]
         );
@@ -603,7 +625,7 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'default' => '#ffffff',
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-sub-title' => 'color: {{VALUE}};',
             ],
             'description' => 'Color property is used to set the color of Sub Title.',
                 ]
@@ -612,7 +634,7 @@ class Helper extends Admin {
                 'oxi-tabs-head-sub-title-tx-shadow', $this->style, [
             'type' => Controls::TEXTSHADOW,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-sub-title' => '',
             ],
             'description' => 'Text Shadow property adds shadow to Sub Title.',
                 ]
@@ -625,8 +647,8 @@ class Helper extends Admin {
             'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-sub-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-sub-title' => 'color: {{VALUE}};',
             ],
             'description' => 'Color property is used to set the active or hover color of Sub Title.',
                 ]
@@ -635,8 +657,8 @@ class Helper extends Admin {
                 'oxi-tabs-head-sub-title-ac-tx-shadow', $this->style, [
             'type' => Controls::TEXTSHADOW,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active .oxi-tabs-header-li-title' => '',
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-sub-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-sub-title' => '',
             ],
             'description' => 'Text Shadow property add shadow to active or hover at Sub Title.',
                 ]
@@ -671,7 +693,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-sub-title' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Margin properties are used to create space outside Sub Title.',
                 ]
@@ -735,7 +757,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'width:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Allows you to Set Icon Width.',
                 ]
@@ -769,7 +791,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'height:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Allows you to Set Icon Height.',
                 ]
@@ -824,7 +846,7 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'default' => '#ffffff',
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'color: {{VALUE}};',
             ],
             'description' => 'Color property is used to set the color of the Icon.',
                 ]
@@ -837,7 +859,7 @@ class Helper extends Admin {
                 'oxi-tabs-head-icon-position' => 'customizable',
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'background: {{VALUE}};',
             ],
             'description' => 'Customize Icon Background with Color or Gradient or Image properties.',
                 ]
@@ -863,8 +885,8 @@ class Helper extends Admin {
             'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => 'color: {{VALUE}};',
             ],
             'description' => 'Color property is used to set the active or hover color of the Icon.',
                 ]
@@ -877,7 +899,8 @@ class Helper extends Admin {
                 'oxi-tabs-head-icon-position' => 'customizable',
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
+                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => 'background: {{VALUE}};',
             ],
             'description' => 'Customize Icon Background with Color or Gradient or Image properties.',
                 ]
@@ -890,7 +913,8 @@ class Helper extends Admin {
                 'oxi-tabs-head-icon-position' => 'customizable',
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
+                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => '',
             ],
             'description' => 'Border property is used to set the Border of the Icon.',
                 ]
@@ -960,7 +984,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Margin properties are used to create space outside Icon.',
                 ]
@@ -977,7 +1001,7 @@ class Helper extends Admin {
                 ]
         );
         $this->add_control(
-                'oxi-tabs-head-number-position',
+                'oxi-tabs-head-number-interface',
                 $this->style,
                 [
                     'label' => __('Customization Interface', OXI_TABS_TEXTDOMAIN),
@@ -1001,7 +1025,7 @@ class Helper extends Admin {
             'label' => __('Width', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'condition' => [
-                'oxi-tabs-head-number-position' => 'customizable',
+                'oxi-tabs-head-number-interface' => 'customizable',
             ],
             'default' => [
                 'unit' => 'px',
@@ -1025,7 +1049,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'width:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Allows you to Set Number Body Width.',
                 ]
@@ -1035,7 +1059,7 @@ class Helper extends Admin {
             'label' => __('Height', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'condition' => [
-                'oxi-tabs-head-number-position' => 'customizable',
+                'oxi-tabs-head-number-interface' => 'customizable',
             ],
             'default' => [
                 'unit' => 'px',
@@ -1059,7 +1083,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'height:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Allows you to Set Number Body Height.',
                 ]
@@ -1068,9 +1092,8 @@ class Helper extends Admin {
         $this->add_group_control(
                 'oxi-tabs-head-number-typho', $this->style, [
             'type' => Controls::TYPOGRAPHY,
-            'include' => Controls::ALIGNFLEX,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => '',
             ]
                 ]
         );
@@ -1092,7 +1115,7 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'default' => '#ffffff',
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'color: {{VALUE}};',
             ],
             'description' => 'Color property is used to set the color of the Number.',
                 ]
@@ -1102,10 +1125,10 @@ class Helper extends Admin {
             'type' => Controls::GRADIENT,
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'condition' => [
-                'oxi-tabs-head-number-position' => 'customizable',
+                'oxi-tabs-head-number-interface' => 'customizable',
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'background:{{VALUE}};',
             ],
             'description' => 'Customize Number Background with Color or Gradient properties.',
                 ]
@@ -1115,10 +1138,10 @@ class Helper extends Admin {
                 'oxi-tabs-head-number-border', $this->style, [
             'type' => Controls::BORDER,
             'condition' => [
-                'oxi-tabs-head-number-position' => 'customizable',
+                'oxi-tabs-head-number-interface' => 'customizable',
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => '',
             ],
             'description' => 'Border property is used to set the Border of the Number Body.',
                 ]
@@ -1131,8 +1154,8 @@ class Helper extends Admin {
             'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-number' => 'color: {{VALUE}};',
             ],
             'description' => 'Color property is used to set the active or hover color of the Number.',
                 ]
@@ -1142,10 +1165,11 @@ class Helper extends Admin {
             'type' => Controls::GRADIENT,
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'condition' => [
-                'oxi-tabs-head-number-position' => 'customizable',
+                'oxi-tabs-head-number-interface' => 'customizable',
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => 'background:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-number' => 'background:{{VALUE}};',
             ],
             'description' => 'Customize Number Background with Color or Gradient properties.',
                 ]
@@ -1155,10 +1179,11 @@ class Helper extends Admin {
                 'oxi-tabs-head-number-ac-border', $this->style, [
             'type' => Controls::BORDER,
             'condition' => [
-                'oxi-tabs-head-number-position' => 'customizable',
+                'oxi-tabs-head-number-interface' => 'customizable',
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-number' => '',
             ],
             'description' => 'Border property is used to set the Border of the Number.',
                 ]
@@ -1172,7 +1197,7 @@ class Helper extends Admin {
             'label' => __('Border Radius', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::DIMENSIONS,
             'condition' => [
-                'oxi-tabs-head-number-position' => 'customizable',
+                'oxi-tabs-head-number-interface' => 'customizable',
             ],
             'default' => [
                 'unit' => 'px',
@@ -1196,7 +1221,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Allows you to add rounded corners to Number Body with 4 values.',
                 ]
@@ -1228,7 +1253,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Margin properties are used to create space outside Number.',
                 ]
@@ -1269,7 +1294,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'width:{{SIZE}}{{UNIT}}; height:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-li-image' => 'width:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Allows you to Set Image Width.',
                 ]
@@ -1288,7 +1313,7 @@ class Helper extends Admin {
                 'oxi-tabs-head-image-border', $this->style, [
             'type' => Controls::BORDER,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-li-image' => '',
             ],
             'description' => 'Border property is used to set the Border of the Image.',
                 ]
@@ -1300,7 +1325,8 @@ class Helper extends Admin {
                 'oxi-tabs-head-image-ac-border', $this->style, [
             'type' => Controls::BORDER,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-image' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-image' => '',
             ],
             'description' => 'Border property is used to set the Border of the Image.',
                 ]
@@ -1335,7 +1361,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-image' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Allows you to add rounded corners to Image with 4 values.',
                 ]
@@ -1367,7 +1393,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-image' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Margin properties are used to create space outside Image.',
                 ]
@@ -1409,8 +1435,7 @@ class Helper extends Admin {
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => 'background: {{VALUE}};',
             ],
             'description' => 'Background property is used to set background of Content.',
                 ]
@@ -1420,7 +1445,7 @@ class Helper extends Admin {
                 'oxi-tabs-desc-general-boxshadow', $this->style, [
             'type' => Controls::BOXSHADOW,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => '',
             ],
             'description' => 'Allows you to attaches one or more shadows into Content Body.',
                 ]
@@ -1431,7 +1456,7 @@ class Helper extends Admin {
                 [
                     'type' => Controls::BORDER,
                     'selector' => [
-                        '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => ''
+                        '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => ''
                     ],
                     'description' => 'Border property is used to set the Border of Content Body.',
                 ]
@@ -1462,7 +1487,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Allows you to add rounded corners to Content Body with options.',
                 ]
@@ -1493,7 +1518,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Padding used to generate space around Content Body include background color.',
                 ]
@@ -1524,7 +1549,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content-wrap' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Margin properties are used to create space outside Content Body.',
                 ]
@@ -1544,9 +1569,10 @@ class Helper extends Admin {
         $this->add_group_control(
                 'oxi-tabs-desc-content-typho', $this->style, [
             'type' => Controls::TYPOGRAPHY,
-            'include' => Controls::ALIGNFLEX,
+            'include' => Controls::ALIGNNORMAL,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => '',
             ]
                 ]
         );
@@ -1556,7 +1582,8 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'default' => '#ffffff',
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li-title' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => 'color: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => 'color: {{VALUE}};',
             ],
             'description' => 'Color property is used to set the color of the Heading.',
                 ]
@@ -1565,10 +1592,41 @@ class Helper extends Admin {
                 'oxi-tabs-desc-content-tx-shadow', $this->style, [
             'type' => Controls::TEXTSHADOW,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li.active .oxi-tabs-header-li-title' => '',
-                '{{WRAPPER}} .oxi-tabs-ultimate-template-1 .oxi-tabs-header-li:hover .oxi-tabs-header-li-title' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => '',
             ],
             'description' => 'Text Shadow property add shadow to active or hover heading.',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-content-padding', $this->style, [
+            'label' => __('Content Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Content Padding with Peragraph Tag.',
                 ]
         );
         $this->end_controls_section();

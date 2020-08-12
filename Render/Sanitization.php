@@ -239,7 +239,14 @@ trait Sanitization {
      * @since 3.3.0
      */
 
-    public function start_popover_control($id, array $arg = []) {
+    public function start_popover_control($id, array $arg = [], $data = []) {
+        if ($this->render_condition_control($id, $data, $arg)):
+            $this->Popover_Condition = true;
+        else:
+            $this->Popover_Condition = false;
+        endif;
+
+
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
         echo '  <div class="shortcode-form-control shortcode-control-type-popover ' . $separator . '" ' . $condition . '>
@@ -265,6 +272,7 @@ trait Sanitization {
      */
 
     public function end_popover_control() {
+        $this->Popover_Condition = true;
         echo '</div></div>';
     }
 
@@ -673,11 +681,11 @@ trait Sanitization {
         $retun = [];
 
 
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
                     $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
-                    if (!empty($value) && !empty($val) && $arg['render'] == TRUE) {
+                    if (!empty($value) && !empty($val) && $arg['render'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{VALUE}}', $value, $val);
                         if (strpos($file, '{{') !== FALSE):
@@ -731,11 +739,11 @@ trait Sanitization {
 
 
         $operator = array_key_exists('operator', $arg) ? $arg['operator'] : 'text';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
                     $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
-                    if (!empty($val)) {
+                    if (!empty($val) && $this->render_condition_control($id, $data, $arg)) {
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{VALUE}}', $value, $val);
                         if (strpos($file, '{{') !== FALSE):
@@ -770,7 +778,9 @@ trait Sanitization {
      */
 
     public function render_condition_control($id, array $data = [], array $arg = []) {
-
+        if (!$this->Popover_Condition):
+            return false;
+        endif;
         if (array_key_exists('condition', $arg)):
             foreach ($arg['condition'] as $key => $value) {
                 if (array_key_exists('conditional', $arg) && $arg['conditional'] == 'outside'):
@@ -915,7 +925,7 @@ trait Sanitization {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
                     if ($arg['render'] == TRUE) :
@@ -956,7 +966,7 @@ trait Sanitization {
         $unlink = (count(array_unique($ar)) === 1 ? '' : 'link-dimensions-unlink');
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
-                if (isset($top) && isset($right) && isset($bottom) && isset($left)) :
+                if (is_numeric($top) && is_numeric($right) && is_numeric($bottom) && is_numeric($left) && $this->render_condition_control($id, $data, $arg)) :
                     foreach ($arg['selector'] as $key => $val) {
                         $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
@@ -1863,6 +1873,7 @@ trait Sanitization {
             'description' => $arg['description'],
                 ]
         );
+
         $this->add_control(
                 $id . '-type', $data, [
             'label' => __('Type', OXI_TABS_TEXTDOMAIN),
@@ -1919,12 +1930,12 @@ trait Sanitization {
             'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
             $render => FALSE,
-            'default' => '',
+            'default' => '#fff',
             $loader => $loadervalue,
             $selectorvalue => 'border-color: {{VALUE}};',
             $selector_key => $selector,
             'condition' => [
-                $id . '-type' => 'EMPTY',
+                $id . '-type' => 'EMPTY'
             ],
                 ]
         );
@@ -1971,7 +1982,8 @@ trait Sanitization {
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
             'description' => $arg['description'],
-                ]
+                ],
+                $data
         );
         $this->add_control(
                 $id . '-type', $data, [

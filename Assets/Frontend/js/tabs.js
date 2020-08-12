@@ -148,34 +148,39 @@
 jQuery.noConflict();
 (function ($) {
     $(document).ready(function () {
-
+        /* Check Url if there have any ID*/
         var trigger = '', hash_link = window.location.hash;
         if (hash_link.includes("oxi-tabs-trigger-")) {
-            var trigger = hash_link, a = trigger.split("-"), p = a[3], c = a[4];
-            OxiTabsController(p, c);
+            var trigger = hash_link, explode = trigger.split("-"), parent = explode[3], child = explode[4];
+            OxiTabsController(parent, child);
         }
+
+        /* Install All Tabs*/
         if (trigger === '') {
             $('[class*=oxi-tabs-wrapper-]').each(function () {
-                var This = $(this), id = This.attr('id'), a = id.split("-"), p = a[3];
-                OxiTabsController(p);
+                var This = $(this), id = This.attr('id'), explode = id.split("-"), parent = explode[3];
+                OxiTabsController(parent);
             });
         }
+
+        /* Re-Install Tabs While Style Data Saved*/
         $('#style-changing-trigger').change(function () {
             $("#oxi-addons-preview-data").find("*").off();
             $('[class*=oxi-tabs-wrapper-]').each(function () {
-                var This = $(this), id = This.attr('id'), a = id.split("-"), p = a[3];
-                OxiTabsController(p);
+                var This = $(this), id = This.attr('id'), explode = id.split("-"), parent = explode[3];
+                OxiTabsController(parent);
             });
         });
-
+        /* Check any btn click for confirm event for tabs*/
         $(document).on('click', '[id^="oxi-tabs-trigger-"]', function () {
-            var t = $(this).attr('id'), a = t.split("-"), p = a[3], c = a[4];
-            OxiTabsController(p, c);
+            var wrapper = $(this).attr('id'), explode = wrapper.split("-"), parent = explode[3], child = explode[4];
+            OxiTabsController(parent, child);
         });
+
+
+        /* Tabs Header Hover  Data Confirmation*/
         
-        
-        
-        $(document).on('click', '.oxi-tabs-header-li', function () {
+        $(document).on('click', '.oxi-tabs-hover-event .oxi-tabs-header-li', function () {
             var link = $(this).data("link"), variable = '';
             if ((typeof link !== typeof undefined && link !== false) && typeof variable === '#oxi-addons-preview-data') {
                 var target = '_self';
@@ -184,12 +189,28 @@ jQuery.noConflict();
                 }
                 window.open("" + link.url + "", "" + target + "");
             } else {
-                var t = $(this).attr('ref'), a = t.split("-"), p = a[3], c = a[4];
-                OxiTabsController(p, c);
+                var t = $(this).attr('ref'), explode = t.split("-"), parent = explode[3], child = explode[4];
+                OxiTabsController(parent, child);
             }
         });
         
+        /* Tabs Header Click Data Confirmation*/
         
+        $(document).on('click', '.oxi-tabs-click-event .oxi-tabs-header-li', function () {
+            var link = $(this).data("link"), variable = '';
+            if ((typeof link !== typeof undefined && link !== false) && typeof variable === '#oxi-addons-preview-data') {
+                var target = '_self';
+                if (link.target === 'yes') {
+                    var target = ", '_blank'";
+                }
+                window.open("" + link.url + "", "" + target + "");
+            } else {
+                var t = $(this).attr('ref'), explode = t.split("-"), parent = explode[3], child = explode[4];
+                OxiTabsController(parent, child);
+            }
+        });
+
+
         function OxiTabsController(p = '', c = '') {
             var cls = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style";
             var title = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-header-li";

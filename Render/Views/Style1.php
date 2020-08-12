@@ -36,30 +36,56 @@ class Style1 extends Render {
     public function default_render($style, $child, $admin) {
         $data = [
             'header' => get_option('oxi_addons_fixed_header_size'),
-            'animation' => array_key_exists('oxi-tabs-animation', $style) ? $style['oxi-tabs-animation'] : '',
-            'initial' => array_key_exists('oxi-tabs-opening', $style) ? $style['oxi-tabs-opening'] : '',
-            'trigger' => array_key_exists('oxi-tabs-trigger', $style) ? $style['oxi-tabs-trigger'] : ''
+            'animation' => array_key_exists('oxi-tabs-gen-animation', $style) ? $style['oxi-tabs-gen-animation'] : '',
+            'initial' => array_key_exists('oxi-tabs-gen-opening', $style) ? $style['oxi-tabs-gen-opening'] : '',
+            'trigger' => array_key_exists('oxi-tabs-gen-trigger', $style) ? $style['oxi-tabs-gen-trigger'] : ''
         ];
-        echo '  <div class=\'oxi-tabs-ultimate-style oxi-tabs-ultimate-template-1\' data-oxi-tabs=\'' . json_encode($data) . '\'>
-                    <div class="oxi-tabs-ultimate-header">';
+        
+        echo '<div class="oxi-tabs-ultimate-style oxi-tabs-ultimate-template-1 ' . $style['oxi-tabs-gen-event'] . ' ' . $style['oxi-tabs-heading-alignment'] . ' ' . $style['oxi-tabs-heading-horizontal-position'] . ' ' . $style['oxi-tabs-heading-vertical-position'] . ' oxi-tab-clearfix" data-oxi-tabs=\'' . json_encode($data) . '\'>';
+        
+        /*
+         * Header Child Loop Start
+         */
+        echo '   <div class="oxi-tabs-ultimate-header-wrap">';
+        echo '        <div class="oxi-tabs-ultimate-header oxi-tab-clearfix">';
         foreach ($child as $key => $val) {
             $value = json_decode(stripslashes($val['rawdata']), true);
-            echo '<div class=\'oxi-tabs-header-li oxi-tabs-header-li-' . $this->oxiid . '-' . $val['id'] . '\' ref=\'#oxi-tabs-trigger-' . $this->oxiid . '-' . $val['id'] . '\' ' . $this->data_js_url_render('oxi-tabs-modal-link', $value) . '>
-                       ' . $this->font_awesome_render($value['oxi-tabs-modal-icon']) . $this->title_special_charecter($value['oxi-tabs-modal-title']);
+            echo '<div class=\'oxi-tabs-header-li '.$style['oxi-tabs-head-aditional-location'].' oxi-tabs-header-li-' . $this->oxiid . '-' . $val['id'] . '\' ref=\'#oxi-tabs-trigger-' . $this->oxiid . '-' . $val['id'] . '\' ' . $this->tabs_url_render($value) . '>';
+            if ($value['oxi-tabs-modal-title-additional'] == 'icon'):
+                echo $this->font_awesome_render($value['oxi-tabs-modal-icon']);
+            elseif ($value['oxi-tabs-modal-title-additional'] == 'number'):
+                echo $this->number_special_charecter($value['oxi-tabs-modal-number']);
+            elseif ($value['oxi-tabs-modal-title-additional'] == 'image'):
+                echo $this->image_special_render('oxi-tabs-modal-image', $value);
+            endif;
+            echo $this->title_special_charecter($value, 'oxi-tabs-modal-title', 'oxi-tabs-modal-sub-title');
             echo '</div>';
         }
+        echo '      </div> ';
+        echo '  </div> ';
 
-        echo '      </div> 
-                    <div class="oxi-tabs-ultimate-content">';
+        /*
+         * Header Child Loop End 
+         */
+        /*
+         * Content Body Loop Start
+         */
+        echo '  <div class="oxi-tabs-ultimate-content-wrap">';
+        echo '      <div class="oxi-tabs-ultimate-content">';
+
         foreach ($child as $key => $val) {
             $value = json_decode(stripslashes($val['rawdata']), true);
-            echo '      <div class="oxi-tabs-body-tabs  ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $val['id'] . '">
+            echo '      <div class="oxi-tabs-body-tabs ' . $style['oxi-tabs-gen-animation'] . ' ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $val['id'] . '">
                             ' . $this->special_charecter($value['oxi-tabs-modal-desc']) . '
                             ' . $this->admin_edit_panel($val['id']) . '     
                         </div>';
         }
-        echo '      </div>
-                </div>';
+        echo '      </div>';
+        echo '  </div>';
+        /*
+         * Content Body Loop End
+         */
+        echo '</div>';
     }
 
 }

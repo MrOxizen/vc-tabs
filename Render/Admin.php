@@ -122,6 +122,13 @@ class Admin {
      */
     public $StyleName;
 
+    /**
+     * Define Oxilab Tabs  Elements Type
+     *
+     * @since 3.3.0
+     */
+    public $Popover_Condition = true;
+
     public function __construct($type = '') {
         global $wpdb;
         $this->wpdb = $wpdb;

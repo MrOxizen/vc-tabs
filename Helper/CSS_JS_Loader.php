@@ -72,8 +72,20 @@ trait CSS_JS_Loader {
         wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . 'assets/backend/css/jquery.fontselect.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-addons-vendor', OXI_TABS_URL . 'assets/backend/js/vendor.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-editor', OXI_TABS_URL . 'assets/backend/js/editor.js', false, OXI_TABS_PLUGIN_VERSION);
+        $this->admin_media_scripts();
     }
 
+     /**
+     * Admin Media Scripts.
+     * Most of time using into Style Editing Page
+     * 
+     * @since 9.3.0
+     */
+    public function admin_media_scripts() {
+        wp_enqueue_media();
+        wp_register_script('oxi-tabs_media_scripts', OXI_TABS_URL . '/assets/backend/js/media-uploader.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxi-tabs_media_scripts');
+    }
     public function admin_css_loader() {
         $this->admin_css();
         $this->admin_js();
