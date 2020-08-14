@@ -200,6 +200,7 @@ class Helper extends Admin {
             'description' => 'Set Your Tabs Header Horizontal Position.',
                 ]
         );
+
         $this->add_control(
                 'oxi-tabs-heading-vertical-position', $this->style, [
             'label' => __('Vertical Position', OXI_TABS_TEXTDOMAIN),
@@ -256,6 +257,247 @@ class Helper extends Admin {
             'description' => 'Customize Header Width with several options as Pixel, Percent or EM.',
                 ]
         );
+        $this->add_control(
+                'oxi-tabs-heading-responsive-mode', $this->style, [
+            'label' => __('Responsive Behavior', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                'oxi-tabs-heading-responsive-dynamic' => [
+                    'title' => __('Dynamic', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-responsive-static' => [
+                    'title' => __('Static', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => 'oxi-tabs-heading-responsive-dynamic',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Your Tabs Header Responsive Behavior while Static will give you to set as like as you want.',
+                ]
+        );
+        $this->start_controls_tabs(
+                'oxi-tabs-heading-renponsive-tabs',
+                [
+                    'options' => [
+                        'normal' => esc_html__('Tabs Settings ', OXI_TABS_TEXTDOMAIN),
+                        'hover' => esc_html__('Mobile Settings', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'condition' => [
+                        'oxi-tabs-heading-responsive-mode' => 'oxi-tabs-heading-responsive-static'
+                    ],
+                ]
+        );
+
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-title', $this->style, [
+            'label' => __('Show Title', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-tabs-show-title-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Title Showing Options for Tabs Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-sub-title', $this->style, [
+            'label' => __('Show Title', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-tabs-show-subtitle-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Sub Title Showing Options for Tabs Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-icon', $this->style, [
+            'label' => __('Show Icon', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-tabs-show-icon-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Header Icon Showing Options for Tabs Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-icon', $this->style, [
+            'label' => __('Show Number', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-tabs-show-number-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Header Number Showing Options for Tabs Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-image', $this->style, [
+            'label' => __('Show Image', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-tabs-show-image-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Header Image Showing Options for Tabs Mode.',
+                ]
+        );
+
+
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-title', $this->style, [
+            'label' => __('Show Title', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-mobile-show-title-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Title Showing Options for Mobile Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-sub-title', $this->style, [
+            'label' => __('Show Title', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-mobile-show-subtitle-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Sub Title Showing Options for Tabs Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-icon', $this->style, [
+            'label' => __('Show Icon', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-mobile-show-icon-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Header Icon Showing Options for Mobile Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-icon', $this->style, [
+            'label' => __('Show Number', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-mobile-show-number-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Header Number Showing Options for Mobile Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-image', $this->style, [
+            'label' => __('Show Image', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'options' => [
+                '' => [
+                    'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                ],
+                'oxi-tabs-heading-mobile-show-image-false' => [
+                    'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Header Image Showing Options for Mobile Mode.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+
         $this->end_controls_section();
     }
 
@@ -899,7 +1141,7 @@ class Helper extends Admin {
                 'oxi-tabs-head-icon-position' => 'customizable',
             ],
             'selector' => [
-                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => 'background: {{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => 'background: {{VALUE}};',
             ],
             'description' => 'Customize Icon Background with Color or Gradient or Image properties.',
@@ -913,7 +1155,7 @@ class Helper extends Admin {
                 'oxi-tabs-head-icon-position' => 'customizable',
             ],
             'selector' => [
-                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => '',
             ],
             'description' => 'Border property is used to set the Border of the Icon.',

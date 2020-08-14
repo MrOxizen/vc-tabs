@@ -34,7 +34,6 @@
 .oxi-tab-header-horizontal[class^='oxi-tab-header-bottom-'], 
 .oxi-tab-header-horizontal[class*=' oxi-tab-header-bottom-']{
     display: flex;
-
     -webkit-flex-flow: column wrap;
     justify-content: flex-start;
     align-items: stretch;

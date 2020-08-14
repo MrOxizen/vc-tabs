@@ -188,7 +188,8 @@ trait Sanitization {
     public function start_controls_tabs($id, array $arg = []) {
         $defualt = ['options' => ['normal' => 'Normal', 'hover' => 'Hover']];
         $arg = array_merge($defualt, $arg);
-        echo '<div class="shortcode-form-control shortcode-control-type-control-tabs ' . (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '') . '">
+        $condition = $this->forms_condition($arg);
+        echo '<div class="shortcode-form-control shortcode-control-type-control-tabs ' . (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '') . '" '.$condition.' >
                 <div class="shortcode-form-control-content shortcode-form-control-content-tabs">
                     <div class="shortcode-form-control-field">';
         foreach ($arg['options'] as $key => $value) {

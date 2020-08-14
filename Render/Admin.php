@@ -418,10 +418,11 @@ class Admin {
                                         </div>
                                     </div>
                                     <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> .oxi-addons-row" style="background:<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
-                                        <?php
-                                        $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $this->StyleName;
-                                        new $cls($this->dbdata, $this->child, 'admin');
-                                        ?>
+                                           <iframe src="http://127.0.0.1/wordpress/wp-admin/admin.php?page=oxi-tabs-style-view&styleid=23" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>
+                                         <?php
+//                                        $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $this->StyleName;
+//                                        new $cls($this->dbdata, $this->child, 'admin');
+//                                        ?>
                                     </div>
                                 </div>
                             </div>

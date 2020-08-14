@@ -11,6 +11,7 @@ if (!defined('ABSPATH'))
  * @author biplo
  */
 use OXI_TABS_PLUGINS\Classes\Build_Api as Build_Api;
+
 class Bootstrap {
 
     use \OXI_TABS_PLUGINS\Helper\Public_Helper;
@@ -63,11 +64,14 @@ class Bootstrap {
         add_action('init', array($this, 'i18n'));
         $this->Shortcode_loader();
         $this->Public_loader();
-         new Build_Api();
+        new Build_Api();
         if (is_admin()) {
             $this->Admin_Filters();
             $this->User_Admin();
             $this->User_Reviews();
+            if (isset($_GET['page']) && 'oxi-tabs-style-view' === $_GET['page']) { 
+                new \OXI_TABS_PLUGINS\Modules\Template();
+            }
         }
     }
 
