@@ -1189,11 +1189,27 @@ a:hover.oxi-addons-more-layouts {
     max-width: 100%;
 }
 
-.oxi-addons-preview-data {
+.oxi-addons-preview-wrapper {
     width: 100%;
     float: left;
-    padding: 20px 10px;
+    background: #FFF;
 }
+.oxi-addons-preview-data {
+    width: 100%;
+    margin: 0 auto;
+    transition: all linear 0.33s;
+}
+.oxi-addons-preview-wrapper-tab .oxi-addons-preview-data{
+    max-width: 992px;
+}
+.oxi-addons-preview-wrapper-mobile .oxi-addons-preview-data{
+    max-width: 768px;
+}
+
+.oxi-addons-preview-data #oxi-addons-preview-iframe{
+    width: 100%;
+}
+
 
 .oxi-addons-doc-panel {
     width: 100%;
@@ -4654,3 +4670,4 @@ Tabd Ols Render Error Fixed issues
 .oxi-template-old-admin-wrap .font-select .fs-drop {
     top: 40px;
 }
+

@@ -189,7 +189,7 @@ trait Sanitization {
         $defualt = ['options' => ['normal' => 'Normal', 'hover' => 'Hover']];
         $arg = array_merge($defualt, $arg);
         $condition = $this->forms_condition($arg);
-        echo '<div class="shortcode-form-control shortcode-control-type-control-tabs ' . (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '') . '" '.$condition.' >
+        echo '<div class="shortcode-form-control shortcode-control-type-control-tabs ' . (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '') . '" ' . $condition . ' >
                 <div class="shortcode-form-control-content shortcode-form-control-content-tabs">
                     <div class="shortcode-form-control-field">';
         foreach ($arg['options'] as $key => $value) {
@@ -520,7 +520,26 @@ trait Sanitization {
      */
 
     public function hidden_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+       
+        $value = array_key_exists($id, $data) ? $data[$id] : '';
+
+        $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) :
+            if (array_key_exists('selector', $arg)) :
+                foreach ($arg['selector'] as $key => $val) {
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                    $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
+                    $file = str_replace('{{VALUE}}', $value, $val);
+                    if (strpos($file, '{{') !== FALSE):
+                        $file = $this->multiple_selector_handler($data, $file);
+                    endif;
+                    if (!empty($value)):
+                        $this->CSSDATA[$arg['responsive']][$class][$file] = $file;
+                    endif;
+                    
+                }
+            endif;
+        endif;
         echo ' <div class="shortcode-form-control-input-wrapper">
                    <input type="hidden" value="' . $value . '" name="' . $id . '" id="' . $id . '">
                </div>';

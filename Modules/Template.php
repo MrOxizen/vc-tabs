@@ -63,6 +63,7 @@ class Template {
         add_action('network_admin_menu', array($this, 'add_dashboard_page'));
     }
 
+
     /**
      * Register page through WordPress's hooks.
      */
@@ -88,13 +89,12 @@ class Template {
         if (defined('DOING_AJAX') && DOING_AJAX) {
             return;
         }
-
         set_current_screen();
-
         // Remove an action in the Gutenberg plugin ( not core Gutenberg ) which throws an error.
         remove_action('admin_print_styles', 'gutenberg_block_editor_admin_print_styles');
         $this->load_template();
     }
+
     private function load_template() {
         $this->enqueue_scripts();
         $this->template_header();
@@ -105,10 +105,11 @@ class Template {
     }
 
     public function enqueue_scripts() {
-        wp_enqueue_style('oxi-tabs-style-load-iframe', OXI_TABS_URL . 'assets/frontend/css/iframe.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxilab-tabs-bootstrap', OXI_TABS_URL . 'assets/backend/css/bootstrap.min.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxilab-admin-css', OXI_TABS_URL . 'assets/backend/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('oxilab-template-css', OXI_TABS_URL . 'assets/backend/css/template.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxilab-template-js', OXI_TABS_URL . 'assets/backend/js/template.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     public function template_header() {
@@ -118,9 +119,9 @@ class Template {
             <meta name="viewport" content="width=device-width"/>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
             <title><?php esc_html_e('Responsive Tabs &rsaquo; Admin template', 'google-analytics-for-wordpress'); ?></title>
-            <?php wp_head(); ?>
+        <?php wp_head(); ?>
         </head>
-        <body class="shortcode-addons-template-body">
+        <body class="shortcode-addons-template-body" id="shortcode-addons-template-body">
             <?php
         }
 
@@ -129,7 +130,7 @@ class Template {
          */
         public function template_content() {
             if ($this->oxiid > 0):
-                $this->shortcode_render($this->oxiid, 'admin');
+                 $this->shortcode_render($this->oxiid, 'admin');
             endif;
         }
 
@@ -138,7 +139,7 @@ class Template {
          */
         public function template_footer() {
             ?>
-            <?php wp_footer(); ?>
+        <?php wp_footer(); ?>
         </body>
         </html>
         <?php

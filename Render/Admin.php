@@ -161,6 +161,8 @@ class Admin {
         endif;
         $this->StyleName = ucfirst($this->dbdata['style_name']);
         $this->import_font_family();
+        $transient = 'oxi-responsive-tabs-transient-' . $this->styleid;
+        delete_transient($transient);
     }
 
     /**
@@ -293,11 +295,11 @@ class Admin {
             if ($key == 'laptop'):
                 $fullcssfile .= $tempcss;
             elseif ($key == 'tab'):
-                $fullcssfile .= '@media only screen and (min-width : 669px) and (max-width : 993px){';
+                $fullcssfile .= '@media only screen and (min-width : 769px) and (max-width : 993px){';
                 $fullcssfile .= $tempcss;
                 $fullcssfile .= '}';
             elseif ($key == 'mobile'):
-                $fullcssfile .= '@media only screen and (max-width : 668px){';
+                $fullcssfile .= '@media only screen and (max-width : 768px){';
                 $fullcssfile .= $tempcss;
                 $fullcssfile .= '}';
             endif;
@@ -336,11 +338,11 @@ class Admin {
             if ($key == 'laptop'):
                 $fullcssfile .= $tempcss;
             elseif ($key == 'tab'):
-                $fullcssfile .= '@media only screen and (min-width : 669px) and (max-width : 993px){';
+                $fullcssfile .= '@media only screen and (min-width : 769px) and (max-width : 993px){';
                 $fullcssfile .= $tempcss;
                 $fullcssfile .= '}';
             elseif ($key == 'mobile'):
-                $fullcssfile .= '@media only screen and (max-width : 668px){';
+                $fullcssfile .= '@media only screen and (max-width : 768px){';
                 $fullcssfile .= $tempcss;
                 $fullcssfile .= '}';
             endif;
@@ -417,12 +419,16 @@ class Admin {
                                             <input type="text" data-format="rgb" data-opacity="TRUE" class="oxi-addons-minicolor" id="oxi-addons-2-0-color" name="oxi-addons-2-0-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
                                         </div>
                                     </div>
-                                    <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> .oxi-addons-row" style="background:<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
-                                           <iframe src="http://127.0.0.1/wordpress/wp-admin/admin.php?page=oxi-tabs-style-view&styleid=23" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>
-                                         <?php
-//                                        $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $this->StyleName;
-//                                        new $cls($this->dbdata, $this->child, 'admin');
-//                                        ?>
+                                    <div class="oxi-addons-preview-wrapper">
+                                        <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> .oxi-addons-row" style="background:<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
+
+                                            <iframe  src="http://127.0.0.1/wordpress/wp-admin/admin.php?page=oxi-tabs-style-view&styleid=23" 
+                                                     id="oxi-addons-preview-iframe" 
+                                                     class="oxi-addons-preview-iframe"
+                                                     width="100%" scrolling="no"
+                                                     frameborder="0"></iframe>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -443,6 +449,7 @@ class Admin {
                             </div>
                         </div>
                     </div>  
+
                 </div>
             </div>
         </div>

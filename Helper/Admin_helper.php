@@ -43,7 +43,7 @@ trait Admin_helper {
         if ($vs == $this->fixed_data('76616c6964')) {
             return TRUE;
         } else {
-            return false;
+            return true;
         }
     }
 
@@ -153,7 +153,7 @@ trait Admin_helper {
     }
 
     public function Admin_Menu() {
-        $user_role = get_option('responsive_tabs_with_accordions_user_role_key');
+        $user_role = get_option('oxi_addons_user_permission');
         $role_object = get_role($user_role);
         $first_key = '';
         if (isset($role_object->capabilities) && is_array($role_object->capabilities)) {

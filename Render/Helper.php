@@ -1899,6 +1899,14 @@ class Helper extends Admin {
             'description' => 'Custom CSS Section. You can add custom css into textarea.'
                 ]
         );
+        $this->add_control(
+                'oxilab-preview-color', $this->style, [
+            'type' => Controls::HIDDEN,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-sdgf, body.shortcode-addons-template-body' => 'background:{{VALUE}}',
+            ],
+                ]
+        );
         $this->end_controls_section();
         $this->end_section_tabs();
     }

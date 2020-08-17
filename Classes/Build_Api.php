@@ -222,6 +222,8 @@ class Build_Api {
         $StyleName = sanitize_text_field($settings['style-name']);
         $stylesheet = '';
         if ((int) $this->styleid):
+            $transient = 'oxi-responsive-tabs-transient-' . $this->styleid;
+            delete_transient($transient);
             $this->wpdb->query($this->wpdb->prepare("UPDATE {$this->parent_table} SET rawdata = %s, stylesheet = %s WHERE id = %d", $this->rawdata, $stylesheet, $this->styleid));
             $name = ucfirst($StyleName);
             $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
@@ -332,6 +334,7 @@ class Build_Api {
                 $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata) VALUES (%d, %s )", array($this->styleid, $this->rawdata)));
             endif;
         endif;
+        return 'ok';
     }
 
     /**
@@ -340,33 +343,9 @@ class Build_Api {
      * @since 9.3.0
      */
     public function post_elements_template_render_data() {
-        $settings = json_decode(stripslashes($this->rawdata), true);
-
-        $child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
-        $name = ucfirst($settings['style-name']);
-
-        ob_start();
-        $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $name;
-        $CLASS = new $cls;
-        $styledata = ['rawdata' => $this->rawdata, 'id' => $this->styleid, 'style_name' => $name, 'stylesheet' => ''];
-        $CLASS->__construct($styledata, $child, 'admin');
-        return ob_get_clean();
-    }
-
-    /**
-     * Template Rebuild Render
-     *
-     * @since 9.3.0
-     */
-    public function post_elements_template_rebuild_data() {
-        $style = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $this->styleid), ARRAY_A);
-        $child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
-        $style['rawdata'] = $style['stylesheet'] = $style['font_family'] = '';
-        $name = ucfirst($style['style-name']);
-        $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $name;
-        $CLASS = new $cls;
-        $CLASS->__construct($style, $child, 'admin');
-        return 'success';
+        $transient = 'oxi-responsive-tabs-transient-' . $this->styleid;
+        set_transient($transient, $this->rawdata, 1 * HOUR_IN_SECONDS);
+        return 'Transient Done';
     }
 
     /**

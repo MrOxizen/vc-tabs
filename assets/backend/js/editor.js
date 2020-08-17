@@ -6,6 +6,9 @@ jQuery.noConflict();
     var styleid = urlParams.get("styleid");
     var childid = "";
     var WRAPPER = $('#oxi-addons-preview-data').attr('template-wrapper');
+    var IFRAME = $("#oxi-addons-preview-iframe");
+    var IFRAMEBODYCLASS = '.shortcode-addons-template-body';
+    var IFRAMETABSWRAPPER = '#oxi-tabs-wrapper-23';
     function NEWRegExp(par = '') {
         return new RegExp(par, "g");
     }
@@ -16,7 +19,6 @@ jQuery.noConflict();
         }
         return str;
     }
-
 
     function OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, callback) {
         var active = false;
@@ -47,10 +49,13 @@ jQuery.noConflict();
     }
 
     function OxiAddonsPreviewDataLoader() {
-        OxiAddonsTemplateSettings('elements_template_render_data', JSON.stringify($("#oxi-addons-form-submit").serializeJSON({checkboxUncheckedValue: "0"})), styleid, childid, function (callback) {
-            $("#oxi-addons-preview-data").html(callback);
-            $('#style-changing-trigger').val(Math.floor(Math.random() * 999999) + 1).change();
-        });
+        OxiAddonsTemplateSettings(
+                'elements_template_render_data',
+                JSON.stringify($("#oxi-addons-form-submit").serializeJSON({checkboxUncheckedValue: "0"})),
+                styleid, childid,
+                function (callback) {
+                    document.getElementById('oxi-addons-preview-iframe').src += '';
+                });
     }
 
     function OxiAddonsModalConfirm(id, data) {
@@ -111,21 +116,6 @@ jQuery.noConflict();
             });
         });
     });
-    $("#oxi-addons-setting-rebuild").on("click", function (e) {
-        e.preventDefault();
-        $(this).html('Wait..');
-        var rawdata = 'rebuild';
-        var styleid = $(this).data('value');
-        var functionname = "elements_template_rebuild_data";
-        OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
-           
-            if (callback === "success") {
-                setTimeout(function () {
-                    location.reload();
-                }, 1500);
-            }
-        });
-    });
     $("#oxi-addons-list-rearrange-submit").on("click", function (e) {
         e.preventDefault();
         $(this).val('Savings..');
@@ -136,7 +126,6 @@ jQuery.noConflict();
         }
         var functionname = "elements_template_rearrange_save_data";
         OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
-            console.log(callback);
             if (callback === "success") {
                 $("#OXIAADDONSCHANGEDPOPUP .icon-box").html('<span class="dashicons dashicons-yes"></span>');
                 $("#OXIAADDONSCHANGEDPOPUP .modal-body.text-center h4").html("Great!");
@@ -146,6 +135,89 @@ jQuery.noConflict();
                 $("#oxi-addons-list-rearrange-submit").val('Save');
                 $("#oxi-addons-list-rearrange-modal").modal("hide");
                 OxiAddonsPreviewDataLoader();
+            }
+        });
+    });
+    IFRAME.load(function () {
+        IFRAME.contents().on("click", ".shortcode-addons-template-item-edit", function (e) {
+            e.preventDefault();
+            $('#oxi-template-modal-form')[0].reset();
+            var rawdata = "edit";
+            var functionname = "elements_template_modal_data_edit";
+            var childid = $(this).attr("value");
+            OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
+                if (callback === "Go to hell") {
+                    alert("Data Error");
+                } else {
+                    $("#shortcode-addons-template-modal-form input[type='checkbox']").attr('checked', false);
+                    $.each($.parseJSON(callback), function (key, value) {
+                        if ($("#" + key + "").hasClass('wp-editor-area')) {
+                            if ($("#wp-" + key + "-wrap").hasClass('tmce-active')) {
+                                tinymce.get(key).setContent(value);
+                            } else {
+                                $('#' + key + '').html(value);
+                            }
+                        } else {
+                            var tp = $('input[name="' + key + '"]').attr("type");
+                            if (typeof tp !== 'undefined') {
+                                if (tp === 'radio') {
+                                    $('input[name=' + key + ']').val([value]);
+                                } else if (tp === 'checkbox') {
+                                    if (value != '0') {
+                                        $('input[name=' + key + ']').attr('checked', 'true');
+                                    } else {
+                                        $('input[name=' + key + ']').prop('checked', false).removeAttr('checked');
+                                    }
+                                } else if (tp === 'hidden') {
+
+                                    $('input[name=' + key + ']').val(value);
+                                    if ($('input[name=' + key + ']').hasClass('shortcode-addons-media-control-link')) {
+                                        $('#' + key).siblings('.shortcode-addons-media-control').removeClass('shortcode-addons-media-control-hidden-button');
+                                        $('input[name=' + key + ']').siblings('.shortcode-addons-media-control').children('.shortcode-addons-media-control-image-load').css({'background-image': 'url(' + value + ')'});
+                                    }
+                                } else {
+                                    $("#" + key).val(value);
+                                }
+                            } else {
+                                $("#" + key).val(value);
+                            }
+                        }
+
+                    });
+                    $("[data-condition]").each(function (index, value) {
+                        $(this).addClass('shortcode-addons-form-conditionize');
+                    });
+                    $('.shortcode-addons-form-conditionize').conditionize();
+                    $('.shortcode-control-type-select .shortcode-addons-select-input').each(function (e) {
+                        $id = $(this).attr('id');
+                        $('#' + $id).select2({width: '100%'});
+                    });
+                    $("#oxi-template-modal-submit").html("Submit");
+                    $("#oxi-addons-list-data-modal").modal("show");
+                }
+            });
+        });
+        IFRAME.contents().on("click", ".shortcode-addons-template-item-delete", function (e) {
+            e.preventDefault();
+            var rawdata = "delete";
+            var functionname = "elements_template_modal_data_delete"
+            var childid = $(this).attr("value");
+            var status = confirm("Do you Want to Delete this?");
+            if (status === false) {
+                return false;
+            } else {
+                OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
+                    if (callback === "done") {
+                        $("#OXIAADDONSCHANGEDPOPUP .icon-box").html('<span class="dashicons dashicons-trash"></span>');
+                        $("#OXIAADDONSCHANGEDPOPUP .modal-body.text-center h4").html("Deleted :(");
+                        $("#OXIAADDONSCHANGEDPOPUP .modal-body.text-center p").html("Your data has been delete successfully.");
+                        $("#OXIAADDONSCHANGEDPOPUP").modal("show");
+                        OxiAddonsModalConfirm(".shortcode-addons-template-item-delete", "Delete")
+                        OxiAddonsPreviewDataLoader();
+                    } else {
+                        alert("Data Error");
+                    }
+                });
             }
         });
     });
@@ -200,25 +272,40 @@ jQuery.noConflict();
             OxiAddonsPreviewDataLoader();
         });
     });
-    $("#shortcode-addons-style-change-submit-button").on("click", function (e) {
-        e.preventDefault();
-        var tr = $(this).attr('premium');
-        if (tr !== 'ache') {
-            alert("Sorry Template Changer Works with only Premium Version :( ")
-            return false;
-        }
-        var status = confirm("Do you Want to Change Template? If you change Template sometimes style not work properlly and you need to customize it.");
-        if (status === false) {
-            return false;
-        } else {
-            var functionname = "template_change";
-            var rawdata = $("#shortcode-current-style-name").val();
-            var styleid = $("#shortcode-addons-style-change-submit-id").val();
-            $(this).html('Wait');
-            OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
-                location.reload();
-            });
-        }
+    $('.oxi-addons-minicolor').each(function () {
+        $(this).minicolors({
+            control: $(this).attr('data-control') || 'hue',
+            defaultValue: $(this).attr('data-defaultValue') || '',
+            format: $(this).attr('data-format') || 'hex',
+            keywords: $(this).attr('data-keywords') || 'transparent' || 'initial' || 'inherit',
+            inline: $(this).attr('data-inline') === 'true',
+            letterCase: $(this).attr('data-letterCase') || 'lowercase',
+            opacity: $(this).attr('data-opacity'),
+            position: $(this).attr('data-position') || 'bottom left',
+            swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
+            change: function (value, opacity) {
+                if (!value)
+                    return;
+                if (opacity)
+                    value += ', ' + opacity;
+                if (typeof console === 'object') {
+                    // console.log(value);
+                }
+            },
+            theme: 'bootstrap'
+        });
+    });
+    $(".shortcode-form-link-dimensions").click(function () {
+        $(this).toggleClass("link-dimensions-unlink");
+    });
+    $(".shortcode-control-type-dimensions .shortcode-form-units-choices-label").click(function () {
+        var id = "#" + $(this).attr('for');
+        var input = $(this).parent().siblings('.shortcode-form-control-input-wrapper').children('.shortcode-form-control-dimensions').children('li').children('input');
+        input.attr('min', $(id).attr('min'));
+        input.attr('max', $(id).attr('max'));
+        input.attr('step', $(id).attr('step'));
+        // console.log($(id).attr('step'));
+
     });
     function ShortCodeMultipleSelector_Handler($value) {
         return $value.replace(/{{[0-9a-zA-Z.?:_-]+}}/g, function (match, contents, offset, input_string) {
@@ -237,87 +324,6 @@ jQuery.noConflict();
             return m;
         });
     }
-    $("body").on("click", ".shortcode-addons-template-item-edit", function (e) {
-        e.preventDefault();
-        $('#oxi-template-modal-form')[0].reset();
-        var rawdata = "edit";
-        var functionname = "elements_template_modal_data_edit";
-        var childid = $(this).attr("value");
-        OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
-            if (callback === "Go to hell") {
-                alert("Data Error");
-            } else {
-                $("#shortcode-addons-template-modal-form input[type='checkbox']").attr('checked', false);
-                $.each($.parseJSON(callback), function (key, value) {
-                    if ($("#" + key + "").hasClass('wp-editor-area')) {
-                        if ($("#wp-" + key + "-wrap").hasClass('tmce-active')) {
-                            tinymce.get(key).setContent(value);
-                        } else {
-                            $('#' + key + '').html(value);
-                        }
-                    } else {
-                        var tp = $('input[name="' + key + '"]').attr("type");
-                        if (typeof tp !== 'undefined') {
-                            if (tp === 'radio') {
-                                $('input[name=' + key + ']').val([value]);
-                            } else if (tp === 'checkbox') {
-                                if (value != '0') {
-                                    $('input[name=' + key + ']').attr('checked', 'true');
-                                } else {
-                                    $('input[name=' + key + ']').prop('checked', false).removeAttr('checked');
-                                }
-                            } else if (tp === 'hidden') {
-
-                                $('input[name=' + key + ']').val(value);
-                                if ($('input[name=' + key + ']').hasClass('shortcode-addons-media-control-link')) {
-                                    $('#' + key).siblings('.shortcode-addons-media-control').removeClass('shortcode-addons-media-control-hidden-button');
-                                    $('input[name=' + key + ']').siblings('.shortcode-addons-media-control').children('.shortcode-addons-media-control-image-load').css({'background-image': 'url(' + value + ')'});
-                                }
-                            } else {
-                                $("#" + key).val(value);
-                            }
-                        } else {
-                            $("#" + key).val(value);
-                        }
-                    }
-
-                });
-                $("[data-condition]").each(function (index, value) {
-                    $(this).addClass('shortcode-addons-form-conditionize');
-                });
-                $('.shortcode-addons-form-conditionize').conditionize();
-                $('.shortcode-control-type-select .shortcode-addons-select-input').each(function (e) {
-                    $id = $(this).attr('id');
-                    $('#' + $id).select2({width: '100%'});
-                });
-                $("#oxi-template-modal-submit").html("Submit");
-                $("#oxi-addons-list-data-modal").modal("show");
-            }
-        });
-    });
-    $("body").on("click", ".shortcode-addons-template-item-delete", function (e) {
-        e.preventDefault();
-        var rawdata = "delete";
-        var functionname = "elements_template_modal_data_delete"
-        var childid = $(this).attr("value");
-        var status = confirm("Do you Want to Delete this?");
-        if (status === false) {
-            return false;
-        } else {
-            OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, function (callback) {
-                if (callback === "done") {
-                    $("#OXIAADDONSCHANGEDPOPUP .icon-box").html('<span class="dashicons dashicons-trash"></span>');
-                    $("#OXIAADDONSCHANGEDPOPUP .modal-body.text-center h4").html("Deleted :(");
-                    $("#OXIAADDONSCHANGEDPOPUP .modal-body.text-center p").html("Your data has been delete successfully.");
-                    $("#OXIAADDONSCHANGEDPOPUP").modal("show");
-                    OxiAddonsModalConfirm(".shortcode-addons-template-item-delete", "Delete")
-                    OxiAddonsPreviewDataLoader();
-                } else {
-                    alert("Data Error")
-                }
-            });
-        }
-    });
     $(document.body).on("keyup", ".shortcode-control-type-text input", function (e) {
         $input = $(this);
         if ($input.attr("retundata") !== '') {
@@ -328,7 +334,7 @@ jQuery.noConflict();
                     el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
                 }
                 var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
-                $(cls).html($input.val());
+                IFRAME.contents().find(cls).html($input.val());
             });
         }
     });
@@ -342,7 +348,7 @@ jQuery.noConflict();
                     el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
                 }
                 var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
-                $(cls).html($input.val());
+                IFRAME.contents().find(cls).html($input.val());
             });
         }
     });
@@ -350,6 +356,7 @@ jQuery.noConflict();
         $input = $(this);
         if ($input.attr("retundata") !== '') {
             var $data = JSON.parse($input.attr("retundata"));
+
             $.each($data, function (el, obj) {
                 if (el.indexOf('{{KEY}}') != -1) {
                     el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
@@ -360,11 +367,11 @@ jQuery.noConflict();
                     Cval = ShortCodeMultipleSelector_Handler(Cval);
                 }
                 if ($input.attr('responsive') === 'tab') {
-                    $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                 } else if ($input.attr('responsive') === 'mobile') {
-                    $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                 } else {
-                    $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                 }
             });
             if ($input.val() === '') {
@@ -393,29 +400,27 @@ jQuery.noConflict();
                             Cval = ShortCodeMultipleSelector_Handler(Cval);
                         }
                         if ($input.attr('responsive') === 'tab') {
-                            $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                            IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                         } else if ($input.attr('responsive') === 'mobile') {
-                            $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                            IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                         } else {
-                            $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                            IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                         }
-
                     } else {
                         $.each(arr, function (i, v) {
-                            $(cls).removeClass(v);
+                            IFRAME.contents().find(cls).removeClass(v);
                         });
-                        $(cls).addClass($input.val());
+                        IFRAME.contents().find(cls).addClass($input.val());
                     }
-
                 });
             });
             if ($input.val() === '') {
                 OxiAddonsPreviewDataLoader();
             }
         }
-
     });
     $(document.body).on("click", ".shortcode-control-type-choose input", function (e) {
+
         name = $(this).attr('name');
         $value = $(this).val();
         if ($(this).parent('.shortcode-form-choices').attr("retundata") !== '') {
@@ -437,17 +442,17 @@ jQuery.noConflict();
                             Cval = ShortCodeMultipleSelector_Handler(Cval);
                         }
                         if ($input.attr('responsive') === 'tab') {
-                            $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                            IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                         } else if ($input.attr('responsive') === 'mobile') {
-                            $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                            IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                         } else {
-                            $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                            IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                         }
                     } else {
                         $.each(arr, function (i, v) {
-                            $(cls).removeClass(v);
+                            IFRAME.contents().find(cls).removeClass(v);
                         });
-                        $(cls).addClass($value);
+                        IFRAME.contents().find(cls).addClass($value);
                     }
                 });
             });
@@ -456,29 +461,6 @@ jQuery.noConflict();
             }
         }
 
-    });
-    $('.oxi-addons-minicolor').each(function () {
-        $(this).minicolors({
-            control: $(this).attr('data-control') || 'hue',
-            defaultValue: $(this).attr('data-defaultValue') || '',
-            format: $(this).attr('data-format') || 'hex',
-            keywords: $(this).attr('data-keywords') || 'transparent' || 'initial' || 'inherit',
-            inline: $(this).attr('data-inline') === 'true',
-            letterCase: $(this).attr('data-letterCase') || 'lowercase',
-            opacity: $(this).attr('data-opacity'),
-            position: $(this).attr('data-position') || 'bottom left',
-            swatches: $(this).attr('data-swatches') ? $(this).attr('data-swatches').split('|') : [],
-            change: function (value, opacity) {
-                if (!value)
-                    return;
-                if (opacity)
-                    value += ', ' + opacity;
-                if (typeof console === 'object') {
-                    // console.log(value);
-                }
-            },
-            theme: 'bootstrap'
-        });
     });
     $(".shortcode-control-type-color input").on("keyup, change", function () {
         $input = $(this);
@@ -496,11 +478,11 @@ jQuery.noConflict();
                         Cval = ShortCodeMultipleSelector_Handler(Cval);
                     }
                     if ($input.attr('responsive') === 'tab') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                     } else if ($input.attr('responsive') === 'mobile') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                     } else {
-                        $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                     }
 
                 });
@@ -546,11 +528,11 @@ jQuery.noConflict();
                     var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
                     var Cval = obj.replace(NEWRegExp("{{VALUE}}"), $VALUE);
                     if ($input.attr('responsive') === 'tab') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                     } else if ($input.attr('responsive') === 'mobile') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                     } else {
-                        $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                     }
                 });
             }
@@ -569,17 +551,113 @@ jQuery.noConflict();
                 var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
                 var Cval = obj.replace(NEWRegExp("{{VALUE}}"), font[0]);
                 if ($input.attr('responsive') === 'tab') {
-                    $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                 } else if ($input.attr('responsive') === 'mobile') {
-                    $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                 } else {
-                    $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                 }
             });
         }
     });
-//console.log(offset);
+    $(".shortcode-control-type-color input").on("keyup, change", function () {
+        $input = $(this);
+        $custom = $input.attr("custom");
+        if ($input.attr("retundata") !== '') {
+            if ($custom === '') {
+                var $data = JSON.parse($input.attr("retundata"));
+                $.each($data, function (el, obj) {
+                    if (el.indexOf('{{KEY}}') != -1) {
+                        el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
+                    }
+                    var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
+                    var Cval = obj.replace(NEWRegExp("{{VALUE}}"), $input.val());
+                    if (Cval.indexOf("{{") != -1) {
+                        Cval = ShortCodeMultipleSelector_Handler(Cval);
+                    }
+                    if ($input.attr('responsive') === 'tab') {
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
+                    } else if ($input.attr('responsive') === 'mobile') {
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
+                    } else {
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
+                    }
 
+                });
+                if ($input.val() === '') {
+                    $input.siblings('.minicolors-swatch').children('.minicolors-swatch-color').css('background-color', 'transparent');
+                    OxiAddonsPreviewDataLoader();
+                }
+            } else {
+                var $data = JSON.parse($input.attr("retundata"));
+                $custom = $custom.split("|||||");
+                $id = $custom[0];
+                $VALUE = '';
+                if ($custom[1] === 'text-shadow') {
+                    $color = $('#' + $id + "-color").val();
+                    $blur = $('#' + $id + "-blur-size").val();
+                    $horizontal = $('#' + $id + "-horizontal-size").val();
+                    $vertical = $('#' + $id + "-vertical-size").val();
+                    $true = (($blur === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$horizontal || !$vertical) ? true : false;
+                    if ($true === false) {
+                        $VALUE = 'text-shadow: ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $color + ';';
+                    } else {
+                        OxiAddonsPreviewDataLoader();
+                    }
+                } else if ($custom[1] === 'box-shadow') {
+                    $type = $('input[name="' + $id + '-type"]:checked').val();
+                    $color = $('#' + $id + "-color").val();
+                    $blur = $('#' + $id + "-blur-size").val();
+                    $spread = $('#' + $id + "-spread-size").val();
+                    $horizontal = $('#' + $id + "-horizontal-size").val();
+                    $vertical = $('#' + $id + "-vertical-size").val();
+                    $true = (($blur === '0' && $spread === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$spread || !$horizontal || !$vertical) ? true : false;
+                    if ($true === false) {
+                        $VALUE = 'box-shadow: ' + $type + ' ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $spread + 'px ' + $color + ';';
+                    } else {
+                        OxiAddonsPreviewDataLoader();
+                    }
+                }
+
+                $.each($data, function (el, obj) {
+                    if (el.indexOf('{{KEY}}') != -1) {
+                        el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
+                    }
+                    var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
+                    var Cval = obj.replace(NEWRegExp("{{VALUE}}"), $VALUE);
+                    if ($input.attr('responsive') === 'tab') {
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
+                    } else if ($input.attr('responsive') === 'mobile') {
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
+                    } else {
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
+                    }
+                });
+            }
+        }
+    });
+    $(".shortcode-control-type-font input").on("change", function () {
+        $input = $(this);
+        if ($(this).attr("retundata") !== '') {
+            var font = $input.val().replace(/\+/g, ' ');
+            font = font.split(':');
+            var $data = JSON.parse($input.attr("retundata"));
+            $.each($data, function (el, obj) {
+                if (el.indexOf('{{KEY}}') != -1) {
+                    el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
+                }
+                var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
+                var Cval = obj.replace(NEWRegExp("{{VALUE}}"), font[0]);
+                if ($input.attr('responsive') === 'tab') {
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
+                } else if ($input.attr('responsive') === 'mobile') {
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
+                } else {
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
+                }
+            });
+        }
+    });
     function ShortCodeFormSliderINT(ID = '') {
         $this = $('.shortcode-form-slider');
         if (ID !== '') {
@@ -632,11 +710,11 @@ jQuery.noConflict();
                                     Cval = ShortCodeMultipleSelector_Handler(Cval);
                                 }
                                 if ($input.attr('responsive') === 'tab') {
-                                    $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                                 } else if ($input.attr('responsive') === 'mobile') {
-                                    $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                                 } else {
-                                    $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                                 }
                             });
                         } else {
@@ -679,11 +757,11 @@ jQuery.noConflict();
                                     Cval = ShortCodeMultipleSelector_Handler(Cval);
                                 }
                                 if ($input.attr('responsive') === 'tab') {
-                                    $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                                 } else if ($input.attr('responsive') === 'mobile') {
-                                    $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                                 } else {
-                                    $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                                 }
                             });
                         }
@@ -715,11 +793,11 @@ jQuery.noConflict();
                         Cval = ShortCodeMultipleSelector_Handler(Cval);
                     }
                     if ($input.attr('responsive') === 'tab') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                     } else if ($input.attr('responsive') === 'mobile') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                     } else {
-                        $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                     }
                 });
             } else {
@@ -762,11 +840,11 @@ jQuery.noConflict();
                         Cval = ShortCodeMultipleSelector_Handler(Cval);
                     }
                     if ($input.attr('responsive') === 'tab') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                     } else if ($input.attr('responsive') === 'mobile') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                     } else {
-                        $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                     }
                 });
             }
@@ -777,6 +855,57 @@ jQuery.noConflict();
 
 
 
+    });
+    $(".oxi-addons-gradient-color").each(function (i, v) {
+        $(this).coloringPick({
+            "show_input": true,
+            "theme": "dark",
+            'destroy': false,
+            change: function (val) {
+                $data = [];
+                var $This = $(this).children('input');
+                // console.log($(this).children('input'));
+                var _VALUE = $This.val();
+                $id = $This.attr('background');
+                $imagecheck = $("#" + $id + "-img").is(":checked");
+                $imagesource = $('input[name="' + $id + '-select"]:checked').val();
+                $Image = ($imagecheck === true ? ($imagesource === 'media-library' ? $("#" + $id + "-image").val() : $("#" + $id + "-url").val()) : '');
+                var wordcount = val.split(/\b[\s,\.-:;]*/).length;
+                var limitWord = 23;
+                if ($Image === '') {
+                    if (wordcount < limitWord) {
+                        $BACKGROUND = 'background: ' + _VALUE + ';';
+                    } else {
+                        $BACKGROUND = ' background:-ms-' + _VALUE + '; background:-webkit-' + _VALUE + '; background:-moz-' + _VALUE + '; background:-o-' + _VALUE + '; background:' + _VALUE + ';';
+                    }
+                } else {
+                    if (wordcount < limitWord) {
+                        $BACKGROUND = 'background:linear-gradient(0deg, ' + _VALUE + ' 0%, ' + _VALUE + ' 100%), url(\'' + $Image + '\') ' + $("#" + $id + "-repeat").val() + ' ' + $("#" + $id + "-position").val() + ';';
+                    } else {
+                        $BACKGROUND = 'background:' + _VALUE + ', url(\'' + $Image + '\' ) ' + $("#" + $id + "-repeat").val() + ' ' + $("#" + $id + "-position-lap").val() + ';';
+                    }
+                }
+
+                var $data = ($This.attr("retundata") !== '' ? JSON.parse($This.attr("retundata")) : []);
+                $.each($data, function (el, obj) {
+                    if (el.indexOf('{{KEY}}') != -1) {
+                        el = el.replace(NEWRegExp("{{KEY}}"), $This.attr('name').split('saarsa')[1]);
+                    }
+                    var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
+                    Cval = $BACKGROUND;
+                    if ($This.attr('responsive') === 'tab') {
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
+                    } else if ($This.attr('responsive') === 'mobile') {
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
+                    } else {
+                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
+                    }
+                });
+                if (_VALUE === '') {
+                    OxiAddonsPreviewDataLoader();
+                }
+            },
+        });
     });
     $(".shortcode-control-type-slider .shortcode-form-units-choices-label").click(function () {
         var id = "#" + $(this).attr('for');
@@ -812,18 +941,6 @@ jQuery.noConflict();
                 decimals: decimals
             })
         });
-    });
-    $(".shortcode-form-link-dimensions").click(function () {
-        $(this).toggleClass("link-dimensions-unlink");
-    });
-    $(".shortcode-control-type-dimensions .shortcode-form-units-choices-label").click(function () {
-        var id = "#" + $(this).attr('for');
-        var input = $(this).parent().siblings('.shortcode-form-control-input-wrapper').children('.shortcode-form-control-dimensions').children('li').children('input');
-        input.attr('min', $(id).attr('min'));
-        input.attr('max', $(id).attr('max'));
-        input.attr('step', $(id).attr('step'));
-        // console.log($(id).attr('step'));
-
     });
     $(".shortcode-control-type-dimensions input").on("input", function () {
         $this = $(this);
@@ -867,11 +984,11 @@ jQuery.noConflict();
                 Cval = Cval.replace(NEWRegExp("{{BOTTOM}}"), $('#' + BOTTOM).val());
                 Cval = Cval.replace(NEWRegExp("{{LEFT}}"), $('#' + LEFT).val());
                 if ($input.attr('responsive') === 'tab') {
-                    $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                 } else if ($input.attr('responsive') === 'mobile') {
-                    $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                 } else {
-                    $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
+                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                 }
             });
             if ($input.val() === '') {
@@ -879,57 +996,6 @@ jQuery.noConflict();
             }
         }
 
-    });
-    $(".oxi-addons-gradient-color").each(function (i, v) {
-        $(this).coloringPick({
-            "show_input": true,
-            "theme": "dark",
-            'destroy': false,
-            change: function (val) {
-                $data = [];
-                var $This = $(this).children('input');
-                // console.log($(this).children('input'));
-                var _VALUE = $This.val();
-                $id = $This.attr('background');
-                $imagecheck = $("#" + $id + "-img").is(":checked");
-                $imagesource = $('input[name="' + $id + '-select"]:checked').val();
-                $Image = ($imagecheck === true ? ($imagesource === 'media-library' ? $("#" + $id + "-image").val() : $("#" + $id + "-url").val()) : '');
-                var wordcount = val.split(/\b[\s,\.-:;]*/).length;
-                var limitWord = 23;
-                if ($Image === '') {
-                    if (wordcount < limitWord) {
-                        $BACKGROUND = 'background: ' + _VALUE + ';';
-                    } else {
-                        $BACKGROUND = ' background:-ms-' + _VALUE + '; background:-webkit-' + _VALUE + '; background:-moz-' + _VALUE + '; background:-o-' + _VALUE + '; background:' + _VALUE + ';';
-                    }
-                } else {
-                    if (wordcount < limitWord) {
-                        $BACKGROUND = 'background:linear-gradient(0deg, ' + _VALUE + ' 0%, ' + _VALUE + ' 100%), url(\'' + $Image + '\') ' + $("#" + $id + "-repeat").val() + ' ' + $("#" + $id + "-position").val() + ';';
-                    } else {
-                        $BACKGROUND = 'background:' + _VALUE + ', url(\'' + $Image + '\' ) ' + $("#" + $id + "-repeat").val() + ' ' + $("#" + $id + "-position-lap").val() + ';';
-                    }
-                }
-
-                var $data = ($This.attr("retundata") !== '' ? JSON.parse($This.attr("retundata")) : []);
-                $.each($data, function (el, obj) {
-                    if (el.indexOf('{{KEY}}') != -1) {
-                        el = el.replace(NEWRegExp("{{KEY}}"), $This.attr('name').split('saarsa')[1]);
-                    }
-                    var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
-                    Cval = $BACKGROUND;
-                    if ($This.attr('responsive') === 'tab') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (min-width : 669px) and (max-width : 993px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
-                    } else if ($This.attr('responsive') === 'mobile') {
-                        $("#oxi-addons-preview-data").append('<style>@media only screen and (max-width : 668px){#oxi-addons-preview-data ' + cls + '{' + Cval + '}} < /style>');
-                    } else {
-                        $("#oxi-addons-preview-data").append('<style>#oxi-addons-preview-data ' + cls + '{' + Cval + '} < /style>');
-                    }
-                });
-                if (_VALUE === '') {
-                    OxiAddonsPreviewDataLoader();
-                }
-            },
-        });
     });
     $('.oxi-admin-icon-selector').iconpicker();
     $('.shortcode-addons-form-conditionize').conditionize();
@@ -951,11 +1017,20 @@ jQuery.noConflict();
     $(document.body).on("change", ".shortcode-control-type-icon input", function () {
         OxiAddonsPreviewDataLoader();
     });
+    $(".oxi-addons-preview-wrapper").css('background', $("#oxi-addons-2-0-color").val());
     $("#oxi-addons-2-0-color").on("change", function (e) {
         $input = $(this).val();
-        $("#oxi-addons-preview-data").css('background', $input);
+        $(".oxi-addons-preview-wrapper").css('background', $input);
+        IFRAME.contents().find(IFRAMEBODYCLASS).css('background', $input);
         $("#oxilab-preview-color").val($input);
     });
+
+    setInterval(function () {
+        var frame = 'oxi-addons-preview-iframe';
+        document.getElementById(frame).style.height = document.getElementById(frame).contentWindow.document.body.scrollHeight + 'px';
+    }, 1000);
+
+
     $(document.body).on("click", ".media-modal-close", function () {
         if (($("#oxi-addons-list-data-modal").data('bs.modal') || {})._isShown) {
             setTimeout(function () {
@@ -967,10 +1042,11 @@ jQuery.noConflict();
     $(document.body).on("click", "#insert-media-button", function () {
         if (($("#oxi-addons-list-data-modal").data('bs.modal') || {})._isShown) {
             setTimeout(function () {
-
                 $("#oxi-addons-list-data-modal").css({"overflow-x": "hidden", "overflow-y": "auto"});
                 $("body").css({"overflow": "hidden"});
             }, 1000);
         }
     });
+
+
 })(jQuery);

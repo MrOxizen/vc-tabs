@@ -67,6 +67,8 @@ jQuery.noConflict();
         $(".shortcode-addons-form-responsive-laptop").removeClass('shortcode-addons-responsive-display-none');
         $(".shortcode-addons-form-responsive-tab").addClass('shortcode-addons-responsive-display-none');
         $(".shortcode-addons-form-responsive-mobile").addClass('shortcode-addons-responsive-display-none');
+         $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-tab');
+         $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-mobile');
     });
     $(document.body).on("click", ".shortcode-form-responsive-switcher-tablet", function () {
         $(".shortcode-form-responsive-switcher-tablet").addClass('active');
@@ -74,6 +76,8 @@ jQuery.noConflict();
         $(".shortcode-addons-form-responsive-laptop").addClass('shortcode-addons-responsive-display-none');
         $(".shortcode-addons-form-responsive-tab").removeClass('shortcode-addons-responsive-display-none');
         $(".shortcode-addons-form-responsive-mobile").addClass('shortcode-addons-responsive-display-none');
+        $(".oxi-addons-preview-wrapper").addClass('oxi-addons-preview-wrapper-tab');
+         $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-mobile');
     });
     $(document.body).on("click", ".shortcode-form-responsive-switcher-mobile", function () {
         $(".shortcode-form-responsive-switcher-tablet").removeClass('active');
@@ -81,6 +85,8 @@ jQuery.noConflict();
         $(".shortcode-addons-form-responsive-laptop").addClass('shortcode-addons-responsive-display-none');
         $(".shortcode-addons-form-responsive-tab").addClass('shortcode-addons-responsive-display-none');
         $(".shortcode-addons-form-responsive-mobile").removeClass('shortcode-addons-responsive-display-none');
+         $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-tab');
+         $(".oxi-addons-preview-wrapper").addClass('oxi-addons-preview-wrapper-mobile');
     });
     $.fn.uncheckableRadio = function () {
         var $root = this;
@@ -215,11 +221,6 @@ setTimeout(function () {
     oxiequalHeight(jQuery(".oxiequalHeight"));
 }, 500);
 
-
-setTimeout(function () {
-    jQuery("<style type='text/css'>.oxi-addons-style-left-preview{background: " + jQuery("#shortcode-addons-2-0-preview").val() + "; } </style>").appendTo(".oxi-addons-style-left-preview");
-}, 500);
-
 oxiequalHeight(jQuery(".oxiaddonsoxiequalHeight"));
 
 setTimeout(function () {
@@ -233,9 +234,3 @@ setTimeout(function () {
         });
     }
 }, 500);
-
-jQuery("#shortcode-addons-2-0-color").on("change", function (e) {
-    $input = jQuery(this);
-    jQuery("<style type='text/css'>.oxi-addons-style-left-preview{background: " + $input.val() + "; } </style>").appendTo(".oxi-addons-style-left-preview");
-    jQuery('#shortcode-addons-2-0-preview').val($input.val());
-});
