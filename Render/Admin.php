@@ -414,6 +414,17 @@ class Admin {
                                     <div class="oxi-addons-style-left-preview-heading">
                                         <div class="oxi-addons-style-left-preview-heading-left oxi-addons-image-tabs-sortable-title">
                                             Preview
+                                            <div class="shortcode-form-control-responsive-switchers">
+                                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-desktop" data-device="desktop">
+                                                    <span class="dashicons dashicons-desktop"></span>
+                                                </a>
+                                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-tablet" data-device="tablet">
+                                                    <span class="dashicons dashicons-tablet"></span>
+                                                </a>
+                                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-mobile" data-device="mobile">
+                                                    <span class="dashicons dashicons-smartphone"></span>
+                                                </a>
+                                            </div>
                                         </div> 
                                         <div class="oxi-addons-style-left-preview-heading-right">
                                             <input type="text" data-format="rgb" data-opacity="TRUE" class="oxi-addons-minicolor" id="oxi-addons-2-0-color" name="oxi-addons-2-0-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
@@ -422,7 +433,7 @@ class Admin {
                                     <div class="oxi-addons-preview-wrapper">
                                         <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> .oxi-addons-row" style="background:<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
 
-                                            <iframe  src="http://127.0.0.1/wordpress/wp-admin/admin.php?page=oxi-tabs-style-view&styleid=23" 
+                                            <iframe  src="<?php echo admin_url('admin.php?page=oxi-tabs-style-view&styleid=' . $this->oxiid); ?>" 
                                                      id="oxi-addons-preview-iframe" 
                                                      class="oxi-addons-preview-iframe"
                                                      width="100%" scrolling="no"

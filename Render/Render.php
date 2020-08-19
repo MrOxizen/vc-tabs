@@ -201,6 +201,7 @@ class Render {
     public function public_frontend_loader() {
         wp_enqueue_script("jquery");
         wp_enqueue_style('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/css/style.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('oxi-plugin-animate', OXI_TABS_URL . 'assets/frontend/css/animate.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxi-tabs-' . strtolower($this->style_name), OXI_TABS_URL . 'Render/Files/' . strtolower($this->style_name) . '.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/js/tabs.js', false, OXI_TABS_PLUGIN_VERSION);
     }
@@ -347,6 +348,15 @@ class Render {
         $data = str_replace('\"', '"', $data);
         $data = do_shortcode($data, $ignore_html = false);
         return $data;
+    }
+
+    public function header_responsive_static_render($style = [], $ids = []) {
+        $render = ' ';
+        foreach ($ids as $type) {
+            $render .= $style['oxi-tabs-heading-tabs-show-' . $type] . ' ';
+            $render .= $style['oxi-tabs-heading-mobile-show-' . $type] . ' ';
+        }
+        return $render;
     }
 
     public function title_special_charecter($array, $title, $subtitle) {

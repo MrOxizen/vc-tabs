@@ -8,7 +8,7 @@ jQuery.noConflict();
     var WRAPPER = $('#oxi-addons-preview-data').attr('template-wrapper');
     var IFRAME = $("#oxi-addons-preview-iframe");
     var IFRAMEBODYCLASS = '.shortcode-addons-template-body';
-    var IFRAMETABSWRAPPER = '#oxi-tabs-wrapper-23';
+    var IFRAMETABSWRAPPER = '#oxi-tabs-wrapper-' + styleid;
     function NEWRegExp(par = '') {
         return new RegExp(par, "g");
     }
@@ -220,6 +220,14 @@ jQuery.noConflict();
                 });
             }
         });
+        setInterval(function () {
+            var frame = 'oxi-addons-preview-iframe';
+            var actual = document.getElementById(frame).contentWindow.document.body.scrollHeight + 100,
+            current = $('#'+frame).outerHeight();
+            if((current < actual)){
+               $('#'+frame).css('height',actual+'px');
+            }
+        }, 2000);
     });
     $("#oxi-addons-templates-submit").on("click", function (e) {
         e.preventDefault();
@@ -428,6 +436,7 @@ jQuery.noConflict();
             $("input[name=" + name + "]").each(function () {
                 arr.push($(this).val());
             });
+            console.log(arr);
             $input = $(this).parent('.shortcode-form-choices');
             var $data = JSON.parse($input.attr("retundata"));
             $.each($data, function (key, obj) {
@@ -456,11 +465,7 @@ jQuery.noConflict();
                     }
                 });
             });
-            if ($(this).val() === '') {
-                OxiAddonsPreviewDataLoader();
-            }
         }
-
     });
     $(".shortcode-control-type-color input").on("keyup, change", function () {
         $input = $(this);
@@ -520,7 +525,6 @@ jQuery.noConflict();
                         OxiAddonsPreviewDataLoader();
                     }
                 }
-
                 $.each($data, function (el, obj) {
                     if (el.indexOf('{{KEY}}') != -1) {
                         el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
@@ -852,9 +856,6 @@ jQuery.noConflict();
                 OxiAddonsPreviewDataLoader();
             }
         }
-
-
-
     });
     $(".oxi-addons-gradient-color").each(function (i, v) {
         $(this).coloringPick({
@@ -1024,13 +1025,6 @@ jQuery.noConflict();
         IFRAME.contents().find(IFRAMEBODYCLASS).css('background', $input);
         $("#oxilab-preview-color").val($input);
     });
-
-    setInterval(function () {
-        var frame = 'oxi-addons-preview-iframe';
-        document.getElementById(frame).style.height = document.getElementById(frame).contentWindow.document.body.scrollHeight + 'px';
-    }, 1000);
-
-
     $(document.body).on("click", ".media-modal-close", function () {
         if (($("#oxi-addons-list-data-modal").data('bs.modal') || {})._isShown) {
             setTimeout(function () {

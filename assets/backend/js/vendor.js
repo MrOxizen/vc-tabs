@@ -53,40 +53,34 @@ jQuery.noConflict();
         }
     });
     $('.shortcode-form-control').each(function (e) {
-        if ($(this).hasClass('shortcode-addons-form-responsive-tab')) {
+        if ($(this).hasClass('shortcode-addons-form-responsive-tablet')) {
             $(this).addClass('shortcode-addons-responsive-display-none');
         } else if ($(this).hasClass('shortcode-addons-form-responsive-mobile')) {
             $(this).addClass('shortcode-addons-responsive-display-none');
         }
     });
-    $(document.body).on("click", ".shortcode-form-responsive-switcher-desktop", function () {
-        $("#oxi-addons-form-submit").toggleClass('shortcode-responsive-switchers-open');
-        $("#oxi-template-modal-form").toggleClass('shortcode-responsive-switchers-open');
-        $(".shortcode-form-responsive-switcher-tablet").removeClass('active');
-        $(".shortcode-form-responsive-switcher-mobile").removeClass('active');
-        $(".shortcode-addons-form-responsive-laptop").removeClass('shortcode-addons-responsive-display-none');
-        $(".shortcode-addons-form-responsive-tab").addClass('shortcode-addons-responsive-display-none');
-        $(".shortcode-addons-form-responsive-mobile").addClass('shortcode-addons-responsive-display-none');
-         $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-tab');
-         $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-mobile');
-    });
-    $(document.body).on("click", ".shortcode-form-responsive-switcher-tablet", function () {
-        $(".shortcode-form-responsive-switcher-tablet").addClass('active');
-        $(".shortcode-form-responsive-switcher-mobile").removeClass('active');
-        $(".shortcode-addons-form-responsive-laptop").addClass('shortcode-addons-responsive-display-none');
-        $(".shortcode-addons-form-responsive-tab").removeClass('shortcode-addons-responsive-display-none');
-        $(".shortcode-addons-form-responsive-mobile").addClass('shortcode-addons-responsive-display-none');
-        $(".oxi-addons-preview-wrapper").addClass('oxi-addons-preview-wrapper-tab');
-         $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-mobile');
-    });
-    $(document.body).on("click", ".shortcode-form-responsive-switcher-mobile", function () {
-        $(".shortcode-form-responsive-switcher-tablet").removeClass('active');
-        $(".shortcode-form-responsive-switcher-mobile").addClass('active');
-        $(".shortcode-addons-form-responsive-laptop").addClass('shortcode-addons-responsive-display-none');
-        $(".shortcode-addons-form-responsive-tab").addClass('shortcode-addons-responsive-display-none');
-        $(".shortcode-addons-form-responsive-mobile").removeClass('shortcode-addons-responsive-display-none');
-         $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-tab');
-         $(".oxi-addons-preview-wrapper").addClass('oxi-addons-preview-wrapper-mobile');
+
+
+
+    $(document.body).on("click", ".shortcode-form-control-responsive-switchers a", function () {
+        $curent = $(this).data('device');
+        $arr = ['desktop', 'tablet', 'mobile'];
+        if ($curent === 'desktop') {
+            $("#wpbody").toggleClass('shortcode-responsive-switchers-open');
+        } else {
+            $("#wpbody").addClass('shortcode-responsive-switchers-open');
+        }
+        $.each($arr, function (i, value) {
+            if (value === $curent) {
+                $(".shortcode-form-responsive-switcher-" + value).addClass('active');
+                $(".shortcode-addons-form-responsive-" + value).removeClass('shortcode-addons-responsive-display-none');
+                $(".oxi-addons-preview-wrapper").addClass('oxi-addons-preview-wrapper-' + value);
+            } else {
+                $(".shortcode-form-responsive-switcher-" + value).removeClass('active');
+                $(".shortcode-addons-form-responsive-" + value).addClass('shortcode-addons-responsive-display-none');
+                $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-' + value);
+            }
+        });
     });
     $.fn.uncheckableRadio = function () {
         var $root = this;

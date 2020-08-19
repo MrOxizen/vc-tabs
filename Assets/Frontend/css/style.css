@@ -185,13 +185,13 @@
     cursor: pointer;
 }
 
-.oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li-title{
+.oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-main-title{
     font-size: 16px;
     font-weight: 500;
     color: #ffffff;
     margin: 0px 0px 0px 0px;
 }
-.oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li-title{
+.oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-sub-title{
     font-size: 12px;
     font-weight: 300;
     text-align: left;
@@ -200,7 +200,7 @@
 }
 .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-icons{
     font-size: 16px;
-     display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     color: #ffffff;
@@ -208,7 +208,7 @@
 }
 .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li-number{
     font-size: 16px;
-     display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     color: #ffffff;
@@ -216,12 +216,167 @@
 }
 .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li-image{
     width: 16px;
-     margin: 0px 5px 0px 0px;
+    margin: 0px 5px 0px 0px;
 }
+@media only screen and (min-width: 769px) and (max-width: 993px) {
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical{
+        flex-direction: column;
+    }
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal .oxi-tabs-ultimate-header{
+        flex-direction: column;
+        width: 100%
+    }
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical .oxi-tabs-ultimate-header-wrap{
+        width: 100%
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-tabs-show-title-false .oxi-tabs-main-title{
+        display: none;
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-tabs-show-subtitle-false .oxi-tabs-sub-title{
+        display: none;
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-tabs-show-icon-false .oxi-icons{
+        display: none;
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-tabs-show-number-false .oxi-tabs-header-li-number{
+        display: none;
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-tabs-show-image-false .oxi-tabs-header-li-image{
+        display: none;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-row .oxi-tabs-ultimate-header-wrap{
+        -webkit-flex-flow: column wrap;
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-row .oxi-tabs-ultimate-header{
+        -webkit-flex-flow: column wrap;
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-column .oxi-tabs-ultimate-header{
+        width: auto;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-compact .oxi-tabs-ultimate-header{
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-compact .oxi-tabs-header-li{
+       width: 100%
+    }
+    
+    
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column{
+        flex-direction: column;
+    }
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column-row .oxi-tabs-ultimate-header-wrap,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column-compact .oxi-tabs-ultimate-header-wrap{
+        width: 100%;
+    }
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column-column .oxi-tabs-ultimate-header-wrap{
+        width: auto;
+    }
+    
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column-column .oxi-tabs-ultimate-header,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column-compact .oxi-tabs-ultimate-header{
+        display: flex;
+    }
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column-compact .oxi-tabs-header-li{
+       width: 100%
+    }
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-row{
+        flex-direction: row;
+    }
+   
+}
+@media only screen and (max-width: 768px) {
+    
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal .oxi-tabs-ultimate-header{
+        flex-direction: column;
+        width: 100%
+    }
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical{
+        flex-direction: column;
+    }
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical .oxi-tabs-ultimate-header-wrap{
+        width: 100%
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-mobile-show-title-false .oxi-tabs-main-title{
+        display: none;
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-mobile-show-subtitle-false .oxi-tabs-sub-title{
+        display: none;
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-mobile-show-icon-false .oxi-icons{
+        display: none;
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-mobile-show-number-false .oxi-tabs-header-li-number{
+        display: none;
+    }
+    .oxi-tabs-ultimate-style .oxi-tabs-heading-mobile-show-image-false .oxi-tabs-header-li-image{
+        display: none;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-row .oxi-tabs-ultimate-header-wrap{
+        -webkit-flex-flow: column wrap;
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-row .oxi-tabs-ultimate-header{
+        -webkit-flex-flow: column wrap;
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-column .oxi-tabs-ultimate-header{
+        width: auto;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-compact .oxi-tabs-ultimate-header{
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-compact .oxi-tabs-header-li{
+       width: 100%
+    }
+    
+    
+    
+     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column{
+        flex-direction: column;
+    }
+     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column-row .oxi-tabs-ultimate-header-wrap,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column-compact .oxi-tabs-ultimate-header-wrap{
+        width: 100%;
+    }
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column-column .oxi-tabs-ultimate-header-wrap{
+        width: auto;
+    }
+    
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column-column .oxi-tabs-ultimate-header,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column-compact .oxi-tabs-ultimate-header{
+        display: flex;
+    }
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column-compact .oxi-tabs-header-li{
+       width: 100%
+    }
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row{
+        flex-direction: row;
+    }
+   
+}
+
+
+
+
+
+.oxi-tabs-ultimate-style .oxi-tabs-ultimate-content{
+    overflow: hidden;
+}
+
 .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content,
 .oxi-tabs-ultimate-style .oxi-tabs-body-tabs{
     width: 100%;
+    display: inline-block;
 }
+.oxi-tabs-ultimate-style .oxi-tabs-body-tabs{
+    display: none;
+}
+.oxi-tabs-ultimate-style .oxi-tabs-body-tabs.active{
+    display: block;
+}
+
 .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p{
     margin: 0 0 0 0 ;
 }

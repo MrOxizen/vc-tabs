@@ -292,9 +292,9 @@ trait Sanitization {
         $responsive = $responsiveclass = '';
         if (array_key_exists('responsive', $arg)) :
             if ($arg['responsive'] == 'laptop') :
-                $responsiveclass = 'shortcode-addons-form-responsive-laptop';
+                $responsiveclass = 'shortcode-addons-form-responsive-desktop';
             elseif ($arg['responsive'] == 'tab') :
-                $responsiveclass = 'shortcode-addons-form-responsive-tab';
+                $responsiveclass = 'shortcode-addons-form-responsive-tablet';
             elseif ($arg['responsive'] == 'mobile') :
                 $responsiveclass = 'shortcode-addons-form-responsive-mobile';
             endif;
@@ -310,6 +310,10 @@ trait Sanitization {
                                 </a>
                             </div>';
 
+        endif;
+        
+        if(array_key_exists('customresponsive', $arg)):
+            $arg['responsive'] = $arg['customresponsive'];
         endif;
         $defualt = [
             'type' => 'text',

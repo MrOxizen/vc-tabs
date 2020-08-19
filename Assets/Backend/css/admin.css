@@ -1199,7 +1199,7 @@ a:hover.oxi-addons-more-layouts {
     margin: 0 auto;
     transition: all linear 0.33s;
 }
-.oxi-addons-preview-wrapper-tab .oxi-addons-preview-data{
+.oxi-addons-preview-wrapper-tablet .oxi-addons-preview-data{
     max-width: 992px;
 }
 .oxi-addons-preview-wrapper-mobile .oxi-addons-preview-data{
@@ -3296,6 +3296,12 @@ span.multiselect-native-select select {
     display: flex;
     margin-right: 5px;
 }
+.oxi-addons-style-left-preview-heading .shortcode-form-control-responsive-switchers {
+    display: inline-flex;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
 
 .shortcode-form-control-field a.shortcode-form-responsive-switcher {
     display: inline-block;
@@ -3310,8 +3316,25 @@ span.multiselect-native-select select {
     text-align: center;
     transition: background-color .5s;
 }
+.oxi-addons-style-left-preview-heading a.shortcode-form-responsive-switcher {
+    display: inline-block;
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
+    background-color: #a4afb7;
+    cursor: pointer;
+    position: relative;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color .5s;
+}
 
 .shortcode-form-control-field a.shortcode-form-responsive-switcher:hover {
+    color: #fff;
+    background-color: #d7d7d7;
+}
+.oxi-addons-style-left-preview-heading a.shortcode-form-responsive-switcher:hover {
     color: #fff;
     background-color: #d7d7d7;
 }
@@ -3321,8 +3344,16 @@ span.multiselect-native-select select {
     color: #fff;
     background-color: #6d7882;
 }
+.oxi-addons-style-left-preview-heading a.shortcode-form-responsive-switcher.active,
+.oxi-addons-style-left-preview-heading a.shortcode-form-responsive-switcher.active:hover {
+    color: #fff;
+    background-color: #6d7882;
+}
 
 .shortcode-form-control-field .shortcode-form-responsive-switcher:not(:first-child) {
+    margin-left: 5px;
+}
+.oxi-addons-style-left-preview-heading .shortcode-form-responsive-switcher:not(:first-child) {
     margin-left: 5px;
 }
 
@@ -3343,6 +3374,14 @@ span.multiselect-native-select select {
     height: 18px;
     font-size: 10px;
     line-height: 18px;
+}
+.oxi-addons-style-left-preview-heading .shortcode-form-responsive-switcher .dashicons {
+    position: relative;
+    display: block;
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    line-height: 28px;
 }
 
 .shortcode-form-units-choices {

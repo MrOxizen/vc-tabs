@@ -65,6 +65,7 @@ trait Public_Helper {
     public function shortcode_render($styleid, $user = 'public') {
         if (!empty((int) $styleid) && !empty($user)):
             $style = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
+            
             if (!array_key_exists('rawdata', $style)):
                 $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
                 $Installation->Datatase();
