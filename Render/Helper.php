@@ -1929,6 +1929,7 @@ class Helper extends Admin {
         //Start Divider
         $this->start_section_devider();
         $this->register_desc_content();
+        $this->register_desc_recent();
         $this->register_desc_comment();
         $this->register_desc_tags();
         $this->end_section_devider();
@@ -2112,6 +2113,90 @@ class Helper extends Admin {
         );
         $this->add_responsive_control(
                 'oxi-tabs-desc-content-padding', $this->style, [
+            'label' => __('Content Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Content Padding with Peragraph Tag.',
+                ]
+        );
+        $this->end_controls_section();
+    }
+
+    public function register_desc_recent() {
+        $this->start_controls_section(
+                'oxi-tabs-desc-recent', [
+            'label' => esc_html__('Recent Post Settings', OXI_TABS_TEXTDOMAIN),
+            'showing' => TRUE,
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-recent-thumb-condi',
+                $this->style,
+                [
+                    'label' => __('Show Image', SHORTCODE_ADDOONS),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'default' => '1',
+                    'options' => [
+                        '1' => [
+                            'title' => __('True', SHORTCODE_ADDOONS),
+                        ],
+                        '0' => [
+                            'title' => __('False', SHORTCODE_ADDOONS),
+                        ],
+                    ],
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-recent-thumb-max', $this->style, [
+            'label' => esc_html__('Image Size (px)', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 65,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-post .oxi-tabs-recent-avatar' => 'max-width:{{VALUE}}px;',
+            ],
+            'description' => 'Write Your Number Beside Title.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-recent-thumb',
+                $this->style,
+                [
+                    'label' => __('Image Size', SHORTCODE_ADDOONS),
+                    'type' => Controls::SELECT,
+                    'loader' => TRUE,
+                    'options' => $this->thumbnail_sizes(),
+                    'condition' => [
+                        'oxi-tabs-desc-recent-thumb-condi' => '1'
+                    ]
+                ]
+        );
+
+        $this->add_responsive_control(
+                'oxi-tabs-desc-recent-padding', $this->style, [
             'label' => __('Content Padding', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::DIMENSIONS,
             'default' => [
@@ -2555,7 +2640,7 @@ class Helper extends Admin {
                 'popular-post' => __('Polular Post', OXI_TABS_TEXTDOMAIN),
                 'recent-post' => __('Recent Post', OXI_TABS_TEXTDOMAIN),
                 'recent-comment' => __('Recent Comment', OXI_TABS_TEXTDOMAIN),
-                'tag' => __('Tag', OXI_TABS_TEXTDOMAIN),
+                'tag' => __('Post Tag', OXI_TABS_TEXTDOMAIN)
             ],
             'description' => 'Confirm Your Tabs Content Type as Content or Custom Link.',
                 ]

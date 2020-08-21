@@ -524,4 +524,14 @@ class Admin {
         return preg_replace($from, $to, $content, 1);
     }
 
+    public function thumbnail_sizes() {
+        $default_image_sizes = get_intermediate_image_sizes();
+        $thumbnail_sizes = array();
+        foreach ($default_image_sizes as $size) {
+            $image_sizes[$size] = $size . ' - ' . intval(get_option("{$size}_size_w")) . ' x ' . intval(get_option("{$size}_size_h"));
+            $thumbnail_sizes[$size] = str_replace('_', ' ', ucfirst($image_sizes[$size]));
+        }
+        return $thumbnail_sizes;
+    }
+
 }
