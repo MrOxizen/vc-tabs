@@ -153,6 +153,13 @@ class Controls {
      * Typography control.
      */
     const TYPOGRAPHY = 'typography';
+    
+    /**
+     * Typography control.
+     */
+    const TYPO_FONTSIZE = 'typo-font-size';
+    
+    
 
     /**
      * Border control.

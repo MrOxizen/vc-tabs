@@ -10,29 +10,6 @@ use OXI_TABS_PLUGINS\Render\Render;
 
 class Style1 extends Render {
 
-//    public function public_css() {
-//        if ($this->style['oxi-tabs-heading-width-tab-size'] == 100 && $this->style['oxi-tabs-heading-width-tab-choices'] == '%'):
-//            $this->inline_css .= '@media only screen and (max-width: 993px) {
-//                                   .' . $this->WRAPPER . ' .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header{
-//                                        -webkit-box-orient: vertical;
-//                                        -webkit-box-direction: normal;
-//                                        -ms-flex-direction: column;
-//                                        flex-direction: column;
-//                                    }
-//                                }';
-//        endif;
-//        if ($this->style['oxi-tabs-heading-width-mob-size'] == 100 && $this->style['oxi-tabs-heading-width-mob-choices'] == '%'):
-//            $this->inline_css .= '@media only screen and (max-width: 668px) {
-//                                    .' . $this->WRAPPER . ' .oxi-tabs-ultimate-template-1 .oxi-tabs-ultimate-header{
-//                                          -webkit-box-orient: vertical;
-//                                          -webkit-box-direction: normal;
-//                                          -ms-flex-direction: column;
-//                                          flex-direction: column;
-//                                        }
-//                                    }';
-//        endif;
-//    }
-
     public function default_render($style, $child, $admin) {
         $data = [
             'header' => get_option('oxi_addons_fixed_header_size'),
@@ -43,7 +20,7 @@ class Style1 extends Render {
         ];
         $responsive = '';
         if ($style['oxi-tabs-heading-responsive-mode'] == 'oxi-tabs-heading-responsive-static'):
-            $responsive = $style['oxi-tabs-header-vertical-mobile-alignment'] . '  ' . $style['oxi-tabs-header-vertical-tabs-alignment'] . ' ' . $style['oxi-tabs-header-vertical-tabs-alignment-column'] .' ' . $style['oxi-tabs-header-horizontal-mobile-alignment-column'];
+            $responsive = $style['oxi-tabs-header-vertical-mobile-alignment'] . '  ' . $style['oxi-tabs-header-vertical-tabs-alignment'] . ' ' . $style['oxi-tabs-header-horizontal-tabs-alignment-column'] .' ' . $style['oxi-tabs-header-horizontal-mobile-alignment-column'];
         endif;
         $heading = $style['oxi-tabs-heading-responsive-mode'] . ' ' . $style['oxi-tabs-heading-alignment'] . ' ' . $style['oxi-tabs-heading-horizontal-position'] . ' ' . $style['oxi-tabs-heading-vertical-position'];
 
@@ -84,7 +61,7 @@ class Style1 extends Render {
         foreach ($child as $key => $val) {
             $value = json_decode(stripslashes($val['rawdata']), true);
             echo '      <div class="oxi-tabs-body-tabs animate__animated ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $val['id'] . '">
-                            ' . $this->special_charecter($value['oxi-tabs-modal-desc']) . '
+                            ' . $this->tabs_content_render($style, $value) . '
                             ' . $this->admin_edit_panel($val['id']) . '     
                         </div>';
         }

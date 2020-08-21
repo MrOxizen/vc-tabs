@@ -311,8 +311,8 @@ trait Sanitization {
                             </div>';
 
         endif;
-        
-        if(array_key_exists('customresponsive', $arg)):
+
+        if (array_key_exists('customresponsive', $arg)):
             $arg['responsive'] = $arg['customresponsive'];
         endif;
         $defualt = [
@@ -524,7 +524,7 @@ trait Sanitization {
      */
 
     public function hidden_admin_control($id, array $data = [], array $arg = []) {
-       
+
         $value = array_key_exists($id, $data) ? $data[$id] : '';
 
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
@@ -540,7 +540,6 @@ trait Sanitization {
                     if (!empty($value)):
                         $this->CSSDATA[$arg['responsive']][$class][$file] = $file;
                     endif;
-                    
                 }
             endif;
         endif;
@@ -1073,7 +1072,7 @@ trait Sanitization {
 
         $this->start_popover_control(
                 $id, [
-            'label' => __('Typography', OXI_TABS_TEXTDOMAIN),
+            'label' => array_key_exists('label', $arg) ? $arg['label'] : 'Typography',
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'description' => $arg['description'],
@@ -1089,41 +1088,45 @@ trait Sanitization {
             $loader => $loadervalue
                 ]
         );
-        $this->add_responsive_control(
-                $id . '-size', $data, [
-            'label' => __('Size', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::SLIDER,
-            'default' => [
-                'unit' => 'px',
-                'size' => '',
-            ],
-            $loader => $loadervalue,
-            $selectorvalue => 'font-size: {{SIZE}}{{UNIT}};',
-            $selector_key => $selector,
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => 1,
+        if (!array_key_exists('typo-font-size', $arg) || $arg['typo-font-size'] == true):
+            $this->add_responsive_control(
+                    $id . '-size', $data, [
+                'label' => __('Size', OXI_TABS_TEXTDOMAIN),
+                'type' => Controls::SLIDER,
+                'default' => [
+                    'unit' => 'px',
+                    'size' => '',
                 ],
-                'em' => [
-                    'min' => 0,
-                    'max' => 10,
-                    'step' => 0.1,
+                $loader => $loadervalue,
+                $selectorvalue => 'font-size: {{SIZE}}{{UNIT}};',
+                $selector_key => $selector,
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 100,
+                        'step' => 1,
+                    ],
+                    'em' => [
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 0.1,
+                    ],
+                    'rem' => [
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 0.1,
+                    ],
+                    'vm' => [
+                        'min' => 0,
+                        'max' => 10,
+                        'step' => 0.1,
+                    ],
                 ],
-                'rem' => [
-                    'min' => 0,
-                    'max' => 10,
-                    'step' => 0.1,
-                ],
-                'vm' => [
-                    'min' => 0,
-                    'max' => 10,
-                    'step' => 0.1,
-                ],
-            ],
-                ]
-        );
+                    ]
+            );
+        endif;
+
+
         $this->add_control(
                 $id . '-weight', $data, [
             'label' => __('Weight', OXI_TABS_TEXTDOMAIN),

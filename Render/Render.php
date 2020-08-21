@@ -333,12 +333,121 @@ class Render {
         endif;
     }
 
+    public function excerpt($limit = 10) {
+        $limit++;
+        $excerpt = explode(' ', get_the_excerpt(), $limit);
+        if (count($excerpt) >= $limit) {
+            array_pop($excerpt);
+            $excerpt = implode(" ", $excerpt) . '...';
+        } else {
+            $excerpt = implode(" ", $excerpt);
+        }
+        $excerpt = preg_replace('`[[^]]*]`', '', $excerpt);
+        return $excerpt;
+    }
+
+    public function post_title($limit = 10) {
+        $limit++;
+        $title = explode(' ', get_the_title(), $limit);
+        if (count($title) >= $limit) {
+            array_pop($title);
+            $title = implode(" ", $title) . '...';
+        } else {
+            $title = implode(" ", $title);
+        }
+        return $title;
+    }
+
+    public function truncate($str, $length = 24) {
+        if (mb_strlen($str) > $length) {
+            return mb_substr($str, 0, $length) . '...';
+        } else {
+            return $str;
+        }
+    }
+
     public function tabs_url_render($style) {
         if ($style['oxi-tabs-modal-components-type'] == 'link'):
             $data = $this->url_render('oxi-tabs-modal-link', $style);
             if (count($data) >= 1):
                 return ' data-link=\'' . json_encode($data) . '\'';
             endif;
+        endif;
+    }
+
+    public function tabs_content_render_tag($style, $child) {
+
+        $number = array_key_exists('oxi-tabs-desc-tags-max', $style) ? $style['oxi-tabs-desc-tags-max'] : 10;
+        $smallest = array_key_exists('oxi-tabs-desc-tags-small', $style) ? $style['oxi-tabs-desc-tags-small'] : 10;
+        $largest = array_key_exists('oxi-tabs-desc-tags-big', $style) ? $style['oxi-tabs-desc-tags-big'] : 10;
+        $show_count = array_key_exists('oxi-tabs-desc-tags-show-count', $style) ? $style['oxi-tabs-desc-tags-show-count'] : 1;
+
+        $tags = get_tags();
+        $args = array(
+            'smallest' => $smallest,
+            'largest' => $largest,
+            'unit' => 'px',
+            'number' => $number,
+            'format' => 'flat',
+            'separator' => " ",
+            'orderby' => 'count',
+            'order' => 'DESC',
+            'show_count' => $show_count,
+            'echo' => false
+        );
+        return wp_generate_tag_cloud($tags, $args);
+    }
+
+    public function tabs_content_render_commment($style, $child) {
+        $number = array_key_exists('oxi-tabs-desc-comment-max', $style) ? $style['oxi-tabs-desc-comment-max'] : 5;
+        $show_avatar = array_key_exists('oxi-tabs-desc-comment-show-avatar', $style) ? $style['oxi-tabs-desc-comment-show-avatar'] : 1;
+        $avatar_size = array_key_exists('oxi-tabs-desc-comment-avatar-size', $style) ? $style['oxi-tabs-desc-comment-avatar-size'] : 65;
+        $comment_length = array_key_exists('oxi-tabs-desc-comment-comment-lenth', $style) ? $style['oxi-tabs-desc-comment-comment-lenth'] : 90;
+
+        $recent_comments = get_comments(array(
+            'number' => $number,
+            'status' => 'approve',
+            'post_status' => 'publish'
+        ));
+        $public = '';
+        if ($recent_comments) : foreach ($recent_comments as $comment) :
+                $public .= '<div class="oxi-tabs-comment">';
+                if ($show_avatar) :
+                    $public .= ' <div class="oxi-tabs-comment-avatar">
+                                    <a href="' . get_comment_link($comment->comment_ID) . '">
+                                        ' . get_avatar($comment->comment_author_email, $avatar_size) . '
+                                    </a>
+                                </div>';
+                endif;
+                $public .= '<div class="oxi-tabs-comment-body">
+                                <div class=oxi-tabs-comment-meta">
+                                    <a href="' . get_comment_link($comment->comment_ID) . '">
+                                        <span class="oxi-tabs-comment-author">' . get_comment_author($comment->comment_ID) . ' </span> - <span class="oxi-tabs-comment-post">' . get_the_title($comment->comment_post_ID) . '</span>
+                                    </a>
+                                </div>
+                                <div class="oxi-tabs-comment-content">
+                                    ' . $this->truncate(strip_tags(apply_filters('get_comment_text', $comment->comment_content)), $comment_length) . '
+                                </div>
+                            </div>
+                            </div>';
+            endforeach;
+        else :
+            $public .= ' <div class="oxi-tabs-comment">
+                            <div class="no-comments">No comments yet</div>
+                        </div>';
+        endif;
+        return $public;
+    }
+
+    public function tabs_content_render($style, $child) {
+        if ($child['oxi-tabs-modal-components-type'] == 'popular-post'):
+        elseif ($child['oxi-tabs-modal-components-type'] == 'recent-post'):
+        elseif ($child['oxi-tabs-modal-components-type'] == 'recent-comment'):
+            return $this->tabs_content_render_commment($style, $child);
+        elseif ($child['oxi-tabs-modal-components-type'] == 'tag'):
+            return $this->tabs_content_render_tag($style, $child);
+        else:
+            return $this->special_charecter($child['oxi-tabs-modal-desc']);
         endif;
     }
 

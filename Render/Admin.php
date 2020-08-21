@@ -161,7 +161,7 @@ class Admin {
         endif;
         $this->StyleName = ucfirst($this->dbdata['style_name']);
         $this->import_font_family();
-        $transient = 'oxi-responsive-tabs-transient-' . $this->styleid;
+        $transient = 'oxi-responsive-tabs-transient-' . $this->oxiid;
         delete_transient($transient);
     }
 

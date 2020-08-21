@@ -75,7 +75,7 @@ trait CSS_JS_Loader {
         $this->admin_media_scripts();
     }
 
-     /**
+    /**
      * Admin Media Scripts.
      * Most of time using into Style Editing Page
      * 
@@ -86,13 +86,18 @@ trait CSS_JS_Loader {
         wp_register_script('oxi-tabs_media_scripts', OXI_TABS_URL . '/assets/backend/js/media-uploader.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs_media_scripts');
     }
+
     public function admin_css_loader() {
         $this->admin_css();
         $this->admin_js();
     }
 
     public function import_font_family() {
-        $this->font_family = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->import_table WHERE type = %s ORDER by id ASC", 'shortcode-addons'), ARRAY_A);
+
+        if ($this->wpdb->get_var($this->wpdb->prepare("SHOW TABLES LIKE %s", $this->import_table)) === $this->import_table):
+             $this->font_family = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->import_table WHERE type = %s ORDER by id ASC", 'shortcode-addons'), ARRAY_A);
+        endif;
+      
         $google = $custom = '';
         foreach ($this->font_family as $key => $value) {
             if ($value['name'] == 'custom') {

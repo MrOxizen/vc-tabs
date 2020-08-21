@@ -363,7 +363,7 @@ class Helper extends Admin {
         );
 
         $this->start_controls_tab();
-         $this->add_control(
+        $this->add_control(
                 'oxi-tabs-header-horizontal-tabs-alignment-column', $this->style, [
             'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
@@ -381,7 +381,7 @@ class Helper extends Admin {
             'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
                 ]
         );
-        
+
         $this->add_control(
                 'oxi-tabs-header-vertical-tabs-alignment', $this->style, [
             'label' => __('Header Alignment', OXI_TABS_TEXTDOMAIN),
@@ -405,7 +405,7 @@ class Helper extends Admin {
             'description' => 'Set Header Alignment for Tabs Mode.',
                 ]
         );
-         $this->add_control(
+        $this->add_control(
                 'oxi-tabs-header-vertical-tabs-alignment-column', $this->style, [
             'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
@@ -424,7 +424,7 @@ class Helper extends Admin {
             'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
                 ]
         );
-        
+
 
         $this->add_control(
                 'oxi-tabs-header-tab-vertical-width', $this->style, [
@@ -1929,6 +1929,8 @@ class Helper extends Admin {
         //Start Divider
         $this->start_section_devider();
         $this->register_desc_content();
+        $this->register_desc_comment();
+        $this->register_desc_tags();
         $this->end_section_devider();
         $this->end_section_tabs();
     }
@@ -2142,6 +2144,299 @@ class Helper extends Admin {
         $this->end_controls_section();
     }
 
+    public function register_desc_comment() {
+        $this->start_controls_section(
+                'oxi-tabs-desc-tags', [
+            'label' => esc_html__('Comment Settings', OXI_TABS_TEXTDOMAIN),
+            'showing' => false,
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-comment-max', $this->style, [
+            'label' => esc_html__('Max Comment', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 5,
+            'description' => 'Write Your Number Beside Title.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-desc-comment-show-avatar', $this->style, [
+            'label' => __('Show Avatar', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'default' => 1,
+            'options' => [
+                '0' => [
+                    'title' => __('False', OXI_TABS_TEXTDOMAIN),
+                ],
+                '1' => [
+                    'title' => __('True', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'description' => 'Allows you to set Show Avatar True or False.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-desc-comment-avatar-size', $this->style, [
+            'label' => esc_html__('Avatar Size', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 65,
+            'condition' => [
+                'oxi-tabs-desc-comment-show-avatar' => '1',
+            ],
+            'description' => 'Write Your Avatar Size.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-comment-comment-lenth', $this->style, [
+            'label' => esc_html__('Comment Lenth', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 90,
+            'description' => 'Write Your Comment Lenth.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-desc-comment-typho', $this->style, [
+            'label' => 'Title Typography',
+            'type' => Controls::TYPOGRAPHY,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style span.oxi-tabs-comment-author' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-meta a' => '',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style a span.oxi-tabs-comment-post' => '',
+            ]
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-desc-comment-excerpt-typo', $this->style, [
+            'label' => 'Comment Typography',
+            'type' => Controls::TYPOGRAPHY,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-body .oxi-tabs-comment-content' => '',
+            ]
+                ]
+        );
+
+        $this->start_controls_tabs(
+                'oxi-tabs-head-number-tabs',
+                [
+                    'options' => [
+                        'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
+                        'hover' => esc_html__('Hover', OXI_TABS_TEXTDOMAIN),
+                    ]
+                ]
+        );
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-desc-comment-title-color', $this->style, [
+            'label' => __('Title Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style span.oxi-tabs-comment-author' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-meta a' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style a span.oxi-tabs-comment-post' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Comment Title.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-comment-comment-color', $this->style, [
+            'label' => __('Comment Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-body .oxi-tabs-comment-content' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Comment.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-desc-comment-title-hover-color', $this->style, [
+            'label' => __('Title Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style span.oxi-tabs-comment-author:hover' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-meta a:hover' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style a span.oxi-tabs-comment-post:hover' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set color Title while hover.',
+                ]
+        );
+
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+
+        $this->add_responsive_control(
+                'oxi-tabs-desc-comment-padding', $this->style, [
+            'label' => __('Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Content Padding with Peragraph Tag.',
+                ]
+        );
+        $this->end_controls_section();
+    }
+
+    public function register_desc_tags() {
+        $this->start_controls_section(
+                'oxi-tabs-desc-tags', [
+            'label' => esc_html__('Tags Settings', OXI_TABS_TEXTDOMAIN),
+            'showing' => false,
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-tags-max', $this->style, [
+            'label' => esc_html__('Max Tags', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 20,
+            'description' => 'Write Your Number Beside Title.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-desc-tags-show-count', $this->style, [
+            'label' => __('Show Count', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'default' => 1,
+            'options' => [
+                '0' => [
+                    'title' => __('False', OXI_TABS_TEXTDOMAIN),
+                ],
+                '1' => [
+                    'title' => __('True', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'description' => 'Allows you to set Number Customization Mode as Simple or Fully Customizable.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-desc-tags-small', $this->style, [
+            'label' => esc_html__('Small Size', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 12,
+            'description' => 'Write Your Number Beside Title.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-tags-big', $this->style, [
+            'label' => esc_html__('Big Size', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 25,
+            'description' => 'Write Your Number Beside Title.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-desc-tags-typho', $this->style, [
+            'type' => Controls::TYPOGRAPHY,
+            Controls::TYPO_FONTSIZE => false,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs .tag-cloud-link' => '',
+            ]
+                ]
+        );
+
+        $this->start_controls_tabs(
+                'oxi-tabs-head-number-tabs',
+                [
+                    'options' => [
+                        'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
+                        'hover' => esc_html__('Hover', OXI_TABS_TEXTDOMAIN),
+                    ]
+                ]
+        );
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-desc-tags-color', $this->style, [
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs .tag-cloud-link' => 'color: {{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of the Heading.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-desc-tags-hover-color', $this->style, [
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs .tag-cloud-link:hover' => 'color: {{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of the Heading.',
+                ]
+        );
+
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+
+        $this->add_responsive_control(
+                'oxi-tabs-desc-tags-padding', $this->style, [
+            'label' => __('Content Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs .tag-cloud-link' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};display: inline-block;',
+            ],
+            'description' => 'Adjust Your Content Padding with Peragraph Tag.',
+                ]
+        );
+        $this->end_controls_section();
+    }
+
     public function register_custom_parent() {
         ///Custom CSS
         $this->start_section_tabs(
@@ -2257,11 +2552,24 @@ class Helper extends Admin {
             'options' => [
                 'wysiwyg' => __('WYSIWYG Editor', OXI_TABS_TEXTDOMAIN),
                 'link' => __('Custom Link', OXI_TABS_TEXTDOMAIN),
+                'popular-post' => __('Polular Post', OXI_TABS_TEXTDOMAIN),
+                'recent-post' => __('Recent Post', OXI_TABS_TEXTDOMAIN),
+                'recent-comment' => __('Recent Comment', OXI_TABS_TEXTDOMAIN),
+                'tag' => __('Tag', OXI_TABS_TEXTDOMAIN),
             ],
             'description' => 'Confirm Your Tabs Content Type as Content or Custom Link.',
                 ]
         );
-
+        $this->add_control(
+                'oxi-t-m-popular-heading', $this->style, [
+            'label' => esc_html__('Note:', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::HEADING,
+            'condition' => [
+                'oxi-tabs-modal-components-type' => 'popular-post',
+            ],
+            'description' => 'Popular Post need some customization in your theme function.php. Kindly check our documentations for works properly.',
+                ]
+        );
         $this->add_group_control(
                 'oxi-tabs-modal-link', $this->style, [
             'label' => esc_html__('Link', OXI_TABS_TEXTDOMAIN),
@@ -2272,8 +2580,6 @@ class Helper extends Admin {
             'description' => 'Add Custom link with opening type.',
                 ]
         );
-
-
         $this->add_control(
                 'oxi-tabs-modal-desc', $this->style, [
             'label' => __('Description', OXI_TABS_TEXTDOMAIN),
@@ -2281,7 +2587,7 @@ class Helper extends Admin {
             'condition' => [
                 'oxi-tabs-modal-components-type' => 'wysiwyg',
             ],
-            'default' => '<p>Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p><p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged</p>',
+            'default' => '',
                 ]
         );
         echo '</div>';
