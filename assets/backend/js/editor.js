@@ -43,6 +43,7 @@ jQuery.noConflict();
                 }
             }).done(function (response) {
                 callback(response);
+                console.log(response);
                 active = false;
             });
         }
@@ -223,9 +224,9 @@ jQuery.noConflict();
         setInterval(function () {
             var frame = 'oxi-addons-preview-iframe';
             var actual = document.getElementById(frame).contentWindow.document.body.scrollHeight + 100,
-            current = $('#'+frame).outerHeight();
-            if((current < actual)){
-               $('#'+frame).css('height',actual+'px');
+                    current = $('#' + frame).outerHeight();
+            if ((current < actual)) {
+                $('#' + frame).css('height', actual + 'px');
             }
         }, 2000);
     });
@@ -546,6 +547,7 @@ jQuery.noConflict();
         $input = $(this);
         if ($(this).attr("retundata") !== '') {
             var font = $input.val().replace(/\+/g, ' ');
+            IFRAME.contents().find(IFRAMETABSWRAPPER).append('<link rel=\'stylesheet\' id=\'' + font + '-css\'  href=\'https://fonts.googleapis.com/css?family=' + font + '\' media=\'all\' />');
             font = font.split(':');
             var $data = JSON.parse($input.attr("retundata"));
             $.each($data, function (el, obj) {
@@ -1009,15 +1011,15 @@ jQuery.noConflict();
     $(document.body).on("keyup", ".shortcode-addons-control-loader input", function () {
         OxiAddonsPreviewDataLoader();
     });
-    $(document.body).on("keyup", ".shortcode-addons-control-loader textarea", function () {
-        OxiAddonsPreviewDataLoader();
-    });
-    $(document.body).on("keyup", ".shortcode-addons-control-loader wysiwyg", function () {
-        OxiAddonsPreviewDataLoader();
-    });
-    $(document.body).on("change", ".shortcode-control-type-icon input", function () {
-        OxiAddonsPreviewDataLoader();
-    });
+//    $(document.body).on("keyup", ".shortcode-addons-control-loader textarea", function () {
+//        OxiAddonsPreviewDataLoader();
+//    });
+//    $(document.body).on("keyup", ".shortcode-addons-control-loader wysiwyg", function () {
+//        OxiAddonsPreviewDataLoader();
+//    });
+//    $(document.body).on("change", ".shortcode-control-type-icon input", function () {
+//        OxiAddonsPreviewDataLoader();
+//    });
     $(".oxi-addons-preview-wrapper").css('background', $("#oxi-addons-2-0-color").val());
     $("#oxi-addons-2-0-color").on("change", function (e) {
         $input = $(this).val();

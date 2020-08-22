@@ -442,18 +442,13 @@ class Render {
     public function tabs_content_render_recent($style, $child) {
         $show_thumb = array_key_exists('oxi-tabs-desc-recent-thumb-condi', $style) ? $style['oxi-tabs-desc-recent-thumb-condi'] : 1;
         $thumb_size = array_key_exists('oxi-tabs-desc-recent-thumb', $style) ? $style['oxi-tabs-desc-recent-thumb'] : 65;
-        $date = array_key_exists('oxi-tabs-desc-recent-date', $style) ? $style['oxi-tabs-desc-recent-date'] : 1;
-        $comment = array_key_exists('oxi-tabs-desc-recent-comment', $style) ? $style['oxi-tabs-desc-recent-comment'] : 1;
+        $date = array_key_exists('oxi-tabs-desc-recent-meta-date', $style) ? $style['oxi-tabs-desc-recent-meta-date'] : 1;
+        $comment = array_key_exists('oxi-tabs-desc-recent-meta-comment', $style) ? $style['oxi-tabs-desc-recent-meta-comment'] : 1;
         $content = array_key_exists('oxi-tabs-desc-recent-content-lenth', $style) ? $style['oxi-tabs-desc-recent-content-lenth'] : 90;
-
-        $recent_comments = get_comments(array(
-            'number' => 5,
-            'status' => 'approve',
-            'post_status' => 'publish'
-        ));
+        $number = array_key_exists('oxi-tabs-desc-recent-post', $style) ? $style['oxi-tabs-desc-recent-post'] : 5;
         $public = '';
 
-        $query = new \WP_Query('posts_per_page=5');
+        $query = new \WP_Query('posts_per_page=' . $number);
 
         if ($query->have_posts()) {
             while ($query->have_posts()) {
@@ -485,7 +480,7 @@ class Render {
                                     </div>';
                 }
                 $public .= '<div class="oxi-tabs-recent-body">
-                                <div class=oxi-tabs-recent-meta">
+                                <div class="oxi-tabs-recent-meta">
                                     <a href="' . get_permalink($query->post->ID) . '">
                                         ' . get_the_title($query->post->ID) . '
                                     </a>
@@ -501,12 +496,78 @@ class Render {
             wp_reset_postdata();
         }
 
+        return $public;
+    }
+
+    public function tabs_content_render_popular($style, $child) {
+        $show_thumb = array_key_exists('oxi-tabs-desc-popular-thumb-condi', $style) ? $style['oxi-tabs-desc-popular-thumb-condi'] : 1;
+        $thumb_size = array_key_exists('oxi-tabs-desc-popular-thumb', $style) ? $style['oxi-tabs-desc-popular-thumb'] : 65;
+        $date = array_key_exists('oxi-tabs-desc-popular-meta-date', $style) ? $style['oxi-tabs-desc-popular-meta-date'] : 1;
+        $comment = array_key_exists('oxi-tabs-desc-popular-meta-comment', $style) ? $style['oxi-tabs-desc-popular-meta-comment'] : 1;
+        $content = array_key_exists('oxi-tabs-desc-popular-content-lenth', $style) ? $style['oxi-tabs-desc-popular-content-lenth'] : 90;
+        $number = array_key_exists('oxi-tabs-desc-popular-post', $style) ? $style['oxi-tabs-desc-popular-post'] : 5;
+        $public = '';
+        
+        $query = new \WP_Query(
+                array('ignore_sticky_posts' => 1,
+            'posts_per_page' => $number,
+            'post_status' => 'publish',
+            'orderby' => 'meta_value_num',
+            'meta_key' => '_oxi_post_view_count',
+            'order' => 'desc')
+        );
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $extra = '';
+                if ($date):
+                    $extra .= '    <div class="oxi-tabs-popular-date">
+                                       ' . get_the_date('M d, Y') . '
+                                    </div>';
+                endif;
+
+                if ($comment):
+                    if (!empty($extra)):
+                        $extra .= '&nbsp&bull;&nbsp';
+                    endif;
+                    $number = (int) get_comments_number($query->post->ID);
+                    $extra .= '    <div class="oxi-tabs-popular-comment">
+                                        ' . ($number > 1 ? $number . ' Comment' : ($number > 0 ? 'One Comment' : 'No Comment')) . '
+                                    </div>';
+                endif;
+                $image_url = wp_get_attachment_image_src(get_post_thumbnail_id(), $thumb_size);
+                $public .= '<div class="oxi-tabs-popular-post">';
+                if ($show_thumb) {
+                    $image = $image_url[0] != '' ? $image_url[0] : '';
+                    $public .= '    <div class="oxi-tabs-popular-avatar">
+                                        <a href="' . get_permalink($query->post->ID) . '">
+                                           <img class="oxi-image" src="' . $image . '">
+                                        </a>
+                                    </div>';
+                }
+                $public .= '<div class="oxi-tabs-popular-body">
+                                <div class="oxi-tabs-popular-meta">
+                                    <a href="' . get_permalink($query->post->ID) . '">
+                                        ' . get_the_title($query->post->ID) . '
+                                    </a>
+                                </div>
+                                ' . (!empty($extra) ? '<div class="oxi-tabs-popular-postmeta">' . $extra . '</div>' : '') . '
+                                <div class="oxi-tabs-popular-content">
+                                    ' . $this->truncate(strip_tags(get_the_content()), $content) . '
+                                </div>
+                            </div>';
+                $public .= '</div>';
+                $extra = '';
+            }
+            wp_reset_postdata();
+        }
 
         return $public;
     }
 
     public function tabs_content_render($style, $child) {
         if ($child['oxi-tabs-modal-components-type'] == 'popular-post'):
+            return $this->tabs_content_render_popular($style, $child);
         elseif ($child['oxi-tabs-modal-components-type'] == 'recent-post'):
             return $this->tabs_content_render_recent($style, $child);
         elseif ($child['oxi-tabs-modal-components-type'] == 'recent-comment'):

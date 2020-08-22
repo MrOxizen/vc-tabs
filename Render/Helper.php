@@ -97,12 +97,13 @@ class Helper extends Admin {
             'label' => __('Trigger', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
-            'default' => '',
+            'loader' => TRUE,
+            'default' => '0',
             'options' => [
                 '1' => [
                     'title' => __('True', OXI_TABS_TEXTDOMAIN),
                 ],
-                '' => [
+                '0' => [
                     'title' => __('False', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
@@ -115,6 +116,7 @@ class Helper extends Admin {
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
             'default' => 'oxi-tabs-click-event',
+            'loader' => TRUE,
             'options' => [
                 'oxi-tabs-click-event' => [
                     'title' => __('Click', OXI_TABS_TEXTDOMAIN),
@@ -1923,15 +1925,15 @@ class Helper extends Admin {
         //Start Divider
         $this->start_section_devider();
         $this->register_desc_general();
+        $this->register_desc_tags();
         $this->end_section_devider();
-
 
         //Start Divider
         $this->start_section_devider();
         $this->register_desc_content();
+        $this->register_desc_popular();
         $this->register_desc_recent();
         $this->register_desc_comment();
-        $this->register_desc_tags();
         $this->end_section_devider();
         $this->end_section_tabs();
     }
@@ -2144,30 +2146,377 @@ class Helper extends Admin {
         );
         $this->end_controls_section();
     }
+    
+     public function register_desc_popular() {
+        $this->start_controls_section(
+                'oxi-tabs-desc-popular', [
+            'label' => esc_html__('Popular Post Settings', OXI_TABS_TEXTDOMAIN),
+            'showing' => false,
+                ]
+        );
+        //content Section
+        $this->add_control(
+                'oxi-tabs-desc-popular-post', $this->style, [
+            'label' => esc_html__('Max Post', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 5,
+            'description' => 'Write Your Number Beside Title.',
+                ]
+        );
+        $this->start_controls_tabs(
+                'oxi-tabs-desc-popular-tabs',
+                [
+                    'options' => [
+                        'image' => esc_html__('Image ', OXI_TABS_TEXTDOMAIN),
+                        'title' => esc_html__('Title', OXI_TABS_TEXTDOMAIN),
+                        'meta' => esc_html__('Meta', OXI_TABS_TEXTDOMAIN),
+                        'content' => esc_html__('Content', OXI_TABS_TEXTDOMAIN),
+                    ]
+                ]
+        );
+        $this->start_controls_tab();
+        //image Section
+        $this->add_control(
+                'oxi-tabs-desc-popular-thumb-condi', $this->style, [
+            'label' => __('Show Image', SHORTCODE_ADDOONS),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'default' => '1',
+            'options' => [
+                '1' => [
+                    'title' => __('True', SHORTCODE_ADDOONS),
+                ],
+                '0' => [
+                    'title' => __('False', SHORTCODE_ADDOONS),
+                ],
+            ],
+            'description' => 'Do You want Image Beside Popular Post.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-popular-thumb-max', $this->style, [
+            'label' => esc_html__('Image Size (px)', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 65,
+            'condition' => [
+                'oxi-tabs-desc-popular-thumb-condi' => '1'
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-post .oxi-tabs-popular-avatar' => 'max-width:{{VALUE}}px;',
+            ],
+            'description' => 'Write Your Image Max Width Beside Title.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-popular-thumb', $this->style, [
+            'label' => __('Image Size', SHORTCODE_ADDOONS),
+            'type' => Controls::SELECT,
+            'loader' => TRUE,
+            'options' => $this->thumbnail_sizes(),
+            'condition' => [
+                'oxi-tabs-desc-popular-thumb-condi' => '1'
+            ]
+                ]
+        );
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        //title Section
+        $this->add_group_control(
+                'oxi-tabs-desc-popular-title-typo', $this->style, [
+            'label' => 'Title Typography',
+            'type' => Controls::TYPOGRAPHY,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-meta a' => '',
+            ]
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-popular-title-color', $this->style, [
+            'label' => __('Title Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-meta a' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Popular Post Title.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-popular-title-h-color', $this->style, [
+            'label' => __('Title Hover Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-meta a:hover' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Popular Post Title.',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-popular-title-padding', $this->style, [
+            'label' => __('Title Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-meta' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Title Padding with other Content.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        //meta Section
+        $this->add_control(
+                'oxi-tabs-desc-popular-meta-date', $this->style, [
+            'label' => __('Show Date', SHORTCODE_ADDOONS),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'default' => '1',
+            'options' => [
+                '1' => [
+                    'title' => __('True', SHORTCODE_ADDOONS),
+                ],
+                '0' => [
+                    'title' => __('False', SHORTCODE_ADDOONS),
+                ],
+            ],
+            'description' => 'Want to show Date?',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-popular-meta-comment', $this->style, [
+            'label' => __('Show Comment', SHORTCODE_ADDOONS),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'default' => '1',
+            'options' => [
+                '1' => [
+                    'title' => __('True', SHORTCODE_ADDOONS),
+                ],
+                '0' => [
+                    'title' => __('False', SHORTCODE_ADDOONS),
+                ],
+            ],
+            'description' => 'Want to show Comment?',
+                ]
+        );
+
+        $this->add_group_control(
+                'oxi-tabs-desc-popular-meta-typo', $this->style, [
+            'label' => 'Meta Typography',
+            'type' => Controls::TYPOGRAPHY,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-postmeta' => '',
+                '{{WRAPPER}} .oxi-tabs-popular-postmeta .oxi-tabs-popular-date' => '',
+                '{{WRAPPER}} .oxi-tabs-popular-postmeta .oxi-tabs-popular-comment' => '',
+            ]
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-popular-meta-color', $this->style, [
+            'label' => __('Meta Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-postmeta' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-popular-postmeta .oxi-tabs-popular-date' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-popular-postmeta .oxi-tabs-popular-comment' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Meta Data.',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-popular-meta-padding', $this->style, [
+            'label' => __('Meta Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-postmeta' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Meta Padding with Other Content.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        //content Section
+        $this->add_control(
+                'oxi-tabs-desc-popular-content-lenth', $this->style, [
+            'label' => esc_html__('Content Lenth', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 90,
+            'description' => 'Write Your Max Content lenth.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-desc-popular-content-typo', $this->style, [
+            'label' => 'Content Typography',
+            'type' => Controls::TYPOGRAPHY,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-content' => '',
+            ]
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-popular-content-color', $this->style, [
+            'label' => __('Content Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+             '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-content' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Post Content.',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-popular-content-padding', $this->style, [
+            'label' => __('Content Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-content' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Content Padding with Others Elements.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+        $this->add_responsive_control(
+                'oxi-tabs-desc-popular-padding', $this->style, [
+            'label' => __('Content Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-popular-post' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Content Padding with Another Content.',
+                ]
+        );
+        $this->end_controls_section();
+    }
 
     public function register_desc_recent() {
         $this->start_controls_section(
                 'oxi-tabs-desc-recent', [
             'label' => esc_html__('Recent Post Settings', OXI_TABS_TEXTDOMAIN),
-            'showing' => TRUE,
+            'showing' => false,
                 ]
         );
+        //content Section
         $this->add_control(
-                'oxi-tabs-desc-recent-thumb-condi',
-                $this->style,
+                'oxi-tabs-desc-recent-post', $this->style, [
+            'label' => esc_html__('Max Post', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 5,
+            'description' => 'Write Your Number Beside Title.',
+                ]
+        );
+        $this->start_controls_tabs(
+                'oxi-tabs-desc-recent-tabs',
                 [
-                    'label' => __('Show Image', SHORTCODE_ADDOONS),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'default' => '1',
                     'options' => [
-                        '1' => [
-                            'title' => __('True', SHORTCODE_ADDOONS),
-                        ],
-                        '0' => [
-                            'title' => __('False', SHORTCODE_ADDOONS),
-                        ],
-                    ],
+                        'image' => esc_html__('Image ', OXI_TABS_TEXTDOMAIN),
+                        'title' => esc_html__('Title', OXI_TABS_TEXTDOMAIN),
+                        'meta' => esc_html__('Meta', OXI_TABS_TEXTDOMAIN),
+                        'content' => esc_html__('Content', OXI_TABS_TEXTDOMAIN),
+                    ]
+                ]
+        );
+        $this->start_controls_tab();
+        //image Section
+        $this->add_control(
+                'oxi-tabs-desc-recent-thumb-condi', $this->style, [
+            'label' => __('Show Image', SHORTCODE_ADDOONS),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'default' => '1',
+            'options' => [
+                '1' => [
+                    'title' => __('True', SHORTCODE_ADDOONS),
+                ],
+                '0' => [
+                    'title' => __('False', SHORTCODE_ADDOONS),
+                ],
+            ],
+            'description' => 'Do You want Image Beside Recent Post.',
                 ]
         );
         $this->add_control(
@@ -2175,26 +2524,247 @@ class Helper extends Admin {
             'label' => esc_html__('Image Size (px)', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 65,
+            'condition' => [
+                'oxi-tabs-desc-recent-thumb-condi' => '1'
+            ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-post .oxi-tabs-recent-avatar' => 'max-width:{{VALUE}}px;',
             ],
-            'description' => 'Write Your Number Beside Title.',
+            'description' => 'Write Your Image Max Width Beside Title.',
                 ]
         );
         $this->add_control(
-                'oxi-tabs-desc-recent-thumb',
-                $this->style,
-                [
-                    'label' => __('Image Size', SHORTCODE_ADDOONS),
-                    'type' => Controls::SELECT,
-                    'loader' => TRUE,
-                    'options' => $this->thumbnail_sizes(),
-                    'condition' => [
-                        'oxi-tabs-desc-recent-thumb-condi' => '1'
-                    ]
+                'oxi-tabs-desc-recent-thumb', $this->style, [
+            'label' => __('Image Size', SHORTCODE_ADDOONS),
+            'type' => Controls::SELECT,
+            'loader' => TRUE,
+            'options' => $this->thumbnail_sizes(),
+            'condition' => [
+                'oxi-tabs-desc-recent-thumb-condi' => '1'
+            ]
+                ]
+        );
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        //title Section
+        $this->add_group_control(
+                'oxi-tabs-desc-recent-title-typo', $this->style, [
+            'label' => 'Title Typography',
+            'type' => Controls::TYPOGRAPHY,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-meta a' => '',
+            ]
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-recent-title-color', $this->style, [
+            'label' => __('Title Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-meta a' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Recent Post Title.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-recent-title-h-color', $this->style, [
+            'label' => __('Title Hover Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-meta a:hover' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Recent Post Title.',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-recent-title-padding', $this->style, [
+            'label' => __('Title Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-meta' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Title Padding with other Content.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        //meta Section
+        $this->add_control(
+                'oxi-tabs-desc-recent-meta-date', $this->style, [
+            'label' => __('Show Date', SHORTCODE_ADDOONS),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'default' => '1',
+            'options' => [
+                '1' => [
+                    'title' => __('True', SHORTCODE_ADDOONS),
+                ],
+                '0' => [
+                    'title' => __('False', SHORTCODE_ADDOONS),
+                ],
+            ],
+            'description' => 'Want to show Date?',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-recent-meta-comment', $this->style, [
+            'label' => __('Show Comment', SHORTCODE_ADDOONS),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'default' => '1',
+            'options' => [
+                '1' => [
+                    'title' => __('True', SHORTCODE_ADDOONS),
+                ],
+                '0' => [
+                    'title' => __('False', SHORTCODE_ADDOONS),
+                ],
+            ],
+            'description' => 'Want to show Comment?',
                 ]
         );
 
+        $this->add_group_control(
+                'oxi-tabs-desc-recent-meta-typo', $this->style, [
+            'label' => 'Meta Typography',
+            'type' => Controls::TYPOGRAPHY,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-postmeta' => '',
+                '{{WRAPPER}} .oxi-tabs-recent-postmeta .oxi-tabs-recent-date' => '',
+                '{{WRAPPER}} .oxi-tabs-recent-postmeta .oxi-tabs-recent-comment' => '',
+            ]
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-recent-meta-color', $this->style, [
+            'label' => __('Meta Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-postmeta' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-recent-postmeta .oxi-tabs-recent-date' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-recent-postmeta .oxi-tabs-recent-comment' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Meta Data.',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-recent-meta-padding', $this->style, [
+            'label' => __('Meta Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-postmeta' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Meta Padding with Other Content.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        //content Section
+        $this->add_control(
+                'oxi-tabs-desc-recent-content-lenth', $this->style, [
+            'label' => esc_html__('Content Lenth', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::NUMBER,
+            'default' => 90,
+            'description' => 'Write Your Max Content lenth.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-desc-recent-content-typo', $this->style, [
+            'label' => 'Content Typography',
+            'type' => Controls::TYPOGRAPHY,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-content' => '',
+            ]
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-recent-content-color', $this->style, [
+            'label' => __('Content Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'default' => '',
+            'selector' => [
+             '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-content' => 'color:{{VALUE}};',
+            ],
+            'description' => 'Color property is used to set the color of Post Content.',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-recent-content-padding', $this->style, [
+            'label' => __('Content Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-content' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Adjust Your Content Padding with Others Elements.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
         $this->add_responsive_control(
                 'oxi-tabs-desc-recent-padding', $this->style, [
             'label' => __('Content Padding', OXI_TABS_TEXTDOMAIN),
@@ -2221,9 +2791,9 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-recent-post' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Content Padding with Peragraph Tag.',
+            'description' => 'Adjust Your Content Padding with Another Content.',
                 ]
         );
         $this->end_controls_section();

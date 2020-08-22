@@ -123,6 +123,7 @@ class Installation {
     public function plugin_activation_hook() {
         $this->Tabs_Menu();
         $this->Tabs_Datatase();
+        $this->Tabs_Post_Count();
         // Redirect to options page
         set_transient('oxi_tabs_activation_redirect', true, 30);
     }
@@ -137,6 +138,19 @@ class Installation {
     }
 
     /**
+     * Tabs Popular Post Count Query
+     *
+     * @since 3.3.0
+     */
+    public function Tabs_Post_Count() {
+        $allposts = get_posts('numberposts=-1&post_type=post&post_status=any');
+
+        foreach ($allposts as $postinfo) {
+            add_post_meta($postinfo->ID, '_oxi_post_view_count', 0, true);
+        }
+    }
+
+    /**
      * Plugin upgrade hook
      *
      * @since 1.0.0
@@ -146,6 +160,7 @@ class Installation {
             if (isset($options['plugins'][OXI_TABS_TEXTDOMAIN])) {
                 $this->Tabs_Menu();
                 $this->Tabs_Datatase();
+                $this->Tabs_Post_Count();
             }
         }
     }

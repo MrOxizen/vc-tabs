@@ -323,6 +323,7 @@ class Admin {
         $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' .oxi-addons-row';
 
         ob_start();
+        $dt = $this->import_font_family();
         $dt = $this->register_controls();
         ob_end_clean();
         $fullcssfile = '';
@@ -346,6 +347,10 @@ class Admin {
                 $fullcssfile .= $tempcss;
                 $fullcssfile .= '}';
             endif;
+        }
+
+        foreach ($this->font as $value) {
+            wp_enqueue_style('' . $value . '', 'https://fonts.googleapis.com/css?family=' . $value . '');
         }
         return $fullcssfile;
     }

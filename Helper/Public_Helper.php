@@ -65,18 +65,19 @@ trait Public_Helper {
     public function shortcode_render($styleid, $user = 'public') {
         if (!empty((int) $styleid) && !empty($user)):
             $style = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
-            
             if (!array_key_exists('rawdata', $style)):
                 $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
                 $Installation->Datatase();
             endif;
             if ($user == 'admin'):
                 $response = get_transient('oxi-responsive-tabs-transient-' . $styleid);
-                if ($response == 'false'):
-                    $style = [
+                if ($response):
+                    $new = [
                         'rawdata' => $response,
-                        'stylesheet' => ''
+                        'stylesheet' => '',
+                        'font_family' => ''
                     ];
+                   $style = array_merge($style, $new);
                 endif;
             endif;
             $child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);

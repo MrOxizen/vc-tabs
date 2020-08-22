@@ -69,7 +69,7 @@ class Bootstrap {
             $this->Admin_Filters();
             $this->User_Admin();
             $this->User_Reviews();
-            if (isset($_GET['page']) && 'oxi-tabs-style-view' === $_GET['page']) { 
+            if (isset($_GET['page']) && 'oxi-tabs-style-view' === $_GET['page']) {
                 new \OXI_TABS_PLUGINS\Modules\Template();
             }
         }
@@ -97,6 +97,7 @@ class Bootstrap {
         $Tabs_Widget = new \OXI_TABS_PLUGINS\Modules\Tabs_Widget();
         add_filter('widget_text', 'do_shortcode');
         add_action('widgets_init', array($Tabs_Widget, 'tabs_register_tabswidget'));
+        add_filter('the_content', [$this, 'view_count_jquery']);
     }
 
     /**
@@ -286,6 +287,35 @@ class Bootstrap {
             wp_redirect(admin_url('admin.php?page=oxi-tabs-ultimate-settings'));
             exit();
         }
+    }
+
+    public function view_count_jquery($content) {
+        if (!is_single()):
+            return $content; // Only on single posts
+        endif;
+
+        global $post;
+        $id = $post->ID;
+
+        $exclude_admins = apply_filters('oxi_view_count_exclude_admins', false);
+        if ($exclude_admins === true):
+            $exclude_admins = 'edit_posts';
+        endif;
+        if ($exclude_admins && current_user_can($exclude_admins)):
+            return $content;
+        endif;
+
+        $count = get_post_meta($id, 'the_content', true);
+        echo $count;
+        if ((int) $count):
+            update_post_meta($id, 'the_content', $count + 1);
+        else:
+            update_post_meta($id, 'the_content', 1);
+        endif;
+
+        remove_filter('the_content', [$this, 'view_count_jquery']);
+
+        return $content;
     }
 
 }
