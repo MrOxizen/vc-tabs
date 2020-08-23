@@ -1083,7 +1083,7 @@ trait Sanitization {
                 $id . '-font', $data, [
             'label' => __('Font Family', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::FONT,
-            $selectorvalue => 'font-family:"{{VALUE}}";',
+            $selectorvalue => 'font-family:\'{{VALUE}}\';',
             $selector_key => $selector,
             $loader => $loadervalue
                 ]

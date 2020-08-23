@@ -34,7 +34,6 @@ jQuery.noConflict();
         e.preventDefault();
         var rawdata = 'export';
         var styleid = $(this).children('#oxiexportid').val();
-        console.log(styleid);
         var functionname = "shortcode_export";
         $(this).prepend('<span class="spinner sa-spinner-open"></span>');
         Oxi_Tabs_Admin_Home(functionname, rawdata, styleid, childid, function (callback) {

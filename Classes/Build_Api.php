@@ -92,35 +92,23 @@ class Build_Api {
         return $arr;
     }
 
-    public function update_oxi_tabs_plugin() {
-        $stylelist = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->parent_table ORDER by id ASC"), ARRAY_A);
-        foreach ($stylelist as $value) {
-            $raw = json_decode(stripslashes($value['rawdata']), true);
-            $raw['style-id'] = $value['id'];
-            $name = ucfirst($value['style_name']);
-            $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
-            $C = new $cls('admin');
-            $f = $C->template_css_render($raw);
-        }
-        update_option('oxi_tabs_ultimate_update_complete', 'done');
-    }
-
     public function post_create_new() {
-
         if (!empty($this->styleid)):
+
             $styleid = (int) $this->styleid;
             $newdata = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
-//            if (array_key_exists('css', $newdata) && $newdata['css'] != ''):
-//                $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($newdata['styleid'], $newdata['rawdata'], $newdata['title'], $newdata['files'], $newdata['css'])));
-//            else:
-            $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'])));
-            // endif;
+            if (array_key_exists('css', $newdata) && $newdata['css'] != ''):
+                $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->parent_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($newdata['styleid'], $newdata['rawdata'], $newdata['title'], $newdata['files'], $newdata['css'])));
+            else:
+                $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'])));
+            endif;
             $redirect_id = $this->wpdb->insert_id;
             if ($redirect_id > 0):
                 $raw = json_decode(stripslashes($newdata['rawdata']), true);
                 $raw['style-id'] = $redirect_id;
                 $name = ucfirst($newdata['style_name']);
-                $C = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
+                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
+                $C = new $CLASS('admin');
                 $f = $C->template_css_render($raw);
                 $child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
                 foreach ($child as $value) {
@@ -131,7 +119,7 @@ class Build_Api {
         else:
             $params = json_decode(stripslashes($this->rawdata), true);
             $newname = $params['addons-style-name'];
-            $rawdata = json_decode(stripslashes($params['oxistyledata']), true);
+            $rawdata = json_decode($params['oxistyledata'], true);
             $style = $rawdata['style'];
             $child = $rawdata['child'];
             $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($newname, $style['style_name'], $style['rawdata'])));
@@ -172,7 +160,7 @@ class Build_Api {
                 'name' => $st['name'],
                 'style_name' => $st['style_name'],
                 'rawdata' => json_encode($this->array_replace(json_decode(stripslashes($st['rawdata']), true), '"', '&quot;')),
-                'stylesheet' => htmlentities($st['stylesheet']),
+                'stylesheet' => $st['stylesheet'],
                 'font_family' => $st['font_family'],
             ];
             $child = [];

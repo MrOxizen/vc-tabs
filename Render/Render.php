@@ -507,7 +507,7 @@ class Render {
         $content = array_key_exists('oxi-tabs-desc-popular-content-lenth', $style) ? $style['oxi-tabs-desc-popular-content-lenth'] : 90;
         $number = array_key_exists('oxi-tabs-desc-popular-post', $style) ? $style['oxi-tabs-desc-popular-post'] : 5;
         $public = '';
-        
+
         $query = new \WP_Query(
                 array('ignore_sticky_posts' => 1,
             'posts_per_page' => $number,

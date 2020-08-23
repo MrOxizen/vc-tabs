@@ -305,12 +305,11 @@ class Bootstrap {
             return $content;
         endif;
 
-        $count = get_post_meta($id, 'the_content', true);
-        echo $count;
+        $count = get_post_meta($id, '_oxi_post_view_count', true);
         if ((int) $count):
-            update_post_meta($id, 'the_content', $count + 1);
+            update_post_meta($id, '_oxi_post_view_count', $count + 1);
         else:
-            update_post_meta($id, 'the_content', 1);
+            update_post_meta($id, '_oxi_post_view_count', 1);
         endif;
 
         remove_filter('the_content', [$this, 'view_count_jquery']);

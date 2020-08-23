@@ -22,6 +22,9 @@
     padding-left: 0;
     padding-right: 0;
 }
+.oxi-image{
+    width: 100%;
+}
 .oxi-tab-clearfix:before, .oxi-tab-clearfix:after {
     content: "";
     display: table;

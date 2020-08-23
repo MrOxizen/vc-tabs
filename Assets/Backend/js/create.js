@@ -25,7 +25,6 @@ jQuery.noConflict();
         e.preventDefault();
         $('#addons-style-name').val('');
         $('#oxistyledata').val($('#' + $(this).attr('addons-data')).val());
-        console.log('new modal form');
         $("#oxi-addons-style-create-modal").modal("show");
     });
 
@@ -33,11 +32,11 @@ jQuery.noConflict();
         e.preventDefault();
         var rawdata = JSON.stringify($(this).serializeJSON({checkboxUncheckedValue: "0"}));
         var functionname = "create_new";
+         console.log(rawdata);
         $('.modal-footer').prepend('<span class="spinner sa-spinner-open-left"></span>');
         Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, function (callback) {
-            console.log(callback);
             setTimeout(function () {
-                document.location.href = callback;
+               document.location.href = callback;
             }, 1000);
         });
     });
@@ -64,7 +63,6 @@ jQuery.noConflict();
         var functionname = "shortcode_active";
         $(this).prepend('<span class="spinner sa-spinner-open-left"></span>');
         Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, function (callback) {
-            console.log(callback);
             setTimeout(function () {
                 document.location.href = callback;
             }, 1000);
