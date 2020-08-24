@@ -133,6 +133,7 @@ class Helper extends Admin {
             'label' => __('Initial Opening', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => ':eq(0)',
+            'loader' => TRUE,
             'options' => $this->get_initial_opening_list(),
             'description' => 'Initial Opening, Which tab will Open at Page Load.',
                 ]
@@ -142,6 +143,7 @@ class Helper extends Admin {
             'label' => __('Animation', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
+            'loader' => TRUE,
             'options' => [
                 'optgroup0' => [true, 'Attention Seekers'],
                 '' => __('No Animation', OXI_TABS_TEXTDOMAIN),
@@ -2146,8 +2148,8 @@ class Helper extends Admin {
         );
         $this->end_controls_section();
     }
-    
-     public function register_desc_popular() {
+
+    public function register_desc_popular() {
         $this->start_controls_section(
                 'oxi-tabs-desc-popular', [
             'label' => esc_html__('Popular Post Settings', OXI_TABS_TEXTDOMAIN),
@@ -2401,7 +2403,7 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'default' => '',
             'selector' => [
-             '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-content' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-content' => 'color:{{VALUE}};',
             ],
             'description' => 'Color property is used to set the color of Post Content.',
                 ]
@@ -2727,7 +2729,7 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'default' => '',
             'selector' => [
-             '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-content' => 'color:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-content' => 'color:{{VALUE}};',
             ],
             'description' => 'Color property is used to set the color of Post Content.',
                 ]
