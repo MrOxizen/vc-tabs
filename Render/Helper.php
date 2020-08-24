@@ -107,7 +107,7 @@ class Helper extends Admin {
                     'title' => __('False', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
-            'description' => 'Do You want to Close Tabs while Double click into Same Tabs.',
+            'description' => 'Enable Trigger to close the tab’s content with a Second click into the Same Tabs.',
                 ]
         );
         $this->add_control(
@@ -125,7 +125,7 @@ class Helper extends Admin {
                     'title' => __('Hover', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
-            'description' => 'Select an activator event for tabs.',
+            'description' => 'Select either your Tabs will open on Click or Hover.',
                 ]
         );
         $this->add_control(
@@ -135,7 +135,7 @@ class Helper extends Admin {
             'default' => ':eq(0)',
             'loader' => TRUE,
             'options' => $this->get_initial_opening_list(),
-            'description' => 'Initial Opening, Which tab will Open at Page Load.',
+            'description' => 'Select which Tab will Open at Page Load.',
                 ]
         );
         $this->add_control(
@@ -221,7 +221,7 @@ class Helper extends Admin {
                 'animate__slideInUp' => __('Slide In Up', OXI_TABS_TEXTDOMAIN),
                 'optgroup19' => [false],
             ],
-            'description' => 'Tabs Animation, Select Tabs Animation While clicking into Tabs.',
+            'description' => 'Add Animation Effect on Tabs opening.',
                 ]
         );
         $this->end_controls_section();
@@ -250,7 +250,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
             ],
-            'description' => 'Set Your Tabs Alignment as Horizontal or Vertical.',
+            'description' => 'Set the Tabs Alignment type.',
                 ]
         );
         $this->add_control(
@@ -273,7 +273,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
             ],
-            'description' => 'Set Your Tabs Header Horizontal Position.',
+            'description' => 'Set the Horizontal Position of Tab’s header.',
                 ]
         );
 
@@ -295,7 +295,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
             ],
-            'description' => 'Set Your Tabs Header Vertical Position.',
+            'description' => 'Set the Vertical Position of Tab’s header.',
                 ]
         );
 
@@ -330,7 +330,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tab-header-vertical .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Customize Header Width with several options as Pixel, Percent or EM.',
+            'description' => 'Customize the Header Width (Pixel, Percent or EM).',
                 ]
         );
         $this->add_control(
@@ -350,7 +350,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
             ],
-            'description' => 'Set Your Tabs Header Responsive Behavior while Static will give you to set as like as you want.',
+            'description' => 'Set the Responsive Behavior of the Tab’s Header while Static will give you to set your custom settings.',
                 ]
         );
         $this->start_controls_tabs(
@@ -367,6 +367,7 @@ class Helper extends Admin {
         );
 
         $this->start_controls_tab();
+
         $this->add_control(
                 'oxi-tabs-header-horizontal-tabs-alignment-column', $this->style, [
             'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
@@ -382,9 +383,10 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
             ],
-            'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
+            'description' => 'Set Horizontal Position of the Header either Column, Row, or Compact.',
                 ]
         );
+
 
         $this->add_control(
                 'oxi-tabs-header-vertical-tabs-alignment', $this->style, [
@@ -406,7 +408,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
             ],
-            'description' => 'Set Header Alignment for Tabs Mode.',
+            'description' => 'Set the Tabs Alignment type for Medium Device.',
                 ]
         );
         $this->add_control(
@@ -461,9 +463,9 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tab-header-vertical.oxi-tabs-header-vertical-tabs-alignment-row .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-row .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Customize Header Width with several options as Pixel, Percent or EM.',
+            'description' => 'Customize the Header Width (Pixel, Percent or EM).',
                 ]
         );
         $this->add_control(
@@ -483,7 +485,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Title Showing Options for Tabs Mode.',
+            'description' => 'Show/Hide the Title on Tabs Mode.',
                 ]
         );
         $this->add_control(
@@ -503,7 +505,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Sub Title Showing Options for Tabs Mode.',
+            'description' => 'Show/Hide the Sub Title on Tabs Mode.',
                 ]
         );
         $this->add_control(
@@ -523,7 +525,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Header Icon Showing Options for Tabs Mode.',
+            'description' => 'Show/Hide the header Icon on Tabs Mode.',
                 ]
         );
         $this->add_control(
@@ -543,7 +545,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Header Number Showing Options for Tabs Mode.',
+            'description' => 'Show/Hide the header Number on Tabs Mode.',
                 ]
         );
         $this->add_control(
@@ -563,13 +565,31 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Header Image Showing Options for Tabs Mode.',
+            'description' => 'Show/Hide the header Image on Tabs Mode.',
                 ]
         );
 
 
         $this->end_controls_tab();
         $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-header-horizontal-mobile-alignment-column', $this->style, [
+            'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'condition' => [
+                'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
+            ],
+            'options' => [
+                'oxi-tabs-header-horizontal-mobile-alignment-column-column' => __('Column', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-horizontal-mobile-alignment-column-row' => __('Row', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-horizontal-mobile-alignment-column-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Set Horizontal Position of the Header either Column, Row, or Compact..',
+                ]
+        );
         $this->add_control(
                 'oxi-tabs-header-vertical-mobile-alignment', $this->style, [
             'label' => __('Header Alignment', OXI_TABS_TEXTDOMAIN),
@@ -590,27 +610,10 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
             ],
-            'description' => 'Set Header Alignment for Tabs Mode.',
+            'description' => 'Set the Tabs Alignment type for Small Device.',
                 ]
         );
-        $this->add_control(
-                'oxi-tabs-header-horizontal-mobile-alignment-column', $this->style, [
-            'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::SELECT,
-            'condition' => [
-                'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
-            ],
-            'options' => [
-                'oxi-tabs-header-horizontal-mobile-alignment-column-column' => __('Column', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-horizontal-mobile-alignment-column-row' => __('Row', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-horizontal-mobile-alignment-column-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
-            ],
-            'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
-            ],
-            'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
-                ]
-        );
+
         $this->add_control(
                 'oxi-tabs-header-vertical-mobile-alignment-column', $this->style, [
             'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
@@ -661,9 +664,9 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tab-header-vertical.oxi-tabs-header-vertical-mobile-alignment-row .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Customize Header Width with several options as Pixel, Percent or EM.',
+            'description' => 'Customize the Header Width (Pixel, Percent or EM) for Small Device.',
                 ]
         );
 
@@ -684,7 +687,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Title Showing Options for Mobile Mode.',
+            'description' => 'Show/Hide the Title on Mobile Mode.',
                 ]
         );
         $this->add_control(
@@ -704,7 +707,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Sub Title Showing Options for Tabs Mode.',
+            'description' => 'Show/Hide the Sub Title on Mobile Mode.',
                 ]
         );
         $this->add_control(
@@ -724,7 +727,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Header Icon Showing Options for Mobile Mode.',
+            'description' => 'Show/Hide the header Icon on Mobile Mode.',
                 ]
         );
         $this->add_control(
@@ -744,7 +747,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Header Number Showing Options for Mobile Mode.',
+            'description' => 'Show/Hide the header Number on Mobile Mode.',
                 ]
         );
         $this->add_control(
@@ -764,7 +767,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-header-wrap' => '',
             ],
-            'description' => 'Set Header Image Showing Options for Mobile Mode.',
+            'description' => 'Show/Hide the header Image on Mobile Mode.',
                 ]
         );
         $this->end_controls_tab();
@@ -818,7 +821,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-header-li' => '',
             ],
-            'description' => 'Set Your Tabs Header Title Additional Location like Icon or Image or Number.',
+            'description' => 'Set the Location of Title’s Additionals (Icon, Image, or Number.)',
                 ]
         );
         $this->start_controls_tabs(
@@ -840,7 +843,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'background: {{VALUE}};',
             ],
-            'description' => 'Background property is used to set the Background of the Header.',
+            'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
         );
 
@@ -857,7 +860,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li:hover' => 'background: {{VALUE}};',
             ],
-            'description' => 'Background property is used to set the active or hover background of the Header.',
+            'description' => 'Set the Background of the Header.on Active/Hover Mode.',
                 ]
         );
 
@@ -876,7 +879,7 @@ class Helper extends Admin {
                     'selector' => [
                         '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border-right: {{SIZE}}px {{TYPE}} {{COLOR}};'
                     ],
-                    'description' => 'Inner Border property is used to set Border Right with Color of the Header.',
+                    'description' => 'Customize Inner Right Border of the Header. Set Type, Size, and Color.',
                 ]
         );
         $this->add_group_control(
@@ -885,7 +888,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => '',
             ],
-            'description' => 'Allows you to attaches one or more shadows into Header Section.',
+            'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
                 ]
         );
         $this->add_group_control(
@@ -896,7 +899,7 @@ class Helper extends Admin {
                     'selector' => [
                         '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => ''
                     ],
-                    'description' => 'Border property is used to set the Border of the Header Section.',
+                    'description' => 'Customize Border of the Header. Set Type, Width, and Color.',
                 ]
         );
         $this->add_responsive_control(
@@ -927,7 +930,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Allows you to add rounded corners to Header Section with options.',
+            'description' => 'Add rounded corners to the Header’s Section.',
                 ]
         );
         $this->add_responsive_control(
@@ -958,7 +961,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Padding used to generate space around Header Content include background color.',
+            'description' => 'Generate some Space around the Header Content including background color.',
                 ]
         );
         $this->add_responsive_control(
@@ -989,7 +992,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Margin properties are used to create space outside Header Section.',
+            'description' => 'Create some Space outside of the Header Section.',
                 ]
         );
         $this->end_controls_section();
@@ -1009,7 +1012,8 @@ class Helper extends Admin {
             'include' => Controls::ALIGNNORMAL,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-main-title' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Tab’s Title.',
                 ]
         );
         $this->start_controls_tabs(
@@ -1031,7 +1035,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-main-title' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of the Title.',
+            'description' => 'Set the Title Color on Normal Mode.',
                 ]
         );
         $this->add_group_control(
@@ -1040,7 +1044,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-main-title' => '',
             ],
-            'description' => 'Text Shadow property adds shadow to Title.',
+            'description' => 'Add one or more shadows into Title Texts and customize other Text-Shadow Options.',
                 ]
         );
 
@@ -1054,7 +1058,7 @@ class Helper extends Admin {
                 '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-main-title' => 'color: {{VALUE}};',
                 '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-main-title' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the active or hover color of the Title.',
+            'description' => 'Set the Title Color on Active/Hover Mode.',
                 ]
         );
         $this->add_group_control(
@@ -1064,7 +1068,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-main-title' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-main-title' => '',
             ],
-            'description' => 'Text Shadow property add shadow to active or hover Title.',
+            'description' => 'Add one or more shadows into Title Texts and customize other Text-Shadow Options.',
                 ]
         );
 
@@ -1099,7 +1103,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-main-title' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Margin properties are used to create space outside Title.',
+            'description' => 'Create some Space outside of the Title.',
                 ]
         );
         $this->end_controls_section();
@@ -1119,7 +1123,8 @@ class Helper extends Admin {
             'include' => Controls::ALIGNNORMAL,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-sub-title' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Tab’s Sub Title.',
                 ]
         );
         $this->start_controls_tabs(
@@ -1141,7 +1146,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-sub-title' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Sub Title.',
+            'description' => 'Set the Sub Title Color on Normal Mode.',
                 ]
         );
         $this->add_group_control(
@@ -1150,7 +1155,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-sub-title' => '',
             ],
-            'description' => 'Text Shadow property adds shadow to Sub Title.',
+            'description' => 'Add one or more shadows into Sub Title Texts and customize other Text-Shadow Options.',
                 ]
         );
 
@@ -1164,7 +1169,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-sub-title' => 'color: {{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-sub-title' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the active or hover color of Sub Title.',
+            'description' => 'Set the Sub Title Color on Active/Hover Mode.',
                 ]
         );
         $this->add_group_control(
@@ -1174,7 +1179,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-sub-title' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-sub-title' => '',
             ],
-            'description' => 'Text Shadow property add shadow to active or hover at Sub Title.',
+            'description' => 'Add one or more shadows into Sub Title Texts and customize other Text-Shadow Options.',
                 ]
         );
 
@@ -1209,7 +1214,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-sub-title' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Margin properties are used to create space outside Sub Title.',
+            'description' => 'Create some Space outside of the Sub Title.',
                 ]
         );
         $this->end_controls_section();
@@ -1239,7 +1244,7 @@ class Helper extends Admin {
                             'title' => __('Customizable', OXI_TABS_TEXTDOMAIN),
                         ],
                     ],
-                    'description' => 'Confirm Icon Interface As Simple or fully Customizable.',
+                    'description' => 'Set the Icon Customization Interface either Simple or fully Customizable.',
                 ]
         );
         $this->add_responsive_control(
@@ -1273,7 +1278,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'width:{{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Allows you to Set Icon Width.',
+            'description' => 'Set the Icon’s Width.',
                 ]
         );
         $this->add_responsive_control(
@@ -1307,7 +1312,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'height:{{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Allows you to Set Icon Height.',
+            'description' => 'Set the Icon’s Height.',
                 ]
         );
 
@@ -1339,7 +1344,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'font-size:{{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Allows you to Set Icon Size.',
+            'description' => 'Set the Icon Size (PX, % or EM).',
                 ]
         );
 
@@ -1362,7 +1367,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of the Icon.',
+            'description' => 'Set the Icon’s Color on Normal Mode.',
                 ]
         );
         $this->add_control(
@@ -1375,7 +1380,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'background: {{VALUE}};',
             ],
-            'description' => 'Customize Icon Background with Color or Gradient or Image properties.',
+            'description' => 'Customize Icon Background with Color, Gradient or Image properties for Normal Mode.',
                 ]
         );
 
@@ -1388,7 +1393,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => '',
             ],
-            'description' => 'Border property is used to set the Border of the Icon.',
+            'description' => 'Customize Border of the Icon. Set Type, Width, and Color.',
                 ]
         );
 
@@ -1402,7 +1407,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => 'color: {{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the active or hover color of the Icon.',
+            'description' => 'Set the Icon’s Color on Active/Hover Mode.',
                 ]
         );
         $this->add_control(
@@ -1416,7 +1421,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => 'background: {{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => 'background: {{VALUE}};',
             ],
-            'description' => 'Customize Icon Background with Color or Gradient or Image properties.',
+            'description' => 'Customize Icon Background with Color, Gradient or Image properties for Active/Hover Mode.',
                 ]
         );
 
@@ -1430,7 +1435,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => '',
             ],
-            'description' => 'Border property is used to set the Border of the Icon.',
+            'description' => 'Customize Border of the Icon. Set Type, Width, and Color for Active/Hover Mode.',
                 ]
         );
 
@@ -1468,7 +1473,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Allows you to add rounded corners to Icon with 4 values.',
+            'description' => 'Add rounded corners to the Icon’s  Section.',
                 ]
         );
         $this->add_responsive_control(
@@ -1500,7 +1505,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-icons' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Margin properties are used to create space outside Icon.',
+            'description' => 'Create some Space outside of the Icon.',
                 ]
         );
 
@@ -1531,7 +1536,7 @@ class Helper extends Admin {
                             'title' => __('Customizable', OXI_TABS_TEXTDOMAIN),
                         ],
                     ],
-                    'description' => 'Allows you to set Number Customization Mode as Simple or Fully Customizable.',
+                    'description' => 'Set the Number Customization Interface either Simple or fully Customizable.',
                 ]
         );
         $this->add_responsive_control(
@@ -1565,7 +1570,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'width:{{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Allows you to Set Number Body Width.',
+            'description' => 'Set the Number’s Width.',
                 ]
         );
         $this->add_responsive_control(
@@ -1599,7 +1604,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'height:{{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Allows you to Set Number Body Height.',
+            'description' => 'Set the Number’s Height.',
                 ]
         );
 
@@ -1608,7 +1613,8 @@ class Helper extends Admin {
             'type' => Controls::TYPOGRAPHY,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Number.',
                 ]
         );
 
@@ -1631,7 +1637,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of the Number.',
+            'description' => 'Set the Number’s Color on Normal Mode.',
                 ]
         );
         $this->add_control(
@@ -1644,7 +1650,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'background:{{VALUE}};',
             ],
-            'description' => 'Customize Number Background with Color or Gradient properties.',
+            'description' => 'Customize Number Background with Color, Gradient or Image properties for Normal Mode.',
                 ]
         );
 
@@ -1657,7 +1663,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => '',
             ],
-            'description' => 'Border property is used to set the Border of the Number Body.',
+            'description' => 'Customize Border of the Number. Set Type, Width, and Color.',
                 ]
         );
 
@@ -1671,7 +1677,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => 'color: {{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-number' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the active or hover color of the Number.',
+            'description' => 'Set the Number’s Color on Active/Hover Mode.',
                 ]
         );
         $this->add_control(
@@ -1685,7 +1691,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => 'background:{{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-number' => 'background:{{VALUE}};',
             ],
-            'description' => 'Customize Number Background with Color or Gradient properties.',
+            'description' => 'Customize Number Background with Color, Gradient or Image properties for Active/Hover Mode.',
                 ]
         );
 
@@ -1699,7 +1705,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-number' => '',
             ],
-            'description' => 'Border property is used to set the Border of the Number.',
+            'description' => 'Customize Border of the Number. Set Type, Width, and Color for Active/Hover Mode.',
                 ]
         );
 
@@ -1737,7 +1743,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Allows you to add rounded corners to Number Body with 4 values.',
+            'description' => 'Add rounded corners to the Number’s border.',
                 ]
         );
         $this->add_responsive_control(
@@ -1769,7 +1775,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-number' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Margin properties are used to create space outside Number.',
+            'description' => 'Create some Space outside of the Number on the header.',
                 ]
         );
         $this->end_controls_section();
@@ -1810,7 +1816,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-li-image' => 'width:{{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Allows you to Set Image Width.',
+            'description' => 'Set the Image’s Width.',
                 ]
         );
         $this->start_controls_tabs(
@@ -1829,7 +1835,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-li-image' => '',
             ],
-            'description' => 'Border property is used to set the Border of the Image.',
+            'description' => 'Customize Border of the Image. Set Type, Width, and Color.',
                 ]
         );
 
@@ -1842,7 +1848,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-image' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-image' => '',
             ],
-            'description' => 'Border property is used to set the Border of the Image.',
+            'description' => 'Customize Border of the Image. Set Type, Width, and Color for Active/Hover Mode.',
                 ]
         );
 
@@ -1877,7 +1883,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-image' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Allows you to add rounded corners to Image with 4 values.',
+            'description' => 'Add rounded corners to the Image’s Section.',
                 ]
         );
         $this->add_responsive_control(
@@ -1909,7 +1915,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li-image' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Margin properties are used to create space outside Image.',
+            'description' => 'Create some Space outside of the Image on the header.',
                 ]
         );
         $this->end_controls_section();
@@ -1954,7 +1960,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => 'background: {{VALUE}};',
             ],
-            'description' => 'Background property is used to set background of Content.',
+            'description' => 'Customize the Content’s Background with Color, Gradient or Image properties.',
                 ]
         );
 
@@ -1964,7 +1970,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => '',
             ],
-            'description' => 'Allows you to attaches one or more shadows into Content Body.',
+            'description' => 'Add one or more shadows into the Content body and customize other Box-Shadow Options.',
                 ]
         );
         $this->add_group_control(
@@ -1975,7 +1981,7 @@ class Helper extends Admin {
                     'selector' => [
                         '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => ''
                     ],
-                    'description' => 'Border property is used to set the Border of Content Body.',
+                    'description' => 'Customize Border of the Content Body. Set Type, Width, and Color.',
                 ]
         );
         $this->add_responsive_control(
@@ -2006,7 +2012,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Allows you to add rounded corners to Content Body with options.',
+            'description' => 'Add rounded corners to the Content’s Section.',
                 ]
         );
         $this->add_responsive_control(
@@ -2037,7 +2043,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Padding used to generate space around Content Body include background color.',
+            'description' => 'Generate some Space around the Content Body including background color.',
                 ]
         );
         $this->add_responsive_control(
@@ -2068,7 +2074,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content-wrap' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Margin properties are used to create space outside Content Body.',
+            'description' => 'Create some Space outside of the Content Body.',
                 ]
         );
 
@@ -2090,7 +2096,8 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Tab’s Contents.',
                 ]
         );
         $this->add_control(
@@ -2102,7 +2109,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => 'color: {{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of the Heading.',
+            'description' => 'Set the Color of Tab’s Contents.',
                 ]
         );
         $this->add_group_control(
@@ -2112,7 +2119,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => '',
             ],
-            'description' => 'Text Shadow property add shadow to active or hover heading.',
+            'description' => 'Add one or more shadows into the Content Texts and customize other Text-Shadow Options.',
                 ]
         );
         $this->add_responsive_control(
@@ -2143,7 +2150,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs p' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Content Padding with Peragraph Tag.',
+            'description' => 'Adjust Your Content Padding for Peragraph Tag.',
                 ]
         );
         $this->end_controls_section();
@@ -2162,7 +2169,7 @@ class Helper extends Admin {
             'label' => esc_html__('Max Post', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 5,
-            'description' => 'Write Your Number Beside Title.',
+            'description' => 'Write the Maximum amount of Popular Posts.',
                 ]
         );
         $this->start_controls_tabs(
@@ -2192,7 +2199,7 @@ class Helper extends Admin {
                     'title' => __('False', SHORTCODE_ADDOONS),
                 ],
             ],
-            'description' => 'Do You want Image Beside Popular Post.',
+            'description' => 'Show/Hide the image under the Popular Post.',
                 ]
         );
         $this->add_control(
@@ -2206,7 +2213,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-popular-post .oxi-tabs-popular-avatar' => 'max-width:{{VALUE}}px;',
             ],
-            'description' => 'Write Your Image Max Width Beside Title.',
+            'description' => 'Set the Image Size (PX).',
                 ]
         );
         $this->add_control(
@@ -2217,7 +2224,8 @@ class Helper extends Admin {
             'options' => $this->thumbnail_sizes(),
             'condition' => [
                 'oxi-tabs-desc-popular-thumb-condi' => '1'
-            ]
+            ],
+            'description' => 'Select a Pre-defined Image Thumbnail Size.',
                 ]
         );
         $this->end_controls_tab();
@@ -2229,7 +2237,8 @@ class Helper extends Admin {
             'type' => Controls::TYPOGRAPHY,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-meta a' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Post’s Title.',
                 ]
         );
         $this->add_control(
@@ -2239,7 +2248,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-meta a' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Popular Post Title.',
+            'description' => 'Set the Color of Post’s Title.',
                 ]
         );
         $this->add_control(
@@ -2250,7 +2259,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-meta a:hover' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Popular Post Title.',
+            'description' => 'Set the Color of Post’s Title in Hover view.',
                 ]
         );
         $this->add_responsive_control(
@@ -2281,7 +2290,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-meta' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Title Padding with other Content.',
+            'description' => 'Generate some Space around at Post Title from other Content.',
                 ]
         );
         $this->end_controls_tab();
@@ -2301,7 +2310,7 @@ class Helper extends Admin {
                     'title' => __('False', SHORTCODE_ADDOONS),
                 ],
             ],
-            'description' => 'Want to show Date?',
+            'description' => 'Show/Hide Meta Date in the Post?',
                 ]
         );
         $this->add_control(
@@ -2318,7 +2327,7 @@ class Helper extends Admin {
                     'title' => __('False', SHORTCODE_ADDOONS),
                 ],
             ],
-            'description' => 'Want to show Comment?',
+            'description' => 'Show/Hide Meta Comment in the Post?',
                 ]
         );
 
@@ -2330,7 +2339,8 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-postmeta' => '',
                 '{{WRAPPER}} .oxi-tabs-popular-postmeta .oxi-tabs-popular-date' => '',
                 '{{WRAPPER}} .oxi-tabs-popular-postmeta .oxi-tabs-popular-comment' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Post’s Meta.',
                 ]
         );
         $this->add_control(
@@ -2343,7 +2353,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-popular-postmeta .oxi-tabs-popular-date' => 'color:{{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-popular-postmeta .oxi-tabs-popular-comment' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Meta Data.',
+            'description' => 'Add a custom Meta Color.',
                 ]
         );
         $this->add_responsive_control(
@@ -2374,7 +2384,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-postmeta' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Meta Padding with Other Content.',
+            'description' => 'Generate some Space around the Meta.',
                 ]
         );
         $this->end_controls_tab();
@@ -2385,7 +2395,7 @@ class Helper extends Admin {
             'label' => esc_html__('Content Lenth', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 90,
-            'description' => 'Write Your Max Content lenth.',
+            'description' => 'Set the Max Content Length.',
                 ]
         );
         $this->add_group_control(
@@ -2394,7 +2404,8 @@ class Helper extends Admin {
             'type' => Controls::TYPOGRAPHY,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-content' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Post’s Content.',
                 ]
         );
         $this->add_control(
@@ -2405,7 +2416,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-content' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Post Content.',
+            'description' => 'Add a custom Content Color.',
                 ]
         );
         $this->add_responsive_control(
@@ -2436,7 +2447,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-popular-body .oxi-tabs-popular-content' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Content Padding with Others Elements.',
+            'description' => 'Generate some Space around the Content.',
                 ]
         );
         $this->end_controls_tab();
@@ -2469,7 +2480,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-popular-post' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Content Padding with Another Content.',
+            'description' => 'Generate some Space around the Popular Post.',
                 ]
         );
         $this->end_controls_section();
@@ -2488,7 +2499,7 @@ class Helper extends Admin {
             'label' => esc_html__('Max Post', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 5,
-            'description' => 'Write Your Number Beside Title.',
+            'description' => 'Write the Maximum amount of Recent Posts.',
                 ]
         );
         $this->start_controls_tabs(
@@ -2518,7 +2529,7 @@ class Helper extends Admin {
                     'title' => __('False', SHORTCODE_ADDOONS),
                 ],
             ],
-            'description' => 'Do You want Image Beside Recent Post.',
+            'description' => 'Show/Hide the image under the Recent Post.',
                 ]
         );
         $this->add_control(
@@ -2532,7 +2543,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-post .oxi-tabs-recent-avatar' => 'max-width:{{VALUE}}px;',
             ],
-            'description' => 'Write Your Image Max Width Beside Title.',
+            'description' => 'Set the Image Size (PX).',
                 ]
         );
         $this->add_control(
@@ -2543,7 +2554,8 @@ class Helper extends Admin {
             'options' => $this->thumbnail_sizes(),
             'condition' => [
                 'oxi-tabs-desc-recent-thumb-condi' => '1'
-            ]
+            ],
+            'description' => 'Select a Pre-defined Image Thumbnail Size.',
                 ]
         );
         $this->end_controls_tab();
@@ -2555,7 +2567,8 @@ class Helper extends Admin {
             'type' => Controls::TYPOGRAPHY,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-meta a' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Recent Post’s Title.',
                 ]
         );
         $this->add_control(
@@ -2565,7 +2578,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-meta a' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Recent Post Title.',
+            'description' => 'Set the Color of Post’s Title.',
                 ]
         );
         $this->add_control(
@@ -2576,7 +2589,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-meta a:hover' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Recent Post Title.',
+            'description' => 'Set the Color of Post’s Title in Hover view.',
                 ]
         );
         $this->add_responsive_control(
@@ -2607,7 +2620,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-meta' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Title Padding with other Content.',
+            'description' => 'Generate some Space around the Title.',
                 ]
         );
         $this->end_controls_tab();
@@ -2627,7 +2640,7 @@ class Helper extends Admin {
                     'title' => __('False', SHORTCODE_ADDOONS),
                 ],
             ],
-            'description' => 'Want to show Date?',
+            'description' => 'Show/Hide Meta Date in the Recent Post?',
                 ]
         );
         $this->add_control(
@@ -2644,7 +2657,7 @@ class Helper extends Admin {
                     'title' => __('False', SHORTCODE_ADDOONS),
                 ],
             ],
-            'description' => 'Want to show Comment?',
+            'description' => 'Show/Hide Meta Comment in the Post?',
                 ]
         );
 
@@ -2656,7 +2669,8 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-postmeta' => '',
                 '{{WRAPPER}} .oxi-tabs-recent-postmeta .oxi-tabs-recent-date' => '',
                 '{{WRAPPER}} .oxi-tabs-recent-postmeta .oxi-tabs-recent-comment' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Post’s Meta.',
                 ]
         );
         $this->add_control(
@@ -2669,7 +2683,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-recent-postmeta .oxi-tabs-recent-date' => 'color:{{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-recent-postmeta .oxi-tabs-recent-comment' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Meta Data.',
+            'description' => 'Add a custom Meta Color.',
                 ]
         );
         $this->add_responsive_control(
@@ -2700,7 +2714,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-postmeta' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Meta Padding with Other Content.',
+            'description' => 'Generate some Space around the Meta.',
                 ]
         );
         $this->end_controls_tab();
@@ -2711,7 +2725,7 @@ class Helper extends Admin {
             'label' => esc_html__('Content Lenth', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 90,
-            'description' => 'Write Your Max Content lenth.',
+            'description' => 'Set the Max Content Length.',
                 ]
         );
         $this->add_group_control(
@@ -2720,7 +2734,8 @@ class Helper extends Admin {
             'type' => Controls::TYPOGRAPHY,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-content' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Post’s Content.',
                 ]
         );
         $this->add_control(
@@ -2731,7 +2746,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-content' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Post Content.',
+            'description' => 'Add a custom Content Color.',
                 ]
         );
         $this->add_responsive_control(
@@ -2762,7 +2777,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-recent-body .oxi-tabs-recent-content' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Content Padding with Others Elements.',
+            'description' => 'Generate some Space around the Content.',
                 ]
         );
         $this->end_controls_tab();
@@ -2795,7 +2810,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-recent-post' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Content Padding with Another Content.',
+            'description' => 'Generate some Space around the Recent Post.',
                 ]
         );
         $this->end_controls_section();
@@ -2813,7 +2828,7 @@ class Helper extends Admin {
             'label' => esc_html__('Max Comment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 5,
-            'description' => 'Write Your Number Beside Title.',
+            'description' => 'Set the maximum amount of Comments.',
                 ]
         );
 
@@ -2831,7 +2846,7 @@ class Helper extends Admin {
                     'title' => __('True', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
-            'description' => 'Allows you to set Show Avatar True or False.',
+            'description' => 'Show/Hide the Avatar of comments.',
                 ]
         );
 
@@ -2843,7 +2858,7 @@ class Helper extends Admin {
             'condition' => [
                 'oxi-tabs-desc-comment-show-avatar' => '1',
             ],
-            'description' => 'Write Your Avatar Size.',
+            'description' => 'Set the Avatar Size.',
                 ]
         );
         $this->add_control(
@@ -2851,7 +2866,7 @@ class Helper extends Admin {
             'label' => esc_html__('Comment Lenth', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 90,
-            'description' => 'Write Your Comment Lenth.',
+            'description' => 'Customize the Comment’s Length.',
                 ]
         );
         $this->add_group_control(
@@ -2862,7 +2877,8 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style span.oxi-tabs-comment-author' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-meta a' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style a span.oxi-tabs-comment-post' => '',
-            ]
+            ],
+            'description' => ' Customize the Typography options for the Comment’s Title.',
                 ]
         );
         $this->add_group_control(
@@ -2871,7 +2887,8 @@ class Helper extends Admin {
             'type' => Controls::TYPOGRAPHY,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-body .oxi-tabs-comment-content' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Comment’s Content.',
                 ]
         );
 
@@ -2895,7 +2912,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-meta a' => 'color:{{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style a span.oxi-tabs-comment-post' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Comment Title.',
+            'description' => 'Add a custom Title Color.',
                 ]
         );
         $this->add_control(
@@ -2906,7 +2923,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-body .oxi-tabs-comment-content' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of Comment.',
+            'description' => 'Add a custom Color to the Comment Content.',
                 ]
         );
         $this->end_controls_tab();
@@ -2921,7 +2938,7 @@ class Helper extends Admin {
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment-meta a:hover' => 'color:{{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style a span.oxi-tabs-comment-post:hover' => 'color:{{VALUE}};',
             ],
-            'description' => 'Color property is used to set color Title while hover.',
+            'description' => 'Add a custom Title Color while Hover.',
                 ]
         );
 
@@ -2956,7 +2973,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-comment' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
-            'description' => 'Adjust Your Content Padding with Peragraph Tag.',
+            'description' => 'Generate some Space around the Comment.',
                 ]
         );
         $this->end_controls_section();
@@ -2974,7 +2991,7 @@ class Helper extends Admin {
             'label' => esc_html__('Max Tags', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 20,
-            'description' => 'Write Your Number Beside Title.',
+            'description' => 'Set the maximum amount of Tags.',
                 ]
         );
 
@@ -2992,7 +3009,7 @@ class Helper extends Admin {
                     'title' => __('True', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
-            'description' => 'Allows you to set Number Customization Mode as Simple or Fully Customizable.',
+            'description' => 'Show/Hide the tags count.',
                 ]
         );
 
@@ -3001,7 +3018,7 @@ class Helper extends Admin {
             'label' => esc_html__('Small Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 12,
-            'description' => 'Write Your Number Beside Title.',
+            'description' => 'Set the Small Size of the Tags.',
                 ]
         );
         $this->add_control(
@@ -3009,7 +3026,7 @@ class Helper extends Admin {
             'label' => esc_html__('Big Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 25,
-            'description' => 'Write Your Number Beside Title.',
+            'description' => 'Set the Big Size of the Tags.',
                 ]
         );
         $this->add_group_control(
@@ -3018,7 +3035,8 @@ class Helper extends Admin {
             Controls::TYPO_FONTSIZE => false,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs .tag-cloud-link' => '',
-            ]
+            ],
+            'description' => 'Customize the Typography options for the Tag Text.',
                 ]
         );
 
@@ -3040,7 +3058,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs .tag-cloud-link' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of the Heading.',
+            'description' => 'Set the Color of Tab’s Tag in Normal view.',
                 ]
         );
         $this->end_controls_tab();
@@ -3053,7 +3071,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs .tag-cloud-link:hover' => 'color: {{VALUE}};',
             ],
-            'description' => 'Color property is used to set the color of the Heading.',
+            'description' => 'Set the Color of Tab’s Tag in Hover view.',
                 ]
         );
 
@@ -3088,7 +3106,7 @@ class Helper extends Admin {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs .tag-cloud-link' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};display: inline-block;',
             ],
-            'description' => 'Adjust Your Content Padding with Peragraph Tag.',
+            'description' => 'Generate some Space around the Tag’s Content including background color.',
                 ]
         );
         $this->end_controls_section();
@@ -3138,7 +3156,7 @@ class Helper extends Admin {
                 </div>
                 <div class="modal-body">';
         $this->add_control(
-                'oxi-tabs-modal-title', $this->style, [
+                'oxi-tabs-modal-title', [], [
             'label' => esc_html__('Title', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::TEXT,
             'default' => 'Lorem Ipsum',
@@ -3146,14 +3164,14 @@ class Helper extends Admin {
                 ]
         );
         $this->add_control(
-                'oxi-tabs-modal-sub-title', $this->style, [
+                'oxi-tabs-modal-sub-title', [], [
             'label' => esc_html__('Sub Title', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::TEXT,
             'description' => 'Add Sub Title of your Tabs else Make it Blank.',
                 ]
         );
         $this->add_control(
-                'oxi-tabs-modal-title-additional', $this->style, [
+                'oxi-tabs-modal-title-additional', [], [
             'label' => __('Title Additional', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
@@ -3163,13 +3181,13 @@ class Helper extends Admin {
                 'number' => __('Number', OXI_TABS_TEXTDOMAIN),
                 'image' => __('Image', OXI_TABS_TEXTDOMAIN),
             ],
-            'description' => 'Add Icon or Image or Number Beside Title.',
+            'description' => 'Add the Additional elements beside the Tab’s Title (Icon, Number or Image).',
                 ]
         );
 
 
         $this->add_control(
-                'oxi-tabs-modal-icon', $this->style, [
+                'oxi-tabs-modal-icon', [], [
             'label' => esc_html__('Icon', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::ICON,
             'default' => 'fab fa-facebook-f',
@@ -3180,29 +3198,29 @@ class Helper extends Admin {
                 ]
         );
         $this->add_control(
-                'oxi-tabs-modal-number', $this->style, [
+                'oxi-tabs-modal-number', [], [
             'label' => esc_html__('Number', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::NUMBER,
             'default' => 1,
             'condition' => [
                 'oxi-tabs-modal-title-additional' => 'number',
             ],
-            'description' => 'Write Your Number Beside Title.',
+            'description' => 'Write the Number as Title Additionals.',
                 ]
         );
         $this->add_group_control(
-                'oxi-tabs-modal-image', $this->style,
+                'oxi-tabs-modal-image', [],
                 [
                     'label' => __('Image', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::MEDIA,
                     'condition' => [
                         'oxi-tabs-modal-title-additional' => 'image',
                     ],
-                    'description' => 'Add or Modify Your Header Image.'
+                    'description' => 'Add an Image from Media Library or Input a custom Image URL.'
                 ]
         );
         $this->add_control(
-                'oxi-tabs-modal-components-type', $this->style, [
+                'oxi-tabs-modal-components-type', [], [
             'label' => __('Choose Components', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => 'wysiwyg',
@@ -3214,21 +3232,11 @@ class Helper extends Admin {
                 'recent-comment' => __('Recent Comment', OXI_TABS_TEXTDOMAIN),
                 'tag' => __('Post Tag', OXI_TABS_TEXTDOMAIN)
             ],
-            'description' => 'Confirm Your Tabs Content Type as Content or Custom Link.',
-                ]
-        );
-        $this->add_control(
-                'oxi-t-m-popular-heading', $this->style, [
-            'label' => esc_html__('Note:', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::HEADING,
-            'condition' => [
-                'oxi-tabs-modal-components-type' => 'popular-post',
-            ],
-            'description' => 'Popular Post need some customization in your theme function.php. Kindly check our documentations for works properly.',
+            'description' => 'Se the Tab’s Content type as Content or Custom Link.',
                 ]
         );
         $this->add_group_control(
-                'oxi-tabs-modal-link', $this->style, [
+                'oxi-tabs-modal-link', [], [
             'label' => esc_html__('Link', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::URL,
             'condition' => [
@@ -3238,14 +3246,15 @@ class Helper extends Admin {
                 ]
         );
         $this->add_control(
-                'oxi-tabs-modal-desc', $this->style, [
+                'oxi-tabs-modal-desc', [], [
             'label' => __('Description', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::WYSIWYG,
+            'default' => '',
             'condition' => [
                 'oxi-tabs-modal-components-type' => 'wysiwyg',
             ],
-            'default' => '',
-                ]
+            'description' => 'Add your Tab’s Description.',
+                ],
         );
         echo '</div>';
     }

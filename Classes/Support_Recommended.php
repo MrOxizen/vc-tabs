@@ -46,7 +46,7 @@ class Support_Recommended {
             if ($plugin == 'sb-image-hover-effects'):
                 $massage = '<p>Thank you for using <strong>Elementor Page Builder</strong>. We suggest you to use our <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">Elementor Addons</a> - Premuim Elementor Addons comes with 100+ Elements and Elementor Template Library. Header Footer Builder and Menu Builder also Included with this Mega Addons</p>';
             else:
-                $massage = '<p>Thank you for using my Responsive Tabs with Accordions.  We suggest you to use our <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">Shortcode Addons</a>, The most Easiest Shortcode Builder with 70+ Elements. Create your wonderful website with most Flexible, Creative and Mordern Elements .</p>';
+                $massage = '<p>Thank you for using my Responsive Tabs with Accordions.  We suggest you to use our <a href="https://wordpress.org/support/plugin/shortcode-addons">Shortcode Addons</a>, The most Easiest Shortcode Builder with 70+ Elements. Create your wonderful website with most Flexible, Creative and Mordern Elements .</p>';
             endif;
             $install_url = wp_nonce_url(add_query_arg(array('action' => 'install-plugin', 'plugin' => $plugin), admin_url('update.php')), 'install-plugin' . '_' . $plugin);
             echo '<div class="oxi-addons-admin-notifications" style=" width: auto;">

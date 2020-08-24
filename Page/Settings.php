@@ -21,8 +21,6 @@ class Settings {
     public $license;
     public $status;
     public $oxi_fixed_header;
-    public $fontawesome;
-    public $getfontawesome = [];
 
     /**
      * Constructor of Oxilab tabs Home Page
@@ -44,28 +42,6 @@ class Settings {
         if (empty($this->oxi_fixed_header)) {
             update_option('oxi_addons_fixed_header_size', 0);
         }
-        $this->fontawesome = get_option('oxi_addons_font_awesome_version');
-        $this->getfontawesome = array(
-            array('name' => '5.7.2', 'url' => '5.7.2||https://use.fontawesome.com/releases/v5.7.2/css/all.css'),
-            array('name' => '5.7.1', 'url' => '5.7.1||https://use.fontawesome.com/releases/v5.7.1/css/all.css'),
-            array('name' => '5.7.0', 'url' => '5.7.0||https://use.fontawesome.com/releases/v5.7.0/css/all.css'),
-            array('name' => '5.6.3', 'url' => '5.6.3||https://use.fontawesome.com/releases/v5.6.3/css/all.css'),
-            array('name' => '5.6.0', 'url' => '5.6.0||https://use.fontawesome.com/releases/v5.6.0/css/all.css'),
-            array('name' => '5.5.0', 'url' => '5.5.0||https://use.fontawesome.com/releases/v5.5.0/css/all.css'),
-            array('name' => '5.4.1', 'url' => '5.4.1||https://use.fontawesome.com/releases/v5.3.1/css/all.css'),
-            array('name' => '5.3.1', 'url' => '5.3.1||https://use.fontawesome.com/releases/v5.3.1/css/all.css'),
-            array('name' => '5.2.0', 'url' => '5.2.0||https://use.fontawesome.com/releases/v5.2.0/css/all.css'),
-            array('name' => '5.1.1', 'url' => '5.1.1||https://use.fontawesome.com/releases/v5.1.1/css/all.css'),
-            array('name' => '5.1.0', 'url' => '5.1.0||https://use.fontawesome.com/releases/v5.1.0/css/all.css'),
-            array('name' => '5.0.13', 'url' => '5.0.13||https://use.fontawesome.com/releases/v5.0.13/css/all.css'),
-            array('name' => '5.0.12', 'url' => '5.0.12||https://use.fontawesome.com/releases/v5.0.12/css/all.css'),
-            array('name' => '5.0.10', 'url' => '5.0.10||https://use.fontawesome.com/releases/v5.0.10/css/all.css'),
-            array('name' => '5.0.9', 'url' => '5.0.9||https://use.fontawesome.com/releases/v5.0.9/css/all.css'),
-            array('name' => '5.0.8', 'url' => '5.0.8||https://use.fontawesome.com/releases/v5.0.8/css/all.css'),
-            array('name' => '5.0.6', 'url' => '5.0.6||https://use.fontawesome.com/releases/v5.0.6/css/all.css'),
-            array('name' => '5.0.4', 'url' => '5.0.4||https://use.fontawesome.com/releases/v5.0.4/css/all.css'),
-            array('name' => '4.7.0', 'url' => '4.7.0||https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'),
-        );
     }
 
     public function Render() {
@@ -108,19 +84,6 @@ class Settings {
                                     <label class="description" for="oxi_addons_font_awesome"><?php _e('Load Font Awesome CSS at shortcode loading, If your theme already loaded select No for faster loading'); ?></label>
                                 </td>
                             </tr> 
-                            <tr valign="top">
-                                <td scope="row">Font Awesome Version?</td>
-                                <td>
-                                    <select name="oxi_addons_font_awesome_version">
-                                        <?php foreach ($this->getfontawesome as $value) { ?>
-                                            <option value="<?php echo $value['url']; ?>" <?php selected($this->fontawesome, $value['url']); ?>><?php echo $value['name']; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </td>
-                                <td>
-                                    <label class="description" for="oxi_addons_font_awesome_version"><?php _e('Select Your Font Awesome version, Which are using into your sites so Its will not conflict your Icons'); ?></label>
-                                </td>
-                            </tr>  
                             <tr valign="top">
                                 <td scope="row">Fixed Header Size</td>
                                 <td>
