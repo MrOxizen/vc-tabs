@@ -63,7 +63,6 @@ class Template {
         add_action('network_admin_menu', array($this, 'add_dashboard_page'));
     }
 
-
     /**
      * Register page through WordPress's hooks.
      */
@@ -118,8 +117,8 @@ class Template {
         <html <?php language_attributes(); ?>>
             <meta name="viewport" content="width=device-width"/>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-            <title><?php esc_html_e('Responsive Tabs &rsaquo; Admin template', 'google-analytics-for-wordpress'); ?></title>
-        <?php wp_head(); ?>
+            <title><?php esc_html_e('Responsive Tabs &rsaquo; Admin template', OXI_TABS_TEXTDOMAIN); ?></title>
+            <?php wp_head(); ?>
         </head>
         <body class="shortcode-addons-template-body" id="shortcode-addons-template-body">
             <?php
@@ -130,7 +129,7 @@ class Template {
          */
         public function template_content() {
             if ($this->oxiid > 0):
-                 $this->shortcode_render($this->oxiid, 'admin');
+                $this->shortcode_render($this->oxiid, 'admin');
             endif;
         }
 
@@ -139,7 +138,7 @@ class Template {
          */
         public function template_footer() {
             ?>
-        <?php wp_footer(); ?>
+            <?php wp_footer(); ?>
         </body>
         </html>
         <?php
