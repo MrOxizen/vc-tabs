@@ -132,7 +132,6 @@ class Bootstrap {
         $this->Admin_Settings();
         add_action('admin_menu', [$this, 'Admin_Menu']);
         add_action('admin_head', [$this, 'Tabs_Icon']);
-        add_action('wp_ajax_oxi_tabs_data', array($this, 'data_process'));
         add_action('admin_init', array($this, 'redirect_on_activation'));
         add_action('admin_head', [$this, 'welcome_remove_menus']);
     }

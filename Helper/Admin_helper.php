@@ -212,21 +212,6 @@ trait Admin_helper {
         new \OXI_TABS_PLUGINS\Page\Welcome();
     }
 
-    public function data_process() {
-        if (isset($_POST['_wpnonce']) && wp_verify_nonce(sanitize_key(wp_unslash($_POST['_wpnonce'])), 'oxi-tabs-editor')):
-            $functionname = isset($_POST['functionname']) ? sanitize_text_field($_POST['functionname']) : '';
-            $rawdata = isset($_POST['rawdata']) ? sanitize_post($_POST['rawdata']) : '';
-            $styleid = isset($_POST['styleid']) ? (int) $_POST['styleid'] : '';
-            $childid = isset($_POST['childid']) ? (int) $_POST['childid'] : '';
-            if (!empty($functionname) && !empty($rawdata)):
-                new \OXI_TABS_PLUGINS\Classes\Admin_Ajax($functionname, $rawdata, $styleid, $childid);
-            endif;
-        else:
-            return;
-        endif;
-        die();
-    }
-
     public function redirect_on_activation() {
         if (get_transient('oxi_tabs_activation_redirect')):
             delete_transient('oxi_tabs_activation_redirect');
