@@ -851,7 +851,6 @@ class Helper extends Admin {
         $this->end_controls_tab();
         $this->start_controls_tab();
 
-
         $this->add_control(
                 'oxi-tabs-head-ac-bg', $this->style, [
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
@@ -870,16 +869,12 @@ class Helper extends Admin {
                 'oxi-tabs-head-inner-border',
                 $this->style,
                 [
-                    'label' => __('Inner Right Border', OXI_TABS_TEXTDOMAIN),
+                    'label' => __('Divider', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SINGLEBORDER,
-                    'separator' => true,
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
-                    ],
                     'selector' => [
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border-right: {{SIZE}}px {{TYPE}} {{COLOR}};'
+                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border-right: {{SIZE}}px {{TYPE}} {{COLOR}};border-bottom: {{SIZE}}px {{TYPE}} {{COLOR}};'
                     ],
-                    'description' => 'Customize Inner Right Border of the Header. Set Type, Size, and Color.',
+                    'description' => 'Customize Divider Border of the Header. Set Type, Size, and Color.',
                 ]
         );
         $this->add_group_control(

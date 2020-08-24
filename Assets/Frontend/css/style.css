@@ -250,26 +250,28 @@
         display: none;
     }
 
+
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-row .oxi-tabs-ultimate-header-wrap{
+        -webkit-flex-flow: column wrap;
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-row .oxi-tabs-ultimate-header{
+        -webkit-flex-flow: column wrap;
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-column .oxi-tabs-ultimate-header{
+        width: auto;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-compact .oxi-tabs-ultimate-header{
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-column-compact .oxi-tabs-header-li{
+        width: 100%
+    }
     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column{
         flex-direction: column;
     }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column.oxi-tabs-header-horizontal-tabs-alignment-column-row .oxi-tabs-ultimate-header-wrap{
-        -webkit-flex-flow: column wrap;
-        width: 100%;
-    }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column.oxi-tabs-header-horizontal-tabs-alignment-column-row .oxi-tabs-ultimate-header{
-        -webkit-flex-flow: column wrap;
-        width: 100%;
-    }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column.oxi-tabs-header-horizontal-tabs-alignment-column-column .oxi-tabs-ultimate-header{
-        width: auto;
-    }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column.oxi-tabs-header-horizontal-tabs-alignment-column-compact .oxi-tabs-ultimate-header{
-        width: 100%;
-    }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column.oxi-tabs-header-horizontal-tabs-alignment-column-compact .oxi-tabs-header-li{
-        width: 100%
-    }
+
     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column.oxi-tabs-header-vertical-tabs-alignment-column-row .oxi-tabs-ultimate-header-wrap,
     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-column.oxi-tabs-header-vertical-tabs-alignment-column-compact .oxi-tabs-ultimate-header-wrap{
         width: 100%;
@@ -328,27 +330,27 @@
         display: none;
     }
 
+
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-row .oxi-tabs-ultimate-header-wrap{
+        -webkit-flex-flow: column wrap;
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-row .oxi-tabs-ultimate-header{
+        -webkit-flex-flow: column wrap;
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-column .oxi-tabs-ultimate-header{
+        width: auto;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-compact .oxi-tabs-ultimate-header{
+        width: 100%;
+    }
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-column-compact .oxi-tabs-header-li{
+        width: 100%
+    }
     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column{
         flex-direction: column;
     }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column.oxi-tabs-header-horizontal-mobile-alignment-column-row .oxi-tabs-ultimate-header-wrap{
-        -webkit-flex-flow: column wrap;
-        width: 100%;
-    }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column.oxi-tabs-header-horizontal-mobile-alignment-column-row .oxi-tabs-ultimate-header{
-        -webkit-flex-flow: column wrap;
-        width: 100%;
-    }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column.oxi-tabs-header-horizontal-mobile-alignment-column-column .oxi-tabs-ultimate-header{
-        width: auto;
-    }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column.oxi-tabs-header-horizontal-mobile-alignment-column-compact .oxi-tabs-ultimate-header{
-        width: 100%;
-    }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column.oxi-tabs-header-horizontal-mobile-alignment-column-compact .oxi-tabs-header-li{
-        width: 100%
-    }
-
     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column.oxi-tabs-header-vertical-mobile-alignment-column-row .oxi-tabs-ultimate-header-wrap,
     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column.oxi-tabs-header-vertical-mobile-alignment-column-compact .oxi-tabs-ultimate-header-wrap{
         width: 100%;
@@ -364,14 +366,14 @@
     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-column.oxi-tabs-header-vertical-mobile-alignment-column-compact .oxi-tabs-header-li{
         width: 100%
     }
-    
+
     .oxi-tab-header-vertical[class^='oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row{
         flex-direction: row;
     }
     .oxi-tab-header-vertical[class^='oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row{
         flex-direction: row-reverse;
     }
-   
+
     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row .oxi-tabs-ultimate-header{
         flex-direction: row;
     }
