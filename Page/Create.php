@@ -114,7 +114,7 @@ class Create {
                 $this->Import_template();
             else:
                 if ((int) $this->layouts):
-                    
+
                 else:
                     $cache = new \OXI_TABS_PLUGINS\Render\Json\Template();
                     $this->TEMPLATE = $cache->Render();
@@ -220,7 +220,7 @@ class Create {
                             </div>
                             <div class="oxi-addons-style-preview-bottom">
                                 <div class="oxi-addons-style-preview-bottom-left">
-                                    Style <?php echo $value; ?>
+                                    <?php echo $REND['style']['name']; ?>
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <form method="post" style=" display: inline-block; " class="shortcode-addons-template-deactive">
@@ -262,7 +262,7 @@ class Create {
                             </div>
                             <div class="oxi-addons-style-preview-bottom">
                                 <div class="oxi-addons-style-preview-bottom-left">
-                                    Style <?php echo $id; ?>
+                                    <?php echo $REND['style']['name']; ?>
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <?php

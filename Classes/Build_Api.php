@@ -171,7 +171,7 @@ class Build_Api {
                     'rawdata' => json_encode($this->array_replace(json_decode(stripslashes($value['rawdata']), true), '"', '&quot;'))
                 ];
             }
-            $newdata = ['plugin' => 'image-hover', 'style' => $style, 'child' => $child];
+            $newdata = ['plugin' => 'tabs', 'style' => $style, 'child' => $child];
             return json_encode($newdata);
         else:
             return 'Silence is Golden';
