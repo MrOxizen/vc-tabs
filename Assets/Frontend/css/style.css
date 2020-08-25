@@ -222,7 +222,9 @@
     margin: 0px 5px 0px 0px;
 }
 @media only screen and (min-width: 769px) and (max-width: 993px) {
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal,
     .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical{
+        -webkit-flex-flow: column wrap;
         flex-direction: column;
     }
     .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal .oxi-tabs-ultimate-header{
@@ -303,14 +305,17 @@
 
 }
 @media only screen and (max-width: 768px) {
-
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal,
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical{
+        -webkit-flex-flow: column wrap;
+        flex-direction: column;
+    }
+    
     .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal .oxi-tabs-ultimate-header{
         flex-direction: column;
         width: 100%
     }
-    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical{
-        flex-direction: column;
-    }
+
     .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical .oxi-tabs-ultimate-header-wrap{
         width: 100%
     }
@@ -367,10 +372,12 @@
         width: 100%
     }
 
-    .oxi-tab-header-vertical[class^='oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row{
+    .oxi-tab-header-vertical[class^='oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row,
+    .oxi-tab-header-vertical[class*=' oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row{
         flex-direction: row;
     }
-    .oxi-tab-header-vertical[class^='oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row{
+    .oxi-tab-header-vertical[class^='oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row,
+    .oxi-tab-header-vertical[class*=' oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row{
         flex-direction: row-reverse;
     }
 
