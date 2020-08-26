@@ -75,6 +75,14 @@ jQuery.noConflict();
                 }
         }
         }
-
+        $('.oxi-tabs-body-content-equal-height').each(function () {
+            var highestBox = 0;
+            $('.oxi-tabs-body-tabs', this).each(function () {
+                if ($(this).height() > highestBox) {
+                    highestBox = $(this).height();
+                }
+            });
+            $('.oxi-tabs-body-tabs', this).height(highestBox);
+        });
     });
 })(jQuery);
