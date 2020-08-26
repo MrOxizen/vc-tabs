@@ -369,16 +369,16 @@ class Helper extends Admin {
         $this->start_controls_tab();
 
         $this->add_control(
-                'oxi-tabs-header-horizontal-tabs-alignment-column', $this->style, [
+                'oxi-tabs-header-horizontal-tabs-alignment-horizontal', $this->style, [
             'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'condition' => [
                 'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
             ],
             'options' => [
-                'oxi-tabs-header-horizontal-tabs-alignment-column-column' => __('Column', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-horizontal-tabs-alignment-column-row' => __('Row', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-horizontal-tabs-alignment-column-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
@@ -397,10 +397,10 @@ class Helper extends Admin {
                 'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
             ],
             'options' => [
-                'oxi-tabs-header-vertical-tabs-alignment-column' => [
+                'oxi-tabs-header-vertical-tabs-alignment-horizontal' => [
                     'title' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
                 ],
-                'oxi-tabs-header-vertical-tabs-alignment-row' => [
+                'oxi-tabs-header-vertical-tabs-alignment-vertical' => [
                     'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
@@ -412,17 +412,17 @@ class Helper extends Admin {
                 ]
         );
         $this->add_control(
-                'oxi-tabs-header-vertical-tabs-alignment-column', $this->style, [
+                'oxi-tabs-header-vertical-tabs-alignment-horizontal', $this->style, [
             'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'condition' => [
                 'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
-                'oxi-tabs-header-vertical-tabs-alignment' => 'oxi-tabs-header-vertical-tabs-alignment-column'
+                'oxi-tabs-header-vertical-tabs-alignment' => 'oxi-tabs-header-vertical-tabs-alignment-horizontal'
             ],
             'options' => [
-                'oxi-tabs-header-vertical-tabs-alignment-column-column' => __('Column', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-vertical-tabs-alignment-column-row' => __('Row', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-vertical-tabs-alignment-column-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-vertical-tabs-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
@@ -439,7 +439,7 @@ class Helper extends Admin {
             'customresponsive' => 'tab',
             'condition' => [
                 'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
-                'oxi-tabs-header-vertical-tabs-alignment' => 'oxi-tabs-header-vertical-tabs-alignment-row'
+                'oxi-tabs-header-vertical-tabs-alignment' => 'oxi-tabs-header-vertical-tabs-alignment-vertical'
             ],
             'default' => [
                 'unit' => '%',
@@ -463,7 +463,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-row .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Customize the Header Width (Pixel, Percent or EM).',
                 ]
@@ -573,16 +573,16 @@ class Helper extends Admin {
         $this->end_controls_tab();
         $this->start_controls_tab();
         $this->add_control(
-                'oxi-tabs-header-horizontal-mobile-alignment-column', $this->style, [
+                'oxi-tabs-header-horizontal-mobile-alignment-horizontal', $this->style, [
             'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'condition' => [
                 'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
             ],
             'options' => [
-                'oxi-tabs-header-horizontal-mobile-alignment-column-column' => __('Column', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-horizontal-mobile-alignment-column-row' => __('Row', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-horizontal-mobile-alignment-column-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
@@ -599,10 +599,10 @@ class Helper extends Admin {
                 'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
             ],
             'options' => [
-                'oxi-tabs-header-vertical-mobile-alignment-column' => [
+                'oxi-tabs-header-vertical-mobile-alignment-horizontal' => [
                     'title' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
                 ],
-                'oxi-tabs-header-vertical-mobile-alignment-row' => [
+                'oxi-tabs-header-vertical-mobile-alignment-vertical' => [
                     'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
@@ -615,17 +615,17 @@ class Helper extends Admin {
         );
 
         $this->add_control(
-                'oxi-tabs-header-vertical-mobile-alignment-column', $this->style, [
+                'oxi-tabs-header-vertical-mobile-alignment-horizontal', $this->style, [
             'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'condition' => [
                 'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
-                'oxi-tabs-header-vertical-mobile-alignment' => 'oxi-tabs-header-vertical-mobile-alignment-column'
+                'oxi-tabs-header-vertical-mobile-alignment' => 'oxi-tabs-header-vertical-mobile-alignment-horizontal'
             ],
             'options' => [
-                'oxi-tabs-header-vertical-mobile-alignment-column-column' => __('Column', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-vertical-mobile-alignment-column-row' => __('Row', OXI_TABS_TEXTDOMAIN),
-                'oxi-tabs-header-vertical-mobile-alignment-column-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
+                'oxi-tabs-header-vertical-mobile-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
@@ -640,7 +640,7 @@ class Helper extends Admin {
             'customresponsive' => 'mobile',
             'condition' => [
                 'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
-                'oxi-tabs-header-vertical-mobile-alignment' => 'oxi-tabs-header-vertical-mobile-alignment-row'
+                'oxi-tabs-header-vertical-mobile-alignment' => 'oxi-tabs-header-vertical-mobile-alignment-vertical'
             ],
             'default' => [
                 'unit' => '%',
@@ -664,7 +664,7 @@ class Helper extends Admin {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-row .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Customize the Header Width (Pixel, Percent or EM) for Small Device.',
                 ]
