@@ -126,42 +126,6 @@ jQuery.noConflict();
                 $(".oxi-addons-preview-wrapper").removeClass('oxi-addons-preview-wrapper-' + value);
             }
         });
-
-
-
-        var tabs = IFRAME.contents().find('.oxi-tabs-body-tabs'),
-                lap = $('input[name="oxi-tabs-desc-content-height-lap"]:checked').val(),
-                tab = $('input[name="oxi-tabs-desc-content-height-tab"]:checked').val(),
-                mob = $('input[name="oxi-tabs-desc-content-height-mob"]:checked').val();
-        $(tabs).css("height", "");
-        if ($curent === 'desktop' && lap === 'yes') {
-            var highestBox = 0;
-            $(tabs).each(function () {
-                if ($(this).innerHeight() > highestBox) {
-                    highestBox = $(this).innerHeight();
-
-                }
-            });
-            $(tabs).height(highestBox);
-        } else if ($curent === 'tablet' && tab === 'yes') {
-            var highestBox = 0;
-            $(tabs).each(function () {
-                if ($(this).innerHeight() > highestBox) {
-                    highestBox = $(this).innerHeight();
-
-                }
-            });
-            $(tabs).height(highestBox);
-        } else if ($curent === 'mobile' && mob === 'yes') {
-            var highestBox = 0;
-            $(tabs).each(function () {
-                if ($(this).innerHeight() > highestBox) {
-                    highestBox = $(this).innerHeight();
-
-                }
-            });
-            $(tabs).height(highestBox);
-        }
     });
     $.fn.uncheckableRadio = function () {
         var $root = this;

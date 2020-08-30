@@ -193,8 +193,24 @@ class Style4 extends Helper {
             'showing' => TRUE,
                 ]
         );
-        
-        
+        $this->add_responsive_control(
+                'oxi-tabs-desc-content-height', $this->style, [
+            'label' => __('Content Height', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'toggle' => true,
+            'options' => [
+                'yes' => [
+                    'title' => __('Equal', OXI_TABS_TEXTDOMAIN),
+                ],
+                'no' => [
+                    'title' => __('Dynamic', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'description' => 'Select Content Height as Equal or Dynamic.',
+                ]
+        );
+
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),

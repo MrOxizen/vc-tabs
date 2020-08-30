@@ -80,8 +80,6 @@ jQuery.noConflict();
         function OxiTabsEqualHeight(p = '', c = '') {
             var cls = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style", tabs = cls + ' .oxi-tabs-body-tabs', j = $(cls).data('oxi-tabs'), w = $(window).width();
             $(tabs).css({height: ''});
-            console.log(j);
-            console.log(w);
             if (w > 993 && j.lap === 'yes') {
                 var highestBox = 0;
                 $(tabs).each(function () {

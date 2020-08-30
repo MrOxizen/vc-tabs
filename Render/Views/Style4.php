@@ -18,7 +18,10 @@ class Style4 extends Render {
             'animation' => array_key_exists('oxi-tabs-gen-animation', $style) ? $style['oxi-tabs-gen-animation'] : '',
             'initial' => array_key_exists('oxi-tabs-gen-opening', $style) ? $style['oxi-tabs-gen-opening'] : '',
             'trigger' => array_key_exists('oxi-tabs-gen-trigger', $style) ? $style['oxi-tabs-gen-trigger'] : '',
-            'type' => array_key_exists('oxi-tabs-gen-event', $style) ? $style['oxi-tabs-gen-event'] : ''
+            'type' => array_key_exists('oxi-tabs-gen-event', $style) ? $style['oxi-tabs-gen-event'] : '',
+            'lap' => array_key_exists('oxi-tabs-desc-content-height-lap', $style) ? $style['oxi-tabs-desc-content-height-lap'] : 'no',
+            'tab' => array_key_exists('oxi-tabs-desc-content-height-tab', $style) ? $style['oxi-tabs-desc-content-height-tab'] : 'no',
+            'mob' => array_key_exists('oxi-tabs-desc-content-height-mob', $style) ? $style['oxi-tabs-desc-content-height-mob'] : 'no',
         ];
         $responsive = ' ';
         if ($style['oxi-tabs-heading-responsive-mode'] == 'oxi-tabs-heading-responsive-static'):
