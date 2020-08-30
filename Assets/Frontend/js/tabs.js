@@ -5,11 +5,12 @@ jQuery.noConflict();
         var trigger = '', hash_link = window.location.hash;
         if (hash_link.includes("oxi-tabs-trigger-")) {
             var explode = hash_link.split("-"), parent = explode[3], child = explode[4];
+            OxiTabsEqualHeight(parent, child);
             OxiTabsController(parent, child);
         } else {
-
             $('[class*=oxi-tabs-wrapper-]').each(function () {
                 var This = $(this), id = This.attr('id'), explode = id.split("-"), parent = explode[3];
+                OxiTabsEqualHeight(parent, child);
                 OxiTabsController(parent);
             });
         }
@@ -75,14 +76,40 @@ jQuery.noConflict();
                 }
         }
         }
-        $('.oxi-tabs-body-content-equal-height').each(function () {
-            var highestBox = 0;
-            $('.oxi-tabs-body-tabs', this).each(function () {
-                if ($(this).height() > highestBox) {
-                    highestBox = $(this).height();
-                }
-            });
-            $('.oxi-tabs-body-tabs', this).height(highestBox);
-        });
+
+        function OxiTabsEqualHeight(p = '', c = '') {
+            var cls = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style", tabs = cls + ' .oxi-tabs-body-tabs', j = $(cls).data('oxi-tabs'), w = $(window).width();
+            $(tabs).css({height: ''});
+            console.log(j);
+            console.log(w);
+            if (w > 993 && j.lap === 'yes') {
+                var highestBox = 0;
+                $(tabs).each(function () {
+                    if ($(this).height() > highestBox) {
+                        highestBox = $(this).height();
+
+                    }
+                });
+                $(tabs).height(highestBox);
+            } else if (w < 994 && w > 768 && j.tab === 'yes') {
+                var highestBox = 0;
+                $(tabs).each(function () {
+                    if ($(this).height() > highestBox) {
+                        highestBox = $(this).height();
+
+                    }
+                });
+                $(tabs).height(highestBox);
+            } else if (w < 769 && j.mob === 'yes') {
+                var highestBox = 0;
+                $(tabs).each(function () {
+                    if ($(this).height() > highestBox) {
+                        highestBox = $(this).height();
+
+                    }
+                });
+                $(tabs).height(highestBox);
+        }
+        }
     });
 })(jQuery);

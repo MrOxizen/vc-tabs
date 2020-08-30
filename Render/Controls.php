@@ -169,8 +169,6 @@ class Controls {
      * Border control.
      */
     const SINGLEBORDER = 'singleborder';
-    
-    const SINGLESHAPE = 'shape';
 
     /**
      * Entrance animation control.

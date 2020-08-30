@@ -212,15 +212,11 @@ class Render {
      * @since 3.3.0
      */
     public function render() {
-        if ($this->admin == 'request'):
-            $this->default_render($this->style, $this->child, $this->admin);
-        else:
-            echo '<div class="oxi-addons-container ' . $this->WRAPPER . '" id="' . $this->WRAPPER . '">
+        echo '<div class="oxi-addons-container ' . $this->WRAPPER . '" id="' . $this->WRAPPER . '">
                  <div class="oxi-addons-row">';
-            $this->default_render($this->style, $this->child, $this->admin);
-            echo '   </div>
+        $this->default_render($this->style, $this->child, $this->admin);
+        echo '   </div>
               </div>';
-        endif;
     }
 
     /**

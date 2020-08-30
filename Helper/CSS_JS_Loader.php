@@ -70,7 +70,6 @@ trait CSS_JS_Loader {
         wp_enqueue_style('select2.min', OXI_TABS_URL . 'assets/backend/css/select2.min.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('select2.min', OXI_TABS_URL . 'assets/backend/js/select2.min.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . 'assets/backend/css/jquery.fontselect.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('oxi-tabs-addons-vendor', OXI_TABS_URL . 'assets/backend/js/vendor.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-editor', OXI_TABS_URL . 'assets/backend/js/editor.js', false, OXI_TABS_PLUGIN_VERSION);
         $this->admin_media_scripts();
     }
@@ -442,7 +441,7 @@ trait CSS_JS_Loader {
                             jQuery(this).attr("oxilabvalue", datavalue);
                         }); }, 1000);';
         endif;
-        wp_add_inline_script('oxi-tabs-addons-vendor', $data);
+        wp_add_inline_script('oxi-tabs-editor', $data);
     }
 
 }

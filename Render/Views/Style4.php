@@ -72,7 +72,7 @@ class Style4 extends Render {
                 $value = $this->defualt_value($val['id']);
             endif;
             echo '      <div class="oxi-tabs-body-tabs animate__animated ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $val['id'] . '">
-                                <div class="oxi-tabs-body-content-shape"></div>
+                                <div class="oxi-tabs-body-content-shape"><span></span></div>
                             ' . $this->tabs_content_render($style, $value) . '
                             ' . $this->admin_edit_panel($val['id']) . '     
                         </div>';

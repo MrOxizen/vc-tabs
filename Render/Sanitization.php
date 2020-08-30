@@ -385,9 +385,42 @@ trait Sanitization {
         $tab = $id . '-tab';
         $mob = $id . '-mob';
         $laparg = ['responsive' => 'laptop'];
-        $tabarg = ['responsive' => 'tab'];
-        $mobarg = ['responsive' => 'mobile'];
+
         $this->add_control($lap, $data, array_merge($arg, $laparg));
+
+        if ($arg['type'] == 'dimensions' || $arg['type'] == 'slider'):
+            $tabarg = [
+                'responsive' => 'tab',
+                'default' => [
+                    'unit' => 'px',
+                    'size' => '',
+                ],
+            ];
+            $mobarg = [
+                'responsive' => 'mobile',
+                'default' => [
+                    'unit' => 'px',
+                    'size' => '',
+                ],
+            ];
+        elseif ($arg['type'] == 'number'):
+            $tabarg = [
+                'responsive' => 'tab',
+                'default' => '',
+            ];
+            $mobarg = [
+                'responsive' => 'mobile',
+                'default' => '',
+            ];
+        else:
+            $tabarg = [
+                'responsive' => 'tab',
+            ];
+            $mobarg = [
+                'responsive' => 'mobile',
+            ];
+        endif;
+
         $this->add_control($tab, $data, array_merge($arg, $tabarg));
         $this->add_control($mob, $data, array_merge($arg, $mobarg));
     }

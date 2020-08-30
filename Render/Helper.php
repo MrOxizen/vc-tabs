@@ -824,6 +824,51 @@ class Helper extends Admin {
             'description' => 'Set the Location of Title’s Additionals (Icon, Image, or Number.)',
                 ]
         );
+        $this->add_responsive_control(
+                'oxi-tabs-head-alignment-left-right', $this->style, [
+            'label' => __('Title Alignment', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'condition' => [
+                'oxi-tabs-head-aditional-location' => ['oxi-tab-header-aditional-left-position', 'oxi-tab-header-aditional-right-position'],
+            ],
+            'options' => [
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'flex-start' => __('Left', OXI_TABS_TEXTDOMAIN),
+                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
+            ],
+            'description' => 'Set the Location of Title’s Alignment',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-head-alignment-top-bottom', $this->style, [
+            'label' => __('Title Alignment', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'condition' => [
+                'oxi-tabs-head-aditional-location' => ['oxi-tab-header-aditional-top-position', 'oxi-tab-header-aditional-bottom-position'],
+            ],
+            'options' => [
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'flex-start' => __('Left', OXI_TABS_TEXTDOMAIN),
+                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
+            ],
+            'description' => 'Set the Location of Title’s Alignment',
+                ]
+        );
+
+
+
+
+
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
                 [
@@ -1948,6 +1993,25 @@ class Helper extends Admin {
             'showing' => TRUE,
                 ]
         );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-content-height', $this->style, [
+            'label' => __('Content Height', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'toggle' => true,
+            'options' => [
+                'yes' => [
+                    'title' => __('Equal', OXI_TABS_TEXTDOMAIN),
+                ],
+                'no' => [
+                    'title' => __('Dynamic', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'description' => 'Select Content Height as Equal or Dynamic.',
+                ]
+        );
+
+
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
@@ -3130,14 +3194,6 @@ class Helper extends Admin {
             'type' => Controls::TEXTAREA,
             'default' => '',
             'description' => 'Custom CSS Section. You can add custom css into textarea.'
-                ]
-        );
-        $this->add_control(
-                'oxilab-preview-color', $this->style, [
-            'type' => Controls::HIDDEN,
-            'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-sdgf, body.shortcode-addons-template-body' => 'background:{{VALUE}}',
-            ],
                 ]
         );
         $this->end_controls_section();

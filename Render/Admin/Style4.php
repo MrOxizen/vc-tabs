@@ -35,6 +35,48 @@ class Style4 extends Helper {
             'description' => 'Set the Location of Title’s Additionals (Icon, Image, or Number.)',
                 ]
         );
+        $this->add_responsive_control(
+                'oxi-tabs-head-alignment-left-right', $this->style, [
+            'label' => __('Title Alignment', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'condition' => [
+                'oxi-tabs-head-aditional-location' => ['oxi-tab-header-aditional-left-position', 'oxi-tab-header-aditional-right-position'],
+            ],
+            'options' => [
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'flex-start' => __('Left', OXI_TABS_TEXTDOMAIN),
+                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
+            ],
+            'description' => 'Set the Location of Title’s Alignment',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-head-alignment-top-bottom', $this->style, [
+            'label' => __('Title Alignment', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'condition' => [
+                'oxi-tabs-head-aditional-location' => ['oxi-tab-header-aditional-top-position', 'oxi-tab-header-aditional-bottom-position'],
+            ],
+            'options' => [
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'flex-start' => __('Left', OXI_TABS_TEXTDOMAIN),
+                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
+            ],
+            'description' => 'Set the Location of Title’s Alignment',
+                ]
+        );
+
+
 
         $this->add_control(
                 'oxi-tabs-head-bg', $this->style, [
@@ -143,14 +185,16 @@ class Style4 extends Helper {
         );
         $this->end_controls_section();
     }
-    
-     public function register_desc_general() {
+
+    public function register_desc_general() {
         $this->start_controls_section(
                 'oxi-tabs-desc-general', [
             'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
             'showing' => TRUE,
                 ]
         );
+        
+        
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
@@ -161,17 +205,149 @@ class Style4 extends Helper {
             'description' => 'Customize the Tabs’s Background with Color, Gradient or Image properties.',
                 ]
         );
-        
-//        $this->add_group_control(
-//                'oxi-tabs-desc-general-shape', $this->style, [
-//            'label' => __('Active Shape', OXI_TABS_TEXTDOMAIN),
-//            'type' => Controls::SINGLESHAPE,
-//            'selector' => [
-//                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-shape' => ''
-//            ],
-//            'description' => 'Customize Header Shape of the Header which Overlay Header Border during Active. Set Type, Size, and Color.',
-//                ]
-//        );
+        $this->start_popover_control(
+                'oxi-tabs-desc-general-popover', [
+            'label' => 'Single Shape',
+            'description' => 'Customize the Tabs’s Content Upper Shape.',
+                ],
+                $this->style
+        );
+        $this->add_control(
+                'oxi-tabs-desc-general-shape-type', $this->style, [
+            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'default' => '',
+            'options' => [
+                '' => __('None', OXI_TABS_TEXTDOMAIN),
+                'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
+                'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
+                'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
+                'double' => __('Double', OXI_TABS_TEXTDOMAIN),
+                'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
+                'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
+                'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
+                'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
+                'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-content-shape span' => 'border-style: {{VALUE}};',
+            ],
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-general-shape-position', $this->style, [
+            'label' => __('Shape Location', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'default' => '',
+            'options' => [
+                'flex-start' => __('Left', OXI_TABS_TEXTDOMAIN),
+                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
+            ],
+            'condition' => [
+                'oxi-tabs-desc-general-shape-type' => 'EMPTY',
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-content-shape' => 'justify-content: {{VALUE}};',
+            ],
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-general-shape-width', $this->style, [
+            'label' => __('Width', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SLIDER,
+            'default' => [
+                'unit' => 'px',
+                'size' => 50,
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 1000,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+            ],
+            'condition' => [
+                'oxi-tabs-desc-general-shape-type' => 'EMPTY',
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-content-shape span' => 'width: {{SIZE}}{{UNIT}};',
+            ],
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-general-shape-height', $this->style, [
+            'label' => __('Height', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SLIDER,
+            'default' => [
+                'unit' => 'px',
+                'size' => 1,
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 30,
+                    'step' => 1,
+                ],
+            ],
+            'condition' => [
+                'oxi-tabs-desc-general-shape-type' => 'EMPTY',
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-content-shape span' => 'border-top-width: {{SIZE}}px;',
+            ],
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-desc-general-shape-color', $this->style, [
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::COLOR,
+            'condition' => [
+                'oxi-tabs-desc-general-shape-type' => 'EMPTY',
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-content-shape span' => 'border-top-color: {{VALUE}};',
+            ],
+                ]
+        );
+
+        $this->add_responsive_control(
+                'oxi-tabs-desc-general-shape-padding', $this->style, [
+            'label' => __('Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-content-shape' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+                ]
+        );
+        $this->end_popover_control();
+
 
         $this->add_group_control(
                 'oxi-tabs-desc-general-boxshadow', $this->style, [
