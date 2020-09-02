@@ -1192,11 +1192,11 @@ a:hover.oxi-addons-more-layouts {
 .oxi-addons-preview-wrapper {
     width: 100%;
     float: left;
-    background: #FFF;
 }
 .oxi-addons-preview-data {
     width: 100%;
     margin: 0 auto;
+    background: #FFF;
     transition: all linear 0.33s;
 }
 .oxi-addons-preview-wrapper-tablet .oxi-addons-preview-data{
@@ -1205,7 +1205,6 @@ a:hover.oxi-addons-more-layouts {
 .oxi-addons-preview-wrapper-mobile .oxi-addons-preview-data{
     max-width: 768px;
 }
-
 .oxi-addons-preview-data #oxi-addons-preview-iframe{
     width: 100%;
 }

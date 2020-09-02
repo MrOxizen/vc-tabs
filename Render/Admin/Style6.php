@@ -234,44 +234,6 @@ class Style6 extends Helper {
         );
 
         $this->end_popover_control();
-
-
-
-
-
-
-
-        $this->add_responsive_control(
-                'oxi-tabs-head-radius', $this->style, [
-            'label' => __('Border Radius', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::DIMENSIONS,
-            'default' => [
-                'unit' => 'px',
-                'size' => '',
-            ],
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 500,
-                    'step' => 1,
-                ],
-                '%' => [
-                    'min' => 0,
-                    'max' => 50,
-                    'step' => 1,
-                ],
-                'em' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => .1,
-                ],
-            ],
-            'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
-            'description' => 'Add rounded corners to the Header’s Section.',
-                ]
-        );
         $this->add_responsive_control(
                 'oxi-tabs-head-padding', $this->style, [
             'label' => __('Padding', OXI_TABS_TEXTDOMAIN),

@@ -116,6 +116,20 @@ class Render {
      */
     public $child_table;
 
+    /**
+     * Public Attribute
+     *
+     * @since 3.3.0
+     */
+    public $attribute;
+
+    /**
+     * Public Header Class
+     *
+     * @since 3.3.0
+     */
+    public $headerclass;
+
     public function __construct(array $dbdata = [], array $child = [], $admin = 'user') {
         if (count($dbdata) > 0):
             global $wpdb;
@@ -212,11 +226,45 @@ class Render {
      * @since 3.3.0
      */
     public function render() {
+
+        $this->public_attribute($this->style);
+
         echo '<div class="oxi-addons-container ' . $this->WRAPPER . '" id="' . $this->WRAPPER . '">
                  <div class="oxi-addons-row">';
+        if ($this->admin == 'admin'):
+            echo '<input type="hidden" id="oxi-addons-iframe-background-color" name="oxi-addons-iframe-background-color" value="' . (is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF') . '">';
+        endif;
         $this->default_render($this->style, $this->child, $this->admin);
         echo '   </div>
               </div>';
+    }
+
+    /**
+     * load current element render since 3.3.0
+     *
+     * @since 3.3.0
+     */
+    public function public_attribute($style) {
+
+        $this->attribute = [
+            'header' => get_option('oxi_addons_fixed_header_size'),
+            'animation' => array_key_exists('oxi-tabs-gen-animation', $style) ? $style['oxi-tabs-gen-animation'] : '',
+            'initial' => array_key_exists('oxi-tabs-gen-opening', $style) ? $style['oxi-tabs-gen-opening'] : '',
+            'trigger' => array_key_exists('oxi-tabs-gen-trigger', $style) ? $style['oxi-tabs-gen-trigger'] : '',
+            'type' => array_key_exists('oxi-tabs-gen-event', $style) ? $style['oxi-tabs-gen-event'] : '',
+            'lap' => array_key_exists('oxi-tabs-desc-content-height-lap', $style) ? $style['oxi-tabs-desc-content-height-lap'] : 'no',
+            'tab' => array_key_exists('oxi-tabs-desc-content-height-tab', $style) ? $style['oxi-tabs-desc-content-height-tab'] : 'no',
+            'mob' => array_key_exists('oxi-tabs-desc-content-height-mob', $style) ? $style['oxi-tabs-desc-content-height-mob'] : 'no',
+        ];
+
+
+        $responsive = ' ';
+        if ($style['oxi-tabs-heading-responsive-mode'] == 'oxi-tabs-heading-responsive-static'):
+            $responsive .= $style['oxi-tabs-header-horizontal-tabs-alignment-horizontal'] . ' ' . $style['oxi-tabs-header-horizontal-mobile-alignment-horizontal'] . ' ';
+            $responsive .= $style['oxi-tabs-header-vertical-tabs-alignment'] . '  ' . $style['oxi-tabs-header-vertical-tabs-alignment-horizontal'] . ' ';
+            $responsive .= $style['oxi-tabs-header-vertical-mobile-alignment'] . '  ' . $style['oxi-tabs-header-vertical-mobile-alignment-horizontal'] . ' ';
+        endif;
+        $this->headerclass = $style['oxi-tabs-gen-event'] . ' ' . $style['oxi-tabs-heading-responsive-mode'] . ' ' . $style['oxi-tabs-heading-alignment'] . ' ' . $style['oxi-tabs-heading-horizontal-position'] . ' ' . $style['oxi-tabs-heading-vertical-position'] . ' ' . $responsive;
     }
 
     /**

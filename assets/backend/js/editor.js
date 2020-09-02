@@ -742,11 +742,9 @@ jQuery.noConflict();
                     $blur = $('#' + $id + "-blur-size").val();
                     $horizontal = $('#' + $id + "-horizontal-size").val();
                     $vertical = $('#' + $id + "-vertical-size").val();
-                    $true = (($blur === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$horizontal || !$vertical) ? true : false;
+                    $true = (!$blur || !$horizontal || !$vertical) ? true : false;
                     if ($true === false) {
                         $VALUE = 'text-shadow: ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $color + ';';
-                    } else {
-                        OxiAddonsPreviewDataLoader();
                     }
                 } else if ($custom[1] === 'box-shadow') {
                     $type = $('input[name="' + $id + '-type"]:checked').val();
@@ -755,11 +753,9 @@ jQuery.noConflict();
                     $spread = $('#' + $id + "-spread-size").val();
                     $horizontal = $('#' + $id + "-horizontal-size").val();
                     $vertical = $('#' + $id + "-vertical-size").val();
-                    $true = (($blur === '0' && $spread === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$spread || !$horizontal || !$vertical) ? true : false;
+                    $true = ( !$blur || !$spread || !$horizontal || !$vertical) ? true : false;
                     if ($true === false) {
                         $VALUE = 'box-shadow: ' + $type + ' ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $spread + 'px ' + $color + ';';
-                    } else {
-                        OxiAddonsPreviewDataLoader();
                     }
                 }
                 $.each($data, function (el, obj) {
@@ -802,104 +798,7 @@ jQuery.noConflict();
             });
         }
     });
-    $(".shortcode-control-type-color input").on("keyup, change", function () {
-        $input = $(this);
-        $custom = $input.attr("custom");
-        if ($input.attr("retundata") !== '') {
-            if ($custom === '') {
-                var $data = JSON.parse($input.attr("retundata"));
-                $.each($data, function (el, obj) {
-                    if (el.indexOf('{{KEY}}') != -1) {
-                        el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
-                    }
-                    var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
-                    var Cval = obj.replace(NEWRegExp("{{VALUE}}"), $input.val());
-                    if (Cval.indexOf("{{") != -1) {
-                        Cval = ShortCodeMultipleSelector_Handler(Cval);
-                    }
-                    if ($input.attr('responsive') === 'tab') {
-                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
-                    } else if ($input.attr('responsive') === 'mobile') {
-                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
-                    } else {
-                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
-                    }
-
-                });
-                if ($input.val() === '') {
-                    $input.siblings('.minicolors-swatch').children('.minicolors-swatch-color').css('background-color', 'transparent');
-                    OxiAddonsPreviewDataLoader();
-                }
-            } else {
-                var $data = JSON.parse($input.attr("retundata"));
-                $custom = $custom.split("|||||");
-                $id = $custom[0];
-                $VALUE = '';
-                if ($custom[1] === 'text-shadow') {
-                    $color = $('#' + $id + "-color").val();
-                    $blur = $('#' + $id + "-blur-size").val();
-                    $horizontal = $('#' + $id + "-horizontal-size").val();
-                    $vertical = $('#' + $id + "-vertical-size").val();
-                    $true = (($blur === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$horizontal || !$vertical) ? true : false;
-                    if ($true === false) {
-                        $VALUE = 'text-shadow: ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $color + ';';
-                    } else {
-                        OxiAddonsPreviewDataLoader();
-                    }
-                } else if ($custom[1] === 'box-shadow') {
-                    $type = $('input[name="' + $id + '-type"]:checked').val();
-                    $color = $('#' + $id + "-color").val();
-                    $blur = $('#' + $id + "-blur-size").val();
-                    $spread = $('#' + $id + "-spread-size").val();
-                    $horizontal = $('#' + $id + "-horizontal-size").val();
-                    $vertical = $('#' + $id + "-vertical-size").val();
-                    $true = (($blur === '0' && $spread === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$spread || !$horizontal || !$vertical) ? true : false;
-                    if ($true === false) {
-                        $VALUE = 'box-shadow: ' + $type + ' ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $spread + 'px ' + $color + ';';
-                    } else {
-                        OxiAddonsPreviewDataLoader();
-                    }
-                }
-
-                $.each($data, function (el, obj) {
-                    if (el.indexOf('{{KEY}}') != -1) {
-                        el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
-                    }
-                    var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
-                    var Cval = obj.replace(NEWRegExp("{{VALUE}}"), $VALUE);
-                    if ($input.attr('responsive') === 'tab') {
-                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
-                    } else if ($input.attr('responsive') === 'mobile') {
-                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
-                    } else {
-                        IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
-                    }
-                });
-            }
-        }
-    });
-    $(".shortcode-control-type-font input").on("change", function () {
-        $input = $(this);
-        if ($(this).attr("retundata") !== '') {
-            var font = $input.val().replace(/\+/g, ' ');
-            font = font.split(':');
-            var $data = JSON.parse($input.attr("retundata"));
-            $.each($data, function (el, obj) {
-                if (el.indexOf('{{KEY}}') != -1) {
-                    el = el.replace(NEWRegExp("{{KEY}}"), $input.attr('name').split('saarsa')[1]);
-                }
-                var cls = el.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
-                var Cval = obj.replace(NEWRegExp("{{VALUE}}"), font[0]);
-                if ($input.attr('responsive') === 'tab') {
-                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
-                } else if ($input.attr('responsive') === 'mobile') {
-                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (max-width : 768px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
-                } else {
-                    IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
-                }
-            });
-        }
-    });
+   
     function ShortCodeFormSliderINT(ID = '') {
         $this = $('.shortcode-form-slider');
         if (ID !== '') {
@@ -1256,10 +1155,11 @@ jQuery.noConflict();
 //    $(document.body).on("change", ".shortcode-control-type-icon input", function () {
 //        OxiAddonsPreviewDataLoader();
 //    });
-    $(".oxi-addons-preview-wrapper").css('background', $("#oxi-addons-2-0-color").val());
+   // $(".oxi-addons-preview-wrapper").css('background', $("#oxi-addons-2-0-color").val());
+    
+    
     $("#oxi-addons-2-0-color").on("change", function (e) {
         $input = $(this).val();
-        $(".oxi-addons-preview-wrapper").css('background', $input);
         IFRAME.contents().find(IFRAMEBODYCLASS).css('background', $input);
         $("#oxilab-preview-color").val($input);
     });
