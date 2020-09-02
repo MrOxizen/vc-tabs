@@ -113,6 +113,7 @@ class Style6 extends Helper {
             'type' => Controls::GRADIENT,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-extend' => 'background: {{VALUE}};',
             ],
             'description' => 'Set the Background of the Header.on Active Mode.',
                 ]
@@ -120,18 +121,35 @@ class Style6 extends Helper {
 
         $this->end_controls_tab();
         $this->end_controls_tabs();
-
-
-
-        $this->add_group_control(
-                'oxi-tabs-head-boxshadow', $this->style, [
-            'type' => Controls::BOXSHADOW,
-            'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => '',
+        $this->add_responsive_control(
+                'oxi-tabs-head-general-width-extend', $this->style, [
+            'label' => __('Width or Height Extend', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SLIDER,
+            'default' => [
+                'unit' => 'px',
+                'size' => 10,
             ],
-            'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 1000,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-extend' => 'width: {{SIZE}}{{UNIT}};height:  {{SIZE}}{{UNIT}};',
+            ],
+            'description' => 'Horizontal will extend height & Vertical will be width .',
                 ]
         );
+
+
+
 
 
         $this->start_popover_control(
@@ -234,6 +252,17 @@ class Style6 extends Helper {
         );
 
         $this->end_popover_control();
+
+
+        $this->add_group_control(
+                'oxi-tabs-head-boxshadow', $this->style, [
+            'type' => Controls::BOXSHADOW,
+            'selector' => [
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => '',
+            ],
+            'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
+                ]
+        );
         $this->add_responsive_control(
                 'oxi-tabs-head-padding', $this->style, [
             'label' => __('Padding', OXI_TABS_TEXTDOMAIN),

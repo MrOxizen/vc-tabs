@@ -33,6 +33,7 @@ class Style6 extends Render {
             endif;
             echo $this->title_special_charecter($value, 'oxi-tabs-modal-title', 'oxi-tabs-modal-sub-title');
             echo '<div class="oxi-tabs-header-shape"></div>';
+            echo '<div class="oxi-tabs-header-extend"></div>';
             echo '</div>';
             $number++;
         }
