@@ -13,9 +13,7 @@
         right: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class^='oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class^='oxi-tab-header-top-'] .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li.active{
         bottom: 0px !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li,
@@ -28,9 +26,7 @@
         right: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li.active{
         top: 0px !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-left-'] .oxi-tabs-header-li,
@@ -43,9 +39,7 @@
         bottom: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-left-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-left-'] .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'] .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'] .oxi-tabs-header-li.active{
         right: 0px !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-right-'] .oxi-tabs-header-li,
@@ -58,9 +52,7 @@
         right: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-right-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-right-'] .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'] .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'] .oxi-tabs-header-li.active{
         left: 0px !important;
     }
 }
@@ -91,13 +83,9 @@
         right: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal[class^='oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal[class^='oxi-tab-header-top-'] .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class^='oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class^='oxi-tab-header-top-'] .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li.active{
         bottom: 0px !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li,
@@ -112,13 +100,9 @@
         right: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li.active{
         top: 0px !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical .oxi-tabs-header-li{
@@ -144,12 +128,8 @@
     }
      .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact .oxi-tabs-header-li.active,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal .oxi-tabs-header-li.active{
         bottom: 0px !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical .oxi-tabs-header-li{
@@ -171,9 +151,7 @@
         bottom: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li.active{
          right: 0px !important;
     }
     
@@ -187,9 +165,7 @@
         bottom: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li.active{
          left: 0px !important;
     }
 
@@ -219,13 +195,9 @@
         right: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal[class^='oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal[class^='oxi-tab-header-top-'] .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class^='oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class^='oxi-tab-header-top-'] .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li.active{
         bottom: 0px !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li,
@@ -240,13 +212,9 @@
         right: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li.active{
         top: 0px !important;
     }
 
@@ -281,12 +249,8 @@
     }
      .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact .oxi-tabs-header-li.active,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact .oxi-tabs-header-li:hover,
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal .oxi-tabs-header-li.active{
         bottom: 0px !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical .oxi-tabs-header-li{
@@ -308,9 +272,7 @@
         bottom: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li.active{
          right: 0px !important;
     }
     
@@ -324,9 +286,7 @@
         bottom: auto !important;
     }
     .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li.active,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class^='oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li:hover,
-    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li:hover{
+    .oxi-tabs-ultimate-template-3.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li.active{
          left: 0px !important;
     }
     

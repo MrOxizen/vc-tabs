@@ -357,8 +357,8 @@ class Helper extends Admin {
                 'oxi-tabs-heading-renponsive-tabs',
                 [
                     'options' => [
-                        'normal' => esc_html__('Tabs Settings ', OXI_TABS_TEXTDOMAIN),
-                        'hover' => esc_html__('Mobile Settings', OXI_TABS_TEXTDOMAIN),
+                        'tabs-settings' => esc_html__('Tabs Settings ', OXI_TABS_TEXTDOMAIN),
+                        'mobile-settings' => esc_html__('Mobile Settings', OXI_TABS_TEXTDOMAIN),
                     ],
                     'condition' => [
                         'oxi-tabs-heading-responsive-mode' => 'oxi-tabs-heading-responsive-static'
@@ -874,7 +874,7 @@ class Helper extends Admin {
                 [
                     'options' => [
                         'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'hover' => esc_html__('Active or Hover', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
                     ]
                 ]
         );
@@ -902,9 +902,8 @@ class Helper extends Admin {
             'type' => Controls::GRADIENT,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li:hover' => 'background: {{VALUE}};',
             ],
-            'description' => 'Set the Background of the Header.on Active/Hover Mode.',
+            'description' => 'Set the Background of the Header.on Active Mode.',
                 ]
         );
 
@@ -1061,7 +1060,7 @@ class Helper extends Admin {
                 [
                     'options' => [
                         'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'hover' => esc_html__('Active or Hover', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
                     ]
                 ]
         );
@@ -1096,9 +1095,8 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'selector' => [
                 '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-main-title' => 'color: {{VALUE}};',
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-main-title' => 'color: {{VALUE}};',
             ],
-            'description' => 'Set the Title Color on Active/Hover Mode.',
+            'description' => 'Set the Title Color on Active Mode.',
                 ]
         );
         $this->add_group_control(
@@ -1106,7 +1104,6 @@ class Helper extends Admin {
             'type' => Controls::TEXTSHADOW,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-main-title' => '',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-main-title' => '',
             ],
             'description' => 'Add one or more shadows into Title Texts and customize other Text-Shadow Options.',
                 ]
@@ -1172,7 +1169,7 @@ class Helper extends Admin {
                 [
                     'options' => [
                         'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'hover' => esc_html__('Active or Hover', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
                     ]
                 ]
         );
@@ -1207,9 +1204,8 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-sub-title' => 'color: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-sub-title' => 'color: {{VALUE}};',
             ],
-            'description' => 'Set the Sub Title Color on Active/Hover Mode.',
+            'description' => 'Set the Sub Title Color on Active Mode.',
                 ]
         );
         $this->add_group_control(
@@ -1217,7 +1213,6 @@ class Helper extends Admin {
             'type' => Controls::TEXTSHADOW,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-sub-title' => '',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-sub-title' => '',
             ],
             'description' => 'Add one or more shadows into Sub Title Texts and customize other Text-Shadow Options.',
                 ]
@@ -1393,7 +1388,7 @@ class Helper extends Admin {
                 [
                     'options' => [
                         'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'hover' => esc_html__('Active or Hover', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
                     ]
                 ]
         );
@@ -1445,9 +1440,8 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => 'color: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => 'color: {{VALUE}};',
             ],
-            'description' => 'Set the Icon’s Color on Active/Hover Mode.',
+            'description' => 'Set the Icon’s Color on Active Mode.',
                 ]
         );
         $this->add_control(
@@ -1459,9 +1453,8 @@ class Helper extends Admin {
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => 'background: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => 'background: {{VALUE}};',
             ],
-            'description' => 'Customize Icon Background with Color, Gradient or Image properties for Active/Hover Mode.',
+            'description' => 'Customize Icon Background with Color, Gradient or Image properties for Active Mode.',
                 ]
         );
 
@@ -1473,9 +1466,8 @@ class Helper extends Admin {
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-icons' => '',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-icons' => '',
             ],
-            'description' => 'Customize Border of the Icon. Set Type, Width, and Color for Active/Hover Mode.',
+            'description' => 'Customize Border of the Icon. Set Type, Width, and Color for Active Mode.',
                 ]
         );
 
@@ -1663,7 +1655,7 @@ class Helper extends Admin {
                 [
                     'options' => [
                         'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'hover' => esc_html__('Active or Hover', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
                     ]
                 ]
         );
@@ -1715,9 +1707,8 @@ class Helper extends Admin {
             'type' => Controls::COLOR,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => 'color: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-number' => 'color: {{VALUE}};',
             ],
-            'description' => 'Set the Number’s Color on Active/Hover Mode.',
+            'description' => 'Set the Number’s Color on Active Mode.',
                 ]
         );
         $this->add_control(
@@ -1729,9 +1720,8 @@ class Helper extends Admin {
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => 'background:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-number' => 'background:{{VALUE}};',
             ],
-            'description' => 'Customize Number Background with Color, Gradient or Image properties for Active/Hover Mode.',
+            'description' => 'Customize Number Background with Color, Gradient or Image properties for Active Mode.',
                 ]
         );
 
@@ -1743,9 +1733,8 @@ class Helper extends Admin {
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => '',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-number' => '',
             ],
-            'description' => 'Customize Border of the Number. Set Type, Width, and Color for Active/Hover Mode.',
+            'description' => 'Customize Border of the Number. Set Type, Width, and Color for Active Mode.',
                 ]
         );
 
@@ -1864,7 +1853,7 @@ class Helper extends Admin {
                 [
                     'options' => [
                         'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'hover' => esc_html__('Active or Hover', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
                     ]
                 ]
         );
@@ -1885,10 +1874,9 @@ class Helper extends Admin {
                 'oxi-tabs-head-image-ac-border', $this->style, [
             'type' => Controls::BORDER,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-li-image' => '',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-li-image' => '',
             ],
-            'description' => 'Customize Border of the Image. Set Type, Width, and Color for Active/Hover Mode.',
+            'description' => 'Customize Border of the Image. Set Type, Width, and Color for Active Mode.',
                 ]
         );
 

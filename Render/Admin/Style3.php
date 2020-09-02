@@ -111,7 +111,7 @@ class Style3 extends Helper {
                 [
                     'options' => [
                         'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'hover' => esc_html__('Active or Hover', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
                     ]
                 ]
         );
@@ -150,9 +150,8 @@ class Style3 extends Helper {
             'type' => Controls::GRADIENT,
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li:hover' => 'background: {{VALUE}};',
             ],
-            'description' => 'Set the Background of the Header.on Active/Hover Mode.',
+            'description' => 'Set the Background of the Header.on Active Mode.',
                 ]
         );
         $this->add_group_control(
@@ -162,8 +161,7 @@ class Style3 extends Helper {
                     'label' => __('Single Border', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SINGLEBORDER,
                     'selector' => [
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};',
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};'
+                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};'
                     ],
                     'description' => 'Customize Single Border of the Header. Set Type, Size, and Color.',
                 ]

@@ -128,7 +128,6 @@ class Style5 extends Helper {
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-shape' => 'border-color: {{VALUE}};',
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-shape' => 'border-color: {{VALUE}};background: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li:hover .oxi-tabs-header-shape' => 'border-color: {{VALUE}};background: {{VALUE}};',
             ],
                 ]
         );
@@ -294,7 +293,7 @@ class Style5 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
             ],
             'description' => 'Add rounded corners to the Body’s Section.',
                 ]

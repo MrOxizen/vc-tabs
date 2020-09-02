@@ -40,12 +40,13 @@ class Style5 extends Render {
          */
         echo '   <div class="oxi-tabs-ultimate-header-wrap ' . ($style['oxi-tabs-heading-responsive-mode'] == 'oxi-tabs-heading-responsive-static' ? $this->header_responsive_static_render($style, ['title', 'subtitle', 'icon', 'number', 'image']) : '') . '">';
         echo '        <div class="oxi-tabs-ultimate-header oxi-tab-clearfix">';
+        $number = 1;
         foreach ($child as $key => $val) {
             $value = json_decode(stripslashes($val['rawdata']), true);
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);
             endif;
-            echo '<div class=\'oxi-tabs-header-li ' . $style['oxi-tabs-head-aditional-location'] . ' oxi-tabs-header-li-' . $this->oxiid . '-' . $val['id'] . '\' ref=\'#oxi-tabs-trigger-' . $this->oxiid . '-' . $val['id'] . '\' ' . $this->tabs_url_render($value) . '>';
+            echo '<div class=\'oxi-tabs-header-li ' . $style['oxi-tabs-head-aditional-location'] . ' oxi-tabs-header-li-' . $this->oxiid . '-' . $number . '\' ref=\'#oxi-tabs-trigger-' . $this->oxiid . '-' . $number . '\' ' . $this->tabs_url_render($value) . '>';
             if ($value['oxi-tabs-modal-title-additional'] == 'icon'):
                 echo $this->font_awesome_render($value['oxi-tabs-modal-icon']);
             elseif ($value['oxi-tabs-modal-title-additional'] == 'number'):
@@ -56,6 +57,7 @@ class Style5 extends Render {
             echo $this->title_special_charecter($value, 'oxi-tabs-modal-title', 'oxi-tabs-modal-sub-title');
             echo '<div class="oxi-tabs-header-shape"></div>';
             echo '</div>';
+            $number++;
         }
         echo '      </div> ';
         echo '  </div> ';
@@ -68,16 +70,17 @@ class Style5 extends Render {
          */
         echo '  <div class="oxi-tabs-ultimate-content-wrap">';
         echo '      <div class="oxi-tabs-ultimate-content">';
-
+        $number = 1;
         foreach ($child as $key => $val) {
             $value = json_decode(stripslashes($val['rawdata']), true);
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);
             endif;
-            echo '      <div class="oxi-tabs-body-tabs animate__animated ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $val['id'] . '">
+            echo '      <div class="oxi-tabs-body-tabs animate__animated ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $number . '">
                             ' . $this->tabs_content_render($style, $value) . '
                             ' . $this->admin_edit_panel($val['id']) . '     
                         </div>';
+            $number++;
         }
         echo '      </div>';
         echo '  </div>';

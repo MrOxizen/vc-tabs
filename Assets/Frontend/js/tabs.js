@@ -5,6 +5,8 @@ jQuery.noConflict();
         var trigger = '', hash_link = window.location.hash;
         if (hash_link.includes("oxi-tabs-trigger-")) {
             var explode = hash_link.split("-"), parent = explode[3], child = explode[4];
+            console.log(parent);
+            console.log(child);
             OxiTabsEqualHeight(parent, child);
             OxiTabsController(parent, child);
         } else {
@@ -15,14 +17,26 @@ jQuery.noConflict();
             });
         }
         /* Check any btn click for confirm event for tabs*/
-        $(document).on('click', '[id^="oxi-tabs-trigger-"]', function () {
+        $(document).on('click', '[id^="oxi-tabs-trigger-"]', function (e) {
+            e.preventDefault();
             var wrapper = $(this).attr('id'), explode = wrapper.split("-"), parent = explode[3], child = explode[4];
             OxiTabsController(parent, child);
         });
+
+
+        $('a[href*="#oxi-tabs-trigger-"]').click(function (e) {
+            e.preventDefault();
+            var wrapper = $(this).attr('href'), explode = wrapper.split("-"), parent = explode[3], child = explode[4];
+            OxiTabsController(parent, child);
+        });
+
+
+
         /* Tabs Header Hover  Data Confirmation*/
         $(".oxi-tabs-hover-event .oxi-tabs-header-li").hover(function () {
-            var link = $(this).data("link"), variable = '';
-            if ((typeof link !== typeof undefined && link !== false) && typeof variable === '.shortcode-addons-template-body') {
+            var link = $(this).data("link");
+            //  if ((typeof link !== typeof undefined && link !== false) && typeof variable === '.shortcode-addons-template-body') {
+            if ((typeof link !== typeof undefined && link !== false) ) {
                 var target = '_self';
                 if (link.target === 'yes') {
                     var target = ", '_blank'";
@@ -34,10 +48,10 @@ jQuery.noConflict();
             }
         });
         /* Tabs Header Click Data Confirmation*/
-
+        console.log($(".shortcode-addons-template-body").length);
         $(document).on('click', '.oxi-tabs-click-event .oxi-tabs-header-li', function () {
-            var link = $(this).data("link"), variable = '';
-            if ((typeof link !== typeof undefined && link !== false) && typeof variable === '.shortcode-addons-template-body') {
+            var link = $(this).data("link") ;
+            if ((typeof link !== typeof undefined && link !== false && $(".shortcode-addons-template-body").length === 0)) {
                 var target = '_self';
                 if (link.target === 'yes') {
                     var target = ", '_blank'";
@@ -62,7 +76,6 @@ jQuery.noConflict();
                 var header = '.oxi-tabs-header-li-' + p + '-' + c,
                         contentbody = '#oxi-tabs-body-' + p + '-' + c;
                 if ($(header).hasClass('active')) {
-                    console.log('ache00');
                     if (j.trigger === '1' && j.type !== 'oxi-tabs-hover-event') {
                         $(header).removeClass("active");
                         $(contentbody).removeClass(j.animation).toggleClass("active");
@@ -109,5 +122,6 @@ jQuery.noConflict();
                 $(tabs).height(highestBox);
         }
         }
-    });
+    }
+    );
 })(jQuery);
