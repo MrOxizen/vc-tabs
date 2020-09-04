@@ -1911,7 +1911,16 @@ trait Sanitization {
         endif;
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         $selector_key = $selector = $selectorvalue = $loader = $loadervalue = $render = '';
+        $rn = [];
         if (array_key_exists('selector', $arg)) :
+
+            foreach ($arg['selector'] as $key => $value) {
+                if ($value != ''):
+                    $rn[$key] = $value;
+                else:
+                    $rn[$key] = 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};';
+                endif;
+            }
             $selectorvalue = 'selector-value';
             $selector_key = 'selector';
             $selector = $arg['selector'];
@@ -1923,7 +1932,7 @@ trait Sanitization {
         if (array_key_exists($id . '-type', $data) && $data[$id . '-type'] == '') :
             $render = 'render';
         endif;
-
+       
         $this->start_popover_control(
                 $id, [
             'label' => __('Border', OXI_TABS_TEXTDOMAIN),
@@ -1981,8 +1990,7 @@ trait Sanitization {
                 $id . '-type' => 'EMPTY',
             ],
             $loader => $loadervalue,
-            $selectorvalue => 'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            $selector_key => $selector,
+            'selector' => $rn
                 ]
         );
         $this->add_control(
