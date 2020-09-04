@@ -5,6 +5,9 @@
 .oxi-tabs-ultimate-template-9 .oxi-tabs-header-li{
     position: relative;
 }
+.oxi-tabs-ultimate-template-9 .oxi-tabs-header-triangle-shape{
+    border-style: solid;
+}
 .oxi-tabs-ultimate-template-9 .oxi-tabs-ultimate-header{
     overflow: visible;
     max-width: 100%;
