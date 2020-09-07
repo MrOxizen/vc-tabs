@@ -12,31 +12,6 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 class Style2 extends Helper {
 
-    public function register_heading_parent() {
-        //Heading Section
-        $this->start_section_tabs(
-                'oxi-tabs-start-tabs', [
-            'condition' => [
-                'oxi-tabs-start-tabs' => 'heading-settings'
-            ]
-                ]
-        );
-        //Start Divider
-        $this->start_section_devider();
-        $this->register_header_general();
-        $this->end_section_devider();
-
-        //Start Divider
-        $this->start_section_devider();
-        $this->register_header_title();
-        $this->register_header_sub_title();
-        $this->register_header_icon();
-        $this->register_header_number();
-        $this->register_header_image();
-        $this->end_section_devider();
-        $this->end_section_tabs();
-    }
-
     public function register_header_general() {
         $this->start_controls_section(
                 'oxi-tabs-head', [

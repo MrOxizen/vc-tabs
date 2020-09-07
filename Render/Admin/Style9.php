@@ -103,7 +103,7 @@ class Style9 extends Helper {
                 ]
         );
         
-         $this->add_responsive_control(
+        $this->add_responsive_control(
                 'oxi-tabs-head-triangle-shape', $this->style, [
             'label' => __('Arrow Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,

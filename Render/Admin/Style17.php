@@ -10,7 +10,7 @@ namespace OXI_TABS_PLUGINS\Render\Admin;
 use OXI_TABS_PLUGINS\Render\Helper;
 use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
-class Style16 extends Helper {
+class Style17 extends Helper {
 
     public function register_header_general() {
         $this->start_controls_section(
@@ -75,93 +75,27 @@ class Style16 extends Helper {
             'description' => 'Set the Location of Title’s Alignment',
                 ]
         );
-
-        $this->start_controls_tabs(
-                'oxi-tabs-head-start-tabs',
-                [
-                    'options' => [
-                        'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
-                    ]
-                ]
-        );
-
-        $this->start_controls_tab();
-        $this->add_control(
-                'oxi-tabs-head-bg', $this->style, [
-            'label' => __('Background', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::GRADIENT,
-            'default' => 'rgba(171, 0, 201, 1)',
-            'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'background: {{VALUE}};',
-            ],
-            'description' => 'Set the Background of the Header on Normal Mode.',
-                ]
-        );
         $this->add_group_control(
-                'oxi-tabs-head-boxshadow', $this->style, [
-            'type' => Controls::BOXSHADOW,
-            'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => '',
-            ],
-            'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
-                ]
-        );
-        $this->add_group_control(
-                'oxi-tabs-head-border',
+                'oxi-tabs-head-inner-border',
                 $this->style,
                 [
-                    'type' => Controls::BORDER,
+                    'label' => __('Inner Border', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SINGLEBORDER,
                     'selector' => [
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => ''
+                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};',
+                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => 'border-color:{{COLOR}}!important;',
+                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'border-color:{{COLOR}};',
                     ],
-                    'description' => 'Customize Border of the Header. Set Type, Width, and Color.',
+                    'description' => 'Customize Inner Border of the Header. Set Type, Size, and Color. Its will works dynamiclly with Design',
                 ]
         );
-        $this->end_controls_tab();
-        $this->start_controls_tab();
-
-        $this->add_control(
-                'oxi-tabs-head-ac-bg', $this->style, [
-            'label' => __('Background', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::GRADIENT,
-            'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
-            ],
-            'description' => 'Set the Background of the Header.on Active Mode.',
-                ]
-        );
-        $this->add_group_control(
-                'oxi-tabs-head--active-boxshadow', $this->style, [
-            'type' => Controls::BOXSHADOW,
-            'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => '',
-            ],
-            'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
-                ]
-        );
-        $this->add_group_control(
-                'oxi-tabs-head-active-border',
-                $this->style,
-                [
-                    'type' => Controls::BORDER,
-                    'selector' => [
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => ''
-                    ],
-                    'description' => 'Customize Border of the Header. Set Type, Width, and Color.',
-                ]
-        );
-
-        $this->end_controls_tab();
-        $this->end_controls_tabs();
-        
         $this->add_responsive_control(
-                'oxi-tabs-head-radius', $this->style, [
-            'label' => __('Border Radius', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::DIMENSIONS,
+                'oxi-tabs-head-triangle-shape', $this->style, [
+            'label' => __('Arrow Size', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
-                'size' => '',
+                'size' => 20,
             ],
             'range' => [
                 'px' => [
@@ -181,10 +115,9 @@ class Style16 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'border-width: {{SIZE}}{{UNIT}};',
             ],
-            'description' => 'Add rounded corners to the Header’s Section.',
+            'description' => 'Customize Triangle Shape of the Header. Set Size while color will adjust with Inner Border COlor',
                 ]
         );
         $this->add_responsive_control(
@@ -244,15 +177,15 @@ class Style16 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Create some Space outside of the Header Section.',
                 ]
         );
         $this->end_controls_section();
     }
-    
-      public function register_desc_general() {
+
+    public function register_desc_general() {
         $this->start_controls_section(
                 'oxi-tabs-desc-general', [
             'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
@@ -371,7 +304,7 @@ class Style16 extends Helper {
             'description' => 'Generate some Space around the Content Body including background color.',
                 ]
         );
-         $this->add_responsive_control(
+        $this->add_responsive_control(
                 'oxi-tabs-desc-section-padding', $this->style, [
             'label' => __('Section Padding', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::DIMENSIONS,
