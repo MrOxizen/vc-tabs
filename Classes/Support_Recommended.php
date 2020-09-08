@@ -49,7 +49,7 @@ class Support_Recommended {
                 $massage = '<p>Thank you for using my Responsive Tabs with Accordions.  We suggest you to use our <a href="https://wordpress.org/support/plugin/shortcode-addons">Shortcode Addons</a>, The most Easiest Shortcode Builder with 70+ Elements. Create your wonderful website with most Flexible, Creative and Mordern Elements .</p>';
             endif;
             $install_url = wp_nonce_url(add_query_arg(array('action' => 'install-plugin', 'plugin' => $plugin), admin_url('update.php')), 'install-plugin' . '_' . $plugin);
-            echo '<div class="oxi-addons-admin-notifications" style=" width: auto;">
+            echo '<div class="wrap oxi-addons-admin-notifications" style=" width: auto;">
                         <h3>
                             <span class="dashicons dashicons-flag"></span> 
                             Notifications

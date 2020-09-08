@@ -76,7 +76,6 @@ class Installation {
         $headersize = 0;
         $fawesome = '5.3.1||https://use.fontawesome.com/releases/v5.3.1/css/all.css';
         add_option('content_tabs_ultimate_version', OXI_TABS_PLUGIN_VERSION);
-        add_option('oxi_addons_font_awesome_version', $fawesome);
         add_option('oxi_addons_fixed_header_size', $headersize);
     }
 

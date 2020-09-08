@@ -43,7 +43,6 @@ jQuery.noConflict();
                 }
             }).done(function (response) {
                 callback(response);
-                console.log(response);
                 active = false;
             });
         }
@@ -503,6 +502,7 @@ jQuery.noConflict();
                     $('#' + inst).val(tinyMCE.editors[inst].getContent());
                 }
         }
+
         var rawdata = JSON.stringify($("#oxi-template-modal-form").serializeJSON({checkboxUncheckedValue: "0"}));
         var functionname = "elements_template_modal_data";
         var childid = $("#shortcodeitemid").val();
@@ -619,7 +619,7 @@ jQuery.noConflict();
                     IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                 }
             });
-            if ($input.val() === '') {
+            if ($input.val() === '' && $input.parents('.modal-body').length === 0) {
                 OxiAddonsPreviewDataLoader();
             }
         }
@@ -659,7 +659,7 @@ jQuery.noConflict();
                     }
                 });
             });
-            if ($input.val() === '') {
+            if ($input.val() === '' && $input.parents('.modal-body').length === 0) {
                 OxiAddonsPreviewDataLoader();
             }
         }
@@ -673,7 +673,6 @@ jQuery.noConflict();
             $("input[name=" + name + "]").each(function () {
                 arr.push($(this).val());
             });
-            console.log(arr);
             $input = $(this).parent('.shortcode-form-choices');
             var $data = JSON.parse($input.attr("retundata"));
             $.each($data, function (key, obj) {
@@ -728,7 +727,7 @@ jQuery.noConflict();
                     }
 
                 });
-                if ($input.val() === '') {
+                if ($input.val() === '' && $input.parents('.modal-body').length === 0) {
                     $input.siblings('.minicolors-swatch').children('.minicolors-swatch-color').css('background-color', 'transparent');
                     OxiAddonsPreviewDataLoader();
                 }
@@ -753,7 +752,7 @@ jQuery.noConflict();
                     $spread = $('#' + $id + "-spread-size").val();
                     $horizontal = $('#' + $id + "-horizontal-size").val();
                     $vertical = $('#' + $id + "-vertical-size").val();
-                    $true = ( !$blur || !$spread || !$horizontal || !$vertical) ? true : false;
+                    $true = (!$blur || !$spread || !$horizontal || !$vertical) ? true : false;
                     if ($true === false) {
                         $VALUE = 'box-shadow: ' + $type + ' ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $spread + 'px ' + $color + ';';
                     }
@@ -798,7 +797,7 @@ jQuery.noConflict();
             });
         }
     });
-   
+
     function ShortCodeFormSliderINT(ID = '') {
         $this = $('.shortcode-form-slider');
         if (ID !== '') {
@@ -871,7 +870,7 @@ jQuery.noConflict();
                                 $true = (($blur === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$horizontal || !$vertical) ? true : false;
                                 if ($true === false) {
                                     $VALUE = 'text-shadow: ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $color + ';';
-                                } else {
+                                } else if ($input.parents('.modal-body').length === 0) {
                                     OxiAddonsPreviewDataLoader();
                                 }
                             } else if ($custom[1] === 'box-shadow') {
@@ -884,7 +883,7 @@ jQuery.noConflict();
                                 $true = (($blur === '0' && $spread === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$spread || !$horizontal || !$vertical) ? true : false;
                                 if ($true === false) {
                                     $VALUE = 'box-shadow: ' + $type + ' ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $spread + 'px ' + $color + ';';
-                                } else {
+                                } else if($input.parents('.modal-body').length === 0){
                                     OxiAddonsPreviewDataLoader();
                                 }
                             }
@@ -954,7 +953,7 @@ jQuery.noConflict();
                     $true = (($blur === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$horizontal || !$vertical) ? true : false;
                     if ($true === false) {
                         $VALUE = 'text-shadow: ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $color + ';';
-                    } else {
+                    } else if($input.parents('.modal-body').length === 0){
                         OxiAddonsPreviewDataLoader();
                     }
                 } else if ($custom[1] === 'box-shadow') {
@@ -967,7 +966,7 @@ jQuery.noConflict();
                     $true = (($blur === '0' && $spread === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$spread || !$horizontal || !$vertical) ? true : false;
                     if ($true === false) {
                         $VALUE = 'box-shadow: ' + $type + ' ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $spread + 'px ' + $color + ';';
-                    } else {
+                    } else if($input.parents('.modal-body').length === 0){
                         OxiAddonsPreviewDataLoader();
                     }
                 }
@@ -989,7 +988,7 @@ jQuery.noConflict();
                     }
                 });
             }
-            if ($input.val() === '') {
+            if ($input.val() === '' && $input.parents('.modal-body').length === 0) {
                 OxiAddonsPreviewDataLoader();
             }
         }
@@ -1039,7 +1038,7 @@ jQuery.noConflict();
                         IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                     }
                 });
-                if (_VALUE === '') {
+                if (_VALUE === '' && $This.parents('.modal-body').length === 0) {
                     OxiAddonsPreviewDataLoader();
                 }
             },
@@ -1129,7 +1128,7 @@ jQuery.noConflict();
                     IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '} < /style>');
                 }
             });
-            if ($input.val() === '') {
+            if ($input.val() === '' && $input.parents('.modal-body').length === 0) {
                 OxiAddonsPreviewDataLoader();
             }
         }
@@ -1138,26 +1137,22 @@ jQuery.noConflict();
     $('.oxi-admin-icon-selector').iconpicker();
     $('.shortcode-addons-form-conditionize').conditionize();
     $(document.body).on("change", ".shortcode-addons-control-loader  input", function () {
-        OxiAddonsPreviewDataLoader();
+        if ($(this).parents('.modal-body').length === 0) {
+            OxiAddonsPreviewDataLoader();
+        }
+
     });
     $(document.body).on("change", ".shortcode-addons-control-loader  select", function () {
-        OxiAddonsPreviewDataLoader();
+        if ($(this).parents('.modal-body').length === 0) {
+            OxiAddonsPreviewDataLoader();
+        }
     });
     $(document.body).on("keyup", ".shortcode-addons-control-loader input", function () {
-        OxiAddonsPreviewDataLoader();
+        if ($(this).parents('.modal-body').length === 0) {
+            OxiAddonsPreviewDataLoader();
+        }
     });
-//    $(document.body).on("keyup", ".shortcode-addons-control-loader textarea", function () {
-//        OxiAddonsPreviewDataLoader();
-//    });
-//    $(document.body).on("keyup", ".shortcode-addons-control-loader wysiwyg", function () {
-//        OxiAddonsPreviewDataLoader();
-//    });
-//    $(document.body).on("change", ".shortcode-control-type-icon input", function () {
-//        OxiAddonsPreviewDataLoader();
-//    });
-   // $(".oxi-addons-preview-wrapper").css('background', $("#oxi-addons-2-0-color").val());
-    
-    
+
     $("#oxi-addons-2-0-color").on("change", function (e) {
         $input = $(this).val();
         IFRAME.contents().find(IFRAMEBODYCLASS).css('background', $input);

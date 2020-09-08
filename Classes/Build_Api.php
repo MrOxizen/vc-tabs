@@ -83,6 +83,7 @@ class Build_Api {
                 return $this->{$action_class}();
             endif;
         endif;
+        return 'Silence is Golden';
     }
 
     public function array_replace($arr = [], $search = '', $replace = '') {
@@ -94,7 +95,6 @@ class Build_Api {
 
     public function post_create_new() {
         if (!empty($this->styleid)):
-
             $styleid = (int) $this->styleid;
             $newdata = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             if (array_key_exists('css', $newdata) && $newdata['css'] != ''):
@@ -230,6 +230,7 @@ class Build_Api {
         if ((int) $this->styleid):
             $this->wpdb->query($this->wpdb->prepare("UPDATE {$this->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
         endif;
+        return 'Success';
     }
 
     /**
@@ -245,6 +246,7 @@ class Build_Api {
             $this->wpdb->query($this->wpdb->prepare("UPDATE {$this->parent_table} SET name = %s WHERE id = %d", $name, $id));
             return 'success';
         endif;
+        return 'Silence is Golden';
     }
 
     /**
@@ -262,6 +264,7 @@ class Build_Api {
             }
             return json_encode($render);
         endif;
+        return 'Silence is Golden';
     }
 
     /**
@@ -280,6 +283,7 @@ class Build_Api {
             }
             return json_encode($render);
         endif;
+        return 'Silence is Golden';
     }
 
     /**

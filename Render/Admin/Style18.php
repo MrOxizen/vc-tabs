@@ -1019,7 +1019,7 @@ class Style18 extends Helper {
         $this->add_control(
                 'oxi-tabs-modal-bg-color', $this->style, [
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::GRADIENT,
+            'type' => Controls::COLOR,
             'default' => '#5c0073',
             'description' => 'Set the Backgroung of Tabs and COntent of Active Tab’s.',
                 ]

@@ -80,13 +80,18 @@ class Create {
         apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
         $import = $this->wpdb->get_results("SELECT name FROM $this->import_table ORDER by name ASC ", ARRAY_A);
         if (count($import) == 0):
-            $this->wpdb->query("INSERT INTO {$this->import_table} (name) VALUES (1),(2),(3),(4),(5)");
+            $this->wpdb->query("INSERT INTO {$this->import_table} (name) VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10)");
             $this->IMPORT = [
                 [1 => 1],
                 [2 => 2],
                 [3 => 3],
                 [4 => 4],
                 [5 => 5],
+                [6 => 6],
+                [7 => 7],
+                [8 => 8],
+                [9 => 9],
+                [10 => 10]
             ];
         else:
             foreach ($import as $value) {

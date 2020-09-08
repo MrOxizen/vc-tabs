@@ -216,7 +216,7 @@ class Render {
         wp_enqueue_script("jquery");
         wp_enqueue_style('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/css/style.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxi-plugin-animate', OXI_TABS_URL . 'assets/frontend/css/animate.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_style('oxi-tabs-' . strtolower($this->style_name), OXI_TABS_URL . 'Render/Files/' . strtolower($this->style_name) . '.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('oxi-tabs-' . strtolower($this->style_name), OXI_TABS_URL . 'Render/files/' . strtolower($this->style_name) . '.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/js/tabs.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
