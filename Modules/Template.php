@@ -30,34 +30,14 @@ class Template {
      *
      * @since 3.1.0
      */
-    public $wpdb;
+    public $database;
 
-    /**
-     * Database Parent Table
-     *
-     * @since 3.1.0
-     */
-    public $parent_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.1.0
-     */
-    public $import_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.1.0
-     */
-    public $child_table;
 
     /**
      * Template constructor.
      */
     public function __construct() {
-        $this->Public_loader();
+        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         add_action('admin_init', array($this, 'maybe_load_template'));
         add_action('admin_menu', array($this, 'add_dashboard_page'));
         add_action('network_admin_menu', array($this, 'add_dashboard_page'));
@@ -70,13 +50,7 @@ class Template {
         add_dashboard_page('', '', 'read', 'oxi-tabs-style-view', '');
     }
 
-    public function Public_loader() {
-        global $wpdb;
-        $this->wpdb = $wpdb;
-        $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
-        $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
-        $this->import_table = $this->wpdb->prefix . 'content_tabs_ultimate_import';
-    }
+   
 
     public function maybe_load_template() {
         $this->oxiid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
@@ -108,7 +82,7 @@ class Template {
         wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxilab-admin-css', OXI_TABS_URL . 'assets/backend/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxilab-template-css', OXI_TABS_URL . 'assets/backend/css/template.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('oxilab-template-js', OXI_TABS_URL . 'assets/backend/js/template.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxilab-template-js', OXI_TABS_URL . 'assets/backend/custom/template.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     public function template_header() {

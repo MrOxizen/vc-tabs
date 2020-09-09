@@ -14,28 +14,7 @@ class Build_Api {
      *
      * @since 3.3.0
      */
-    public $wpdb;
-
-    /**
-     * Database Parent Table
-     *
-     * @since 3.3.0
-     */
-    public $parent_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.3.0
-     */
-    public $import_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.3.0
-     */
-    public $child_table;
+    public $database;
     public $request;
     public $rawdata;
     public $styleid;
@@ -47,11 +26,7 @@ class Build_Api {
      * @since 3.3.0
      */
     public function __construct() {
-        global $wpdb;
-        $this->wpdb = $wpdb;
-        $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
-        $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
-        $this->import_table = $this->wpdb->prefix . 'content_tabs_ultimate_import';
+        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->build_api();
     }
 
@@ -96,13 +71,13 @@ class Build_Api {
     public function post_create_new() {
         if (!empty($this->styleid)):
             $styleid = (int) $this->styleid;
-            $newdata = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
+            $newdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             if (array_key_exists('css', $newdata) && $newdata['css'] != ''):
-                $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->parent_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($newdata['styleid'], $newdata['rawdata'], $newdata['title'], $newdata['files'], $newdata['css'])));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($newdata['styleid'], $newdata['rawdata'], $newdata['title'], $newdata['files'], $newdata['css'])));
             else:
-                $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'])));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'])));
             endif;
-            $redirect_id = $this->wpdb->insert_id;
+            $redirect_id = $this->database->wpdb->insert_id;
             if ($redirect_id > 0):
                 $raw = json_decode(stripslashes($newdata['rawdata']), true);
                 $raw['style-id'] = $redirect_id;
@@ -110,20 +85,24 @@ class Build_Api {
                 $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
                 $C = new $CLASS('admin');
                 $f = $C->template_css_render($raw);
-                $child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
+                $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
                 foreach ($child as $value) {
-                    $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata) VALUES (%d, %s)", array($redirect_id, $value['rawdata'])));
+                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d, %s)", array($redirect_id, $value['rawdata'])));
                 }
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
         else:
             $params = json_decode(stripslashes($this->rawdata), true);
-            $newname = $params['addons-style-name'];
             $rawdata = json_decode($params['oxistyledata'], true);
             $style = $rawdata['style'];
             $child = $rawdata['child'];
-            $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($newname, $style['style_name'], $style['rawdata'])));
-            $redirect_id = $this->wpdb->insert_id;
+            if (array_key_exists('addons-style-name', $params)):
+                $newname = $params['addons-style-name'];
+            else:
+                $newname = $style['name'];
+            endif;
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($newname, $style['style_name'], $style['rawdata'])));
+            $redirect_id = $this->database->wpdb->insert_id;
             if ($redirect_id > 0):
                 $raw = json_decode(stripslashes($style['rawdata']), true);
                 $raw['style-id'] = $redirect_id;
@@ -132,7 +111,7 @@ class Build_Api {
                 $C = new $CLASS('admin');
                 $f = $C->template_css_render($raw);
                 foreach ($child as $value) {
-                    $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
+                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
                 }
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
@@ -142,8 +121,8 @@ class Build_Api {
     public function post_shortcode_delete() {
         $styleid = (int) $this->styleid;
         if ($styleid):
-            $this->wpdb->query($this->wpdb->prepare("DELETE FROM {$this->parent_table} WHERE id = %d", $styleid));
-            $this->wpdb->query($this->wpdb->prepare("DELETE FROM {$this->child_table} WHERE styleid = %d", $styleid));
+            $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->parent_table} WHERE id = %d", $styleid));
+            $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->child_table} WHERE styleid = %d", $styleid));
             return 'done';
         else:
             return 'Silence is Golden';
@@ -153,8 +132,8 @@ class Build_Api {
     public function post_shortcode_export() {
         $styleid = (int) $this->styleid;
         if ($styleid):
-            $st = $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM $this->parent_table WHERE id = %d", $styleid), ARRAY_A);
-            $c = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
+            $st = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->parent_table} WHERE id = %d", $styleid), ARRAY_A);
+            $c = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
             $style = [
                 'id' => $st['id'],
                 'name' => $st['name'],
@@ -181,8 +160,9 @@ class Build_Api {
     public function post_shortcode_deactive() {
         $params = json_decode(stripslashes($this->rawdata), true);
         $id = (int) $params['oxideletestyle'];
+        $tabs = 'responsive-tabs';
         if ($id > 0):
-            $this->wpdb->query($this->wpdb->prepare("DELETE FROM {$this->import_table} WHERE name = %s", $id));
+            $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->import_table} WHERE name = %s and type = %s", $id, $tabs));
             return 'done';
         else:
             return 'Silence is Golden';
@@ -192,8 +172,10 @@ class Build_Api {
     public function post_shortcode_active() {
         $params = json_decode(stripslashes($this->rawdata), true);
         $id = (int) $params['oxiimportstyle'];
+        $tabs = 'responsive-tabs';
         if ($id > 0):
-            $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->import_table} (name) VALUES ( %d)", array($id)));
+
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array($tabs, $id)));
             return admin_url("admin.php?page=oxi-tabs-ultimate-new#Style" . $id);
         else:
             return 'Silence is Golden';
@@ -212,7 +194,7 @@ class Build_Api {
         if ((int) $this->styleid):
             $transient = 'oxi-responsive-tabs-transient-' . $this->styleid;
             delete_transient($transient);
-            $this->wpdb->query($this->wpdb->prepare("UPDATE {$this->parent_table} SET rawdata = %s, stylesheet = %s WHERE id = %d", $this->rawdata, $stylesheet, $this->styleid));
+            $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET rawdata = %s, stylesheet = %s WHERE id = %d", $this->rawdata, $stylesheet, $this->styleid));
             $name = ucfirst($StyleName);
             $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
             $CLASS = new $cls('admin');
@@ -228,7 +210,7 @@ class Build_Api {
     public function post_template_change() {
         $rawdata = sanitize_text_field($this->rawdata);
         if ((int) $this->styleid):
-            $this->wpdb->query($this->wpdb->prepare("UPDATE {$this->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
+            $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
         endif;
         return 'Success';
     }
@@ -243,7 +225,7 @@ class Build_Api {
         $name = sanitize_text_field($settings['addonsstylename']);
         $id = $settings['addonsstylenameid'];
         if ((int) $id):
-            $this->wpdb->query($this->wpdb->prepare("UPDATE {$this->parent_table} SET name = %s WHERE id = %d", $name, $id));
+            $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET name = %s WHERE id = %d", $name, $id));
             return 'success';
         endif;
         return 'Silence is Golden';
@@ -256,7 +238,7 @@ class Build_Api {
      */
     public function post_elements_rearrange_modal_data() {
         if ((int) $this->styleid):
-            $child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
+            $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
             $render = [];
             foreach ($child as $k => $value) {
                 $data = json_decode(stripcslashes($value['rawdata']));
@@ -275,7 +257,7 @@ class Build_Api {
     public function post_elements_older_rearrange_modal_data() {
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         if ((int) $this->styleid && count($rawdata) == 2):
-            $child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
+            $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
             $render = [];
             foreach ($child as $k => $value) {
                 $data = explode($rawdata[1], $value['title']);
@@ -295,18 +277,18 @@ class Build_Api {
         $params = explode(',', $this->rawdata);
         foreach ($params as $value) {
             if ((int) $value):
-                $data = $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE id = %d ", $value), ARRAY_A);
+                $data = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE id = %d ", $value), ARRAY_A);
                 if (array_key_exists('title', $data)):
-                    $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($data['styleid'], $data['rawdata'], $data['title'], $data['files'], $data['css'])));
+                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($data['styleid'], $data['rawdata'], $data['title'], $data['files'], $data['css'])));
                 else:
-                    $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata) VALUES (%d, %s)", array($data['styleid'], $data['rawdata'])));
+                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d, %s)", array($data['styleid'], $data['rawdata'])));
                 endif;
-                $redirect_id = $this->wpdb->insert_id;
+                $redirect_id = $this->database->wpdb->insert_id;
                 if ($redirect_id == 0) {
                     return;
                 }
                 if ($redirect_id != 0) {
-                    $this->wpdb->query($this->wpdb->prepare("DELETE FROM $this->child_table WHERE id = %d", $value));
+                    $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->child_table} WHERE id = %d", $value));
                 }
             endif;
         }
@@ -321,9 +303,9 @@ class Build_Api {
     public function post_elements_template_modal_data() {
         if ((int) $this->styleid):
             if ((int) $this->childid):
-                $this->wpdb->query($this->wpdb->prepare("UPDATE {$this->child_table} SET rawdata = %s WHERE id = %d", $this->rawdata, $this->childid));
+                $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->child_table} SET rawdata = %s WHERE id = %d", $this->rawdata, $this->childid));
             else:
-                $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (styleid, rawdata) VALUES (%d, %s )", array($this->styleid, $this->rawdata)));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d, %s )", array($this->styleid, $this->rawdata)));
             endif;
         endif;
         return 'ok';
@@ -347,7 +329,7 @@ class Build_Api {
      */
     public function post_elements_template_modal_data_edit() {
         if ((int) $this->childid):
-            $listdata = $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM {$this->child_table} WHERE id = %d ", $this->childid), ARRAY_A);
+            $listdata = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE id = %d ", $this->childid), ARRAY_A);
             $returnfile = json_decode(stripslashes($listdata['rawdata']), true);
             $returnfile['shortcodeitemid'] = $this->childid;
             return json_encode($returnfile);
@@ -363,7 +345,7 @@ class Build_Api {
      */
     public function post_elements_template_modal_data_delete() {
         if ((int) $this->childid):
-            $this->wpdb->query($this->wpdb->prepare("DELETE FROM {$this->child_table} WHERE id = %d ", $this->childid));
+            $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->child_table} WHERE id = %d ", $this->childid));
             return 'done';
         else:
             return 'Silence is Golden';

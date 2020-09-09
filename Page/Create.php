@@ -10,39 +10,11 @@ namespace OXI_TABS_PLUGINS\Page;
 class Create {
 
     /**
-     * Database Parent Table
-     *
-     * @since 3.1.0
-     */
-    public $parent_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.1.0
-     */
-    public $child_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.1.0
-     */
-    public $import_table;
-
-    /**
      * Define $wpdb
      *
      * @since 3.1.0
      */
-    public $wpdb;
-
-    /**
-     * Define Page Type
-     *
-     * @since 3.1.0
-     */
-    public $opage;
+    public $database;
 
     /**
      * Define Page Type
@@ -63,13 +35,8 @@ class Create {
      * @since 2.0.0
      */
     public function __construct() {
-        global $wpdb;
-        $this->wpdb = $wpdb;
-        $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
-        $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
-        $this->import_table = $this->wpdb->prefix . 'content_tabs_ultimate_import';
-        $this->opage = (isset($_GET['page']) && $_GET['page'] == 'oxi-tabs-ultimate-import' ? 'import' : 'create');
-        $this->layouts = (isset($_GET['layouts']) ? $_GET['layouts'] : '');
+        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
+        $this->layouts = (isset($_GET) ? $_GET : '');
         $this->CSSJS_load();
         $this->Render();
     }
@@ -78,26 +45,18 @@ class Create {
         $this->admin_css_loader();
         $this->admin_ajax_load();
         apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
-        $import = $this->wpdb->get_results("SELECT name FROM $this->import_table ORDER by name ASC ", ARRAY_A);
-        if (count($import) == 0):
-            $this->wpdb->query("INSERT INTO {$this->import_table} (name) VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10)");
-            $this->IMPORT = [
-                [1 => 1],
-                [2 => 2],
-                [3 => 3],
-                [4 => 4],
-                [5 => 5],
-                [6 => 6],
-                [7 => 7],
-                [8 => 8],
-                [9 => 9],
-                [10 => 10]
-            ];
+        $template = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by name ASC", 'responsive-tabs'), ARRAY_A);
+        if (count($template) < 1):
+            for ($i = 1; $i < 16; $i++) {
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array('responsive-tabs', $i)));
+                $this->IMPORT[$i] = $i;
+            }
         else:
-            foreach ($import as $value) {
-                $this->IMPORT[$value['name']] = $value['name'];
+            foreach ($template as $value) {
+                $this->IMPORT[(int) $value['name']] = $value['name'];
             }
         endif;
+        ksort($this->IMPORT);
     }
 
     /**
@@ -105,29 +64,26 @@ class Create {
      * @return void
      */
     public function admin_ajax_load() {
-        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/js/create.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/create.js', false, OXI_TABS_TEXTDOMAIN);
     }
 
     public function Render() {
         ?>
         <div class="oxi-addons-row">
             <?php
-            if ($this->opage == 'import'):
+            if (array_key_exists('import', $this->layouts)):
                 $cache = new \OXI_TABS_PLUGINS\Render\Json\Template();
                 $this->TEMPLATE = $cache->Render();
                 $this->Import_header();
                 $this->Import_template();
+            elseif (array_key_exists('layouts', $this->layouts)):
+
             else:
-                if ((int) $this->layouts):
-
-                else:
-                    $cache = new \OXI_TABS_PLUGINS\Render\Json\Template();
-                    $this->TEMPLATE = $cache->Render();
-                    $this->Create_header();
-                    $this->Create_template();
-                    $this->Create_new();
-                endif;
-
+                $cache = new \OXI_TABS_PLUGINS\Render\Json\Template();
+                $this->TEMPLATE = $cache->Render();
+                $this->Create_header();
+                $this->Create_template();
+                $this->Create_new();
             endif;
             ?>
         </div>
@@ -163,7 +119,7 @@ class Create {
                         <div class="oxi-addons-col-1 oxi-import">
                             <div class="oxi-addons-style-preview">
                                 <div class="oxilab-admin-style-preview-top">
-                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-import") . '">
+                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&import") . '">
                                         <div class="oxilab-admin-add-new-item">
                                             <span>
                                                 <i class="fas fa-plus-circle oxi-icons"></i>  
@@ -271,8 +227,7 @@ class Create {
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <?php
-                                    $checking = apply_filters('oxi-tabs-plugin/pro_version', true);
-                                    if ($id > 10 && $checking == false):
+                                    if ($id > 15 && apply_filters('oxi-tabs-plugin/pro_version', true) == false):
                                         ?>
                                         <form method="post" style=" display: inline-block; " class="shortcode-addons-template-pro-only">
                                             <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Pro Only"  type="submit" value="pro only" name="addonsstyleproonly">Pro Only</button>  

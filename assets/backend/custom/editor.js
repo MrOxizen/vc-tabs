@@ -20,16 +20,14 @@ jQuery.noConflict();
         return str;
     }
 
-    function OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, callback) {
-        var active = false;
-        if (functionname !== "" && active === false) {
-            active = true;
-            rawdata = rawdata.replace(/  /g, '&nbsp;');
-            rawdata = rawdata.replace(/\\r/g, '');
-            rawdata = rawdata.replace(/\r/g, '');
-            rawdata = rawdata.replace(/\n/g, '');
-            rawdata = rawdata.replace(/\\n/g, '');
-            $.ajax({
+    async function OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, callback) {
+        if (functionname === "") {
+            alert('Confirm Function Name');
+            return false;
+        }
+        let result;
+        try {
+            result = await $.ajax({
                 url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
                 method: 'POST',
                 dataType: "json",
@@ -41,10 +39,12 @@ jQuery.noConflict();
                     childid: childid,
                     rawdata: rawdata
                 }
-            }).done(function (response) {
-                callback(response);
-                active = false;
             });
+            console.log(result);
+            return callback(result);
+
+        } catch (error) {
+            console.error(error);
         }
     }
     var WRAPPER = $('#oxi-addons-preview-data').attr('template-wrapper');
@@ -883,7 +883,7 @@ jQuery.noConflict();
                                 $true = (($blur === '0' && $spread === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$spread || !$horizontal || !$vertical) ? true : false;
                                 if ($true === false) {
                                     $VALUE = 'box-shadow: ' + $type + ' ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $spread + 'px ' + $color + ';';
-                                } else if($input.parents('.modal-body').length === 0){
+                                } else if ($input.parents('.modal-body').length === 0) {
                                     OxiAddonsPreviewDataLoader();
                                 }
                             }
@@ -953,7 +953,7 @@ jQuery.noConflict();
                     $true = (($blur === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$horizontal || !$vertical) ? true : false;
                     if ($true === false) {
                         $VALUE = 'text-shadow: ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $color + ';';
-                    } else if($input.parents('.modal-body').length === 0){
+                    } else if ($input.parents('.modal-body').length === 0) {
                         OxiAddonsPreviewDataLoader();
                     }
                 } else if ($custom[1] === 'box-shadow') {
@@ -966,7 +966,7 @@ jQuery.noConflict();
                     $true = (($blur === '0' && $spread === '0' && $horizontal === '0' && $vertical === '0') || !$blur || !$spread || !$horizontal || !$vertical) ? true : false;
                     if ($true === false) {
                         $VALUE = 'box-shadow: ' + $type + ' ' + $horizontal + 'px ' + $vertical + 'px ' + $blur + 'px ' + $spread + 'px ' + $color + ';';
-                    } else if($input.parents('.modal-body').length === 0){
+                    } else if ($input.parents('.modal-body').length === 0) {
                         OxiAddonsPreviewDataLoader();
                     }
                 }

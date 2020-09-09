@@ -9,58 +9,115 @@ namespace OXI_TABS_PLUGINS\Page;
  */
 class Welcome {
 
+    use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
+
     public function __construct() {
-        $this->admin_css();
+        $this->header();
         $this->Public_Render();
     }
 
-    public function admin_css() {
-        wp_enqueue_style('tabs-admin-welcome', OXI_TABS_URL . '/assets/backend/css/admin-welcome.css', false, OXI_TABS_PLUGIN_VERSION);
+    public function header() {
+        $this->admin_css();
+        apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
     }
 
     public function Public_Render() {
         ?>
-        <div class="wrap about-wrap">
-
-            <h1>Welcome to Responsive Tabs with  Accordions</h1>
-            <div class="about-text">
-                Thank you for choosing Responsive Tabs with  Accordions - the most friendly WordPress Tabs and Accordions  Plugins. Here's how to get started.
+        <div class="oxi-addons-wrapper">
+            <div class="oxi-addons-import-layouts">
+                <div class="about-wrap text-center">
+                    <h1>Welcome to Responsive Tabs</h1>
+                    <div class="about-text">
+                        Thank you for Installing Responsive Tabs with WooCommerce Extension, The most friendly Tabs extension or all in one Package for any Wordpress Sites. Here's how to get started.
+                    </div>
+                </div>
+                <div class="feature-section">
+                    <div class="about-container">
+                        <div class="about-addons-videos"><iframe src="https://www.youtube.com/embed/SGHeoNPogbE" frameborder="0" allowfullscreen="" class="about-video"></iframe></div>
+                    </div>
+                </div>
             </div>
-            <h2 class="nav-tab-wrapper">
-                <a class="nav-tab nav-tab-active">
-                    Getting Started		
-                </a>
-            </h2>
-            <p class="about-description">
-                Use the tips below to get started using Responsive Tabs with  Accordions. You will be up and running in no time.	
-            </p>    
-            <div class="feature-section">
-                <h3>Creating Your Tabs</h3>
-                <p>Responsive Tabs with  Accordions makes it easy to create Jquery Tabs in WordPress. You can follow the video tutorial on the right or read our how to 
-                    <a href="https://www.oxilab.org/docs/responsive-tabs-with-accordions/getting-started/" target="_blank" rel="noopener">Create your Tabs guide</a>.					</p>
-                <p>But in reality, the process is so intuitive that you can just start by going to <a href="<?php echo admin_url(); ?>admin.php?page=oxi-tabs-ultimate">New Tabs</a>.				</p>
-                </br>
-                </br>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/-42zCmS2p6c" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-            </div>
-            <div class="feature-section">
-                <h3>See all Responsive Tabs with  Accordions Features</h3>
-                <p>Responsive Tabs with  Accordions is both easy to use and extremely powerful. We have tons of helpful features that allows us to give you everything you need on Tabs.</p>
-                <p>1. Awesome Live Preview Panel</p>
-                <p>1. Can Customize with Our Settings</p>
-                <p>1. Easy to USE & Builtin Integration for popular Page Builder</p>
-                <p><a href="https://www.oxilab.org/downloads/responsive-tabs-with-accordions/" target="_blank" rel="noopener" class="iheu-image-features-button button button-primary">See all Features</a></p>
+            <div class="oxi-addons-docs-column-wrapper">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="oxi-docs-admin-wrapper">
 
+                            <div class="oxi-docs-admin-block">
+                                <div class="oxi-docs-admin-header">
+                                    <div class="oxi-docs-admin-header-icon">
+                                        <span class="dashicons dashicons-format-aside"></span>
+                                    </div>    
+                                    <h4 class="oxi-docs-admin-header-title">Documentation</h4>  
+                                </div>
+                                <div class="oxi-docs-admin-block-content">
+                                    <p>Get started by spending some time with the documentation to get familiar with Responsive Tabs with WooCommerce Extension. Build awesome Tabs  for you or your clients with ease.</p>
+                                    <a href="https://www.image-hover.oxilab.org/docs/" class="oxi-docs-button" target="_blank">Documentation</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="col-lg-6 col-md-12">
+                        <div class="oxi-docs-admin-wrapper">
+                            <div class="oxi-docs-admin-block">
+                                <div class="oxi-docs-admin-header">
+                                    <div class="oxi-docs-admin-header-icon">
+                                        <span class="dashicons dashicons-format-aside"></span>
+                                    </div>    
+                                    <h4 class="oxi-docs-admin-header-title">Contribute to Image Hover</h4>  
+                                </div>
+                                <div class="oxi-docs-admin-block-content">
+                                    <p>You can contribute to make Responsive Tabs with WooCommerce Extension better reporting bugs &amp; creating issues. Our Development team always try to make more powerfull Plugins day by day with solved Issues</p>
+                                    <a href="https://wordpress.org/support/plugin/image-hover-effects-ultimate/" class="oxi-docs-button" target="_blank">Report a bug</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="col-lg-6 col-md-12">
+                        <div class="oxi-docs-admin-wrapper">
+                            <div class="oxi-docs-admin-block">
+                                <div class="oxi-docs-admin-header">
+                                    <div class="oxi-docs-admin-header-icon">
+                                        <span class="dashicons dashicons-format-aside"></span>
+                                    </div>    
+                                    <h4 class="oxi-docs-admin-header-title">Video Tutorials </h4>  
+                                </div>
+                                <div class="oxi-docs-admin-block-content">
+                                    <p>Unable to use Responsive Tabs with WooCommerce Extension? Don't worry you can check your web tutorials to make easier to use :) </p>
+                                    <a href="https://www.youtube.com/playlist?list=PLUIlGSU2bl8hv8JNPhyvYR_O5Krj-ZYCw" class="oxi-docs-button" target="_blank">Video Tutorials</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="col-lg-6 col-md-12">
+                        <div class="oxi-docs-admin-wrapper">
+                            <div class="oxi-docs-admin-block">
+                                <div class="oxi-docs-admin-header">
+                                    <div class="oxi-docs-admin-header-icon">
+                                        <span class="dashicons dashicons-format-aside"></span>
+                                    </div>    
+                                    <h4 class="oxi-docs-admin-header-title">Page Builder Integrations </h4>  
+                                </div>
+                                <div class="oxi-docs-admin-block-content">
+                                    <p>Responsive Tabs with WooCommerce Extension fully compatible  with popular Page Builder like
+                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/elementor-page-builder/">Elementor</a>,
+                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/beaver-builder-integration/">Beaver Builder</a>, 
+                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/wpbakery-page-builder/">WPBakery</a>,
+                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/visual-composer/"> Visual Composer</a>, 
+                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/divi-builder/"> Divi Builder</a>, 
+                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/brizy/"> Brizy</a>,
+                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/siteorigin-page-builder/"> SiteOrigin</a>,
+                                        <a href="image-hover.oxilab.org/docs/integrate-with-page-builder/themify-builder/"> Themefy Builder</a>.
+                                        As shortcode based Plugins you can use any wedpress sites and works properly.</p>
+                                    <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/" class="oxi-docs-button" target="_blank">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>   
             </div>
-            <div class="feature-section">
-                <h3>Have any Bugs or Suggestion</h3>
-                <p>Your suggestions will make this plugin even better, Even if you get any bugs on Responsive Tabs with  Accordions so let us to know, We will try to solved within few hours</p>
-                <p><a href="https://www.oxilab.org/contact-us" target="_blank" rel="noopener" class="image-features-button button button-primary">Contact Us</a>
-                    <a href="https://wordpress.org/support/plugin/vc-tabs" target="_blank" rel="noopener" class="image-features-button button button-primary">Support Forum</a></p>
-
-            </div>
-
         </div>
+
+
         <?php
     }
 

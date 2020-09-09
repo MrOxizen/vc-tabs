@@ -78,21 +78,17 @@ trait Admin_helper {
     public function oxilab_admin_menu($agr) {
         $response = !empty(get_transient(self::ADMINMENU)) ? get_transient(self::ADMINMENU) : [];
         if (!array_key_exists('Tabs', $response)):
-            $response['Tabs']['Tabs'] = [
-                'name' => 'Tabs',
+            $response['Tabs']['Shortcode'] = [
+                'name' => 'Shortcode',
                 'homepage' => 'oxi-tabs-ultimate'
             ];
             $response['Tabs']['Create New'] = [
                 'name' => 'Create New',
                 'homepage' => 'oxi-tabs-ultimate-new'
             ];
-            $response['Tabs']['Import Templates'] = [
-                'name' => 'Import Templates',
-                'homepage' => 'oxi-tabs-ultimate-import'
-            ];
-            $response['Tabs']['Addons'] = [
-                'name' => 'Addons',
-                'homepage' => 'oxi-tabs-ultimate-addons'
+            $response['Tabs']['Import Design'] = [
+                'name' => 'Import Design',
+                'homepage' => 'oxi-tabs-ultimate-design'
             ];
             set_transient(self::ADMINMENU, $response, 10 * DAY_IN_SECONDS);
         endif;
@@ -127,7 +123,7 @@ trait Admin_helper {
                 $menu .= '</div>';
                 $menu .= '</li>';
             }
-            if ($GETPage == 'oxi-tabs-ultimate' || $GETPage == 'oxi-tabs-ultimate-new' || $GETPage == 'oxi-tabs-ultimate-import' || $GETPage == 'oxi-tabs-ultimate-addons'):
+            if (strpos($GETPage, 'oxi-tabs-ultimate') !== false):
                 $sub .= '<div class="shortcode-addons-main-tab-header">';
                 foreach ($response['Tabs'] as $key => $value) {
                     $active = ($GETPage == $value['homepage'] ? 'oxi-active' : '');
@@ -162,23 +158,23 @@ trait Admin_helper {
         } else {
             $first_key = 'manage_options';
         }
-        add_menu_page('Content Tabs', 'Content Tabs', $first_key, 'oxi-tabs-ultimate', [$this, 'Tabs_Home']);
-        add_submenu_page('oxi-tabs-ultimate', 'Content Tabs', 'Content Tabs', $first_key, 'oxi-tabs-ultimate', [$this, 'Tabs_Home']);
-        add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'Tabs_Create']);
-        add_submenu_page('oxi-tabs-ultimate', 'Import Templates', 'Import Templates', $first_key, 'oxi-tabs-ultimate-import', [$this, 'Tabs_Import']);
-        add_submenu_page('oxi-tabs-ultimate', 'Oxilab Addons', 'Oxilab Addons', $first_key, 'oxi-tabs-ultimate-addons', [$this, 'Tabs_Addons']);
-        add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-settings', [$this, 'Tabs_Settings']);
-        add_dashboard_page('Welcome To Responsive Tabs with  Accordions', 'Welcome To Responsive Tabs with  Accordions', 'read', 'oxi-tabs-activation', [$this, 'oxi_tabs_activation']);
+        add_menu_page('Content Tabs', 'Content Tabs', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
+        add_submenu_page('oxi-tabs-ultimate', 'Content Tabs', 'Shortcode', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
+        add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'tabs_create']);
+        add_submenu_page('oxi-tabs-ultimate', 'Import Design', 'Import Design', $first_key, 'oxi-tabs-ultimate-design', [$this, 'tabs_design']);
+        add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-settings', [$this, 'tabs_settings']);
+        add_submenu_page('oxi-tabs-ultimate', 'Welcome To Responsive Tabs with  Accordions', 'Support', $first_key, 'oxi-tabs-ultimate-welcome', [$this, 'oxi_tabs_welcome']);
+        add_submenu_page('oxi-tabs-ultimate', 'Oxilab Addons', 'Oxilab Addons', $first_key, 'oxi-tabs-ultimate-addons', [$this, 'tabs_addons']);
     }
 
-    public function Tabs_Home() {
+    public function tabs_home() {
         new \OXI_TABS_PLUGINS\Page\Home();
     }
 
-    public function Tabs_Create() {
+    public function tabs_create() {
         $styleid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
         if (!empty($styleid) && $styleid > 0):
-            $style = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
+            $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             $template = ucfirst($style['style_name']);
             if (!array_key_exists('rawdata', $style)):
                 $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
@@ -196,34 +192,20 @@ trait Admin_helper {
         endif;
     }
 
-    public function Tabs_Import() {
-        new \OXI_TABS_PLUGINS\Page\Create();
+    public function tabs_design() {
+        new \OXI_TABS_PLUGINS\Page\Import();
     }
 
-    public function Tabs_Addons() {
-        new \OXI_TABS_PLUGINS\Page\Addons();
-    }
-
-    public function Tabs_Settings() {
+    public function tabs_settings() {
         new \OXI_TABS_PLUGINS\Page\Settings();
     }
 
-    public function oxi_tabs_activation() {
+    public function tabs_addons() {
+        new \OXI_TABS_PLUGINS\Page\Addons();
+    }
+
+    public function oxi_tabs_welcome() {
         new \OXI_TABS_PLUGINS\Page\Welcome();
-    }
-
-    public function redirect_on_activation() {
-        if (get_transient('oxi_tabs_activation_redirect')):
-            delete_transient('oxi_tabs_activation_redirect');
-            if (is_network_admin() || isset($_GET['activate-multi'])):
-                return;
-            endif;
-            wp_safe_redirect(admin_url("admin.php?page=oxi-tabs-activation"));
-        endif;
-    }
-
-    public function welcome_remove_menus() {
-        remove_submenu_page('index.php', 'oxi-tabs-activation');
     }
 
     public function User_Reviews() {

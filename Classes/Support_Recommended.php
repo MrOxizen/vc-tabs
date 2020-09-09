@@ -81,7 +81,7 @@ class Support_Recommended {
      * @return void
      */
     public function dismiss_button_scripts() {
-        wp_enqueue_script('oxi_tabs-admin-recommended', OXI_TABS_URL . '/assets/backend/js/admin-recommended.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxi_tabs-admin-recommended', OXI_TABS_URL . '/assets/backend/custom/admin-recommended.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_localize_script('oxi_tabs-admin-recommended', 'oxi_tabs_admin_recommended', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxi_tabs_admin_recommended')));
     }
 

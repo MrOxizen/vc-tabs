@@ -70,7 +70,7 @@ trait CSS_JS_Loader {
         wp_enqueue_style('select2.min', OXI_TABS_URL . 'assets/backend/css/select2.min.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('select2.min', OXI_TABS_URL . 'assets/backend/js/select2.min.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . 'assets/backend/css/jquery.fontselect.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('oxi-tabs-editor', OXI_TABS_URL . 'assets/backend/js/editor.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxi-tabs-editor', OXI_TABS_URL . 'assets/backend/custom/editor.js', false, OXI_TABS_PLUGIN_VERSION);
         $this->admin_media_scripts();
     }
 
@@ -82,7 +82,7 @@ trait CSS_JS_Loader {
      */
     public function admin_media_scripts() {
         wp_enqueue_media();
-        wp_register_script('oxi-tabs_media_scripts', OXI_TABS_URL . '/assets/backend/js/media-uploader.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_register_script('oxi-tabs_media_scripts', OXI_TABS_URL . '/assets/backend/custom/media-uploader.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs_media_scripts');
     }
 
@@ -92,11 +92,7 @@ trait CSS_JS_Loader {
     }
 
     public function import_font_family() {
-
-        if ($this->wpdb->get_var($this->wpdb->prepare("SHOW TABLES LIKE %s", $this->import_table)) === $this->import_table):
-             $this->font_family = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->import_table WHERE type = %s ORDER by id ASC", 'shortcode-addons'), ARRAY_A);
-        endif;
-      
+        $this->font_family = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by id ASC", 'shortcode-addons'), ARRAY_A);
         $google = $custom = '';
         foreach ($this->font_family as $key => $value) {
             if ($value['name'] == 'custom') {

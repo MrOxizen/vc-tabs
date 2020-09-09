@@ -8,54 +8,25 @@ namespace OXI_TABS_PLUGINS\Page;
  * @author biplo
  */
 class Home {
-     use \OXI_TABS_PLUGINS\Helper\Public_Helper;
+
+    use \OXI_TABS_PLUGINS\Helper\Public_Helper;
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
     /**
-     * Database Parent Table
+     * Database
      *
      * @since 3.1.0
      */
-    public $parent_table;
+    public $database;
 
-    /**
-     * Database Import Table
-     *
-     * @since 3.1.0
-     */
-    public $child_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.1.0
-     */
-    public $import_table;
-
-    /**
-     * Define $wpdb
-     *
-     * @since 3.1.0
-     */
-    public $wpdb;
-
-    /**
-     * Constructor of Oxilab tabs Home Page
-     *
-     * @since 2.0.0
-     */
     public function __construct() {
-        global $wpdb;
-        $this->wpdb = $wpdb;
-        $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
-        $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
-        $this->import_table = $this->wpdb->prefix . 'content_tabs_ultimate_import';
+        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->CSSJS_load();
         $this->Render();
     }
 
     public function database_data() {
-        return $this->wpdb->get_results("SELECT * FROM $this->parent_table ORDER BY id DESC", ARRAY_A);
+        return $this->database->wpdb->get_results("SELECT * FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
     }
 
     public function CSSJS_load() {
@@ -70,7 +41,7 @@ class Home {
      * @return void
      */
     public function admin_ajax_load() {
-        wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/assets/backend/js/home.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/assets/backend/custom/home.js', false, OXI_TABS_TEXTDOMAIN);
     }
 
     public function Render() {

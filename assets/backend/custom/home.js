@@ -2,9 +2,15 @@ jQuery.noConflict();
 (function ($) {
     var styleid = '';
     var childid = '';
-    function Oxi_Tabs_Admin_Home(functionname, rawdata, styleid, childid, callback) {
-        if (functionname !== "") {
-            $.ajax({
+    
+    async function Oxi_Tabs_Admin_Home(functionname, rawdata, styleid, childid, callback) {
+        if (functionname === "") {
+            alert('Confirm Function Name');
+            return false;
+        }
+        let result;
+        try {
+            result = await $.ajax({
                 url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
                 method: 'POST',
                 dataType: "json",
@@ -15,13 +21,13 @@ jQuery.noConflict();
                     styleid: styleid,
                     childid: childid,
                     rawdata: rawdata
-                },
-                success: function (response) {
-                    console.log(response);
-                    callback(response);
-
                 }
             });
+            console.log(result);
+            return callback(result);
+
+        } catch (error) {
+            console.error(error);
         }
     }
     jQuery(".oxi-addons-style-clone").on("click", function () {

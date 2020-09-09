@@ -103,7 +103,7 @@ class Old_Admin {
         $this->wpdb = $wpdb;
         $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
         $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
-        $this->import_font = $this->wpdb->prefix . 'oxi_div_import';
+        $this->import_font = $this->wpdb->prefix . 'content_tabs_ultimate_import';
         $this->styleid = (int) $_GET['styleid'];
         if (!empty($_REQUEST['_wpnonce'])) {
             $this->nonce = $_REQUEST['_wpnonce'];
@@ -224,7 +224,7 @@ class Old_Admin {
         wp_enqueue_style('jquery.minicolors', OXI_TABS_URL . '/assets/backend/css/minicolors.css', false, OXI_TABS_TEXTDOMAIN);
         wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . '/assets/backend/css/jquery.fontselect.css', false, OXI_TABS_TEXTDOMAIN);
         wp_enqueue_script('jquery.minicolors', OXI_TABS_URL . '/assets/backend/js/minicolors.js', false, OXI_TABS_TEXTDOMAIN);
-        wp_enqueue_script('oxi-tabs-old-editor', OXI_TABS_URL . 'assets/backend/js/old-editor.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxi-tabs-old-editor', OXI_TABS_URL . 'assets/backend/custom/old-editor.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     public function admin_database_data_loader() {

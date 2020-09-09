@@ -65,34 +65,14 @@ class Admin {
      * @since 3.3.0
      */
     public $CSSWRAPPER;
-
-    /**
-     * Database Parent Table
-     *
-     * @since 3.3.0
-     */
-    public $parent_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.3.0
-     */
-    public $child_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.3.0
-     */
-    public $import_table;
+    
 
     /**
      * Define $wpdb
      *
      * @since 3.3.0
      */
-    public $wpdb;
+    public $database;
 
     /**
      * Define Oxilab Tabs Elements Font Family
@@ -130,11 +110,7 @@ class Admin {
     public $Popover_Condition = true;
 
     public function __construct($type = '') {
-        global $wpdb;
-        $this->wpdb = $wpdb;
-        $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
-        $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
-        $this->import_table = $this->wpdb->prefix . 'oxi_div_import';
+        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->oxiid = (!empty($_GET['styleid']) ? sanitize_text_field($_GET['styleid']) : '');
         $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
         $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' .oxi-addons-row';
@@ -151,8 +127,8 @@ class Admin {
      */
     public function hooks() {
         $this->admin_elements_frontend_loader();
-        $this->dbdata = $this->wpdb->get_row($this->wpdb->prepare('SELECT * FROM ' . $this->parent_table . ' WHERE id = %d ', $this->oxiid), ARRAY_A);
-        $this->child = $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE styleid = %d ORDER by id ASC", $this->oxiid), ARRAY_A);
+        $this->dbdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $this->oxiid), ARRAY_A);
+        $this->child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->oxiid), ARRAY_A);
         if (!empty($this->dbdata['rawdata'])):
             $s = json_decode(stripslashes($this->dbdata['rawdata']), true);
             if (is_array($s)):
@@ -305,8 +281,8 @@ class Admin {
             endif;
         }
         $font = json_encode($this->font);
-        $this->wpdb->query($this->wpdb->prepare("UPDATE {$this->parent_table} SET stylesheet = %s WHERE id = %d", $fullcssfile, $styleid));
-        $this->wpdb->query($this->wpdb->prepare("UPDATE {$this->parent_table} SET font_family = %s WHERE id = %d", $font, $styleid));
+        $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET stylesheet = %s WHERE id = %d", $fullcssfile, $styleid));
+        $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET font_family = %s WHERE id = %d", $font, $styleid));
         return 'success';
     }
 

@@ -1,4 +1,4 @@
-===Tabs - Responsive Tabs with  Accordions===
+===Tabs – Responsive Tabs with WooCommerce Extension===
 Contributors: biplob018
 Donate link: https://www.oxilab.org
 Tags: tab, tabs, responsive tabs,  bootstrap tabs, tabs content, jQuery tabs, wordpress tabs, accordion
@@ -9,11 +9,11 @@ Tested up to: 5.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Tabs - Responsive Tabs with  Accordions is essayist way to awesome WordPress Responsive Content Tabs Plugin with many features.
+Tabs – Responsive Tabs with WooCommerce Extension is essayist way to awesome WordPress Responsive Content Tabs Plugin with many features.
 
 == Description ==
 
-> **Best Responsive Tabs or Content Tabs Plugin for WordPress**
+> **Best Responsive Tabs or Content Tabs Plugin for WordPress or WooCommerce**
 
 Tabs - Responsive Tabs with Accordions is an awesome WordPress Content Tabs Plugin with many nice features. It is fully responsive tabs builder plugin with Visual Composer extension. This awesome plugin is for creating responsive tabbed panels with unlimited options and transition animation support. A developer can simply add unlimited tabs with accordion and decorate them with unlimited custom color in attractive and presentable fashion. Responsive Tabs with Accordions plugin is designed to be an easy and lightweight way to add responsive tabs to your content. Creating an Awesome Tabs with this plugin is very fast and easy. Simply Add Title and content into tabs panel and set or customize Tabs all from one page. You can choose from different Content Tabs types and use the provided shortcode or a template or Visual Composer ID includes to easily embedding Tabs in your Website.
 

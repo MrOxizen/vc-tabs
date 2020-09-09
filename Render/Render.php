@@ -86,21 +86,9 @@ class Render {
      *
      * @since 3.3.0
      */
-    public $wpdb;
+    public $database;
 
-    /**
-     * Database Parent Table
-     *
-     * @since 3.3.0
-     */
-    public $parent_table;
-
-    /**
-     * Database Import Table
-     *
-     * @since 3.3.0
-     */
-    public $import_table;
+    
 
     /**
      * Database Style Name
@@ -109,13 +97,7 @@ class Render {
      */
     public $style_name;
 
-    /**
-     * Database Import Table
-     *
-     * @since 3.3.0
-     */
-    public $child_table;
-
+   
     /**
      * Public Attribute
      *
@@ -132,14 +114,11 @@ class Render {
 
     public function __construct(array $dbdata = [], array $child = [], $admin = 'user') {
         if (count($dbdata) > 0):
-            global $wpdb;
             $this->dbdata = $dbdata;
             $this->child = $child;
             $this->admin = $admin;
             $this->style_name = ucfirst($dbdata['style_name']);
-            $this->wpdb = $wpdb;
-            $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
-            $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
+            $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
             if (array_key_exists('id', $this->dbdata)):
                 $this->oxiid = $this->dbdata['id'];
             else:
