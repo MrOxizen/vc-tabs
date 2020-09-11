@@ -88,8 +88,6 @@ class Render {
      */
     public $database;
 
-    
-
     /**
      * Database Style Name
      *
@@ -97,7 +95,6 @@ class Render {
      */
     public $style_name;
 
-   
     /**
      * Public Attribute
      *
@@ -112,11 +109,34 @@ class Render {
      */
     public $headerclass;
 
-    public function __construct(array $dbdata = [], array $child = [], $admin = 'user') {
+    /**
+     * Public arg
+     *
+     * @since 3.3.0
+     */
+    public $arg;
+
+    /**
+     * Public keys
+     *
+     * @since 3.3.0
+     */
+    public $keys;
+
+    /**
+     * Public keys
+     *
+     * @since 3.3.0
+     */
+    public $childkeys;
+
+    public function __construct(array $dbdata = [], array $child = [], $admin = 'user', array $arg = [], array $keys = []) {
         if (count($dbdata) > 0):
             $this->dbdata = $dbdata;
             $this->child = $child;
             $this->admin = $admin;
+            $this->arg = $arg;
+            $this->keys = $keys;
             $this->style_name = ucfirst($dbdata['style_name']);
             $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
             if (array_key_exists('id', $this->dbdata)):
@@ -589,7 +609,15 @@ class Render {
     }
 
     public function tabs_content_render($style, $child) {
-        if ($child['oxi-tabs-modal-components-type'] == 'popular-post'):
+        if ($this->admin == 'woocommerce'):
+            $key = $this->keys[$this->childkeys];
+            $tabs = $this->arg[$key];
+            ob_start();
+            if (isset($tabs['callback'])):
+                call_user_func($tabs['callback'], $key, $tabs);
+            endif;
+            return ob_get_clean();
+        elseif ($child['oxi-tabs-modal-components-type'] == 'popular-post'):
             return $this->tabs_content_render_popular($style, $child);
         elseif ($child['oxi-tabs-modal-components-type'] == 'recent-post'):
             return $this->tabs_content_render_recent($style, $child);
@@ -621,19 +649,24 @@ class Render {
 
     public function title_special_charecter($array, $title, $subtitle) {
         $r = '<div class=\'oxi-tabs-header-li-title\'>';
-
         $t = false;
         if (!empty($array[$title]) && $array[$title] != ''):
             $t = true;
-            $r .= '<div class=\'oxi-tabs-main-title\'>' . $this->special_charecter($array[$title]) . '</div>';
+            if ($this->admin == 'woocommerce'):
+                $key = $this->keys[$this->childkeys];
+                $tabs = $this->arg[$key];
+                $r .= '<div class=\'oxi-tabs-main-title\'>';
+                $r .= wp_kses_post(apply_filters('woocommerce_product_' . $key . '_tab_title', $tabs['title'], $key));
+                $r .= '</div>';
+            else:
+                $r .= '<div class=\'oxi-tabs-main-title\'>' . $this->special_charecter($array[$title]) . '</div>';
+            endif;
         endif;
         if (!empty($array[$subtitle]) && $array[$subtitle] != ''):
             $t = true;
             $r .= '<div class=\'oxi-tabs-sub-title\'>' . $this->special_charecter($array[$subtitle]) . '</div>';
         endif;
         $r .= '</div>';
-
-
         if ($t):
             return $r;
         endif;

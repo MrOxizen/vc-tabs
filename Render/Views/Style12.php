@@ -20,6 +20,7 @@ class Style12 extends Render {
         echo '        <div class="oxi-tabs-ultimate-header oxi-tab-clearfix">';
         $number = 1;
         foreach ($child as $key => $val) {
+            $this->childkeys = $key;
             $value = json_decode(stripslashes($val['rawdata']), true);
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);
@@ -50,6 +51,7 @@ class Style12 extends Render {
         echo '      <div class="oxi-tabs-ultimate-content">';
         $number = 1;
         foreach ($child as $key => $val) {
+            $this->childkeys = $key;
             $value = json_decode(stripslashes($val['rawdata']), true);
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);

@@ -1,4 +1,5 @@
 <?php
+
 /*
   Plugin Name: Tabs – Responsive Tabs with WooCommerce Extension
   Plugin URI: https://www.oxilab.org/
@@ -63,3 +64,4 @@ add_action('upgrader_process_complete', function ($upgrader_object, $options) {
     $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
     $Installation->plugin_upgrade_hook($upgrader_object, $options);
 }, 10, 2);
+

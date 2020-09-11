@@ -77,7 +77,7 @@ trait Public_Helper {
                         'stylesheet' => '',
                         'font_family' => ''
                     ];
-                   $style = array_merge($style, $new);
+                    $style = array_merge($style, $new);
                 endif;
             endif;
             $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);

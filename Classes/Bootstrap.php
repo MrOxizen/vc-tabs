@@ -42,6 +42,7 @@ class Bootstrap {
         // Load translation
         add_action('init', array($this, 'i18n'));
         $this->Shortcode_loader();
+        $this->Extension();
         new Build_Api();
         if (is_admin()) {
             $this->Admin_Filters();
@@ -94,9 +95,6 @@ class Bootstrap {
     }
 
     public function Admin_Filters() {
-//        echo $this->fixed_data('76632d746162732d737570706f72742d616e642d636f6d6d656e7473');
-//        echo $this->fixed_data('6f78692d746162732d706c7567696e2f70726f5f76657273696f6e');
-//        echo $this->fixed_data('6f78692d746162732d706c7567696e2f61646d696e5f6d656e75');
         add_filter('vc-tabs-support-and-comments', array($this, $this->fixed_data('537570706f7274416e64436f6d6d656e7473')));
         add_filter('oxi-tabs-plugin/pro_version', array($this, $this->fixed_data('636865636b5f63757272656e745f74616273')));
         add_filter('oxi-tabs-plugin/admin_menu', array($this, $this->fixed_data('6f78696c61625f61646d696e5f6d656e75')));
@@ -134,6 +132,15 @@ class Bootstrap {
 
         return $content;
     }
+    public function Extension(){
+        $extension = ['WooCommerce'];
+        foreach ($extension as $value) {
+            $CLS = '\OXI_TABS_PLUGINS\Extension\WooCommerce\\'.$value;
+            new $CLS;
+        }
+    }
+    
+    
 
 }
 

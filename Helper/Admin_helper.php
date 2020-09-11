@@ -41,9 +41,9 @@ trait Admin_helper {
     public function check_current_tabs($agr) {
         $vs = get_option($this->fixed_data('726573706f6e736976655f746162735f776974685f6163636f7264696f6e735f6c6963656e73655f737461747573'));
         if ($vs == $this->fixed_data('76616c6964')) {
-            return TRUE;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 

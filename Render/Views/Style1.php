@@ -11,7 +11,6 @@ use OXI_TABS_PLUGINS\Render\Render;
 class Style1 extends Render {
 
     public function default_render($style, $child, $admin) {
-
         echo '<div class="oxi-tabs-ultimate-style oxi-tabs-ultimate-template-1 ' . $this->headerclass . '  oxi-tab-clearfix" data-oxi-tabs=\'' . json_encode($this->attribute) . '\'>';
 
         /*
@@ -21,6 +20,7 @@ class Style1 extends Render {
         echo '        <div class="oxi-tabs-ultimate-header oxi-tab-clearfix">';
         $number = 1;
         foreach ($child as $key => $val) {
+            $this->childkeys = $key;
             $value = json_decode(stripslashes($val['rawdata']), true);
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);
@@ -50,6 +50,7 @@ class Style1 extends Render {
         echo '      <div class="oxi-tabs-ultimate-content">';
         $number = 1;
         foreach ($child as $key => $val) {
+            $this->childkeys = $key;
             $value = json_decode(stripslashes($val['rawdata']), true);
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);
