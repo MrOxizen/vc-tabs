@@ -35,7 +35,7 @@ class Style2 extends Helper {
             'description' => 'Set the Location of Title’s Additionals (Icon, Image, or Number.)',
                 ]
         );
-          $this->add_responsive_control(
+        $this->add_responsive_control(
                 'oxi-tabs-head-alignment-left-right', $this->style, [
             'label' => __('Title Alignment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
@@ -49,8 +49,8 @@ class Style2 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -69,13 +69,12 @@ class Style2 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
         );
-        
         $this->add_control(
                 'oxi-tabs-head-bg', $this->style, [
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),

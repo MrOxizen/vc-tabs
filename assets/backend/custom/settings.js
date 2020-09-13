@@ -28,7 +28,36 @@ jQuery.noConflict();
             console.error(error);
         }
     }
-    $(document.body).on("click", "input[name=oxi_addons_font_awesome]", function (e) {
+    function checkwoocommerce() {
+        if ($('input[name=oxilab_tabs_woocommerce]:checked').val() === 'yes') {
+            $('.oxilab_tabs_woocommerce_active').slideDown();
+        } else {
+            $('.oxilab_tabs_woocommerce_active').slideUp();
+        }
+        return true;
+    }
+    checkwoocommerce();
+
+    $(document.body).on("click", "input", function (e) {
+        var $This = $(this), name = $This.attr('name'), $value = $This.val();
+        var rawdata = JSON.stringify({name: name, value: $value});
+        var functionname = "oxi_settings";
+        $('.' + name).html('<span class="spinner sa-spinner-open"></span>');
+        if (name === 'oxilab_tabs_woocommerce') {
+            if ($value === 'yes') {
+                $('.oxilab_tabs_woocommerce_active').slideDown();
+            } else {
+                $('.oxilab_tabs_woocommerce_active').slideUp();
+            }
+        }
+        Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
+            $('.' + name).html(callback);
+            setTimeout(function () {
+                $('.' + name).html('');
+            }, 8000);
+        });
+    });
+    $(document.body).on("change", "select", function (e) {
         var $This = $(this), name = $This.attr('name'), $value = $This.val();
         var rawdata = JSON.stringify({name: name, value: $value});
         var functionname = "oxi_settings";
@@ -40,18 +69,7 @@ jQuery.noConflict();
             }, 8000);
         });
     });
-    $(document.body).on("change", "select[name=oxi_addons_user_permission]", function (e) {
-        var $This = $(this), name = $This.attr('name'), $value = $This.val();
-        var rawdata = JSON.stringify({name: name, value: $value});
-        var functionname = "oxi_settings";
-        $('.' + name).html('<span class="spinner sa-spinner-open"></span>');
-        Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
-            $('.' + name).html(callback);
-            setTimeout(function () {
-                $('.' + name).html('');
-            }, 8000);
-        });
-    });
+
     $("input[name=oxi_addons_fixed_header_size] ").on("keyup", delay(function (e) {
         var $This = $(this), name = $This.attr('name'), $value = $This.val();
         var rawdata = JSON.stringify({name: name, value: $value});

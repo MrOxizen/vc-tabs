@@ -49,8 +49,8 @@ class Style18 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -69,8 +69,8 @@ class Style18 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]

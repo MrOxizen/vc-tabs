@@ -173,7 +173,7 @@ class Create {
                     <div class="oxi-addons-col-1" id="<?php echo $Style; ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
-                                <?php
+                                <?php         
                                 if (class_exists($C) && isset($REND['style']['rawdata'])):
                                     new $C($REND['style'], $REND['child']);
                                 endif;

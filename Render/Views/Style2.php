@@ -20,8 +20,10 @@ class Style2 extends Render {
         echo '        <div class="oxi-tabs-ultimate-header oxi-tab-clearfix">';
         $number = 1;
         foreach ($child as $key => $val) {
+
             $this->childkeys = $key;
             $value = json_decode(stripslashes($val['rawdata']), true);
+
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);
             endif;
@@ -51,11 +53,14 @@ class Style2 extends Render {
         echo '      <div class="oxi-tabs-ultimate-content">';
         $number = 1;
         foreach ($child as $key => $val) {
+          
             $this->childkeys = $key;
+           //$val['rawdata'] = str_replace("\r\n", '\\r\\n', $val['rawdata']);
             $value = json_decode(stripslashes($val['rawdata']), true);
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);
             endif;
+
             echo '      <div class="oxi-tabs-body-tabs animate__animated ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $number . '">
                             ' . $this->tabs_content_render($style, $value) . '
                             ' . $this->admin_edit_panel($val['id']) . '     

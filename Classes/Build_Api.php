@@ -20,6 +20,8 @@ class Build_Api {
     public $styleid;
     public $childid;
 
+    const RESPONSIVE_TABS_ALL_STYLE = 'get_all_oxi_responsive_tabs_style';
+
     /**
      * Constructor of plugin class
      *
@@ -69,6 +71,7 @@ class Build_Api {
     }
 
     public function post_create_new() {
+        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         if (!empty($this->styleid)):
             $styleid = (int) $this->styleid;
             $newdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
@@ -119,6 +122,7 @@ class Build_Api {
     }
 
     public function post_shortcode_delete() {
+        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         $styleid = (int) $this->styleid;
         if ($styleid):
             $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->parent_table} WHERE id = %d", $styleid));
@@ -208,6 +212,7 @@ class Build_Api {
      * @since 9.3.0
      */
     public function post_template_change() {
+        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         $rawdata = sanitize_text_field($this->rawdata);
         if ((int) $this->styleid):
             $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
@@ -221,6 +226,7 @@ class Build_Api {
      * @since 9.3.0
      */
     public function post_template_name() {
+        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         $settings = json_decode(stripslashes($this->rawdata), true);
         $name = sanitize_text_field($settings['addonsstylename']);
         $id = $settings['addonsstylenameid'];

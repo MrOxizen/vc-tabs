@@ -12,7 +12,7 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 class Style3 extends Helper {
 
-     public function register_header_general() {
+    public function register_header_general() {
         $this->start_controls_section(
                 'oxi-tabs-head', [
             'label' => esc_html__('Header General', OXI_TABS_TEXTDOMAIN),
@@ -35,7 +35,7 @@ class Style3 extends Helper {
             'description' => 'Set the Location of Title’s Additionals (Icon, Image, or Number.)',
                 ]
         );
-          $this->add_responsive_control(
+        $this->add_responsive_control(
                 'oxi-tabs-head-alignment-left-right', $this->style, [
             'label' => __('Title Alignment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
@@ -49,8 +49,8 @@ class Style3 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -69,8 +69,8 @@ class Style3 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -134,6 +134,7 @@ class Style3 extends Helper {
                 [
                     'label' => __('Single Border', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SINGLEBORDER,
+                    'exclude' => 'width',
                     'selector' => [
                         '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};'
                     ],
@@ -168,7 +169,7 @@ class Style3 extends Helper {
         );
         $this->end_controls_tab();
         $this->end_controls_tabs();
-        
+
         $this->add_group_control(
                 'oxi-tabs-head-boxshadow', $this->style, [
             'type' => Controls::BOXSHADOW,
@@ -273,4 +274,5 @@ class Style3 extends Helper {
         );
         $this->end_controls_section();
     }
+
 }

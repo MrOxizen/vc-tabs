@@ -858,7 +858,7 @@ trait Sanitization {
                                 $t = true;
                             endif;
                         }
-                        echo $t;
+                        return $t;
                     endif;
                     if ($value == 'EMPTY' && $data[$key] != '0'):
                         return true;

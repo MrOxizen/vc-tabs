@@ -49,8 +49,8 @@ class Style5 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -69,8 +69,8 @@ class Style5 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -174,37 +174,6 @@ class Style5 extends Helper {
                 '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Generate some Space around the Header Content including background color.',
-                ]
-        );
-        $this->add_responsive_control(
-                'oxi-tabs-head-margin', $this->style, [
-            'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::DIMENSIONS,
-            'default' => [
-                'unit' => 'px',
-                'size' => '',
-            ],
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 500,
-                    'step' => 1,
-                ],
-                '%' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => 1,
-                ],
-                'em' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => .1,
-                ],
-            ],
-            'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header-wrap' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
-            'description' => 'Create some Space outside of the Header Section.',
                 ]
         );
         $this->end_controls_section();
