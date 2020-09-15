@@ -82,9 +82,9 @@ class Style17 extends Helper {
                     'label' => __('Inner Border', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SINGLEBORDER,
                     'selector' => [
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};',
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => 'border-color:{{COLOR}}!important;',
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'border-color:{{COLOR}};',
+                        '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};',
+                        '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => 'border-color:{{COLOR}}!important;',
+                        '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'border-color:{{COLOR}};top:-{{SIZE}}px;bottom:-{{SIZE}}px;left:-{{SIZE}}px;right:-{{SIZE}}px;',
                     ],
                     'description' => 'Customize Inner Border of the Header. Set Type, Size, and Color. Its will works dynamiclly with Design',
                 ]

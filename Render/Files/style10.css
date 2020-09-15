@@ -6,10 +6,16 @@
     position: relative;
     max-width: 100%;
 }
+.oxi-tabs-ultimate-template-10 .oxi-tabs-header-li .oxi-icons,
+.oxi-tabs-ultimate-template-10 .oxi-tabs-header-li .oxi-tabs-header-li-image,
+.oxi-tabs-ultimate-template-10 .oxi-tabs-header-li .oxi-tabs-header-li-number,
+.oxi-tabs-ultimate-template-10 .oxi-tabs-header-li .oxi-tabs-header-li-title{
+  z-index: 111;
+}
 .oxi-tabs-ultimate-template-10 .oxi-tabs-header-triangle-shape{
     position: absolute;
     display: block;
-    z-index: -1;
+    z-index: 1;
 }
 
 @media only screen and (min-width: 994px) {

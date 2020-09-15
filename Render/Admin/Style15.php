@@ -370,37 +370,6 @@ class Style15 extends Helper {
             'description' => 'Generate some Space around the Content Body including background color.',
                 ]
         );
-         $this->add_responsive_control(
-                'oxi-tabs-desc-section-padding', $this->style, [
-            'label' => __('Section Padding', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::DIMENSIONS,
-            'default' => [
-                'unit' => 'px',
-                'size' => '',
-            ],
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 500,
-                    'step' => 1,
-                ],
-                '%' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => 1,
-                ],
-                'em' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => .1,
-                ],
-            ],
-            'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
-            'description' => 'Generate some Space around the Section including background color.',
-                ]
-        );
         $this->end_controls_section();
     }
 

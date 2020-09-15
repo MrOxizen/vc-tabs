@@ -107,9 +107,6 @@ class Style14 extends Helper {
                 ]
         );
 
-        $this->end_controls_tab();
-        $this->end_controls_tabs();
-        
         $this->add_responsive_control(
                 'oxi-tabs-head-radius', $this->style, [
             'label' => __('Border Radius', OXI_TABS_TEXTDOMAIN),

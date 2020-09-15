@@ -97,7 +97,7 @@ class Style6 extends Helper {
             'type' => Controls::GRADIENT,
             'default' => 'rgba(171, 0, 201, 1)',
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li' => 'background: {{VALUE}};',
             ],
             'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
@@ -327,5 +327,125 @@ class Style6 extends Helper {
         );
         $this->end_controls_section();
     }
+     public function register_desc_general() {
+        $this->start_controls_section(
+                'oxi-tabs-desc-general', [
+            'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
+            'showing' => TRUE,
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-content-height', $this->style, [
+            'label' => __('Content Height', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::CHOOSE,
+            'operator' => Controls::OPERATOR_TEXT,
+            'toggle' => true,
+            'options' => [
+                'yes' => [
+                    'title' => __('Equal', OXI_TABS_TEXTDOMAIN),
+                ],
+                'no' => [
+                    'title' => __('Dynamic', OXI_TABS_TEXTDOMAIN),
+                ],
+            ],
+            'description' => 'Select Content Height as Equal or Dynamic.',
+                ]
+        );
 
+
+        $this->add_control(
+                'oxi-tabs-desc-general-bg', $this->style, [
+            'label' => __('Background', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::GRADIENT,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => 'background: {{VALUE}};',
+            ],
+            'description' => 'Customize the Content’s Background with Color, Gradient or Image properties.',
+                ]
+        );
+
+        $this->add_group_control(
+                'oxi-tabs-desc-general-boxshadow', $this->style, [
+            'type' => Controls::BOXSHADOW,
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+            ],
+            'description' => 'Add one or more shadows into the Content body and customize other Box-Shadow Options.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-desc-general-border',
+                $this->style,
+                [
+                    'type' => Controls::BORDER,
+                    'selector' => [
+                        '{{WRAPPER}} .oxi-tabs-ultimate-style' => ''
+                    ],
+                    'description' => 'Customize Border of the Content Body. Set Type, Width, and Color.',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-general-radius', $this->style, [
+            'label' => __('Border Radius', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 50,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}; overflow: hidden;',
+            ],
+            'description' => 'Add rounded corners to the Content’s Section.',
+                ]
+        );
+        $this->add_responsive_control(
+                'oxi-tabs-desc-general-padding', $this->style, [
+            'label' => __('Padding', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::DIMENSIONS,
+            'default' => [
+                'unit' => 'px',
+                'size' => '',
+            ],
+            'range' => [
+                'px' => [
+                    'min' => 0,
+                    'max' => 500,
+                    'step' => 1,
+                ],
+                '%' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'em' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => .1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
+            'description' => 'Generate some Space around the Content Body including background color.',
+                ]
+        );
+        $this->end_controls_section();
+    }
 }

@@ -262,37 +262,6 @@ class Style19 extends Helper {
             'description' => 'Generate some Space around the Content Body including background color.',
                 ]
         );
-        $this->add_responsive_control(
-                'oxi-tabs-desc-general-margin', $this->style, [
-            'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::DIMENSIONS,
-            'default' => [
-                'unit' => 'px',
-                'size' => '',
-            ],
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 500,
-                    'step' => 1,
-                ],
-                '%' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => 1,
-                ],
-                'em' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => .1,
-                ],
-            ],
-            'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
-            'description' => 'Create some Space outside of the Body.',
-                ]
-        );
 
         $this->end_controls_section();
     }
