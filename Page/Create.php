@@ -83,7 +83,6 @@ class Create {
                 $this->TEMPLATE = $cache->Render();
                 $this->Create_header();
                 $this->Create_template();
-                $this->Create_new();
             endif;
             ?>
         </div>
@@ -160,6 +159,7 @@ class Create {
     }
 
     public function Create_template() {
+        $create_new = 'false';
         ?>
         <div class="oxi-addons-row">
             <?php
@@ -173,7 +173,7 @@ class Create {
                     <div class="oxi-addons-col-1" id="<?php echo $Style; ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
-                                <?php         
+                                <?php
                                 if (class_exists($C) && isset($REND['style']['rawdata'])):
                                     new $C($REND['style'], $REND['child']);
                                 endif;
@@ -200,6 +200,7 @@ class Create {
             ?>
         </div>
         <?php
+        $this->Create_new();
     }
 
     public function Import_template() {

@@ -35,8 +35,8 @@ class Admin {
         ?>
         <div class="woo-oxilab-tabs-admin-container">
             <div class="woo-oxilab-tabs-admin-header">
-                <h3>Recommended extensions</h3>
-                <p>Specify minimum and maximum allowed product quantities for orders to be completed</p>
+                <h3>Custom Tabs</h3>
+                <p>Add Custom Tabs for this Product include tabs priority value and custom callback function if you want.</p>
             </div>
             <div class="woo-oxilab-tabs-admin-body">
                 <?php

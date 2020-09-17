@@ -30,7 +30,7 @@ class Import {
             <div class="oxi-addons-wrapper">   
                 <div class="oxi-addons-import-layouts">
                     <h1>Import Design</h1>
-                    <p> The Import tool allows you to easily manage your Tabs content. Its too easy as copy template files from our online style list or local files and paste it into our import box. Once Imported your data will shown automatically with new shortcode.</p>
+                    <p> The Import tool allows you to easily import demo content. Its too easy as copy template files from our online style list or local files and paste it into our import box. Once you import, data will shown automatically with new shortcode.</p>
 
                     <?php
                     if (apply_filters('oxi-tabs-plugin/pro_version', true) === false) {
@@ -58,7 +58,7 @@ class Import {
                         <h3>Get Trouble to Import Style?</h3>
                         <p>Your suggestions will make this plugin even better, Even if you get any bugs on Responsive Tabs so let us to know, We will try to solved within few hours</p>
                         <p class="oxi-feature-button">
-                            <a href="https://oxilab-demo.com/docs/" target="_blank" rel="noopener" class="ihewc-image-features-button button button-primary">Documentation</a>
+                            <a href="https://www.oxilab.org/docs" target="_blank" rel="noopener" class="ihewc-image-features-button button button-primary">Documentation</a>
                             <a href="https://wordpress.org/support/plugin/vc-tabs/" target="_blank" rel="noopener" class="ihewc-image-features-button button button-primary">Support Forum</a>
                         </p>
                     </div>

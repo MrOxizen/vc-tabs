@@ -1,9 +1,9 @@
 <?php
 
 /*
-  Plugin Name: Tabs – Responsive Tabs with WooCommerce Extension
+  Plugin Name: Tabs – Responsive Tabs with WooCommerce Product Tab Extension
   Plugin URI: https://www.oxilab.org/
-  Description: Tabs – Responsive Tabs with WooCommerce Extension is essayist way to awesome WordPress responsive Content Tabs Plugin with many features.
+  Description: Tabs – Responsive Tabs with WooCommerce Product Tab Extension is essayist way to awesome WordPress Responsive Tabs Plugin with many features.
   Author: Biplob Adhikari
   Author URI: http://www.oxilab.org/
   Version: 3.3.0
