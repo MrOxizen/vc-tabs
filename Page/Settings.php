@@ -122,12 +122,12 @@ class Settings {
                         $get_style = $new->get_all_style();
                         $default_tabs = get_option('oxilab_tabs_woocommerce_default');
                         ?>
-                        <h2>WooCommerce Tabs</h2>
+                        <h2>WooCommerce Extension</h2>
                         <table class="form-table" role="presentation">
                             <tbody>
                                 <tr>
                                     <th scope="row">
-                                        <label for="oxilab_tabs_woocommerce">WooCommerce Layouts</label>
+                                        <label for="oxilab_tabs_woocommerce">Active Extension</label>
                                     </th>
                                     <td>
                                         <fieldset>
@@ -138,7 +138,7 @@ class Settings {
                                             </label>
                                             <span class="oxi-addons-settings-connfirmation oxilab_tabs_woocommerce"></span>
                                             <br>
-                                            <p class="description">Active WooCommerce Tabs custom layouts. </p>
+                                            <p class="description">Active WooCommerce Tabs custom layouts. <a target="_blank" href="https://www.youtube.com/watch?v=LLhW2Nv1WDo">Tutorials</a></p>
                                         </fieldset>
                                     </td>
                                 </tr>

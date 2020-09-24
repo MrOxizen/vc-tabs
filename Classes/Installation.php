@@ -78,6 +78,19 @@ class Installation {
     }
 
     /**
+     * Check woocommerce during active.
+     * @return mixed
+     */
+    public function check_woocommerce_during_active() {
+        $all_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+        if (stripos(implode($all_plugins), 'woocommerce.php')) {
+            $value = 'yes';
+            update_option('oxilab_tabs_woocommerce', $value);
+        }
+        return true;
+    }
+
+    /**
      * Plugin activation hook
      *
      * @since 3.1.0
@@ -86,6 +99,7 @@ class Installation {
         $this->Tabs_Menu();
         $this->Tabs_Datatase();
         $this->Tabs_Post_Count();
+        $this->check_woocommerce_during_active();
         // Redirect to options page
         set_transient('oxi_tabs_activation_redirect', true, 30);
     }
