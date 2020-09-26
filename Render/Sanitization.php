@@ -2577,8 +2577,8 @@ trait Sanitization {
     public function rearrange_substitute_control($id, array $data = [], array $arg = []) {
         $default = [
             'showing' => FALSE,
-            'title' => 'Oxi Tabs Rearrange',
-            'sub-title' => 'Oxi Tabs Rearrange'
+            'title' => 'Tabs Rearrange',
+            'sub-title' => 'Tabs Rearrange'
         ];
         $arg = array_merge($default, $arg);
         /*

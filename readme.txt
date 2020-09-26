@@ -39,7 +39,7 @@ So, now it's time to say GoodBye to any highly paid tools which offers WooCommer
 
 + [Features ](https://oxilab.org/responsive-tabs/features "Demo (Features)")
 + [Demo ) ](https://oxilab.org/responsive-tabs/template/ "Demo")
-+ [How to Use (Video) ](https://youtu.be/42zCmS2p6c "How to Use (Video)")
++ [How to Use (Video) ](https://youtu.be/elU_RjGqX4g "How to Use (Video)")
 + [How to Use (Documentation) ](https://www.oxilab.org/docs "How to Use (Documentation)")
 + [Help and Support ](https://wordpress.org/support/plugin/vc-tabs#new-post "Help and Support")
 
@@ -218,11 +218,10 @@ Now you can set your Content Tabs options and use our Tabs Plugin.
 
 == Screenshots ==
 
-1. Tabs with Visual Composer Extention Style Select Panel
-2. Live data views in Admin panel
-3. Edit and modify Tabs Data
-4. Tabs with Visual Composer Extention Templates 
-5. Tabs more Templates 
+1. Responsive tabs Template Selection Page 
+2. Shortcode Customization with Live Previews 
+3. Easy Settings Interface with WooCommerce Extension Active Option
+4. WooCommerce Custom tabs with Tabs Layouts Selection
 
 == Frequently Asked Questions ==
 

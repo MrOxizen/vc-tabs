@@ -425,7 +425,7 @@ class Build_Api {
         $api_params = array(
             'edd_action' => 'activate_license',
             'license' => $key,
-            'item_name' => urlencode('Responsive Tabs with Accordions'),
+            'item_name' => urlencode('Responsive Tabs'),
             'url' => home_url()
         );
 
@@ -496,7 +496,7 @@ class Build_Api {
         $api_params = array(
             'edd_action' => 'deactivate_license',
             'license' => $key,
-            'item_name' => urlencode('Responsive Tabs with Accordions'),
+            'item_name' => urlencode('Responsive Tabs'),
             'url' => home_url()
         );
         $response = wp_remote_post('https://www.oxilab.org', array('timeout' => 15, 'sslverify' => false, 'body' => $api_params));
