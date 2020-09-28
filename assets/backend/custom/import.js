@@ -2,6 +2,11 @@ jQuery.noConflict();
 (function ($) {
     var styleid = '';
     var childid = '';
+    $.valHooks.textarea = {
+        get: function (elem) {
+            return elem.value.replace(/\r?\n/g, "");
+        }
+    };
 
     async function Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, callback) {
         let result;
@@ -19,6 +24,7 @@ jQuery.noConflict();
                     rawdata: rawdata
                 }
             });
+            console.log(result);
             return callback(result);
 
         } catch (error) {
@@ -46,7 +52,7 @@ jQuery.noConflict();
         $('.oxi-buttom').prepend('<span class="spinner sa-spinner-open-left"></span>');
         Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, function (callback) {
             setTimeout(function () {
-                document.location.href = callback;
+              //  document.location.href = callback;
             }, 1000);
         });
     });
