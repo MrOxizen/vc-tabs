@@ -3,7 +3,7 @@ Contributors: biplob018
 Donate link: https://www.oxilab.org
 Tags: tab, tabs, responsive tabs, woocommerce tabs, tabs content, product tabs, custom tabs, woocommerce custom tabs
 Requires at least: 3.8
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 Requires PHP: 5.4
 Tested up to: 5.5.1
 License: GPLv2 or later
