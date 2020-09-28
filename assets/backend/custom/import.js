@@ -52,7 +52,7 @@ jQuery.noConflict();
         $('.oxi-buttom').prepend('<span class="spinner sa-spinner-open-left"></span>');
         Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, function (callback) {
             setTimeout(function () {
-              //  document.location.href = callback;
+                document.location.href = callback;
             }, 1000);
         });
     });
