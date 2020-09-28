@@ -18,11 +18,6 @@ jQuery.noConflict();
             return elem.value.replace(/\r?\n/g, "");
         }
     };
-//    $.valHooks.textarea = {
-//        get: function (elem) {
-//            return elem.value.replace(/\\/g, "&#92;");
-//        }
-//    };
 
     function replaceStr(str, find, replace) {
         for (var i = 0; i < find.length; i++) {
