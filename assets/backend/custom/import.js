@@ -2,11 +2,6 @@ jQuery.noConflict();
 (function ($) {
     var styleid = '';
     var childid = '';
-    $.valHooks.textarea = {
-        get: function (elem) {
-            return elem.value.replace(/\r?\n/g, "");
-        }
-    };
 
     async function Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, callback) {
         let result;
