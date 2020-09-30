@@ -320,7 +320,7 @@ class Helper extends Admin {
                 'oxi-tab-header-left-top-position' => __('Left Top', OXI_TABS_TEXTDOMAIN),
                 'oxi-tab-header-left-center-position' => __('Left Center', OXI_TABS_TEXTDOMAIN),
                 'oxi-tab-header-left-bottom-position' => __('Left Bottom', OXI_TABS_TEXTDOMAIN),
-                'oxi-tab-header-right-right-position' => __('Right Top', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-right-top-position' => __('Right Top', OXI_TABS_TEXTDOMAIN),
                 'oxi-tab-header-right-center-position' => __('Right Center', OXI_TABS_TEXTDOMAIN),
                 'oxi-tab-header-right-bottom-position' => __('Right Bottom', OXI_TABS_TEXTDOMAIN),
             ],
