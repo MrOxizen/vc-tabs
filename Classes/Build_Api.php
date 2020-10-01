@@ -99,6 +99,7 @@ class Build_Api {
                 endif;
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
+
         else:
             $params = json_decode(stripslashes($this->rawdata), true);
             $rawdata = json_decode($params['oxistyledata'], true);
@@ -136,10 +137,7 @@ class Build_Api {
 //            }
 //            $rawdata = json_decode($response, true);
 //           
-
-
-
-
+    
     public function post_shortcode_delete() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         $styleid = (int) $this->styleid;
