@@ -105,7 +105,7 @@ class Build_Api {
             $rawdata = json_decode($params['oxistyledata'], true);
             $style = $rawdata['style'];
             $child = $rawdata['child'];
-            
+
             if (array_key_exists('addons-style-name', $params)):
                 $newname = $params['addons-style-name'];
             else:
@@ -127,7 +127,7 @@ class Build_Api {
             endif;
         endif;
     }
-    
+
 //      $URL = self::API . '22';
 //            $request = wp_remote_request($URL);
 //            if (!is_wp_error($request)) {
@@ -137,7 +137,7 @@ class Build_Api {
 //            }
 //            $rawdata = json_decode($response, true);
 //           
-    
+
     public function post_shortcode_delete() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         $styleid = (int) $this->styleid;
@@ -229,12 +229,11 @@ class Build_Api {
      * @since 9.3.0
      */
     public function post_template_change() {
-        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         $rawdata = sanitize_text_field($this->rawdata);
         if ((int) $this->styleid):
             $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
+            return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$this->styleid");
         endif;
-        return 'Success';
     }
 
     /**

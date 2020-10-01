@@ -2,7 +2,7 @@ jQuery.noConflict();
 (function ($) {
     var styleid = '';
     var childid = '';
-    
+
     async function Oxi_Tabs_Admin_Home(functionname, rawdata, styleid, childid, callback) {
         if (functionname === "") {
             alert('Confirm Function Name');
@@ -36,21 +36,7 @@ jQuery.noConflict();
         jQuery('#oxistyleid').val(dataid);
         jQuery("#oxi-addons-style-create-modal").modal("show");
     });
-    jQuery(".oxi-addons-style-export").submit(function (e) {
-        e.preventDefault();
-        var rawdata = 'export';
-        var styleid = $(this).children('#oxiexportid').val();
-        var functionname = "shortcode_export";
-        $(this).prepend('<span class="spinner sa-spinner-open"></span>');
-        Oxi_Tabs_Admin_Home(functionname, rawdata, styleid, childid, function (callback) {
-            setTimeout(function () {
-                $('.sa-spinner-open').remove();
-                $("#oxi-addons-style-export-form")[0].reset();
-                jQuery("#OxiAddImportDatacontent").val(callback);
-                jQuery("#oxi-addons-style-export-modal").modal("show");
-            }, 1000);
-        });
-    });
+
     jQuery("#oxi-addons-style-modal-form").submit(function (e) {
         e.preventDefault();
         var rawdata = $('#addons-style-name').val();
@@ -82,11 +68,33 @@ jQuery.noConflict();
         });
 
     });
-    jQuery(".OxiAddImportDatacontent").on("click", function () {
-        jQuery("#OxiAddImportDatacontent").select();
-        document.execCommand("copy");
-        alert("Your Style Data Copied");
+
+
+    jQuery(".oxi-addons-style-change").submit(function (e) {
+        e.preventDefault();
+         var $This = $(this);
+        var oxistylename =  $This.children('#oxistylename').val(), styleid =  $This.children('#oxistylechangeid').val();
+        jQuery('#oxi-addons-style-change-modal #oxistylechangevalue').val(styleid);
+        jQuery("#oxi-addons-style-change-modal #responsive-tabs-style-future-style option[value='" + oxistylename + "']").attr('selected', 'selected');
+        jQuery("#oxi-addons-style-change-modal").modal("show");
     });
+    jQuery("#oxi-addons-style-change-modal-form").submit(function (e) {
+        e.preventDefault();
+        var rawdata = $('#responsive-tabs-style-future-style').val();
+        var styleid = $('#oxistylechangevalue').val();
+        var functionname = "template_change";
+        $('.modal-footer').prepend('<span class="spinner sa-spinner-open-left"></span>');
+        Oxi_Tabs_Admin_Home(functionname, rawdata, styleid, childid, function (callback) {
+            setTimeout(function () {
+                document.location.href = callback;
+            }, 1000);
+        });
+    });
+
+
+
+
+
     setTimeout(function () {
         if (jQuery(".table").hasClass("oxi_addons_table_data")) {
             jQuery(".oxi_addons_table_data").DataTable({

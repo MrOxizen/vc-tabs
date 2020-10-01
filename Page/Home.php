@@ -111,25 +111,56 @@ class Home {
                             </div>
                         </form>
                     </div>
-                    <div class="modal fade" id="oxi-addons-style-export-modal" >
-                        <form method="post" id="oxi-addons-style-export-form">
-                            <div class="modal-dialog">
+                    ');
+        echo '<div class="modal fade" id="oxi-addons-style-change-modal" >
+                        <form method="post" id="oxi-addons-style-change-modal-form">
+                            <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
                                     <div class="modal-header">                    
-                                        <h4 class="modal-title">Export Data</h4>
+                                        <h4 class="modal-title">Template Changing</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <textarea id="OxiAddImportDatacontent" class="oxi-addons-export-data-code"></textarea>
+                                        <div class="form-group row">
+                                            <label for="addons-style-name" class="col-sm-6 col-form-label">Layouts</label>
+                                            <div class="col-sm-6 addons-dtm-laptop-lock">
+                                                <select id="responsive-tabs-style-future-style"  class="form-control">
+                                                    <option value="style1">Style 1</option>
+                                                    <option value="style2">Style 2</option>
+                                                    <option value="style3">Style 3</option>
+                                                    <option value="style4">Style 4</option>
+                                                    <option value="style5">Style 5</option>
+                                                    <option value="style6">Style 6</option>
+                                                    <option value="style7">Style 7</option>
+                                                    <option value="style8">Style 8</option>
+                                                    <option value="style9">Style 9</option>
+                                                    <option value="style10">Style 10</option>
+                                                    <option value="style11">Style 11</option>
+                                                    <option value="style12">Style 12</option>
+                                                    <option value="style13">Style 13</option>
+                                                    <option value="style14">Style 14</option>
+                                                    <option value="style15">Style 15</option>
+                                                    <option value="style16">Style 16</option>
+                                                    <option value="style17">Style 17</option>
+                                                    <option value="style18">Style 18</option>
+                                                    <option value="style19">Style 19</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-danger">
+                                            Template changing will destory your current style & its can\'t restore.
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
+                                        <input type="hidden" id="oxistylechangevalue" name="oxistylechangevalue" value="">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-info OxiAddImportDatacontent">Copy</button>
+                                        <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
                                     </div>
                                 </div>
                             </div>
                         </form>
-                    </div>');
+                    </div>
+                    ';
     }
 
     public function created_shortcode() {
@@ -160,9 +191,10 @@ class Home {
                                <input type="hidden" name="oxideleteid" id="oxideleteid" value="' . $id . '">
                                <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>  
                        </form>
-                       <form method="post" class="oxi-addons-style-export">
-                               <input type="hidden" name="oxiexportid" id="oxiexportid" value="' . $id . '">
-                               <button class="btn btn-info" style="float:left; margin-left: 5px;"  title="Export"  type="submit" value="export" name="export">Export</button>  
+                       <form method="post" class="oxi-addons-style-change">
+                               <input type="hidden" name="oxistylename" id="oxistylename" value="' . $value['style_name'] . '">
+                               <input type="hidden" name="oxistylechangeid" id="oxistylechangeid" value="' . $id . '">
+                               <button class="btn btn-info" style="float:left; margin-left: 5px;"  title="Template"  type="submit" value="template" name="layouts">Template</button>  
                        </form>
                 </td>');
             $return .= _(' </tr>');

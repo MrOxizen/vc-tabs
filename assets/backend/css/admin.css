@@ -4752,3 +4752,7 @@ span.oxi-confirmation-success:after {
     font-size: 28px;
     vertical-align: middle;
 }
+
+#oxi-addons-style-change-modal .modal-body .form-group{
+    width: 100%;
+}
