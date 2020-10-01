@@ -50,9 +50,7 @@ trait Public_Helper {
      * @since 2.0.0
      */
     public function name_converter($data) {
-        $data = str_replace('_', ' ', $data);
-        $data = str_replace('-', ' ', $data);
-        $data = str_replace('+', ' ', $data);
+        $data = str_replace('tyle', 'tyle ', $data);
         return ucwords($data);
     }
 

@@ -21,6 +21,7 @@ class Build_Api {
     public $childid;
 
     const RESPONSIVE_TABS_ALL_STYLE = 'get_all_oxi_responsive_tabs_style';
+    const API = 'https://oxilab.org/responsive-tabs/wp-json/responsivetabsapi/v2/files/';
 
     /**
      * Constructor of plugin class
@@ -78,7 +79,7 @@ class Build_Api {
             $old = false;
             if (array_key_exists('css', $newdata) && $newdata['css'] != ''):
                 $old = true;
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'],$newdata['css'])));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'], $newdata['css'])));
             else:
                 $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'])));
             endif;
@@ -98,12 +99,12 @@ class Build_Api {
                 endif;
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
-
         else:
             $params = json_decode(stripslashes($this->rawdata), true);
             $rawdata = json_decode($params['oxistyledata'], true);
             $style = $rawdata['style'];
             $child = $rawdata['child'];
+            
             if (array_key_exists('addons-style-name', $params)):
                 $newname = $params['addons-style-name'];
             else:
@@ -125,6 +126,19 @@ class Build_Api {
             endif;
         endif;
     }
+    
+//      $URL = self::API . '22';
+//            $request = wp_remote_request($URL);
+//            if (!is_wp_error($request)) {
+//                $response = json_decode(wp_remote_retrieve_body($request), true);
+//            } else {
+//                $response = $request->get_error_message();
+//            }
+//            $rawdata = json_decode($response, true);
+//           
+
+
+
 
     public function post_shortcode_delete() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);

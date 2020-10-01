@@ -149,7 +149,7 @@ class Home {
             $id = $value['id'];
             $return .= _('<tr>');
             $return .= _('<td>' . $id . '</td>');
-            $return .= _('<td>' . $this->name_converter($value['name']) . '</td>');
+            $return .= _('<td>' . ucwords($value['name']) . '</td>');
             $return .= _('<td>' . $this->name_converter($value['style_name']) . '</td>');
             $return .= _('<td><span>Shortcode &nbsp;&nbsp;<input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $id . '&quot;]"></span> <br>'
                     . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
