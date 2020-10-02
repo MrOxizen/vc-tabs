@@ -1,3 +1,12 @@
+.oxi-tabs-ultimate-template-4.oxi-tab-header-vertical[class^='oxi-tab-header-left-'], 
+.oxi-tabs-ultimate-template-4.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'],
+.oxi-tabs-ultimate-template-4.oxi-tab-header-vertical[class^='oxi-tab-header-right-'], 
+.oxi-tabs-ultimate-template-4.oxi-tab-header-vertical[class*=' oxi-tab-header-right-']{
+    align-items: stretch;
+}
+
+
+
 .oxi-tabs-ultimate-template-4 .oxi-tabs-header-li{
     position: relative;
 }  

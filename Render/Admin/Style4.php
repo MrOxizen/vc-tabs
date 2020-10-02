@@ -315,7 +315,7 @@ class Style4 extends Helper {
                 'oxi-tabs-desc-general-shape-type' => 'EMPTY',
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-content-shape span' => 'border-top-width: {{SIZE}}px;',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-content-shape span' => 'border-width: {{SIZE}}px 0 0 0;',
             ],
                 ]
         );
@@ -356,6 +356,9 @@ class Style4 extends Helper {
                     'max' => 100,
                     'step' => .1,
                 ],
+            ],
+            'condition' => [
+                'oxi-tabs-desc-general-shape-type' => 'EMPTY',
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-content-shape' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
