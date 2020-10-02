@@ -31,9 +31,9 @@ jQuery.noConflict();
         }
     }
     jQuery(".oxi-addons-style-clone").on("click", function () {
-        $("#oxi-addons-style-modal-form")[0].reset();
-        var dataid = jQuery(this).attr('oxiaddonsdataid');
+        var dataid = jQuery(this).attr('oxiaddonsdataid'), HTMl = $(this).closest('tr').find('td').eq(1).html();
         jQuery('#oxistyleid').val(dataid);
+        jQuery('#addons-style-name').val(HTMl);
         jQuery("#oxi-addons-style-create-modal").modal("show");
     });
 
@@ -72,8 +72,8 @@ jQuery.noConflict();
 
     jQuery(".oxi-addons-style-change").submit(function (e) {
         e.preventDefault();
-         var $This = $(this);
-        var oxistylename =  $This.children('#oxistylename').val(), styleid =  $This.children('#oxistylechangeid').val();
+        var $This = $(this);
+        var oxistylename = $This.children('#oxistylename').val(), styleid = $This.children('#oxistylechangeid').val();
         jQuery('#oxi-addons-style-change-modal #oxistylechangevalue').val(styleid);
         jQuery("#oxi-addons-style-change-modal #responsive-tabs-style-future-style option[value='" + oxistylename + "']").attr('selected', 'selected');
         jQuery("#oxi-addons-style-change-modal").modal("show");
