@@ -97,7 +97,7 @@ class Style6 extends Helper {
             'type' => Controls::GRADIENT,
             'default' => 'rgba(171, 0, 201, 1)',
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li' => 'background: {{VALUE}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header-wrap' => 'background: {{VALUE}};',
             ],
             'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
@@ -258,7 +258,7 @@ class Style6 extends Helper {
                 'oxi-tabs-head-boxshadow', $this->style, [
             'type' => Controls::BOXSHADOW,
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => '',
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header-wrap' => '',
             ],
             'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
                 ]
@@ -320,7 +320,7 @@ class Style6 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header-wrap' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Create some Space outside of the Header Section.',
                 ]
