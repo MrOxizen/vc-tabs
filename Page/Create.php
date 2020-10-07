@@ -64,7 +64,16 @@ class Create {
      * @return void
      */
     public function admin_ajax_load() {
-        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/create.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script("jquery");
+        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui-widget');
+        wp_enqueue_script('jquery-ui-mouse');
+        wp_enqueue_script('jquery-ui-accordion');
+        wp_enqueue_script('jquery-ui-autocomplete');
+        wp_enqueue_script('jquery-ui-slider');
+        wp_enqueue_script('jquery-ui-draggable');
+        wp_enqueue_script('jquery-ui-sortable');
+        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/create.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     public function Render() {
@@ -76,8 +85,8 @@ class Create {
                 $this->TEMPLATE = $cache->Render();
                 $this->Import_header();
                 $this->Import_template();
-            elseif (array_key_exists('layouts', $this->layouts)):
-
+            elseif (array_key_exists('tabs', $this->layouts)):
+                $this->custom_iframe();
             else:
                 $cache = new \OXI_TABS_PLUGINS\Render\Json\Template();
                 $this->TEMPLATE = $cache->Render();
@@ -201,6 +210,18 @@ class Create {
         </div>
         <?php
         $this->Create_new();
+    }
+
+    public function custom_iframe() {
+        print_r($this->layouts);
+        ?>
+        <iframe src="https://oxilab.org/responsive-tabs/template/tabs-3/?type=import" 
+                id="oxi-addons-custom-style-load" 
+                width="100%" scrolling="no"
+                frameborder="0"></iframe>
+
+
+        <?php
     }
 
     public function Import_template() {

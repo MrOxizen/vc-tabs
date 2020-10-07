@@ -99,15 +99,6 @@ class Style15 extends Helper {
                 ]
         );
         $this->add_group_control(
-                'oxi-tabs-head-boxshadow', $this->style, [
-            'type' => Controls::BOXSHADOW,
-            'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => '',
-            ],
-            'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
-                ]
-        );
-        $this->add_group_control(
                 'oxi-tabs-head-border',
                 $this->style,
                 [
@@ -132,15 +123,6 @@ class Style15 extends Helper {
                 ]
         );
         $this->add_group_control(
-                'oxi-tabs-head--active-boxshadow', $this->style, [
-            'type' => Controls::BOXSHADOW,
-            'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => '',
-            ],
-            'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
-                ]
-        );
-        $this->add_group_control(
                 'oxi-tabs-head-active-border',
                 $this->style,
                 [
@@ -154,36 +136,14 @@ class Style15 extends Helper {
 
         $this->end_controls_tab();
         $this->end_controls_tabs();
-        
-        $this->add_responsive_control(
-                'oxi-tabs-head-radius', $this->style, [
-            'label' => __('Border Radius', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::DIMENSIONS,
-            'default' => [
-                'unit' => 'px',
-                'size' => '',
-            ],
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 500,
-                    'step' => 1,
-                ],
-                '%' => [
-                    'min' => 0,
-                    'max' => 50,
-                    'step' => 1,
-                ],
-                'em' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => .1,
-                ],
-            ],
+
+        $this->add_group_control(
+                'oxi-tabs-head-boxshadow', $this->style, [
+            'type' => Controls::BOXSHADOW,
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => '',
             ],
-            'description' => 'Add rounded corners to the Header’s Section.',
+            'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
                 ]
         );
         $this->add_responsive_control(
@@ -217,41 +177,10 @@ class Style15 extends Helper {
             'description' => 'Generate some Space around the Header Content including background color.',
                 ]
         );
-        $this->add_responsive_control(
-                'oxi-tabs-head-margin', $this->style, [
-            'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::DIMENSIONS,
-            'default' => [
-                'unit' => 'px',
-                'size' => '',
-            ],
-            'range' => [
-                'px' => [
-                    'min' => 0,
-                    'max' => 500,
-                    'step' => 1,
-                ],
-                '%' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => 1,
-                ],
-                'em' => [
-                    'min' => 0,
-                    'max' => 100,
-                    'step' => .1,
-                ],
-            ],
-            'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
-            'description' => 'Create some Space outside of the Header Section.',
-                ]
-        );
         $this->end_controls_section();
     }
-    
-      public function register_desc_general() {
+
+    public function register_desc_general() {
         $this->start_controls_section(
                 'oxi-tabs-desc-general', [
             'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
