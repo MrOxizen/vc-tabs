@@ -85,14 +85,13 @@ class Create {
                 $this->TEMPLATE = $cache->Render();
                 $this->Import_header();
                 $this->Import_template();
-            elseif (array_key_exists('tabs', $this->layouts)):
-                $this->custom_iframe();
             else:
                 $cache = new \OXI_TABS_PLUGINS\Render\Json\Template();
                 $this->TEMPLATE = $cache->Render();
                 $this->Create_header();
                 $this->Create_template();
             endif;
+            $this->web_template();
             ?>
         </div>
         <?php
@@ -167,6 +166,25 @@ class Create {
                     </div>');
     }
 
+    public function web_template() {
+        echo __('<div class="modal fade" id="oxi-addons-modal-web-template" >
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">                    
+                                        <h4 class="modal-title">Web Template</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <iframe src="" 
+                                            id="oxi-addons-custom-web-template" 
+                                            width="100%" scrolling="auto"
+                                            frameborder="0"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>');
+    }
+
     public function Create_template() {
         $create_new = 'false';
         ?>
@@ -198,6 +216,7 @@ class Create {
                                         <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Delete"  type="submit" value="Deactive" name="addonsstyledelete">Deactive</button>  
                                     </form>
                                     <textarea style="display:none" id="oxistyle<?php echo $number; ?>data"  value=""><?php echo $this->TEMPLATE[$Style]; ?></textarea>
+                                    <button type="button" class="btn btn-info oxi-addons-addons-web-template" web-data="<?php echo $value; ?>">Web Import</button>
                                     <button type="button" class="btn btn-success oxi-addons-addons-template-create oxi-addons-addons-js-create" data-toggle="modal" addons-data="oxistyle<?php echo $number; ?>data">Create Style</button>
                                 </div>
                             </div>
@@ -210,18 +229,6 @@ class Create {
         </div>
         <?php
         $this->Create_new();
-    }
-
-    public function custom_iframe() {
-        print_r($this->layouts);
-        ?>
-        <iframe src="https://oxilab.org/responsive-tabs/template/tabs-3/?type=import" 
-                id="oxi-addons-custom-style-load" 
-                width="100%" scrolling="no"
-                frameborder="0"></iframe>
-
-
-        <?php
     }
 
     public function Import_template() {
@@ -248,6 +255,7 @@ class Create {
                                     <?php echo $REND['style']['name']; ?>
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
+                                    <button type="button" class="btn btn-info oxi-addons-addons-web-template" web-data="<?php echo $id; ?>">Web Import</button>
                                     <?php
                                     if ($id > 15 && apply_filters('oxi-tabs-plugin/pro_version', true) == false):
                                         ?>

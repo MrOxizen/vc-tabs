@@ -99,13 +99,11 @@ class Build_Api {
                 endif;
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
-
         else:
             $params = json_decode(stripslashes($this->rawdata), true);
             $rawdata = json_decode($params['oxistyledata'], true);
             $style = $rawdata['style'];
             $child = $rawdata['child'];
-
             if (array_key_exists('addons-style-name', $params)):
                 $newname = $params['addons-style-name'];
             else:
@@ -128,15 +126,38 @@ class Build_Api {
         endif;
     }
 
-//      $URL = self::API . '22';
-//            $request = wp_remote_request($URL);
-//            if (!is_wp_error($request)) {
-//                $response = json_decode(wp_remote_retrieve_body($request), true);
-//            } else {
-//                $response = $request->get_error_message();
-//            }
-//            $rawdata = json_decode($response, true);
-//           
+    public function post_web_import() {
+        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
+        if ((int) $this->styleid):
+
+
+            $URL = self::API . $this->styleid;
+            $request = wp_remote_request($URL);
+            if (!is_wp_error($request)) {
+                $response = json_decode(wp_remote_retrieve_body($request), true);
+            } else {
+                return $request->get_error_message();
+            }
+            $rawdata = json_decode($response, true);
+            $style = $rawdata['style'];
+            $child = $rawdata['child'];
+            
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
+            $redirect_id = $this->database->wpdb->insert_id;
+            if ($redirect_id > 0):
+                $raw = json_decode(stripslashes($style['rawdata']), true);
+                $raw['style-id'] = $redirect_id;
+                $name = ucfirst($style['style_name']);
+                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
+                $C = new $CLASS('admin');
+                $f = $C->template_css_render($raw);
+                foreach ($child as $value) {
+                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
+                }
+                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
+            endif;
+        endif;
+    }
 
     public function post_shortcode_delete() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);

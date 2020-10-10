@@ -82,6 +82,69 @@ jQuery.noConflict();
             e.preventDefault();
             return false;
         });
+        $(".oxi-addons-addons-web-template").on("click", function (e) {
+            e.preventDefault();
+            var $This = $(this);
+            $This.html('<span class="spinner sa-spinner-open-left"></span>');
+            var $id = $This.attr('web-data'), link = 'https://oxilab.org/responsive-tabs/template/tabs-' + $id + '/?type=import';
+            var IFRAME = $("#oxi-addons-custom-web-template");
+            $("#oxi-addons-custom-web-template").attr("src", link);
+            IFRAME.load(function () {
+                $("#oxi-addons-modal-web-template").modal("show");
+                $This.html('Web Import');
+            });
+
+        });
+
+
+//        $(".sa_el_creative_button.sa_el_creative_button_default").on("click", function (e) {
+//			
+//			e.preventDefault();
+//			e.stopPropagation();
+//
+//			
+//			console.log("Sending data to http://dev.project.com.");
+//			parent.postMessage(
+//				{
+//					user_age:    'user_age',
+//					user_height: 'user_height'
+//				},
+//				"https://oxilab.org/responsive-tabs");
+//
+//		
+//		});
+
+
+        function bindEvent(element, eventName, eventHandler) {
+            if (element.addEventListener) {
+                element.addEventListener(eventName, eventHandler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent('on' + eventName, eventHandler);
+            }
+        }
+        
+         bindEvent(window, 'message', function (e) {
+           console.log(e);
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     });
 

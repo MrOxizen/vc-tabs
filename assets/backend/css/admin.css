@@ -4756,3 +4756,21 @@ span.oxi-confirmation-success:after {
 #oxi-addons-style-change-modal .modal-body .form-group{
     width: 100%;
 }
+#oxi-addons-modal-web-template.modal.fade.show{
+    z-index: 99999;
+}
+#oxi-addons-modal-web-template.modal.fade.show .modal-dialog.modal-xl{
+    max-width: 1340px;
+}
+#oxi-addons-modal-web-template.modal.fade.show .modal-dialog.modal-xl .modal-body{
+    padding: 0rem;
+}
+
+iframe#oxi-addons-custom-web-template {
+    display: block;       /* iframes are inline by default */
+    background: #000;
+    border: none;         /* Reset default border */
+    height: 85vh;        /* Viewport-relative units */
+    width: 100vw;
+}
+
