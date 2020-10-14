@@ -921,7 +921,6 @@ trait Sanitization {
 
     public function font_admin_control($id, array $data = [], array $arg = []) {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
-        $retunvalue = '';
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         if ($value != '' && array_key_exists($value, $this->google_font)) :
             $this->font[$value] = $value;
@@ -947,7 +946,7 @@ trait Sanitization {
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
 
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text"  class="shortcode-addons-family" id="' . $id . '" name="' . $id . '" value="' . $value . '" responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
+                    <input type="text"  class="shortcode-addons-family" id="' . $id . '" name="' . $id . '" value="' . $value . '" responsive="' . $arg['responsive'] . '" retundata="' . $retunvalue . '">
                 </div>';
     }
 

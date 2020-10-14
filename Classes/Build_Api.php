@@ -21,7 +21,7 @@ class Build_Api {
     public $childid;
 
     const RESPONSIVE_TABS_ALL_STYLE = 'get_all_oxi_responsive_tabs_style';
-    const API = 'https://oxilab.org/responsive-tabs/wp-json/responsivetabsapi/v2/files/';
+    const API = 'https://oxilab.org/responsive-tabs/wp-json/responsivetabsapi/v2/';
 
     /**
      * Constructor of plugin class
@@ -129,9 +129,7 @@ class Build_Api {
     public function post_web_import() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         if ((int) $this->styleid):
-
-
-            $URL = self::API . $this->styleid;
+            $URL = self::API . 'files/' . $this->styleid;
             $request = wp_remote_request($URL);
             if (!is_wp_error($request)) {
                 $response = json_decode(wp_remote_retrieve_body($request), true);
@@ -141,7 +139,7 @@ class Build_Api {
             $rawdata = json_decode($response, true);
             $style = $rawdata['style'];
             $child = $rawdata['child'];
-            
+
             $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
             $redirect_id = $this->database->wpdb->insert_id;
             if ($redirect_id > 0):
@@ -156,6 +154,43 @@ class Build_Api {
                 }
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
+        endif;
+    }
+
+    public function post_load_web_template() {
+        if ((int) $this->styleid):
+
+
+            $URL = self::API . 'template/' . $this->styleid;
+            $request = wp_remote_request($URL);
+            if (!is_wp_error($request)) {
+                $response = json_decode(wp_remote_retrieve_body($request), true);
+            } else {
+                return $request->get_error_message();
+            }
+            $data = json_decode($response, true);
+            $render = '';
+            foreach ($data as $key => $value) {
+                $render .= '<div class="oxi-addons-col-1">
+                                    <div class="oxi-addons-style-preview">
+                                        <div class="oxi-addons-style-preview-top oxi-addons-center">
+                                            <img class="oxi-addons-web-template-image" src="'.$value['image'].'">
+                                        </div>
+                                        <div class="oxi-addons-style-preview-bottom">
+                                            <div class="oxi-addons-style-preview-bottom-left">
+                                                '.$value['name'].'                      
+                                            </div>
+                                            <div class="oxi-addons-style-preview-bottom-right">
+                                                <button type="button" class="btn btn-success oxi-addons-addons-web-template-import-button" web-data="'.$key.'">Import</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+            }
+
+            return $render;
+
+
         endif;
     }
 

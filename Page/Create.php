@@ -175,10 +175,7 @@ class Create {
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <iframe src="" 
-                                            id="oxi-addons-custom-web-template" 
-                                            width="100%" scrolling="auto"
-                                            frameborder="0"></iframe>
+                                        
                                     </div>
                                 </div>
                             </div>

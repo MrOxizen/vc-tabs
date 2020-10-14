@@ -82,67 +82,31 @@ jQuery.noConflict();
             e.preventDefault();
             return false;
         });
+
+
         $(".oxi-addons-addons-web-template").on("click", function (e) {
             e.preventDefault();
-            var $This = $(this);
-            $This.html('<span class="spinner sa-spinner-open-left"></span>');
-            var $id = $This.attr('web-data'), link = 'https://oxilab.org/responsive-tabs/template/tabs-' + $id + '/?type=import';
-            var IFRAME = $("#oxi-addons-custom-web-template");
-            $("#oxi-addons-custom-web-template").attr("src", link);
-            IFRAME.load(function () {
+            $input = $(this);
+            $input.append('<span class="spinner sa-spinner-open"></span>');
+            var styleid = $input.attr('web-data');
+            Oxi_Tabs_Admin_Create('load_web_template', '', styleid, childid, function (callback) {
+                $("#oxi-addons-modal-web-template .modal-body").html(callback);
                 $("#oxi-addons-modal-web-template").modal("show");
-                $This.html('Web Import');
+                $input.html('Web Import');
             });
-
+            return false;
         });
-
-
-//        $(".sa_el_creative_button.sa_el_creative_button_default").on("click", function (e) {
-//			
-//			e.preventDefault();
-//			e.stopPropagation();
-//
-//			
-//			console.log("Sending data to http://dev.project.com.");
-//			parent.postMessage(
-//				{
-//					user_age:    'user_age',
-//					user_height: 'user_height'
-//				},
-//				"https://oxilab.org/responsive-tabs");
-//
-//		
-//		});
-
-
-        function bindEvent(element, eventName, eventHandler) {
-            if (element.addEventListener) {
-                element.addEventListener(eventName, eventHandler, false);
-            } else if (element.attachEvent) {
-                element.attachEvent('on' + eventName, eventHandler);
+        $(document.body).on("click", ".oxi-addons-addons-web-template-import-button", function (e) {
+            $input = $(this);
+            if ($input.attr("web-data") !== '') {
+                $(this).prepend('<span class="spinner sa-spinner-open-left"></span>');
+                Oxi_Tabs_Admin_Create('web_import', '', $input.attr("web-data"), childid, function (callback) {
+                    setTimeout(function () {
+                          document.location.href = callback;
+                    }, 1000);
+                });
             }
-        }
-        
-         bindEvent(window, 'message', function (e) {
-           console.log(e);
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

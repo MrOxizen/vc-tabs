@@ -12,7 +12,7 @@ jQuery.noConflict();
     function NEWRegExp(par = '') {
         return new RegExp(par, "g");
     }
-    
+
     function replaceStr(str, find, replace) {
         for (var i = 0; i < find.length; i++) {
             str = str.replace(new RegExp(find[i], 'gi'), replace[i]);
