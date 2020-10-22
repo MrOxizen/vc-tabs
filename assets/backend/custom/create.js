@@ -102,7 +102,7 @@ jQuery.noConflict();
                 $(this).prepend('<span class="spinner sa-spinner-open-left"></span>');
                 Oxi_Tabs_Admin_Create('web_import', '', $input.attr("web-data"), childid, function (callback) {
                     setTimeout(function () {
-                          document.location.href = callback;
+                        //  document.location.href = callback;
                     }, 1000);
                 });
             }

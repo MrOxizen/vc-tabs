@@ -33,6 +33,10 @@ class Build_Api {
         $this->build_api();
     }
 
+    public function fixed_data($agr) {
+        return hex2bin($agr);
+    }
+
     public function build_api() {
         add_action('rest_api_init', function () {
             register_rest_route(untrailingslashit('oxilabtabsultimate/v1/'), '/(?P<action>\w+)/', array(
@@ -170,18 +174,26 @@ class Build_Api {
             }
             $data = json_decode($response, true);
             $render = '';
+            $vs = get_option($this->fixed_data('726573706f6e736976655f746162735f776974685f6163636f7264696f6e735f6c6963656e73655f737461747573'));
+
+
             foreach ($data as $key => $value) {
+                if ($vs == $this->fixed_data('76616c6964')) {
+                    $button = '<button type="button" class="btn btn-success oxi-addons-addons-web-template-import-button" web-data="' . $key . '">Import</button>';
+                } else {
+                    $button = '<button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Pro Only" type="submit" value="pro only" name="addonsstyleproonly">Pro Only</button>';
+                }
                 $render .= '<div class="oxi-addons-col-1">
                                     <div class="oxi-addons-style-preview">
                                         <div class="oxi-addons-style-preview-top oxi-addons-center">
-                                            <img class="oxi-addons-web-template-image" src="'.$value['image'].'">
+                                            <img class="oxi-addons-web-template-image" src="' . $value['image'] . '">
                                         </div>
                                         <div class="oxi-addons-style-preview-bottom">
                                             <div class="oxi-addons-style-preview-bottom-left">
-                                                '.$value['name'].'                      
+                                                ' . $value['name'] . '                      
                                             </div>
                                             <div class="oxi-addons-style-preview-bottom-right">
-                                                <button type="button" class="btn btn-success oxi-addons-addons-web-template-import-button" web-data="'.$key.'">Import</button>
+                                                ' . $button . '
                                             </div>
                                         </div>
                                     </div>
