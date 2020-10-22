@@ -137,7 +137,7 @@ trait Admin_helper {
         $menu .= '              </ul>
                             <ul class="oxilab-sa-admin-menu2">
                                ' . (apply_filters('oxi-tabs-plugin/pro_version', false) == FALSE ? ' <li class="fazil-class" ><a target="_blank" href="https://oxilab.org/responsive-tabs/pricing">Upgrade</a></li>' : '') . '
-                               <li class="saadmin-doc"><a target="_black" href="https://www.oxilab.org/docs">Docs</a></li>
+                               <li class="saadmin-doc"><a target="_black" href="https://oxilab.org/responsive-tabs/docs/">Docs</a></li>
                                <li class="saadmin-doc"><a target="_black" href="https://wordpress.org/support/plugin/vc-tabs/">Support</a></li>
                                <li class="saadmin-set"><a href="' . admin_url('admin.php?page=oxi-tabs-ultimate-settings') . '"><span class="dashicons dashicons-admin-generic"></span></a></li>
                             </ul>

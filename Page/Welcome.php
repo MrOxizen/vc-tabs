@@ -51,7 +51,7 @@ class Welcome {
                                 </div>
                                 <div class="oxi-docs-admin-block-content">
                                     <p>Get started by spending some time with the documentation to get familiar with Responsive Tabs with WooCommerce Extension. Build awesome Tabs  for you or your clients with ease.</p>
-                                    <a href="https://www.oxilab.org/docs" class="oxi-docs-button" target="_blank">Documentation</a>
+                                    <a href="https://oxilab.org/responsive-tabs/docs/" class="oxi-docs-button" target="_blank">Documentation</a>
                                 </div>
                             </div>
                         </div>

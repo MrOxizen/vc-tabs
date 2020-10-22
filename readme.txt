@@ -3,7 +3,7 @@ Contributors: biplob018
 Donate link: https://www.oxilab.org
 Tags: tab, tabs, responsive tabs, woocommerce tabs, tabs content, product tabs, custom tabs, woocommerce custom tabs
 Requires at least: 3.8
-Stable tag: 3.3.1
+Stable tag: 3.3.2
 Requires PHP: 5.4
 Tested up to: 5.5.1
 License: GPLv2 or later
@@ -253,6 +253,9 @@ On Non Responsive Themes Our Responsive Tabs with WooCommerce Custom Tabs Extens
 
 
 == Changelog ==
+= 3.3.2 =
+*Update Admin Bugs
+
 = 3.3.0 =
 *Update Admin Interface
 *Add WooCommerce Extension
@@ -327,10 +330,12 @@ On Non Responsive Themes Our Responsive Tabs with WooCommerce Custom Tabs Extens
 
 
 == Upgrade Notice ==
+= 3.3.2 =
+Update Admin Bugs
+
 = 3.3.0 =
 Update Admin Interface
 Add WooCommerce Extension
-
 = 3.2.2 =
 Solved  Link Issues
 
