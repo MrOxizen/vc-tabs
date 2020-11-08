@@ -8,14 +8,6 @@ namespace OXI_TABS_PLUGINS\Helper;
  */
 trait Public_Helper {
 
-    public function html_special_charecter($data) {
-        $data = html_entity_decode($data);
-        $data = str_replace("\'", "'", $data);
-        $data = str_replace('\"', '"', $data);
-        $data = do_shortcode($data, $ignore_html = false);
-        return $data;
-    }
-
     public function admin_special_charecter($data) {
         $data = html_entity_decode($data);
         $data = str_replace("\'", "'", $data);
@@ -41,6 +33,14 @@ trait Public_Helper {
         $data = explode(':', $data);
         $data = $data[0];
         $data = '"' . $data . '"';
+        return $data;
+    }
+
+    public function html_special_charecter($data) {
+        $data = html_entity_decode($data);
+        $data = str_replace("\'", "'", $data);
+        $data = str_replace('\"', '"', $data);
+        $data = do_shortcode($data, $ignore_html = false);
         return $data;
     }
 

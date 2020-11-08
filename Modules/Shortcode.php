@@ -71,6 +71,20 @@ class Shortcode {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
     }
 
+    public function get_all_style() {
+        $response = get_transient(self::RESPONSIVE_TABS_ALL_STYLE);
+        if (!$response) {
+            $rows = $this->database->wpdb->get_results("SELECT id, name FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
+            $response = ['' => 'Default Tabs'];
+            foreach ($rows as $key => $value):
+                $response[$value['id']] = !empty($value['name']) ? $value['name'] : 'Shortcode ' . $value['id'];
+            endforeach;
+            ksort($response);
+            set_transient(self::RESPONSIVE_TABS_ALL_STYLE, $response, 30 * DAY_IN_SECONDS);
+        }
+        return $response;
+    }
+
     /**
      * Template constructor.
      */
@@ -135,20 +149,6 @@ class Shortcode {
         if (class_exists($cls)):
             new $cls($style, $child, $this->user, $this->arg, $this->key);
         endif;
-    }
-
-    public function get_all_style() {
-        $response = get_transient(self::RESPONSIVE_TABS_ALL_STYLE);
-        if (!$response) {
-            $rows = $this->database->wpdb->get_results("SELECT id, name FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
-            $response = ['' => 'Default Tabs'];
-            foreach ($rows as $key => $value):
-                $response[$value['id']] = !empty($value['name']) ? $value['name'] : 'Shortcode ' . $value['id'];
-            endforeach;
-            ksort($response);
-            set_transient(self::RESPONSIVE_TABS_ALL_STYLE, $response, 30 * DAY_IN_SECONDS);
-        }
-        return $response;
     }
 
 }

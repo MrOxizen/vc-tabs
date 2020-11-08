@@ -89,7 +89,12 @@ class Build_Api {
             endif;
             $redirect_id = $this->database->wpdb->insert_id;
             if ($redirect_id > 0):
-                if ($old == false):
+                if ($old == true):
+                    $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
+                    foreach ($child as $value) {
+                        $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($redirect_id, $value['rawdata'], $value['title'], $value['files'], $value['css'])));
+                    }
+                else:
                     $raw = json_decode(stripslashes($newdata['rawdata']), true);
                     $raw['style-id'] = $redirect_id;
                     $name = ucfirst($newdata['style_name']);

@@ -19,7 +19,8 @@ class Support_Reviews {
         add_action('wp_ajax_oxilab_tabs_notice_dissmiss', array($this, 'notice_dissmiss'));
         add_action('admin_notices', array($this, 'dismiss_button_scripts'));
     }
-     /**
+
+    /**
      * Admin Notice Ajax  loader
      * @return void
      */
@@ -103,7 +104,5 @@ class Support_Reviews {
         wp_enqueue_script('oxilab_tabs-admin-notice', OXI_TABS_URL . '/assets/backend/custom/admin-notice.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_localize_script('oxilab_tabs-admin-notice', 'oxilab_tabs_admin_notice', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxilab_tabs-admin-notice')));
     }
-
-   
 
 }
