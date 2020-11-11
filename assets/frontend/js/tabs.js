@@ -62,9 +62,9 @@ jQuery.noConflict();
         });
         function OxiTabsController(p = '', c = '') {
             var cls = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style";
-            var title = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-header-li";
-            var mtitle = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-body-header";
-            var content = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-body-tabs";
+            var title = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header-" + p + " .oxi-tabs-header-li";
+            var mtitle = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header-" + p + " .oxi-tabs-body-header";
+            var content = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-body-" + p;
             var j = $(cls).data('oxi-tabs');
             if (c === '') {
                 $(title + j.initial).addClass("active");

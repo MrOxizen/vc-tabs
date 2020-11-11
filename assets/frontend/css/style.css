@@ -58,8 +58,8 @@
     overflow: hidden;
 }
 
-.oxi-tab-header-horizontal.oxi-tab-header-top-left-position .oxi-tabs-ultimate-header-wrap,
-.oxi-tab-header-horizontal.oxi-tab-header-bottom-left-position .oxi-tabs-ultimate-header-wrap{
+.oxi-tab-header-horizontal.oxi-tab-header-top-left-position > .oxi-tabs-ultimate-header-wrap,
+.oxi-tab-header-horizontal.oxi-tab-header-bottom-left-position > .oxi-tabs-ultimate-header-wrap{
     display: flex;
     -webkit-flex-flow: row wrap;
     justify-content: flex-start;
@@ -67,38 +67,38 @@
     align-content: stretch;
 }
 
-.oxi-tab-header-horizontal.oxi-tab-header-top-right-position .oxi-tabs-ultimate-header-wrap,
-.oxi-tab-header-horizontal.oxi-tab-header-bottom-right-position .oxi-tabs-ultimate-header-wrap{
+.oxi-tab-header-horizontal.oxi-tab-header-top-right-position > .oxi-tabs-ultimate-header-wrap,
+.oxi-tab-header-horizontal.oxi-tab-header-bottom-right-position > .oxi-tabs-ultimate-header-wrap{
     display: flex;
     -webkit-flex-flow: row wrap;
     justify-content: flex-end;
     align-items: baseline;
     align-content: stretch;
 }
-.oxi-tab-header-horizontal.oxi-tab-header-top-center-position .oxi-tabs-ultimate-header-wrap,
-.oxi-tab-header-horizontal.oxi-tab-header-bottom-center-position .oxi-tabs-ultimate-header-wrap{
+.oxi-tab-header-horizontal.oxi-tab-header-top-center-position > .oxi-tabs-ultimate-header-wrap,
+.oxi-tab-header-horizontal.oxi-tab-header-bottom-center-position > .oxi-tabs-ultimate-header-wrap{
     display: flex;
     -webkit-flex-flow: row wrap;
     justify-content: center;
     align-items: baseline;
     align-content: stretch;
 }
-.oxi-tab-header-horizontal.oxi-tab-header-top-compact-position .oxi-tabs-ultimate-header-wrap,
-.oxi-tab-header-horizontal.oxi-tab-header-bottom-compact-position .oxi-tabs-ultimate-header-wrap{
+.oxi-tab-header-horizontal.oxi-tab-header-top-compact-position > .oxi-tabs-ultimate-header-wrap,
+.oxi-tab-header-horizontal.oxi-tab-header-bottom-compact-position > .oxi-tabs-ultimate-header-wrap{
     display: flex;
     -webkit-flex-flow: row wrap;
     justify-content: space-around;
     align-items: baseline;
     align-content: stretch;
 }
-.oxi-tab-header-horizontal .oxi-tabs-ultimate-header,
-.oxi-tab-header-horizontal .oxi-tabs-ultimate-header{
+.oxi-tab-header-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header,
+.oxi-tab-header-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
     display: flex;
 }
-.oxi-tab-header-horizontal.oxi-tab-header-top-compact-position .oxi-tabs-ultimate-header,
-.oxi-tab-header-horizontal.oxi-tab-header-bottom-compact-position .oxi-tabs-ultimate-header,
-.oxi-tab-header-horizontal.oxi-tab-header-top-compact-position .oxi-tabs-header-li,
-.oxi-tab-header-horizontal.oxi-tab-header-bottom-compact-position .oxi-tabs-header-li{
+.oxi-tab-header-horizontal.oxi-tab-header-top-compact-position > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header,
+.oxi-tab-header-horizontal.oxi-tab-header-bottom-compact-position > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header,
+.oxi-tab-header-horizontal.oxi-tab-header-top-compact-position > .oxi-tabs-ultimate-header-wrap.oxi-tabs-header-li,
+.oxi-tab-header-horizontal.oxi-tab-header-bottom-compact-position > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li{
     width: 100%;
 }
 
@@ -148,17 +148,17 @@
 .oxi-tab-header-vertical[class*=' oxi-tab-header-right-']{
     flex-direction: row-reverse;
 }
-.oxi-tab-header-vertical .oxi-tabs-ultimate-header-wrap{
+.oxi-tab-header-vertical > .oxi-tabs-ultimate-header-wrap{
     width: 25%;
 }
-.oxi-tab-header-vertical .oxi-tabs-ultimate-content-wrap{
+.oxi-tab-header-vertical > .oxi-tabs-ultimate-content-wrap{
     width: 100%
 }
 
-.oxi-tab-header-vertical[class^='oxi-tab-header-left-'] .oxi-tabs-ultimate-header-wrap, 
-.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'] .oxi-tabs-ultimate-header-wrap,
-.oxi-tab-header-vertical[class^='oxi-tab-header-right-'] .oxi-tabs-ultimate-header-wrap, 
-.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'] .oxi-tabs-ultimate-header-wrap{
+.oxi-tab-header-vertical[class^='oxi-tab-header-left-'] > .oxi-tabs-ultimate-header-wrap, 
+.oxi-tab-header-vertical[class*=' oxi-tab-header-left-'] > .oxi-tabs-ultimate-header-wrap,
+.oxi-tab-header-vertical[class^='oxi-tab-header-right-'] > .oxi-tabs-ultimate-header-wrap, 
+.oxi-tab-header-vertical[class*=' oxi-tab-header-right-'] > .oxi-tabs-ultimate-header-wrap{
     display: flex;
     flex-direction: column;
 }
@@ -227,11 +227,11 @@
         -webkit-flex-flow: column wrap;
         flex-direction: column;
     }
-    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal .oxi-tabs-ultimate-header{
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
         flex-direction: column;
         width: 100%
     }
-    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical .oxi-tabs-ultimate-header-wrap{
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical > .oxi-tabs-ultimate-header-wrap{
         width: 100%
     }
 
@@ -274,19 +274,19 @@
         flex-direction: column;
     }
 
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical .oxi-tabs-ultimate-header-wrap,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact .oxi-tabs-ultimate-header-wrap{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical > .oxi-tabs-ultimate-header-wrap,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact > .oxi-tabs-ultimate-header-wrap{
         width: 100%;
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal .oxi-tabs-ultimate-header-wrap{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal > .oxi-tabs-ultimate-header-wrap{
         width: auto;
     }
 
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal .oxi-tabs-ultimate-header,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact .oxi-tabs-ultimate-header{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
         display: flex;
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact .oxi-tabs-header-li{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-horizontal.oxi-tabs-header-vertical-tabs-alignment-horizontal-compact > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li{
         width: 100%
     }
 
@@ -296,10 +296,10 @@
     .oxi-tab-header-vertical[class^='oxi-tab-header-right-'].oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical{
         flex-direction: row-reverse;
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-ultimate-header{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
         flex-direction: row;
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-ultimate-header-wrap{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical > .oxi-tabs-ultimate-header-wrap{
         width: 25%;
     }
 
@@ -311,12 +311,12 @@
         flex-direction: column;
     }
 
-    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal .oxi-tabs-ultimate-header{
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
         flex-direction: column;
         width: 100%
     }
 
-    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical .oxi-tabs-ultimate-header-wrap{
+    .oxi-tabs-ultimate-style.oxi-tabs-heading-responsive-dynamic.oxi-tab-header-vertical > .oxi-tabs-ultimate-header-wrap{
         width: 100%
     }
     .oxi-tabs-ultimate-style .oxi-tabs-heading-mobile-show-title-false .oxi-tabs-main-title{
@@ -336,39 +336,39 @@
     }
 
 
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical .oxi-tabs-ultimate-header-wrap{
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical > .oxi-tabs-ultimate-header-wrap{
         -webkit-flex-flow: column wrap;
         width: 100%;
     }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical .oxi-tabs-ultimate-header{
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
         -webkit-flex-flow: column wrap;
         width: 100%;
     }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal .oxi-tabs-ultimate-header{
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
         width: auto;
     }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact .oxi-tabs-ultimate-header{
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
         width: 100%;
     }
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact .oxi-tabs-header-li{
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static.oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li{
         width: 100%
     }
     .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal{
         flex-direction: column;
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical .oxi-tabs-ultimate-header-wrap,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact .oxi-tabs-ultimate-header-wrap{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical > .oxi-tabs-ultimate-header-wrap,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact > .oxi-tabs-ultimate-header-wrap{
         width: 100%;
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal .oxi-tabs-ultimate-header-wrap{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal > .oxi-tabs-ultimate-header-wrap{
         width: auto;
     }
 
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal .oxi-tabs-ultimate-header,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact .oxi-tabs-ultimate-header{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
         display: flex;
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact .oxi-tabs-header-li{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-horizontal.oxi-tabs-header-vertical-mobile-alignment-horizontal-compact > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li{
         width: 100%
     }
 
@@ -381,10 +381,10 @@
         flex-direction: row-reverse;
     }
 
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-ultimate-header{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header{
         flex-direction: row;
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-ultimate-header-wrap{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header-wrap{
         width: 25%;
     }
 }
@@ -401,10 +401,10 @@
 .oxi-tabs-ultimate-style .oxi-tabs-body-tabs{
     width: 100%;
 }
-.oxi-tabs-ultimate-style .oxi-tabs-body-tabs{
+.oxi-tabs-ultimate-style > .oxi-tabs-ultimate-content-wrap .oxi-tabs-body-tabs{
     display: none;
 }
-.oxi-tabs-ultimate-style .oxi-tabs-body-tabs.active{
+.oxi-tabs-ultimate-style > .oxi-tabs-ultimate-content-wrap .oxi-tabs-body-tabs.active{
     display: block;
 }
 
@@ -479,56 +479,56 @@ Margin Issue at Header
 
 @media only screen and (min-width: 994px) {
 
-    .oxi-tab-header-horizontal[class^='oxi-tab-header-bottom-'] .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-horizontal[class*=' oxi-tab-header-bottom-'] .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-horizontal[class^='oxi-tab-header-top-'] .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-horizontal[class*=' oxi-tab-header-top-'] .oxi-tabs-header-li:last-of-type{
+    .oxi-tab-header-horizontal[class^='oxi-tab-header-bottom-'] > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-horizontal[class*=' oxi-tab-header-bottom-'] > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-horizontal[class^='oxi-tab-header-top-'] > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-horizontal[class*=' oxi-tab-header-top-'] > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type{
         margin-right: 0px !important;
 
     }
-    .oxi-tab-header-vertical[class^='oxi-tab-header-right-'] .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical[class*=' oxi-tab-header-right-'] .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical[class^='oxi-tab-header-left-'] .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical[class*=' oxi-tab-header-left-'] .oxi-tabs-header-li:last-of-type{
+    .oxi-tab-header-vertical[class^='oxi-tab-header-right-'] > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical[class*=' oxi-tab-header-right-'] > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical[class^='oxi-tab-header-left-'] > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical[class*=' oxi-tab-header-left-'] > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type{
         margin-bottom: 0px !important;
     }
 }
 
 @media only screen and (min-width: 769px) and (max-width: 993px) {
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-top-']:not(.oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical) .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-top-']:not(.oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical) .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-left-']:not(.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical).oxi-tabs-header-vertical-tabs-alignment-horizontal .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-left-']:not(.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical).oxi-tabs-header-vertical-tabs-alignment-horizontal .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-right-']:not(.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical).oxi-tabs-header-vertical-tabs-alignment-horizontal .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-right-']:not(.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical).oxi-tabs-header-vertical-tabs-alignment-horizontal .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-bottom-']:not(.oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical) .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-bottom-']:not(.oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical) .oxi-tabs-header-li:last-of-type{ 
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-top-']:not(.oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical) > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-top-']:not(.oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical) > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-left-']:not(.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical).oxi-tabs-header-vertical-tabs-alignment-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-left-']:not(.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical).oxi-tabs-header-vertical-tabs-alignment-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-right-']:not(.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical).oxi-tabs-header-vertical-tabs-alignment-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-right-']:not(.oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical).oxi-tabs-header-vertical-tabs-alignment-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-bottom-']:not(.oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical) > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-bottom-']:not(.oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical) > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type{ 
         margin-right: 0px !important;
 
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-left-'].oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-left-'].oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-right-'].oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-right-'].oxi-tabs-header-vertical-tabs-alignment-vertical .oxi-tabs-header-li:last-of-type{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-left-'].oxi-tabs-header-vertical-tabs-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-left-'].oxi-tabs-header-vertical-tabs-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-right-'].oxi-tabs-header-vertical-tabs-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-right-'].oxi-tabs-header-vertical-tabs-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type{
         margin-bottom: 0px !important;
     }
 }
 @media only screen and (max-width: 768px) {
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-top-']:not(.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical) .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-top-']:not(.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical) .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-left-']:not(.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical).oxi-tabs-header-vertical-mobile-alignment-horizontal .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-left-']:not(.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical).oxi-tabs-header-vertical-mobile-alignment-horizontal .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-right-']:not(.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical).oxi-tabs-header-vertical-mobile-alignment-horizontal .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-right-']:not(.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical).oxi-tabs-header-vertical-mobile-alignment-horizontal .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-bottom-']:not(.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical) .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-bottom-']:not(.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical) .oxi-tabs-header-li:last-of-type{
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-top-']:not(.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical) > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-top-']:not(.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical) > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-left-']:not(.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical).oxi-tabs-header-vertical-mobile-alignment-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-left-']:not(.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical).oxi-tabs-header-vertical-mobile-alignment-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-right-']:not(.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical).oxi-tabs-header-vertical-mobile-alignment-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-right-']:not(.oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical).oxi-tabs-header-vertical-mobile-alignment-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-bottom-']:not(.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical) > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-horizontal.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-bottom-']:not(.oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical) > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type{
         margin-right: 0px !important;
 
     }
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-left-'].oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-left-'].oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-right-'].oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li:last-of-type,
-    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-right-'].oxi-tabs-header-vertical-mobile-alignment-vertical .oxi-tabs-header-li:last-of-type{
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-left-'].oxi-tabs-header-vertical-mobile-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-left-'].oxi-tabs-header-vertical-mobile-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class^='oxi-tab-header-right-'].oxi-tabs-header-vertical-mobile-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type,
+    .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static[class*=' oxi-tab-header-right-'].oxi-tabs-header-vertical-mobile-alignment-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li:last-of-type{
         margin-bottom: 0px !important;
     }
 }

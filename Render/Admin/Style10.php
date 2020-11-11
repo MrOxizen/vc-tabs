@@ -38,7 +38,7 @@ class Style10 extends Helper {
                 'oxi-tab-header-aditional-bottom-position' => __('Bottom', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li' => '',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => '',
             ],
             'description' => 'Set the Location of Title’s Additionals (Icon, Image, or Number.)',
                 ]
@@ -57,8 +57,8 @@ class Style10 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -77,8 +77,8 @@ class Style10 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -99,8 +99,8 @@ class Style10 extends Helper {
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'background: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'background: {{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => 'background: {{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'background: {{VALUE}};',
             ],
             'description' => 'Set the Background of the Header on Normal = Mode.',
                 ]
@@ -111,7 +111,7 @@ class Style10 extends Helper {
                 [
                     'type' => Controls::BORDER,
                     'selector' => [
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => '',
+                        '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => '',
                     ],
                     'description' => 'Customize Border of the Header. Set Type, Width, and Color, Only Arrow Shape Side not works due to Arrow',
                 ]
@@ -125,8 +125,8 @@ class Style10 extends Helper {
             'label' => __('Active Background', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active .oxi-tabs-header-triangle-shape' => 'background: {{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-header-triangle-shape' => 'background: {{VALUE}};',
             ],
             'description' => 'Set the Background of the Header on Active Mode.',
                 ]
@@ -137,7 +137,7 @@ class Style10 extends Helper {
                 [
                     'type' => Controls::BORDER,
                     'selector' => [
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => ''
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active' => ''
                     ],
                     'description' => 'Customize Border of the Header. Set Type, Width, and Color, Only Arrow Shape Side not works due to Arrow',
                 ]
@@ -151,7 +151,7 @@ class Style10 extends Helper {
                 'oxi-tabs-head-boxshadow', $this->style, [
             'type' => Controls::BOXSHADOW,
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => '',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active' => '',
             ],
             'description' => 'Add one or more shadows into Header Section and customize other Box-Shadow Options.',
                 ]
@@ -183,7 +183,7 @@ class Style10 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-triangle-shape' => 'border-radius:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-triangle-shape' => 'border-radius:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Add rounded corners to the Header’s Arrow, Only Single Side will Works as Dynamicly.',
                 ]
@@ -214,7 +214,7 @@ class Style10 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border-radius:{{SIZE}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => 'border-radius:{{SIZE}}{{UNIT}};',
             ],
             'description' => 'Add rounded corners to the Header’s Tabs, Arrow Shape Side not Work.',
                 ]
@@ -245,7 +245,7 @@ class Style10 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Generate some Space around the Header Content including background color.',
                 ]
@@ -276,7 +276,7 @@ class Style10 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Create some Space outside of the Header Tabs.',
                 ]

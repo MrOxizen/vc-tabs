@@ -16,7 +16,7 @@ class Style12 extends Render {
         /*
          * Header Child Loop Start
          */
-        echo '   <div class="oxi-tabs-ultimate-header-wrap ' . ($style['oxi-tabs-heading-responsive-mode'] == 'oxi-tabs-heading-responsive-static' ? $this->header_responsive_static_render($style, ['title', 'subtitle', 'icon', 'number', 'image']) : '') . '">';
+        echo '   <div class="oxi-tabs-ultimate-header-wrap oxi-tabs-ultimate-header-' . $this->oxiid . ' ' . ($style['oxi-tabs-heading-responsive-mode'] == 'oxi-tabs-heading-responsive-static' ? $this->header_responsive_static_render($style, ['title', 'subtitle', 'icon', 'number', 'image']) : '') . '">';
         echo '        <div class="oxi-tabs-ultimate-header oxi-tab-clearfix">';
         $number = 1;
         foreach ($child as $key => $val) {
@@ -56,7 +56,7 @@ class Style12 extends Render {
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);
             endif;
-            echo '      <div class="oxi-tabs-body-tabs animate__animated ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $number . '">
+            echo '      <div class="oxi-tabs-body-tabs oxi-tabs-body-' . $this->oxiid . '  animate__animated ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $number . '">
                             ' . $this->tabs_content_render($style, $value) . '
                             ' . $this->admin_edit_panel($val['id']) . '     
                         </div>';

@@ -30,7 +30,7 @@ class Style8 extends Helper {
                 'oxi-tab-header-aditional-bottom-position' => __('Bottom', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li' => '',
+                '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => '',
             ],
             'description' => 'Set the Location of Title’s Additionals (Icon, Image, or Number.)',
                 ]
@@ -49,8 +49,8 @@ class Style8 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -69,8 +69,8 @@ class Style8 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -81,7 +81,7 @@ class Style8 extends Helper {
             'type' => Controls::GRADIENT,
             'default' => 'rgba(171, 0, 201, 1)',
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'background: {{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header' => 'background: {{VALUE}};',
             ],
             'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
@@ -93,8 +93,8 @@ class Style8 extends Helper {
                     'label' => __('Border', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SINGLEBORDER,
                     'selector' => [
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};',
-                        '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};'
+                        '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};',
+                        '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};'
                     ],
                     'description' => 'Customize Header Border of the Header. Set Type, Size, and Color.',
                 ]
@@ -125,7 +125,7 @@ class Style8 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Add rounded corners to the Header’s Section.',
                 ]
@@ -156,7 +156,7 @@ class Style8 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Generate some Space around the Header Content including background color.',
                 ]
@@ -194,7 +194,7 @@ class Style8 extends Helper {
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => 'background: {{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => 'background: {{VALUE}};',
             ],
             'description' => 'Customize the Content’s Background with Color, Gradient or Image properties.',
                 ]
@@ -206,7 +206,7 @@ class Style8 extends Helper {
                     'type' => Controls::BORDER,
                     'selector' => [
                         '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => '',
-                        '{{WRAPPER}} .oxi-tabs-ultimate-template-8 .oxi-tabs-ultimate-header-wrap' => 'top:{{TOP}}{{UNIT}}; bottom:{{BOTTOM}}{{UNIT}};  Left:{{LEFT}}{{UNIT}}; right:{{RIGHT}}{{UNIT}};'
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-template-8 > .oxi-tabs-ultimate-header-wrap' => 'top:{{TOP}}{{UNIT}}; bottom:{{BOTTOM}}{{UNIT}};  Left:{{LEFT}}{{UNIT}}; right:{{RIGHT}}{{UNIT}};'
                     ],
                     'description' => 'Customize Border of the Content Body. Set Type, Width, and Color.',
                 ]
@@ -237,7 +237,7 @@ class Style8 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style .oxi-tabs-ultimate-content' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Add rounded corners to the Content’s Section.',
                 ]
@@ -268,7 +268,7 @@ class Style8 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Generate some Space around the Content Body including background color.',
                 ]

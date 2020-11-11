@@ -21,14 +21,14 @@ class Style18 extends Render {
             endif;
             if (array_key_exists('oxi-tabs-modal-color', $value)):
                 $color = $value['oxi-tabs-modal-color'];
-                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style .oxi-tabs-header-li-' . $this->oxiid . '-' . $number . '.oxi-tabs-header-li .oxi-tabs-main-title{color: ' . $color . ';}';
-                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style .oxi-tabs-header-li-' . $this->oxiid . '-' . $number . '.oxi-tabs-header-li .oxi-icons{color: ' . $color . ';}';
-                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style .oxi-tabs-header-li-' . $this->oxiid . '-' . $number . '.oxi-tabs-header-li  .oxi-tabs-header-li-number{color: ' . $color . ';}';
+                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style .oxi-tabs-header-li-' . $this->oxiid . '-' . $number . '.oxi-tabs-header-li .oxi-tabs-main-title{color: ' . $color . ' !important;}';
+                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style .oxi-tabs-header-li-' . $this->oxiid . '-' . $number . '.oxi-tabs-header-li .oxi-icons{color: ' . $color . ' !important;}';
+                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style .oxi-tabs-header-li-' . $this->oxiid . '-' . $number . '.oxi-tabs-header-li  .oxi-tabs-header-li-number{color: ' . $color . ' !important;}';
             endif;
             if (array_key_exists('oxi-tabs-modal-bg-color', $value)):
                 $color = $value['oxi-tabs-modal-bg-color'];
-                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style .oxi-tabs-header-li-' . $this->oxiid . '-' . $number . '.oxi-tabs-header-li{background: ' . $color . ';}';
-                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style #oxi-tabs-body-' . $this->oxiid . '-' . $number . '{background: ' . $color . ';}';
+                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style .oxi-tabs-header-li-' . $this->oxiid . '-' . $number . '.oxi-tabs-header-li{background: ' . $color . ' !important;}';
+                $this->inline_css .= '.' . $this->WRAPPER . ' .oxi-addons-row .oxi-tabs-ultimate-style #oxi-tabs-body-' . $this->oxiid . '-' . $number . '{background: ' . $color . ' !important;}';
             endif;
             $number++;
         }
@@ -39,7 +39,7 @@ class Style18 extends Render {
         /*
          * Header Child Loop Start
          */
-        echo '   <div class="oxi-tabs-ultimate-header-wrap ' . ($style['oxi-tabs-heading-responsive-mode'] == 'oxi-tabs-heading-responsive-static' ? $this->header_responsive_static_render($style, ['title', 'subtitle', 'icon', 'number', 'image']) : '') . '">';
+        echo '   <div class="oxi-tabs-ultimate-header-wrap oxi-tabs-ultimate-header-' . $this->oxiid . ' ' . ($style['oxi-tabs-heading-responsive-mode'] == 'oxi-tabs-heading-responsive-static' ? $this->header_responsive_static_render($style, ['title', 'subtitle', 'icon', 'number', 'image']) : '') . '">';
         echo '        <div class="oxi-tabs-ultimate-header oxi-tab-clearfix">';
         $number = 1;
         foreach ($child as $key => $val) {
@@ -78,7 +78,7 @@ class Style18 extends Render {
             if (!is_array($value)):
                 $value = $this->defualt_value($val['id']);
             endif;
-            echo '      <div class="oxi-tabs-body-tabs animate__animated ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $number . '">
+            echo '      <div class="oxi-tabs-body-tabs oxi-tabs-body-' . $this->oxiid . '  animate__animated ' . ($this->admin == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="oxi-tabs-body-' . $this->oxiid . '-' . $number . '">
                             ' . $this->tabs_content_render($style, $value) . '
                             ' . $this->admin_edit_panel($val['id']) . '     
                         </div>';

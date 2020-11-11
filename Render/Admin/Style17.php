@@ -30,7 +30,7 @@ class Style17 extends Helper {
                 'oxi-tab-header-aditional-bottom-position' => __('Bottom', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-header-li' => '',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => '',
             ],
             'description' => 'Set the Location of Title’s Additionals (Icon, Image, or Number.)',
                 ]
@@ -49,8 +49,8 @@ class Style17 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-right-position' => 'justify-content:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -69,8 +69,8 @@ class Style17 extends Helper {
                 'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-bottom-position' => 'align-items:{{VALUE}};',
             ],
             'description' => 'Set the Location of Title’s Alignment',
                 ]
@@ -82,9 +82,9 @@ class Style17 extends Helper {
                     'label' => __('Inner Border', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SINGLEBORDER,
                     'selector' => [
-                        '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};',
-                        '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li.active' => 'border-color:{{COLOR}}!important;',
-                        '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'border-color:{{COLOR}};top:-{{SIZE}}px;bottom:-{{SIZE}}px;left:-{{SIZE}}px;right:-{{SIZE}}px;',
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};',
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active' => 'border-color:{{COLOR}}!important;',
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'border-color:{{COLOR}};top:-{{SIZE}}px;bottom:-{{SIZE}}px;left:-{{SIZE}}px;right:-{{SIZE}}px;',
                     ],
                     'description' => 'Customize Inner Border of the Header. Set Type, Size, and Color. Its will works dynamiclly with Design',
                 ]
@@ -115,7 +115,7 @@ class Style17 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'border-width: {{SIZE}}{{UNIT}};',
+                '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li .oxi-tabs-header-triangle-shape' => 'border-width: {{SIZE}}{{UNIT}};',
             ],
             'description' => 'Customize Triangle Shape of the Header. Set Size while color will adjust with Inner Border COlor',
                 ]
@@ -146,7 +146,7 @@ class Style17 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-header-li' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Generate some Space around the Header Content including background color.',
                 ]
@@ -177,7 +177,7 @@ class Style17 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}}  .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Create some Space outside of the Header Section.',
                 ]
@@ -216,7 +216,7 @@ class Style17 extends Helper {
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style' => 'background: {{VALUE}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style' => 'background: {{VALUE}};',
             ],
             'description' => 'Customize the Tab’s Background with Color, Gradient or Image properties.',
                 ]
@@ -226,7 +226,7 @@ class Style17 extends Helper {
                 'oxi-tabs-desc-general-boxshadow', $this->style, [
             'type' => Controls::BOXSHADOW,
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style' => '',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
             ],
             'description' => 'Add one or more shadows into the Tabs Section and customize other Box-Shadow Options.',
                 ]
@@ -237,7 +237,7 @@ class Style17 extends Helper {
                 [
                     'type' => Controls::BORDER,
                     'selector' => [
-                        '{{WRAPPER}} .oxi-tabs-ultimate-style' => ''
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => ''
                     ],
                     'description' => 'Customize Border of the Tabs Section. Set Type, Width, and Color.',
                 ]
@@ -268,7 +268,7 @@ class Style17 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Add rounded corners to the Tabs’s Section.',
                 ]
@@ -299,7 +299,7 @@ class Style17 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style .oxi-tabs-body-tabs' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Generate some Space around the Content Body including background color.',
                 ]
@@ -330,7 +330,7 @@ class Style17 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} .oxi-tabs-ultimate-style' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
             ],
             'description' => 'Generate some Space around the Section including background color.',
                 ]

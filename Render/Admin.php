@@ -113,7 +113,7 @@ class Admin {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->oxiid = (!empty($_GET['styleid']) ? sanitize_text_field($_GET['styleid']) : '');
         $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
-        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' .oxi-addons-row';
+        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
         if ($type != 'admin') {
             $this->hooks();
             $this->render();
@@ -251,7 +251,7 @@ class Admin {
         $styleid = $style['style-id'];
         $this->oxiid = $styleid;
         $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
-        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' .oxi-addons-row';
+        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
         $this->style = $style;
         ob_start();
         $dt = $this->import_font_family();
@@ -296,7 +296,7 @@ class Admin {
         $this->style = $style;
         $this->oxiid = $styleid;
         $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
-        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' .oxi-addons-row';
+        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
 
         ob_start();
         $dt = $this->import_font_family();
@@ -402,7 +402,7 @@ class Admin {
                                         </div>
                                     </div>
                                     <div class="oxi-addons-preview-wrapper">
-                                        <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> .oxi-addons-row">
+                                        <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> > .oxi-addons-row">
 
                                             <iframe  src="<?php echo admin_url('admin.php?page=oxi-tabs-style-view&styleid=' . $this->oxiid); ?>" 
                                                      id="oxi-addons-preview-iframe" 
