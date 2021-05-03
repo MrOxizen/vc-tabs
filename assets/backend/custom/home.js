@@ -69,27 +69,11 @@ jQuery.noConflict();
 
     });
 
+    jQuery("#oxilab-tabs-import-json").on("click", function (e) {
+        e.preventDefault();
+        jQuery("#oxi-addons-style-import-modal").modal("show");
+    });
 
-    jQuery(".oxi-addons-style-change").submit(function (e) {
-        e.preventDefault();
-        var $This = $(this);
-        var oxistylename = $This.children('#oxistylename').val(), styleid = $This.children('#oxistylechangeid').val();
-        jQuery('#oxi-addons-style-change-modal #oxistylechangevalue').val(styleid);
-        jQuery("#oxi-addons-style-change-modal #responsive-tabs-style-future-style option[value='" + oxistylename + "']").attr('selected', 'selected');
-        jQuery("#oxi-addons-style-change-modal").modal("show");
-    });
-    jQuery("#oxi-addons-style-change-modal-form").submit(function (e) {
-        e.preventDefault();
-        var rawdata = $('#responsive-tabs-style-future-style').val();
-        var styleid = $('#oxistylechangevalue').val();
-        var functionname = "template_change";
-        $('.modal-footer').prepend('<span class="spinner sa-spinner-open-left"></span>');
-        Oxi_Tabs_Admin_Home(functionname, rawdata, styleid, childid, function (callback) {
-            setTimeout(function () {
-                document.location.href = callback;
-            }, 1000);
-        });
-    });
 
 
 

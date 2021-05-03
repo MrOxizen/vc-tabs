@@ -119,7 +119,7 @@ class Settings {
                     <?php
                     if (!isset($installed_plugins['woocommerce/woocommerce.php'])):
                         $new = new \OXI_TABS_PLUGINS\Modules\Shortcode();
-                        $get_style = $new->get_all_style();
+                        $get_style = $new->get_all_tabs_style();
                         $default_tabs = get_option('oxilab_tabs_woocommerce_default');
                         ?>
                         <h2>WooCommerce Extension</h2>

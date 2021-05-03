@@ -30,6 +30,7 @@ class Home {
     }
 
     public function CSSJS_load() {
+        $this->manual_import_style();
         $this->admin_css_loader();
         $this->admin_home();
         $this->admin_ajax_load();
@@ -42,6 +43,47 @@ class Home {
      */
     public function admin_ajax_load() {
         wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/assets/backend/custom/home.js', false, OXI_TABS_TEXTDOMAIN);
+    }
+    
+     /**
+     * Generate safe path
+     * @since v1.0.0
+     */
+    public function safe_path($path) {
+
+        $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
+        return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+    }
+
+    public function manual_import_style() {
+        if (!empty($_REQUEST['_wpnonce'])) {
+            $nonce = $_REQUEST['_wpnonce'];
+        }
+
+        if (!empty($_POST['importdatasubmit']) && $_POST['importdatasubmit'] == 'Save') {
+            if (!wp_verify_nonce($nonce, 'vc-tabs-ultimate-import')) {
+                die('You do not have sufficient permissions to access this page.');
+            } else {
+                if (apply_filters('oxi-tabs-plugin/pro_version', false) == TRUE):
+                    if (isset($_FILES['importtabsfilefile'])) :
+                        $filename = $_FILES["importtabsfilefile"]["name"];
+                        $folder = $this->safe_path(OXI_TABS_PATH . 'assets/export/');
+
+                        if (is_file($folder . $filename)):
+                            unlink($folder . $filename); // delete file
+                        endif;
+
+                        move_uploaded_file($_FILES['importtabsfilefile']['tmp_name'], $folder . $filename);
+                        $ImportApi = new \OXI_TABS_PLUGINS\Classes\Build_Api;
+                        $ImportApi->post_json_import($folder, $filename);
+
+                        if (is_file($folder . $filename)):
+                            unlink($folder . $filename); // delete file
+                        endif;
+                    endif;
+                endif;
+            }
+        }
     }
 
     public function Render() {
@@ -60,9 +102,9 @@ class Home {
         ?>
         <div class="oxi-addons-wrapper">
             <div class="oxi-addons-import-layouts">
-                <h1>Responsive Tabs › Home
+                <h1>Responsive Tabs & Accorsions › Home
                 </h1>
-                <p> Collect Responsive Tabs Shortcode, Edit, Delect, Clone or Export it. </p>
+                <p> Collect Responsive Tabs or Accordions Shortcode, Edit, Delect, Clone or Export it. </p>
             </div>
         </div>
         <?php
@@ -70,10 +112,10 @@ class Home {
 
     public function create_new() {
         echo _('<div class="oxi-addons-row">
-                        <div class="oxi-addons-col-1 oxi-import">
+                        <div class="oxi-addons-col-3 oxi-import">
                             <div class="oxi-addons-style-preview">
                                 <div class="oxilab-admin-style-preview-top">
-                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new") . '">
+                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-cr-tabs") . '">
                                         <div class="oxilab-admin-add-new-item">
                                             <span>
                                                 <i class="fas fa-plus-circle oxi-icons"></i>  
@@ -84,9 +126,37 @@ class Home {
                                 </div>
                             </div>
                         </div>
+                        <div class="oxi-addons-col-3 oxi-import">
+                            <div class="oxi-addons-style-preview">
+                                <div class="oxilab-admin-style-preview-top">
+                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-cr-accordions") . '">
+                                        <div class="oxilab-admin-add-new-item">
+                                            <span>
+                                                <i class="fas fa-plus-circle oxi-icons"></i>  
+                                                Create New Accordions
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="oxi-addons-col-3 oxi-import">
+                            <div class="oxi-addons-style-preview">
+                                <div class="oxilab-admin-style-preview-top">
+                                    <a href="#" id="oxilab-tabs-import-json">
+                                        <div class="oxilab-admin-add-new-item">
+                                            <span>
+                                                <i class="fas fa-plus-circle oxi-icons"></i>  
+                                                Import Json
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>');
 
-        echo _('<div class="modal fade" id="oxi-addons-style-create-modal" >
+        echo '<div class="modal fade" id="oxi-addons-style-create-modal" >
                         <form method="post" id="oxi-addons-style-modal-form">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
@@ -111,56 +181,28 @@ class Home {
                             </div>
                         </form>
                     </div>
-                    ');
-        echo '<div class="modal fade" id="oxi-addons-style-change-modal" >
-                        <form method="post" id="oxi-addons-style-change-modal-form">
+                    ';
+        echo '<div class="modal fade" id="oxi-addons-style-import-modal" >
+                        <form method="post" id="oxi-addons-import-modal-form" enctype = "multipart/form-data">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
                                     <div class="modal-header">                    
-                                        <h4 class="modal-title">Template Changing</h4>
+                                        <h4 class="modal-title">Import Form</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group row">
-                                            <label for="addons-style-name" class="col-sm-6 col-form-label">Layouts</label>
-                                            <div class="col-sm-6 addons-dtm-laptop-lock">
-                                                <select id="responsive-tabs-style-future-style"  class="form-control">
-                                                    <option value="style1">Style 1</option>
-                                                    <option value="style2">Style 2</option>
-                                                    <option value="style3">Style 3</option>
-                                                    <option value="style4">Style 4</option>
-                                                    <option value="style5">Style 5</option>
-                                                    <option value="style6">Style 6</option>
-                                                    <option value="style7">Style 7</option>
-                                                    <option value="style8">Style 8</option>
-                                                    <option value="style9">Style 9</option>
-                                                    <option value="style10">Style 10</option>
-                                                    <option value="style11">Style 11</option>
-                                                    <option value="style12">Style 12</option>
-                                                    <option value="style13">Style 13</option>
-                                                    <option value="style14">Style 14</option>
-                                                    <option value="style15">Style 15</option>
-                                                    <option value="style16">Style 16</option>
-                                                    <option value="style17">Style 17</option>
-                                                    <option value="style18">Style 18</option>
-                                                    <option value="style19">Style 19</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="alert alert-danger">
-                                            Template changing will destory your current style & its can\'t restore.
-                                        </div>
+                                             ' . (apply_filters('oxi-tabs-plugin/pro_version', false) == FALSE ? ' <a target="_blank" style"text-align:center" href="https://oxilab.org/responsive-tabs/pricing">**Works only with Pro Version</a><br> <br>' : '') . '
+                                             <input class="form-control" type="file" name="importtabsfilefile" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
                                     </div>
                                     <div class="modal-footer">
-                                        <input type="hidden" id="oxistylechangevalue" name="oxistylechangevalue" value="">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
+                                        <input type="submit" class="btn btn-success" name="importdatasubmit" id="importdatasubmit" value="Save">
                                     </div>
                                 </div>
                             </div>
+                               ' . wp_nonce_field("vc-tabs-ultimate-import") . '
                         </form>
-                    </div>
-                    ';
+                    </div>';
     }
 
     public function created_shortcode() {
@@ -186,16 +228,13 @@ class Home {
                     . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
             $return .= _('<td> 
                         <button type="button" class="btn btn-success oxi-addons-style-clone"  style="float:left" oxiaddonsdataid="' . $id . '">Clone</button>
-                        <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
-                       <form method="post" class="oxi-addons-style-delete">
+                        <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-cr-" . strtolower($value['type']) . "&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
+                        <form method="post" class="oxi-addons-style-delete">
                                <input type="hidden" name="oxideleteid" id="oxideleteid" value="' . $id . '">
                                <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>  
-                       </form>
-                       <form method="post" class="oxi-addons-style-change">
-                               <input type="hidden" name="oxistylename" id="oxistylename" value="' . $value['style_name'] . '">
-                               <input type="hidden" name="oxistylechangeid" id="oxistylechangeid" value="' . $id . '">
-                               <button class="btn btn-info" style="float:left; margin-left: 5px;"  title="Template"  type="submit" value="template" name="layouts">Template</button>  
-                       </form>
+                       </form>   
+                        <a href="' . esc_url_raw(rest_url()) . 'oxilabtabsultimate/v1/shortcode_export?styleid=' . $id . '"  title="Export"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Export</a>
+                    
                 </td>');
             $return .= _(' </tr>');
         }

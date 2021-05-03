@@ -82,13 +82,13 @@ trait Admin_helper {
                 'name' => 'Shortcode',
                 'homepage' => 'oxi-tabs-ultimate'
             ];
-            $response['Tabs']['Create New'] = [
-                'name' => 'Create New',
-                'homepage' => 'oxi-tabs-ultimate-new'
+            $response['Tabs']['Create Tabs'] = [
+                'name' => 'Create Tabs',
+                'homepage' => 'oxi-tabs-ultimate-cr-tabs'
             ];
-            $response['Tabs']['Import Design'] = [
-                'name' => 'Import Design',
-                'homepage' => 'oxi-tabs-ultimate-design'
+            $response['Tabs']['Create Accordion'] = [
+                'name' => 'Create Accordion',
+                'homepage' => 'oxi-tabs-ultimate-cr-tabs'
             ];
             set_transient(self::ADMINMENU, $response, 10 * DAY_IN_SECONDS);
         endif;
@@ -103,7 +103,6 @@ trait Admin_helper {
                         </div>
                         <nav class="oxilab-sa-admin-nav">
                             <ul class="oxilab-sa-admin-menu">';
-
 
         $GETPage = sanitize_text_field($_GET['page']);
         if (count($response) == 1):
@@ -158,10 +157,19 @@ trait Admin_helper {
         } else {
             $first_key = 'manage_options';
         }
+
+        $response['Tabs']['Create Tabs'] = [
+            'name' => 'Create Tabs',
+            'homepage' => 'oxi-tabs-ultimate-cr-tabs'
+        ];
+        $response['Tabs']['Create Accordion'] = [
+            'name' => 'Create Accordion',
+            'homepage' => 'oxi-tabs-ultimate-cr-tabs'
+        ];
         add_menu_page('Content Tabs', 'Content Tabs', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
         add_submenu_page('oxi-tabs-ultimate', 'Content Tabs', 'Shortcode', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
-        add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'tabs_create']);
-        add_submenu_page('oxi-tabs-ultimate', 'Import Design', 'Import Design', $first_key, 'oxi-tabs-ultimate-design', [$this, 'tabs_design']);
+        add_submenu_page('oxi-tabs-ultimate', 'Create Tabs', 'Create Tabs', $first_key, 'oxi-tabs-ultimate-cr-tabs', [$this, 'shortcode_create_edit']);
+        add_submenu_page('oxi-tabs-ultimate', 'Create Accordions', 'Create Accordions', $first_key, 'oxi-tabs-ultimate-cr-accordions', [$this, 'shortcode_create_edit']);
         add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-settings', [$this, 'tabs_settings']);
         add_submenu_page('oxi-tabs-ultimate', 'Welcome To Responsive Tabs with  Accordions', 'Support', $first_key, 'oxi-tabs-ultimate-welcome', [$this, 'oxi_tabs_welcome']);
         add_submenu_page('oxi-tabs-ultimate', 'Oxilab Addons', 'Oxilab Addons', $first_key, 'oxi-tabs-ultimate-addons', [$this, 'tabs_addons']);
@@ -171,7 +179,7 @@ trait Admin_helper {
         new \OXI_TABS_PLUGINS\Page\Home();
     }
 
-    public function tabs_create() {
+    public function shortcode_create_edit() {
         $styleid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
         if (!empty($styleid) && $styleid > 0):
             $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
@@ -179,21 +187,27 @@ trait Admin_helper {
             if (!array_key_exists('rawdata', $style)):
                 $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
                 $Installation->Datatase();
+                $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             endif;
-            $row = json_decode(stripslashes($style['rawdata']), true);
-            if (is_array($row)):
-                $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $template;
-            else:
-                $cls = '\OXI_TABS_PLUGINS\Render\Old_Admin\\' . $template;
+            //Load Tabs Class
+            if ($style['type'] === 'Tabs'):
+                $row = json_decode(stripslashes($style['rawdata']), true);
+                if (is_array($row)):
+                    //new Modules
+                    $cls = '\OXI_TABS_PLUGINS\Render\Tabs\Admin\\' . $template;
+                else:
+                    //Old Modules
+                    $cls = '\OXI_TABS_PLUGINS\Render\Tabs\Old_Admin\\' . $template;
+                endif;
+            //Load Tabs Class
+            elseif ($style['type'] === 'Accordions'):
+                //New Modules
+                $cls = '\OXI_TABS_PLUGINS\Render\Accordions\Admin\\' . $template;
             endif;
             new $cls();
         else:
             new \OXI_TABS_PLUGINS\Page\Create();
         endif;
-    }
-
-    public function tabs_design() {
-        new \OXI_TABS_PLUGINS\Page\Import();
     }
 
     public function tabs_settings() {

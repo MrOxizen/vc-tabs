@@ -41,6 +41,14 @@
     width: 100%;
     float: left;
 }
+.oxi-addons-col-2 {
+    width: 50%;
+    float: left;
+}
+.oxi-addons-col-3 {
+    width: 33.3%;
+    float: left;
+}
 
 .shortcode-addons-hidden-control {
     display: none;

@@ -21,7 +21,14 @@ class Build_Api {
     public $childid;
 
     const RESPONSIVE_TABS_ALL_STYLE = 'get_all_oxi_responsive_tabs_style';
-    const API = 'https://oxilab.org/responsive-tabs/wp-json/responsivetabsapi/v2/';
+
+    public static function instance() {
+        if (self::$instance == null) {
+            self::$instance = new self;
+        }
+
+        return self::$instance;
+    }
 
     /**
      * Constructor of plugin class
@@ -40,7 +47,7 @@ class Build_Api {
     public function build_api() {
         add_action('rest_api_init', function () {
             register_rest_route(untrailingslashit('oxilabtabsultimate/v1/'), '/(?P<action>\w+)/', array(
-                'methods' => 'POST',
+                'methods' => array('GET', 'POST'),
                 'callback' => [$this, 'api_action'],
             ));
         });
@@ -81,11 +88,16 @@ class Build_Api {
             $styleid = (int) $this->styleid;
             $newdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             $old = false;
+            if (isset($newdata['type']) && $newdata['type'] == 'Accordions'):
+                $type = 'Accordions';
+            else:
+                $type = 'Tabs';
+            endif;
             if (array_key_exists('css', $newdata) && $newdata['css'] != ''):
                 $old = true;
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'], $newdata['css'])));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, type, css) VALUES (%s, %s, %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'], $type, $newdata['css'])));
             else:
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'])));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, type) VALUES ( %s, %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'], $type)));
             endif;
             $redirect_id = $this->database->wpdb->insert_id;
             if ($redirect_id > 0):
@@ -98,7 +110,7 @@ class Build_Api {
                     $raw = json_decode(stripslashes($newdata['rawdata']), true);
                     $raw['style-id'] = $redirect_id;
                     $name = ucfirst($newdata['style_name']);
-                    $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
+                    $CLASS = '\OXI_TABS_PLUGINS\Render\\' . ucfirst($type) . '\\Admin\\' . $name;
                     $C = new $CLASS('admin');
                     $f = $C->template_css_render($raw);
                     $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
@@ -106,7 +118,7 @@ class Build_Api {
                         $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d, %s)", array($redirect_id, $value['rawdata'])));
                     }
                 endif;
-                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
+                return admin_url("admin.php?page=oxi-tabs-ultimate-cr-" . strtolower($type) . "&styleid=$redirect_id");
             endif;
         else:
             $params = json_decode(stripslashes($this->rawdata), true);
@@ -118,97 +130,54 @@ class Build_Api {
             else:
                 $newname = $style['name'];
             endif;
+            if (isset($style['type']) && $style['type'] == 'Accordions'):
+                $type = 'Accordions';
+            else:
+                $type = 'Tabs';
+            endif;
+
             $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($newname, $style['style_name'], $style['rawdata'])));
             $redirect_id = $this->database->wpdb->insert_id;
             if ($redirect_id > 0):
                 $raw = json_decode(stripslashes($style['rawdata']), true);
                 $raw['style-id'] = $redirect_id;
                 $name = ucfirst($style['style_name']);
-                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
+                $CLASS = '\OXI_TABS_PLUGINS\Render\\' . ucfirst($type) . '\\Admin\\' . $name;
                 $C = new $CLASS('admin');
                 $f = $C->template_css_render($raw);
                 foreach ($child as $value) {
                     $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
                 }
-                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
+                return admin_url("admin.php?page=oxi-tabs-ultimate-cr-" . strtolower($type) . "&styleid=$redirect_id");
             endif;
         endif;
     }
 
-    public function post_web_import() {
-        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
-        if ((int) $this->styleid):
-            $URL = self::API . 'files/' . $this->styleid;
-            $request = wp_remote_request($URL);
-            if (!is_wp_error($request)) {
-                $response = json_decode(wp_remote_retrieve_body($request), true);
-            } else {
-                return $request->get_error_message();
-            }
-            $rawdata = json_decode($response, true);
-            $style = $rawdata['style'];
-            $child = $rawdata['child'];
-
-            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
+    public function post_json_import($folder, $filename) {
+        if (is_file($folder . $filename)) {
+            $this->rawdata = file_get_contents($folder . $filename);
+            $params = json_decode($this->rawdata, true);
+            $style = $params['style'];
+            $child = $params['child'];
+            if (isset($style['type']) && $style['type'] == 'Accordions'):
+                $type = 'Accordions';
+            else:
+                $type = 'Tabs';
+            endif;
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, type) VALUES ( %s, %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'], $type)));
             $redirect_id = $this->database->wpdb->insert_id;
             if ($redirect_id > 0):
                 $raw = json_decode(stripslashes($style['rawdata']), true);
                 $raw['style-id'] = $redirect_id;
                 $name = ucfirst($style['style_name']);
-                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
+                $CLASS = '\OXI_TABS_PLUGINS\Render\\' . ucfirst($type) . '\\Admin\\' . $name;
                 $C = new $CLASS('admin');
                 $f = $C->template_css_render($raw);
                 foreach ($child as $value) {
                     $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
                 }
-                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
-        endif;
-    }
-
-    public function post_load_web_template() {
-        if ((int) $this->styleid):
-
-
-            $URL = self::API . 'template/' . $this->styleid;
-            $request = wp_remote_request($URL);
-            if (!is_wp_error($request)) {
-                $response = json_decode(wp_remote_retrieve_body($request), true);
-            } else {
-                return $request->get_error_message();
-            }
-            $data = json_decode($response, true);
-            $render = '';
-            $vs = get_option($this->fixed_data('726573706f6e736976655f746162735f776974685f6163636f7264696f6e735f6c6963656e73655f737461747573'));
-
-
-            foreach ($data as $key => $value) {
-                if ($vs == $this->fixed_data('76616c6964')) {
-                    $button = '<button type="button" class="btn btn-success oxi-addons-addons-web-template-import-button" web-data="' . $key . '">Import</button>';
-                } else {
-                    $button = '<button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Pro Only" type="submit" value="pro only" name="addonsstyleproonly">Pro Only</button>';
-                }
-                $render .= '<div class="oxi-addons-col-1">
-                                    <div class="oxi-addons-style-preview">
-                                        <div class="oxi-addons-style-preview-top oxi-addons-center">
-                                            <img class="oxi-addons-web-template-image" src="' . $value['image'] . '">
-                                        </div>
-                                        <div class="oxi-addons-style-preview-bottom">
-                                            <div class="oxi-addons-style-preview-bottom-left">
-                                                ' . $value['name'] . '                      
-                                            </div>
-                                            <div class="oxi-addons-style-preview-bottom-right">
-                                                ' . $button . '
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>';
-            }
-
-            return $render;
-
-
-        endif;
+        }
     }
 
     public function post_shortcode_delete() {
@@ -223,38 +192,49 @@ class Build_Api {
         endif;
     }
 
-    public function post_shortcode_export() {
+    public function get_shortcode_export() {
+
         $styleid = (int) $this->styleid;
         if ($styleid):
-            $st = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->parent_table} WHERE id = %d", $styleid), ARRAY_A);
-            $c = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
-            $style = [
-                'id' => $st['id'],
-                'name' => $st['name'],
-                'style_name' => $st['style_name'],
-                'rawdata' => json_encode($this->array_replace(json_decode(stripslashes($st['rawdata']), true), '"', '&quot;')),
-                'stylesheet' => $st['stylesheet'],
-                'font_family' => $st['font_family'],
+            $style = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->parent_table} WHERE id = %d", $styleid), ARRAY_A);
+            $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
+            $filename = 'responsive-tabs-and-accordions-ultimateand' . $style['id'] . '.json';
+            $files = [
+                'style' => $style,
+                'child' => $child,
             ];
-            $child = [];
-            foreach ($c as $value) {
-                $child[] = [
-                    'id' => $value['id'],
-                    'styleid' => $value['styleid'],
-                    'rawdata' => json_encode($this->array_replace(json_decode(stripslashes($value['rawdata']), true), '"', '&quot;'))
-                ];
-            }
-            $newdata = ['plugin' => 'tabs', 'style' => $style, 'child' => $child];
-            return json_encode($newdata);
+            $finalfiles = json_encode($files);
+            $this->send_file_headers($filename, strlen($finalfiles));
+            @ob_end_clean();
+            flush();
+            echo $finalfiles;
+            die;
         else:
             return 'Silence is Golden';
         endif;
     }
 
+    /**
+     * Send file headers.
+     *
+     *
+     * @param string $file_name File name.
+     * @param int    $file_size File size.
+     */
+    private function send_file_headers($file_name, $file_size) {
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . $file_name);
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . $file_size);
+    }
+
     public function post_shortcode_deactive() {
         $params = json_decode(stripslashes($this->rawdata), true);
         $id = (int) $params['oxideletestyle'];
-        $tabs = 'responsive-tabs';
+        $oxicontenttype = $params['oxicontenttype'];
+        $tabs = 'responsive-' . strtolower($oxicontenttype);
         if ($id > 0):
             $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->import_table} WHERE name = %s and type = %s", $id, $tabs));
             return 'done';
@@ -266,11 +246,12 @@ class Build_Api {
     public function post_shortcode_active() {
         $params = json_decode(stripslashes($this->rawdata), true);
         $id = (int) $params['oxiimportstyle'];
-        $tabs = 'responsive-tabs';
+        $type = strtolower($params['oxiimporttype']);
+        $tabs = 'responsive-' . $type;
         if ($id > 0):
 
             $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array($tabs, $id)));
-            return admin_url("admin.php?page=oxi-tabs-ultimate-new#Style" . $id);
+            return admin_url("admin.php?page=oxi-tabs-ultimate-cr-" . $type . "#Style" . $id);
         else:
             return 'Silence is Golden';
         endif;
@@ -284,30 +265,32 @@ class Build_Api {
     public function post_elements_template_style() {
         $settings = json_decode(stripslashes($this->rawdata), true);
         $StyleName = sanitize_text_field($settings['style-name']);
+        $Type = sanitize_text_field($settings['style-type']);
+
         $stylesheet = '';
         if ((int) $this->styleid):
             $transient = 'oxi-responsive-tabs-transient-' . $this->styleid;
             delete_transient($transient);
             $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET rawdata = %s, stylesheet = %s WHERE id = %d", $this->rawdata, $stylesheet, $this->styleid));
             $name = ucfirst($StyleName);
-            $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
+            $cls = '\OXI_TABS_PLUGINS\Render\\' . ucfirst($Type) . '\\Admin\\' . $name;
             $CLASS = new $cls('admin');
             return $CLASS->template_css_render($settings);
         endif;
     }
 
-    /**
-     * Template Style Data
-     *
-     * @since 9.3.0
-     */
-    public function post_template_change() {
-        $rawdata = sanitize_text_field($this->rawdata);
-        if ((int) $this->styleid):
-            $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
-            return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$this->styleid");
-        endif;
-    }
+//    /**
+//     * Template Style Data
+//     *
+//     * @since 9.3.0
+//     */
+//    public function post_template_change() {
+//        $rawdata = sanitize_text_field($this->rawdata);
+//        if ((int) $this->styleid):
+//            $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
+//            return 'confirm';
+//        endif;
+//    }
 
     /**
      * Template Name Change

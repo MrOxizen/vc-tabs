@@ -95,7 +95,7 @@ class WooCommerce {
         global $post;
         $post_id = $post->ID;
         $new = new \OXI_TABS_PLUGINS\Modules\Shortcode();
-        $get_style = $new->get_all_style();
+        $get_style = $new->get_all_tabs_style();
         ?>
         <div id="oxilab_tabs_product_data" class="panel woocommerce_options_panel">
             <?php

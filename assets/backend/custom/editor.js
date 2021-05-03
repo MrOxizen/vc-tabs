@@ -436,7 +436,7 @@ jQuery.noConflict();
         IFRAME.contents().on("click", ".shortcode-addons-template-item-delete", function (e) {
             e.preventDefault();
             var rawdata = "delete";
-            var functionname = "elements_template_modal_data_delete"
+            var functionname = "elements_template_modal_data_delete";
             var childid = $(this).attr("value");
             var status = confirm("Do you Want to Delete this?");
             if (status === false) {

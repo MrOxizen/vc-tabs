@@ -82,34 +82,6 @@ jQuery.noConflict();
             e.preventDefault();
             return false;
         });
-
-
-        $(".oxi-addons-addons-web-template").on("click", function (e) {
-            e.preventDefault();
-            $input = $(this);
-            $input.append('<span class="spinner sa-spinner-open"></span>');
-            var styleid = $input.attr('web-data');
-            Oxi_Tabs_Admin_Create('load_web_template', '', styleid, childid, function (callback) {
-                $("#oxi-addons-modal-web-template .modal-body").html(callback);
-                $("#oxi-addons-modal-web-template").modal("show");
-                $input.html('Web Import');
-            });
-            return false;
-        });
-        $(document.body).on("click", ".oxi-addons-addons-web-template-import-button", function (e) {
-            $input = $(this);
-            if ($input.attr("web-data") !== '') {
-                $(this).prepend('<span class="spinner sa-spinner-open-left"></span>');
-                Oxi_Tabs_Admin_Create('web_import', '', $input.attr("web-data"), childid, function (callback) {
-                    setTimeout(function () {
-                          document.location.href = callback;
-                    }, 1000);
-                });
-            }
-        });
-
-
-
     });
 
 })(jQuery)
