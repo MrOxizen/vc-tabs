@@ -65,7 +65,6 @@ class Admin {
      * @since 3.3.0
      */
     public $CSSWRAPPER;
-    
 
     /**
      * Define $wpdb
@@ -108,6 +107,8 @@ class Admin {
      * @since 3.3.0
      */
     public $Popover_Condition = true;
+    public $Get_Nested_Tabs = [];
+    public $Get_Nested_Accordions = [];
 
     public function __construct($type = '') {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
@@ -128,6 +129,19 @@ class Admin {
     public function hooks() {
         $this->admin_elements_frontend_loader();
         $this->dbdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $this->oxiid), ARRAY_A);
+        $Get_Nested_Tabs = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT id, name FROM {$this->database->parent_table} WHERE type = %s ORDER by id ASC", 'Tabs'), ARRAY_A);
+        foreach ($Get_Nested_Tabs as $key => $value) {
+            if ($value['id'] != $this->oxiid):
+                $this->Get_Nested_Tabs[$value['id']] = !empty($value['name']) ? $value['name'] : 'Tabs id ' . $value['id'];
+            endif;
+        }
+        $Get_Nested_Accordions = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT id, name FROM {$this->database->parent_table} WHERE type = %s ORDER by id ASC", 'Accordions'), ARRAY_A);
+        foreach ($Get_Nested_Accordions as $key => $value) {
+            if ($value['id'] != $this->oxiid):
+                $this->Get_Nested_Accordions[$value['id']] = !empty($value['name']) ? $value['name'] : 'Tabs id ' . $value['id'];
+            endif;
+        }
+
         $this->child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->oxiid), ARRAY_A);
         if (!empty($this->dbdata['rawdata'])):
             $s = json_decode(stripslashes($this->dbdata['rawdata']), true);

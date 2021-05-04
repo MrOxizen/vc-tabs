@@ -215,7 +215,7 @@ class Render {
         wp_enqueue_script("jquery");
         wp_enqueue_style('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/css/style.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxi-plugin-animate', OXI_TABS_URL . 'assets/frontend/css/animate.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_style('oxi-tabs-' . strtolower($this->style_name), OXI_TABS_URL . 'assets/frontend/style/' . strtolower($this->style_name) . '.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('oxi-tabs-' . strtolower($this->style_name), OXI_TABS_URL . 'assets/frontend/tabs/' . strtolower($this->style_name) . '.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/js/tabs.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
@@ -624,9 +624,31 @@ class Render {
             return $this->tabs_content_render_commment($style, $child);
         elseif ($child['oxi-tabs-modal-components-type'] == 'tag'):
             return $this->tabs_content_render_tag($style, $child);
+        elseif ($child['oxi-tabs-modal-components-type'] == 'nested-tabs'):
+            return $this->tabs_content_render_nested_tabs($style, $child);
+        elseif ($child['oxi-tabs-modal-components-type'] == 'nested-accordions'):
+            return $this->tabs_content_render_nested_accordions($style, $child);
         else:
             return $this->special_charecter($child['oxi-tabs-modal-desc']);
         endif;
+    }
+
+    public function tabs_content_render_nested_tabs($style, $child) {
+        $shortcode = array_key_exists('oxi-tabs-modal-nested-tabs', $child) ? $child['oxi-tabs-modal-nested-tabs'] : '';
+        if ($shortcode > 0):
+            ob_start();
+            echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($shortcode, 'user');
+            return ob_get_clean();
+        endif;
+        return;
+    }
+
+    public function tabs_content_render_nested_accordions($style, $child) {
+//        $data = html_entity_decode($data);
+//        $data = str_replace("\'", "'", $data);
+//        $data = str_replace('\"', '"', $data);
+//        $data = do_shortcode($data, $ignore_html = false);
+//        return $data;
     }
 
     public function special_charecter($data) {

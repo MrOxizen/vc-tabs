@@ -75,7 +75,6 @@ class Helper extends Admin {
         $this->register_gen_general();
         $this->end_section_devider();
 
-
         //Start Divider
         $this->start_section_devider();
         $this->register_gen_heading();
@@ -419,7 +418,6 @@ class Helper extends Admin {
                 ]
         );
 
-
         $this->add_control(
                 'oxi-tabs-header-vertical-tabs-alignment', $this->style, [
             'label' => __('Header Alignment', OXI_TABS_TEXTDOMAIN),
@@ -462,7 +460,6 @@ class Helper extends Admin {
             'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-header-tab-vertical-width', $this->style, [
@@ -600,7 +597,6 @@ class Helper extends Admin {
             'description' => 'Show/Hide the header Image on Tabs Mode.',
                 ]
         );
-
 
         $this->end_controls_tab();
         $this->start_controls_tab();
@@ -897,10 +893,6 @@ class Helper extends Admin {
                 ]
         );
 
-
-
-
-
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
                 [
@@ -923,7 +915,6 @@ class Helper extends Admin {
             'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
         );
-
 
         $this->end_controls_tab();
         $this->start_controls_tab();
@@ -2030,7 +2021,6 @@ class Helper extends Admin {
             'description' => 'Select Content Height as Equal or Dynamic.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [
@@ -3256,7 +3246,6 @@ class Helper extends Admin {
                 ]
         );
 
-
         $this->add_control(
                 'oxi-tabs-modal-icon', [], [
             'label' => esc_html__('Icon', OXI_TABS_TEXTDOMAIN),
@@ -3297,11 +3286,13 @@ class Helper extends Admin {
             'default' => 'wysiwyg',
             'options' => [
                 'wysiwyg' => __('WYSIWYG Editor', OXI_TABS_TEXTDOMAIN),
+                'nested-tabs' => __('Nested Tabs', OXI_TABS_TEXTDOMAIN),
+                'nested-accordions' => __('Nested Accordions', OXI_TABS_TEXTDOMAIN),
                 'link' => __('Custom Link', OXI_TABS_TEXTDOMAIN),
                 'popular-post' => __('Polular Post', OXI_TABS_TEXTDOMAIN),
                 'recent-post' => __('Recent Post', OXI_TABS_TEXTDOMAIN),
                 'recent-comment' => __('Recent Comment', OXI_TABS_TEXTDOMAIN),
-                'tag' => __('Post Tag', OXI_TABS_TEXTDOMAIN)
+                'tag' => __('Post Tag', OXI_TABS_TEXTDOMAIN),
             ],
             'description' => 'Se the Tab’s Content type as Content or Custom Link.',
                 ]
@@ -3327,6 +3318,31 @@ class Helper extends Admin {
             'description' => 'Add your Tab’s Description.',
                 ]
         );
+        $this->add_control(
+                'oxi-tabs-modal-nested-tabs', [], [
+            'label' => __('Select Tabs', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'default' => '',
+            'options' => $this->Get_Nested_Tabs,
+            'condition' => [
+                'oxi-tabs-modal-components-type' => 'nested-tabs',
+            ],
+            'description' => 'Select Tabs to Create Nested.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-modal-nested-accordions', [], [
+            'label' => __('Select Accordions', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SELECT,
+            'default' => '',
+            'options' => $this->Get_Nested_Tabs,
+            'condition' => [
+                'oxi-tabs-modal-components-type' => 'nested-accordions',
+            ],
+            'description' => 'Select Accordions to Create Nested.',
+                ]
+        );
+
         echo '</div>';
     }
 
