@@ -2256,16 +2256,16 @@ class Helper extends Admin {
         //image Section
         $this->add_control(
                 'oxi-tabs-desc-popular-thumb-condi', $this->style, [
-            'label' => __('Show Image', SHORTCODE_ADDOONS),
+            'label' => __('Show Image', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
             'default' => '1',
             'options' => [
                 '1' => [
-                    'title' => __('True', SHORTCODE_ADDOONS),
+                    'title' => __('True', OXI_TABS_TEXTDOMAIN),
                 ],
                 '0' => [
-                    'title' => __('False', SHORTCODE_ADDOONS),
+                    'title' => __('False', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
             'description' => 'Show/Hide the image under the Popular Post.',
@@ -2287,7 +2287,7 @@ class Helper extends Admin {
         );
         $this->add_control(
                 'oxi-tabs-desc-popular-thumb', $this->style, [
-            'label' => __('Image Size', SHORTCODE_ADDOONS),
+            'label' => __('Image Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'loader' => TRUE,
             'options' => $this->thumbnail_sizes(),
@@ -2367,16 +2367,16 @@ class Helper extends Admin {
         //meta Section
         $this->add_control(
                 'oxi-tabs-desc-popular-meta-date', $this->style, [
-            'label' => __('Show Date', SHORTCODE_ADDOONS),
+            'label' => __('Show Date', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
             'default' => '1',
             'options' => [
                 '1' => [
-                    'title' => __('True', SHORTCODE_ADDOONS),
+                    'title' => __('True', OXI_TABS_TEXTDOMAIN),
                 ],
                 '0' => [
-                    'title' => __('False', SHORTCODE_ADDOONS),
+                    'title' => __('False', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
             'description' => 'Show/Hide Meta Date in the Post?',
@@ -2384,16 +2384,16 @@ class Helper extends Admin {
         );
         $this->add_control(
                 'oxi-tabs-desc-popular-meta-comment', $this->style, [
-            'label' => __('Show Comment', SHORTCODE_ADDOONS),
+            'label' => __('Show Comment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
             'default' => '1',
             'options' => [
                 '1' => [
-                    'title' => __('True', SHORTCODE_ADDOONS),
+                    'title' => __('True', OXI_TABS_TEXTDOMAIN),
                 ],
                 '0' => [
-                    'title' => __('False', SHORTCODE_ADDOONS),
+                    'title' => __('False', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
             'description' => 'Show/Hide Meta Comment in the Post?',
@@ -2586,16 +2586,16 @@ class Helper extends Admin {
         //image Section
         $this->add_control(
                 'oxi-tabs-desc-recent-thumb-condi', $this->style, [
-            'label' => __('Show Image', SHORTCODE_ADDOONS),
+            'label' => __('Show Image', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
             'default' => '1',
             'options' => [
                 '1' => [
-                    'title' => __('True', SHORTCODE_ADDOONS),
+                    'title' => __('True', OXI_TABS_TEXTDOMAIN),
                 ],
                 '0' => [
-                    'title' => __('False', SHORTCODE_ADDOONS),
+                    'title' => __('False', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
             'description' => 'Show/Hide the image under the Recent Post.',
@@ -2617,7 +2617,7 @@ class Helper extends Admin {
         );
         $this->add_control(
                 'oxi-tabs-desc-recent-thumb', $this->style, [
-            'label' => __('Image Size', SHORTCODE_ADDOONS),
+            'label' => __('Image Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'loader' => TRUE,
             'options' => $this->thumbnail_sizes(),
@@ -2697,16 +2697,16 @@ class Helper extends Admin {
         //meta Section
         $this->add_control(
                 'oxi-tabs-desc-recent-meta-date', $this->style, [
-            'label' => __('Show Date', SHORTCODE_ADDOONS),
+            'label' => __('Show Date', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
             'default' => '1',
             'options' => [
                 '1' => [
-                    'title' => __('True', SHORTCODE_ADDOONS),
+                    'title' => __('True', OXI_TABS_TEXTDOMAIN),
                 ],
                 '0' => [
-                    'title' => __('False', SHORTCODE_ADDOONS),
+                    'title' => __('False', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
             'description' => 'Show/Hide Meta Date in the Recent Post?',
@@ -2714,16 +2714,16 @@ class Helper extends Admin {
         );
         $this->add_control(
                 'oxi-tabs-desc-recent-meta-comment', $this->style, [
-            'label' => __('Show Comment', SHORTCODE_ADDOONS),
+            'label' => __('Show Comment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
             'default' => '1',
             'options' => [
                 '1' => [
-                    'title' => __('True', SHORTCODE_ADDOONS),
+                    'title' => __('True', OXI_TABS_TEXTDOMAIN),
                 ],
                 '0' => [
-                    'title' => __('False', SHORTCODE_ADDOONS),
+                    'title' => __('False', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
             'description' => 'Show/Hide Meta Comment in the Post?',
@@ -3335,7 +3335,7 @@ class Helper extends Admin {
             'label' => __('Select Accordions', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
-            'options' => $this->Get_Nested_Tabs,
+            'options' => $this->Get_Nested_Accordions,
             'condition' => [
                 'oxi-tabs-modal-components-type' => 'nested-accordions',
             ],

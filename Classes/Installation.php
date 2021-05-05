@@ -63,7 +63,7 @@ class Installation {
             ];
             $response['Tabs']['Create Accordion'] = [
                 'name' => 'Create Accordion',
-                'homepage' => 'oxi-tabs-ultimate-cr-tabs'
+                'homepage' => 'oxi-tabs-ultimate-cr-accordions'
             ];
             set_transient(self::ADMINMENU, $response, 10 * DAY_IN_SECONDS);
         endif;

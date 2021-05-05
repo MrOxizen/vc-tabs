@@ -34,7 +34,7 @@ jQuery.noConflict();
         jQuery(".oxi-addons-addons-js-create").on("click", function (e) {
             e.preventDefault();
             $('#addons-style-name').val('');
-            $('#oxistyledata').val($('#' + $(this).attr('addons-data')).val());
+            $('#responsive-tabs-template-id').val($(this).attr('template-id'));
             $("#oxi-addons-style-create-modal").modal("show");
         });
 

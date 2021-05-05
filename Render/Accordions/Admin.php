@@ -1,6 +1,6 @@
 <?php
 
-namespace OXI_TABS_PLUGINS\Render\Tabs;
+namespace OXI_TABS_PLUGINS\Render\Accordions;
 
 /**
  * Admin Core Class
@@ -65,7 +65,6 @@ class Admin {
      * @since 3.3.0
      */
     public $CSSWRAPPER;
-    
 
     /**
      * Define $wpdb
@@ -108,12 +107,14 @@ class Admin {
      * @since 3.3.0
      */
     public $Popover_Condition = true;
+    public $Get_Nested_Tabs = [];
+    public $Get_Nested_Accordions = [];
 
     public function __construct($type = '') {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->oxiid = (!empty($_GET['styleid']) ? sanitize_text_field($_GET['styleid']) : '');
-        $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
-        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
+        $this->WRAPPER = '.oxi-accordions-wrapper-' . $this->oxiid;
+        $this->CSSWRAPPER = '.oxi-accordions-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
         if ($type != 'admin') {
             $this->hooks();
             $this->render();
@@ -128,6 +129,19 @@ class Admin {
     public function hooks() {
         $this->admin_elements_frontend_loader();
         $this->dbdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $this->oxiid), ARRAY_A);
+        $Get_Nested_Tabs = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT id, name FROM {$this->database->parent_table} WHERE type = %s ORDER by id ASC", 'Tabs'), ARRAY_A);
+        foreach ($Get_Nested_Tabs as $key => $value) {
+            if ($value['id'] != $this->oxiid):
+                $this->Get_Nested_Tabs[$value['id']] = !empty($value['name']) ? $value['name'] : 'Tabs id ' . $value['id'];
+            endif;
+        }
+        $Get_Nested_Accordions = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT id, name FROM {$this->database->parent_table} WHERE type = %s ORDER by id ASC", 'Accordions'), ARRAY_A);
+        foreach ($Get_Nested_Accordions as $key => $value) {
+            if ($value['id'] != $this->oxiid):
+                $this->Get_Nested_Accordions[$value['id']] = !empty($value['name']) ? $value['name'] : 'Tabs id ' . $value['id'];
+            endif;
+        }
+
         $this->child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->oxiid), ARRAY_A);
         if (!empty($this->dbdata['rawdata'])):
             $s = json_decode(stripslashes($this->dbdata['rawdata']), true);
@@ -150,7 +164,7 @@ class Admin {
     public function modal_opener() {
         $this->add_substitute_control('', [], [
             'type' => Controls::MODALOPENER,
-            'title' => __('Tabs Data Form', OXI_TABS_TEXTDOMAIN),
+            'title' => __('Accordions Data Form', OXI_TABS_TEXTDOMAIN),
             'sub-title' => __('Open Form', OXI_TABS_TEXTDOMAIN),
             'showing' => TRUE,
         ]);
@@ -224,7 +238,7 @@ class Admin {
      * @since 2.0.0
      */
     public function Rearrange() {
-        return '<li class="list-group-item" id="{{id}}">{{oxi-tabs-modal-title}}</li>';
+        return '<li class="list-group-item" id="{{id}}">{{oxi-accordions-modal-title}}</li>';
     }
 
     /**
@@ -250,8 +264,8 @@ class Admin {
     public function template_css_render($style) {
         $styleid = $style['style-id'];
         $this->oxiid = $styleid;
-        $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
-        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
+        $this->WRAPPER = '.oxi-accordions-wrapper-' . $this->oxiid;
+        $this->CSSWRAPPER = '.oxi-accordions-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
         $this->style = $style;
         ob_start();
         $dt = $this->import_font_family();
@@ -295,8 +309,8 @@ class Admin {
         $styleid = $style['style-id'];
         $this->style = $style;
         $this->oxiid = $styleid;
-        $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
-        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
+        $this->WRAPPER = '.oxi-accordions-wrapper-' . $this->oxiid;
+        $this->CSSWRAPPER = '.oxi-accordions-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
 
         ob_start();
         $dt = $this->import_font_family();
@@ -363,6 +377,7 @@ class Admin {
                                             <input type="hidden"  id="oxilab-preview-color" name="oxilab-preview-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
                                             <input type="hidden"  id="style-id" name="style-id" value="<?php echo $this->dbdata['id']; ?>">
                                             <input type="hidden"  id="style-name" name="style-name" value="<?php echo $this->StyleName; ?>">
+                                            <input type="hidden"  id="style-name" name="style-type" value="Tabs">
                                             <input type="hidden"  id="style-changing-trigger" name="style-changing-trigger" value=""> 
                                             <button type="button" class="btn btn-success" id="oxi-addons-templates-submit"> Save</button>
                                         </div>

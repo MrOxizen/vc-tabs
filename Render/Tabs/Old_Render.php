@@ -50,7 +50,7 @@ class Old_Render {
 
     public function public_jquery_css() {
         wp_enqueue_script("jquery");
-        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/tabs/style.css', false, OXI_TABS_TEXTDOMAIN);
         wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/old.js', false, OXI_TABS_TEXTDOMAIN);
     }
 

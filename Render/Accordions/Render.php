@@ -1,6 +1,6 @@
 <?php
 
-namespace OXI_TABS_PLUGINS\Render\Tabs;
+namespace OXI_TABS_PLUGINS\Render\Accordions;
 
 /**
  * Render Core Class
@@ -59,7 +59,7 @@ class Render {
      *
      * @since 3.3.0
      */
-    public $JSHANDLE = 'oxi-tabs-ultimate';
+    public $JSHANDLE = 'oxi-accordions-ultimate';
 
     /**
      * Current Elements Global DATA WRAPPER
@@ -123,12 +123,7 @@ class Render {
      */
     public $keys;
 
-    /**
-     * Public keys
-     *
-     * @since 3.3.0
-     */
-    public $childkeys;
+   
 
     public function __construct(array $dbdata = [], array $child = [], $admin = 'user', array $arg = [], array $keys = []) {
         if (count($dbdata) > 0):
@@ -156,7 +151,7 @@ class Render {
     public function loader() {
         $this->style = json_decode(stripslashes($this->dbdata['rawdata']), true);
         $this->CSSDATA = $this->dbdata['stylesheet'];
-        $this->WRAPPER = 'oxi-tabs-wrapper-' . $this->dbdata['id'];
+        $this->WRAPPER = 'oxi-accordions-wrapper-' . $this->dbdata['id'];
         $this->hooks();
     }
 
@@ -170,10 +165,10 @@ class Render {
         $this->public_css();
         $this->public_frontend_loader();
         $this->render();
-        $inlinecss = $this->inline_public_css() . $this->inline_css . (array_key_exists('oxi-tabs-custom-css', $this->style) ? $this->style['oxi-tabs-custom-css'] : '');
+        $inlinecss = $this->inline_public_css() . $this->inline_css . (array_key_exists('oxi-accordions-custom-css', $this->style) ? $this->style['oxi-accordions-custom-css'] : '');
         $inlinejs = $this->inline_public_jquery();
         if ($this->CSSDATA == '' && $this->admin == 'admin') {
-            $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $this->style_name;
+            $cls = '\OXI_TABS_PLUGINS\Render\Accordions\Admin\\' . $this->style_name;
             $CLASS = new $cls('admin');
             $inlinecss .= $CLASS->inline_template_css_render($this->style);
         } else {
@@ -201,7 +196,7 @@ class Render {
                 echo $inlinecss;
                 echo _('</style>');
             else:
-                wp_add_inline_style('oxi-tabs-ultimate', $inlinecss);
+                wp_add_inline_style('oxi-accordions-ultimate', $inlinecss);
             endif;
         endif;
     }
@@ -213,10 +208,10 @@ class Render {
      */
     public function public_frontend_loader() {
         wp_enqueue_script("jquery");
-        wp_enqueue_style('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/css/style.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('oxi-accordions-ultimate', OXI_TABS_URL . 'assets/frontend/accordions/style.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxi-plugin-animate', OXI_TABS_URL . 'assets/frontend/css/animate.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_style('oxi-tabs-' . strtolower($this->style_name), OXI_TABS_URL . 'assets/frontend/accordions/' . strtolower($this->style_name) . '.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/js/tabs.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('oxi-accordions-' . strtolower($this->style_name), OXI_TABS_URL . 'assets/frontend/accordions/' . strtolower($this->style_name) . '.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxi-accordions-ultimate', OXI_TABS_URL . 'assets/frontend/js/accordions.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     /**
@@ -247,23 +242,22 @@ class Render {
 
         $this->attribute = [
             'header' => get_option('oxi_addons_fixed_header_size'),
-            'animation' => array_key_exists('oxi-tabs-gen-animation', $style) ? $style['oxi-tabs-gen-animation'] : '',
-            'initial' => array_key_exists('oxi-tabs-gen-opening', $style) ? $style['oxi-tabs-gen-opening'] : '',
-            'trigger' => array_key_exists('oxi-tabs-gen-trigger', $style) ? $style['oxi-tabs-gen-trigger'] : '',
-            'type' => array_key_exists('oxi-tabs-gen-event', $style) ? $style['oxi-tabs-gen-event'] : '',
-            'lap' => array_key_exists('oxi-tabs-desc-content-height-lap', $style) ? $style['oxi-tabs-desc-content-height-lap'] : 'no',
-            'tab' => array_key_exists('oxi-tabs-desc-content-height-tab', $style) ? $style['oxi-tabs-desc-content-height-tab'] : 'no',
-            'mob' => array_key_exists('oxi-tabs-desc-content-height-mob', $style) ? $style['oxi-tabs-desc-content-height-mob'] : 'no',
+            'animation' => array_key_exists('oxi-accordions-gen-animation', $style) ? $style['oxi-accordions-gen-animation'] : '',
+            'initial' => array_key_exists('oxi-accordions-gen-opening', $style) ? $style['oxi-accordions-gen-opening'] : '',
+            'trigger' => array_key_exists('oxi-accordions-gen-trigger', $style) ? $style['oxi-accordions-gen-trigger'] : '',
+            'type' => array_key_exists('oxi-accordions-gen-event', $style) ? $style['oxi-accordions-gen-event'] : '',
+            'lap' => array_key_exists('oxi-accordions-desc-content-height-lap', $style) ? $style['oxi-accordions-desc-content-height-lap'] : 'no',
+            'tab' => array_key_exists('oxi-accordions-desc-content-height-tab', $style) ? $style['oxi-accordions-desc-content-height-tab'] : 'no',
+            'mob' => array_key_exists('oxi-accordions-desc-content-height-mob', $style) ? $style['oxi-accordions-desc-content-height-mob'] : 'no',
         ];
 
-
         $responsive = ' ';
-        if ($style['oxi-tabs-heading-responsive-mode'] == 'oxi-tabs-heading-responsive-static'):
-            $responsive .= $style['oxi-tabs-header-horizontal-tabs-alignment-horizontal'] . ' ' . $style['oxi-tabs-header-horizontal-mobile-alignment-horizontal'] . ' ';
-            $responsive .= $style['oxi-tabs-header-vertical-tabs-alignment'] . '  ' . $style['oxi-tabs-header-vertical-tabs-alignment-horizontal'] . ' ';
-            $responsive .= $style['oxi-tabs-header-vertical-mobile-alignment'] . '  ' . $style['oxi-tabs-header-vertical-mobile-alignment-horizontal'] . ' ';
+        if ($style['oxi-accordions-heading-responsive-mode'] == 'oxi-accordions-heading-responsive-static'):
+            $responsive .= $style['oxi-accordions-header-horizontal-accordions-alignment-horizontal'] . ' ' . $style['oxi-accordions-header-horizontal-mobile-alignment-horizontal'] . ' ';
+            $responsive .= $style['oxi-accordions-header-vertical-accordions-alignment'] . '  ' . $style['oxi-accordions-header-vertical-accordions-alignment-horizontal'] . ' ';
+            $responsive .= $style['oxi-accordions-header-vertical-mobile-alignment'] . '  ' . $style['oxi-accordions-header-vertical-mobile-alignment-horizontal'] . ' ';
         endif;
-        $this->headerclass = $style['oxi-tabs-gen-event'] . ' ' . $style['oxi-tabs-heading-responsive-mode'] . ' ' . $style['oxi-tabs-heading-alignment'] . ' ' . $style['oxi-tabs-heading-horizontal-position'] . ' ' . $style['oxi-tabs-heading-vertical-position'] . ' ' . $responsive;
+        $this->headerclass = $style['oxi-accordions-gen-event'] . ' ' . $style['oxi-accordions-heading-responsive-mode'] . ' ' . $style['oxi-accordions-heading-alignment'] . ' ' . $style['oxi-accordions-heading-horizontal-position'] . ' ' . $style['oxi-accordions-heading-vertical-position'] . ' ' . $responsive;
     }
 
     /**
@@ -409,21 +403,21 @@ class Render {
         }
     }
 
-    public function tabs_url_render($style) {
-        if ($style['oxi-tabs-modal-components-type'] == 'link'):
-            $data = $this->url_render('oxi-tabs-modal-link', $style);
+    public function accordions_url_render($style) {
+        if ($style['oxi-accordions-modal-components-type'] == 'link'):
+            $data = $this->url_render('oxi-accordions-modal-link', $style);
             if (count($data) >= 1):
                 return ' data-link=\'' . json_encode($data) . '\'';
             endif;
         endif;
     }
 
-    public function tabs_content_render_tag($style, $child) {
+    public function accordions_content_render_tag($style, $child) {
 
-        $number = array_key_exists('oxi-tabs-desc-tags-max', $style) ? $style['oxi-tabs-desc-tags-max'] : 10;
-        $smallest = array_key_exists('oxi-tabs-desc-tags-small', $style) ? $style['oxi-tabs-desc-tags-small'] : 10;
-        $largest = array_key_exists('oxi-tabs-desc-tags-big', $style) ? $style['oxi-tabs-desc-tags-big'] : 10;
-        $show_count = array_key_exists('oxi-tabs-desc-tags-show-count', $style) ? $style['oxi-tabs-desc-tags-show-count'] : 1;
+        $number = array_key_exists('oxi-accordions-desc-tags-max', $style) ? $style['oxi-accordions-desc-tags-max'] : 10;
+        $smallest = array_key_exists('oxi-accordions-desc-tags-small', $style) ? $style['oxi-accordions-desc-tags-small'] : 10;
+        $largest = array_key_exists('oxi-accordions-desc-tags-big', $style) ? $style['oxi-accordions-desc-tags-big'] : 10;
+        $show_count = array_key_exists('oxi-accordions-desc-tags-show-count', $style) ? $style['oxi-accordions-desc-tags-show-count'] : 1;
 
         $tags = get_tags();
         $args = array(
@@ -441,11 +435,11 @@ class Render {
         return wp_generate_tag_cloud($tags, $args);
     }
 
-    public function tabs_content_render_commment($style, $child) {
-        $number = array_key_exists('oxi-tabs-desc-comment-max', $style) ? $style['oxi-tabs-desc-comment-max'] : 5;
-        $show_avatar = array_key_exists('oxi-tabs-desc-comment-show-avatar', $style) ? $style['oxi-tabs-desc-comment-show-avatar'] : 1;
-        $avatar_size = array_key_exists('oxi-tabs-desc-comment-avatar-size', $style) ? $style['oxi-tabs-desc-comment-avatar-size'] : 65;
-        $comment_length = array_key_exists('oxi-tabs-desc-comment-comment-lenth', $style) ? $style['oxi-tabs-desc-comment-comment-lenth'] : 90;
+    public function accordions_content_render_commment($style, $child) {
+        $number = array_key_exists('oxi-accordions-desc-comment-max', $style) ? $style['oxi-accordions-desc-comment-max'] : 5;
+        $show_avatar = array_key_exists('oxi-accordions-desc-comment-show-avatar', $style) ? $style['oxi-accordions-desc-comment-show-avatar'] : 1;
+        $avatar_size = array_key_exists('oxi-accordions-desc-comment-avatar-size', $style) ? $style['oxi-accordions-desc-comment-avatar-size'] : 65;
+        $comment_length = array_key_exists('oxi-accordions-desc-comment-comment-lenth', $style) ? $style['oxi-accordions-desc-comment-comment-lenth'] : 90;
 
         $recent_comments = get_comments(array(
             'number' => $number,
@@ -454,41 +448,41 @@ class Render {
         ));
         $public = '';
         if ($recent_comments) : foreach ($recent_comments as $comment) :
-                $public .= '<div class="oxi-tabs-comment">';
+                $public .= '<div class="oxi-accordions-comment">';
                 if ($show_avatar) :
-                    $public .= ' <div class="oxi-tabs-comment-avatar">
+                    $public .= ' <div class="oxi-accordions-comment-avatar">
                                     <a href="' . get_comment_link($comment->comment_ID) . '">
                                         ' . get_avatar($comment->comment_author_email, $avatar_size) . '
                                     </a>
                                 </div>';
                 endif;
-                $public .= '<div class="oxi-tabs-comment-body">
-                                <div class=oxi-tabs-comment-meta">
+                $public .= '<div class="oxi-accordions-comment-body">
+                                <div class=oxi-accordions-comment-meta">
                                     <a href="' . get_comment_link($comment->comment_ID) . '">
-                                        <span class="oxi-tabs-comment-author">' . get_comment_author($comment->comment_ID) . ' </span> - <span class="oxi-tabs-comment-post">' . get_the_title($comment->comment_post_ID) . '</span>
+                                        <span class="oxi-accordions-comment-author">' . get_comment_author($comment->comment_ID) . ' </span> - <span class="oxi-accordions-comment-post">' . get_the_title($comment->comment_post_ID) . '</span>
                                     </a>
                                 </div>
-                                <div class="oxi-tabs-comment-content">
+                                <div class="oxi-accordions-comment-content">
                                     ' . $this->truncate(strip_tags(apply_filters('get_comment_text', $comment->comment_content)), $comment_length) . '
                                 </div>
                             </div>
                             </div>';
             endforeach;
         else :
-            $public .= ' <div class="oxi-tabs-comment">
+            $public .= ' <div class="oxi-accordions-comment">
                             <div class="no-comments">No comments yet</div>
                         </div>';
         endif;
         return $public;
     }
 
-    public function tabs_content_render_recent($style, $child) {
-        $show_thumb = array_key_exists('oxi-tabs-desc-recent-thumb-condi', $style) ? $style['oxi-tabs-desc-recent-thumb-condi'] : 1;
-        $thumb_size = array_key_exists('oxi-tabs-desc-recent-thumb', $style) ? $style['oxi-tabs-desc-recent-thumb'] : 65;
-        $date = array_key_exists('oxi-tabs-desc-recent-meta-date', $style) ? $style['oxi-tabs-desc-recent-meta-date'] : 1;
-        $comment = array_key_exists('oxi-tabs-desc-recent-meta-comment', $style) ? $style['oxi-tabs-desc-recent-meta-comment'] : 1;
-        $content = array_key_exists('oxi-tabs-desc-recent-content-lenth', $style) ? $style['oxi-tabs-desc-recent-content-lenth'] : 90;
-        $number = array_key_exists('oxi-tabs-desc-recent-post', $style) ? $style['oxi-tabs-desc-recent-post'] : 5;
+    public function accordions_content_render_recent($style, $child) {
+        $show_thumb = array_key_exists('oxi-accordions-desc-recent-thumb-condi', $style) ? $style['oxi-accordions-desc-recent-thumb-condi'] : 1;
+        $thumb_size = array_key_exists('oxi-accordions-desc-recent-thumb', $style) ? $style['oxi-accordions-desc-recent-thumb'] : 65;
+        $date = array_key_exists('oxi-accordions-desc-recent-meta-date', $style) ? $style['oxi-accordions-desc-recent-meta-date'] : 1;
+        $comment = array_key_exists('oxi-accordions-desc-recent-meta-comment', $style) ? $style['oxi-accordions-desc-recent-meta-comment'] : 1;
+        $content = array_key_exists('oxi-accordions-desc-recent-content-lenth', $style) ? $style['oxi-accordions-desc-recent-content-lenth'] : 90;
+        $number = array_key_exists('oxi-accordions-desc-recent-post', $style) ? $style['oxi-accordions-desc-recent-post'] : 5;
         $public = '';
 
         $query = new \WP_Query('posts_per_page=' . $number);
@@ -498,7 +492,7 @@ class Render {
                 $query->the_post();
                 $extra = '';
                 if ($date):
-                    $extra .= '    <div class="oxi-tabs-recent-date">
+                    $extra .= '    <div class="oxi-accordions-recent-date">
                                        ' . get_the_date('M d, Y') . '
                                     </div>';
                 endif;
@@ -508,28 +502,28 @@ class Render {
                         $extra .= '&nbsp&bull;&nbsp';
                     endif;
                     $number = (int) get_comments_number($query->post->ID);
-                    $extra .= '    <div class="oxi-tabs-recent-comment">
+                    $extra .= '    <div class="oxi-accordions-recent-comment">
                                         ' . ($number > 1 ? $number . ' Comment' : ($number > 0 ? 'One Comment' : 'No Comment')) . '
                                     </div>';
                 endif;
                 $image_url = wp_get_attachment_image_src(get_post_thumbnail_id(), $thumb_size);
-                $public .= '<div class="oxi-tabs-recent-post">';
+                $public .= '<div class="oxi-accordions-recent-post">';
                 if ($show_thumb) {
-                    $image = $image_url[0] != '' ? $image_url[0] : '';
-                    $public .= '    <div class="oxi-tabs-recent-avatar">
+                    $image = isset($image_url[0]) && $image_url[0] != '' ? $image_url[0] : '';
+                    $public .= '    <div class="oxi-accordions-recent-avatar">
                                         <a href="' . get_permalink($query->post->ID) . '">
                                            <img class="oxi-image" src="' . $image . '">
                                         </a>
                                     </div>';
                 }
-                $public .= '<div class="oxi-tabs-recent-body">
-                                <div class="oxi-tabs-recent-meta">
+                $public .= '<div class="oxi-accordions-recent-body">
+                                <div class="oxi-accordions-recent-meta">
                                     <a href="' . get_permalink($query->post->ID) . '">
                                         ' . get_the_title($query->post->ID) . '
                                     </a>
                                 </div>
-                                ' . (!empty($extra) ? '<div class="oxi-tabs-recent-postmeta">' . $extra . '</div>' : '') . '
-                                <div class="oxi-tabs-recent-content">
+                                ' . (!empty($extra) ? '<div class="oxi-accordions-recent-postmeta">' . $extra . '</div>' : '') . '
+                                <div class="oxi-accordions-recent-content">
                                     ' . $this->truncate(strip_tags(get_the_content()), $content) . '
                                 </div>
                             </div>';
@@ -542,13 +536,13 @@ class Render {
         return $public;
     }
 
-    public function tabs_content_render_popular($style, $child) {
-        $show_thumb = array_key_exists('oxi-tabs-desc-popular-thumb-condi', $style) ? $style['oxi-tabs-desc-popular-thumb-condi'] : 1;
-        $thumb_size = array_key_exists('oxi-tabs-desc-popular-thumb', $style) ? $style['oxi-tabs-desc-popular-thumb'] : 65;
-        $date = array_key_exists('oxi-tabs-desc-popular-meta-date', $style) ? $style['oxi-tabs-desc-popular-meta-date'] : 1;
-        $comment = array_key_exists('oxi-tabs-desc-popular-meta-comment', $style) ? $style['oxi-tabs-desc-popular-meta-comment'] : 1;
-        $content = array_key_exists('oxi-tabs-desc-popular-content-lenth', $style) ? $style['oxi-tabs-desc-popular-content-lenth'] : 90;
-        $number = array_key_exists('oxi-tabs-desc-popular-post', $style) ? $style['oxi-tabs-desc-popular-post'] : 5;
+    public function accordions_content_render_popular($style, $child) {
+        $show_thumb = array_key_exists('oxi-accordions-desc-popular-thumb-condi', $style) ? $style['oxi-accordions-desc-popular-thumb-condi'] : 1;
+        $thumb_size = array_key_exists('oxi-accordions-desc-popular-thumb', $style) ? $style['oxi-accordions-desc-popular-thumb'] : 65;
+        $date = array_key_exists('oxi-accordions-desc-popular-meta-date', $style) ? $style['oxi-accordions-desc-popular-meta-date'] : 1;
+        $comment = array_key_exists('oxi-accordions-desc-popular-meta-comment', $style) ? $style['oxi-accordions-desc-popular-meta-comment'] : 1;
+        $content = array_key_exists('oxi-accordions-desc-popular-content-lenth', $style) ? $style['oxi-accordions-desc-popular-content-lenth'] : 90;
+        $number = array_key_exists('oxi-accordions-desc-popular-post', $style) ? $style['oxi-accordions-desc-popular-post'] : 5;
         $public = '';
 
         $query = new \WP_Query(
@@ -564,7 +558,7 @@ class Render {
                 $query->the_post();
                 $extra = '';
                 if ($date):
-                    $extra .= '    <div class="oxi-tabs-popular-date">
+                    $extra .= '    <div class="oxi-accordions-popular-date">
                                        ' . get_the_date('M d, Y') . '
                                     </div>';
                 endif;
@@ -574,28 +568,28 @@ class Render {
                         $extra .= '&nbsp&bull;&nbsp';
                     endif;
                     $number = (int) get_comments_number($query->post->ID);
-                    $extra .= '    <div class="oxi-tabs-popular-comment">
+                    $extra .= '    <div class="oxi-accordions-popular-comment">
                                         ' . ($number > 1 ? $number . ' Comment' : ($number > 0 ? 'One Comment' : 'No Comment')) . '
                                     </div>';
                 endif;
                 $image_url = wp_get_attachment_image_src(get_post_thumbnail_id(), $thumb_size);
-                $public .= '<div class="oxi-tabs-popular-post">';
+                $public .= '<div class="oxi-accordions-popular-post">';
                 if ($show_thumb) {
-                    $image = $image_url[0] != '' ? $image_url[0] : '';
-                    $public .= '    <div class="oxi-tabs-popular-avatar">
+                    $image = isset($image_url[0]) && $image_url[0] != '' ? $image_url[0] : '';
+                    $public .= '    <div class="oxi-accordions-popular-avatar">
                                         <a href="' . get_permalink($query->post->ID) . '">
                                            <img class="oxi-image" src="' . $image . '">
                                         </a>
                                     </div>';
                 }
-                $public .= '<div class="oxi-tabs-popular-body">
-                                <div class="oxi-tabs-popular-meta">
+                $public .= '<div class="oxi-accordions-popular-body">
+                                <div class="oxi-accordions-popular-meta">
                                     <a href="' . get_permalink($query->post->ID) . '">
                                         ' . get_the_title($query->post->ID) . '
                                     </a>
                                 </div>
-                                ' . (!empty($extra) ? '<div class="oxi-tabs-popular-postmeta">' . $extra . '</div>' : '') . '
-                                <div class="oxi-tabs-popular-content">
+                                ' . (!empty($extra) ? '<div class="oxi-accordions-popular-postmeta">' . $extra . '</div>' : '') . '
+                                <div class="oxi-accordions-popular-content">
                                     ' . $this->truncate(strip_tags(get_the_content()), $content) . '
                                 </div>
                             </div>';
@@ -608,26 +602,42 @@ class Render {
         return $public;
     }
 
-    public function tabs_content_render($style, $child) {
-        if ($this->admin == 'woocommerce'):
-            $key = $this->keys[$this->childkeys];
-            $tabs = $this->arg[$key];
-            ob_start();
-            if (isset($tabs['callback'])):
-                call_user_func($tabs['callback'], $key, $tabs);
-            endif;
-            return ob_get_clean();
-        elseif ($child['oxi-tabs-modal-components-type'] == 'popular-post'):
-            return $this->tabs_content_render_popular($style, $child);
-        elseif ($child['oxi-tabs-modal-components-type'] == 'recent-post'):
-            return $this->tabs_content_render_recent($style, $child);
-        elseif ($child['oxi-tabs-modal-components-type'] == 'recent-comment'):
-            return $this->tabs_content_render_commment($style, $child);
-        elseif ($child['oxi-tabs-modal-components-type'] == 'tag'):
-            return $this->tabs_content_render_tag($style, $child);
+    public function accordions_content_render($style, $child) {
+       if ($child['oxi-accordions-modal-components-type'] == 'popular-post'):
+            return $this->accordions_content_render_popular($style, $child);
+        elseif ($child['oxi-accordions-modal-components-type'] == 'recent-post'):
+            return $this->accordions_content_render_recent($style, $child);
+        elseif ($child['oxi-accordions-modal-components-type'] == 'recent-comment'):
+            return $this->accordions_content_render_commment($style, $child);
+        elseif ($child['oxi-accordions-modal-components-type'] == 'tag'):
+            return $this->accordions_content_render_tag($style, $child);
+        elseif ($child['oxi-accordions-modal-components-type'] == 'nested-tabs'):
+            return $this->accordions_content_render_nested_tabs($style, $child);
+        elseif ($child['oxi-accordions-modal-components-type'] == 'nested-accordions'):
+            return $this->accordions_content_render_nested_accordions($style, $child);
         else:
-            return $this->special_charecter($child['oxi-tabs-modal-desc']);
+            return $this->special_charecter($child['oxi-accordions-modal-desc']);
         endif;
+    }
+
+    public function accordions_content_render_nested_tabs($style, $child) {
+        $shortcode = array_key_exists('oxi-accordions-modal-nested-tabs', $child) ? $child['oxi-accordions-modal-nested-tabs'] : '';
+        if ($shortcode > 0):
+            ob_start();
+            echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($shortcode, 'user');
+            return ob_get_clean();
+        endif;
+        return;
+    }
+
+    public function accordions_content_render_nested_accordions($style, $child) {
+        $shortcode = array_key_exists('oxi-accordions-modal-nested-accordions', $child) ? $child['oxi-accordions-modal-nested-accordions'] : '';
+        if ($shortcode > 0):
+            ob_start();
+            echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($shortcode, 'user');
+            return ob_get_clean();
+        endif;
+        return;
     }
 
     public function special_charecter($data) {
@@ -641,30 +651,21 @@ class Render {
     public function header_responsive_static_render($style = [], $ids = []) {
         $render = ' ';
         foreach ($ids as $type) {
-            $render .= $style['oxi-tabs-heading-tabs-show-' . $type] . ' ';
-            $render .= $style['oxi-tabs-heading-mobile-show-' . $type] . ' ';
+            $render .= $style['oxi-accordions-heading-accordions-show-' . $type] . ' ';
+            $render .= $style['oxi-accordions-heading-mobile-show-' . $type] . ' ';
         }
         return $render;
     }
 
     public function title_special_charecter($array, $title, $subtitle) {
-        $r = '<div class=\'oxi-tabs-header-li-title\'>';
+        $r = '<div class=\'oxi-accordions-header-li-title\'>';
         $t = false;
         if (!empty($array[$title]) && $array[$title] != ''):
-            $t = true;
-            if ($this->admin == 'woocommerce'):
-                $key = $this->keys[$this->childkeys];
-                $tabs = $this->arg[$key];
-                $r .= '<div class=\'oxi-tabs-main-title\'>';
-                $r .= wp_kses_post(apply_filters('woocommerce_product_' . $key . '_tab_title', $tabs['title'], $key));
-                $r .= '</div>';
-            else:
-                $r .= '<div class=\'oxi-tabs-main-title\'>' . $this->special_charecter($array[$title]) . '</div>';
-            endif;
+            $r .= '<div class=\'oxi-accordions-main-title\'>' . $this->special_charecter($array[$title]) . '</div>';
         endif;
         if (!empty($array[$subtitle]) && $array[$subtitle] != ''):
             $t = true;
-            $r .= '<div class=\'oxi-tabs-sub-title\'>' . $this->special_charecter($array[$subtitle]) . '</div>';
+            $r .= '<div class=\'oxi-accordions-sub-title\'>' . $this->special_charecter($array[$subtitle]) . '</div>';
         endif;
         $r .= '</div>';
         if ($t):
@@ -674,7 +675,7 @@ class Render {
 
     public function number_special_charecter($data) {
         if (!empty($data) && $data != ''):
-            return '<div class=\'oxi-tabs-header-li-number\'>' . $this->special_charecter($data) . '</div>';
+            return '<div class=\'oxi-accordions-header-li-number\'>' . $this->special_charecter($data) . '</div>';
         endif;
     }
 
@@ -693,7 +694,7 @@ class Render {
     public function image_special_render($id = '', $array = []) {
         $value = $this->media_render($id, $array);
         if (!empty($value)):
-            return ' <img  class=\'oxi-tabs-header-li-image\' ' . $value . '>';
+            return ' <img  class=\'oxi-accordions-header-li-image\' ' . $value . '>';
         endif;
     }
 
@@ -714,20 +715,20 @@ class Render {
 
     public function defualt_value($id) {
         return [
-            'oxi-tabs-modal-title' => 'Lorem Ipsum',
-            'oxi-tabs-modal-sub-title' => '',
-            'oxi-tabs-modal-title-additional' => '',
-            'oxi-tabs-modal-icon' => 'fab fa-facebook-f',
-            'oxi-tabs-modal-number' => 1,
-            'oxi-tabs-modal-image-select' => 'media-library',
-            'oxi-tabs-modal-image-image' => '',
-            'oxi-tabs-modal-image-image-alt' => '',
-            'oxi-tabs-modal-image-url' => '',
-            'oxi-tabs-modal-components-type' => 'wysiwyg',
-            'oxi-tabs-modal-link-url' => '',
-            'oxi-tabs-modal-desc' => '',
+            'oxi-accordions-modal-title' => 'Lorem Ipsum',
+            'oxi-accordions-modal-sub-title' => '',
+            'oxi-accordions-modal-title-additional' => '',
+            'oxi-accordions-modal-icon' => 'fab fa-facebook-f',
+            'oxi-accordions-modal-number' => 1,
+            'oxi-accordions-modal-image-select' => 'media-library',
+            'oxi-accordions-modal-image-image' => '',
+            'oxi-accordions-modal-image-image-alt' => '',
+            'oxi-accordions-modal-image-url' => '',
+            'oxi-accordions-modal-components-type' => 'wysiwyg',
+            'oxi-accordions-modal-link-url' => '',
+            'oxi-accordions-modal-desc' => '',
             'shortcodeitemid' => $id,
-            'oxi-tabs-modal-link-target' => 0
+            'oxi-accordions-modal-link-target' => 0
         ];
     }
 

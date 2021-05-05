@@ -16,6 +16,7 @@ class Create {
      */
     public $database;
     public $type;
+    public $local_template;
 
     /**
      * Define Page Type
@@ -28,7 +29,6 @@ class Create {
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
     public $IMPORT = [];
-    public $TEMPLATE;
 
     /**
      * Constructor of Oxilab tabs Home Page
@@ -59,6 +59,7 @@ class Create {
             }
         endif;
         ksort($this->IMPORT);
+        $this->get_local_tempalte();
     }
 
     /**
@@ -78,20 +79,36 @@ class Create {
         wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/create.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
+    public function get_local_tempalte() {
+        $basename = array_map('basename', glob(OXI_TABS_PATH . 'Render/' . ucfirst($this->type) . '/Json/' . '*.json', GLOB_BRACE));
+        foreach ($basename as $key => $value) {
+            $onlyname = explode('ultimateand', str_replace('.json', '', $value))[1];
+            if ((int) $onlyname):
+                $this->local_template[$onlyname] = $value;
+            endif;
+        }
+        ksort($this->local_template);
+        return;
+    }
+
+    /**
+     * Generate safe path
+     * @since v1.0.0
+     */
+    public function safe_path($path) {
+
+        $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
+        return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+    }
+
     public function Render() {
         ?>
         <div class="oxi-addons-row">
             <?php
-            $cls = '\OXI_TABS_PLUGINS\Render\\' . ucfirst($this->type) . '\\Json\Template';
-
             if (array_key_exists('import', $this->layouts)):
-                $cache = new $cls;
-                $this->TEMPLATE = $cache->Render();
                 $this->Import_header();
                 $this->Import_template();
             else:
-                $cache = new $cls;
-                $this->TEMPLATE = $cache->Render();
                 $this->Create_header();
                 $this->Create_template();
             endif;
@@ -159,8 +176,8 @@ class Create {
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <input type="hidden" id="oxistyledata" name="oxistyledata" value="">
-                                        <input type="hidden" id="oxicontenttype" name="oxicontenttype" value="'. ucfirst($this->type).'">
+                                        <input type="hidden" id="responsive-tabs-template-id" name="responsive-tabs-template-id" value="">
+                                        <input type="hidden" id="oxicontenttype" name="oxicontenttype" value="' . ucfirst($this->type) . '">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
                                     </div>
@@ -171,39 +188,36 @@ class Create {
     }
 
     public function Create_template() {
-        $create_new = 'false';
         ?>
         <div class="oxi-addons-row">
             <?php
             foreach ($this->IMPORT as $value) {
                 $Style = 'Style' . $value;
-                $number = rand();
-                if (array_key_exists($Style, $this->TEMPLATE)):
-                    $REND = json_decode($this->TEMPLATE[$Style], true);
-
+                if (array_key_exists($value, $this->local_template)):
+                    $folder = $this->safe_path(OXI_TABS_PATH . 'Render/' . $this->type . '/Json/');
+                    $template_data = json_decode(file_get_contents($folder . $this->local_template[$value]), true);
                     $C = 'OXI_TABS_PLUGINS\Render\\' . ucfirst($this->type) . '\\Views\\' . $Style;
                     ?>
                     <div class="oxi-addons-col-1" id="<?php echo $Style; ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
                                 <?php
-                                if (class_exists($C) && isset($REND['style']['rawdata'])):
-                                    new $C($REND['style'], $REND['child']);
+                                if (class_exists($C) && isset($template_data['style']['rawdata'])):
+                                    new $C($template_data['style'], $template_data['child']);
                                 endif;
                                 ?>
                             </div>
                             <div class="oxi-addons-style-preview-bottom">
                                 <div class="oxi-addons-style-preview-bottom-left">
-                                    <?php echo $REND['style']['name']; ?>
+                                    <?php echo $template_data['style']['name']; ?>
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <form method="post" style=" display: inline-block; " class="shortcode-addons-template-deactive">
                                         <input type="hidden" name="oxideletestyle" value="<?php echo $value; ?>">
-                                        <input type="hidden" name="oxicontenttype" value="<?php echo $value; ?>">
+                                        <input type="hidden" name="oxicontenttype" value="<?php echo ucfirst($this->type); ?>">
                                         <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Delete"  type="submit" value="Deactive" name="addonsstyledelete">Deactive</button>  
                                     </form>
-                                    <textarea style="display:none" id="oxistyle<?php echo $number; ?>data"  value=""><?php echo $this->TEMPLATE[$Style]; ?></textarea>
-                                    <button type="button" class="btn btn-success oxi-addons-addons-template-create oxi-addons-addons-js-create" data-toggle="modal" addons-data="oxistyle<?php echo $number; ?>data">Create Style</button>
+                                    <button type="button" class="btn btn-success oxi-addons-addons-template-create oxi-addons-addons-js-create" data-toggle="modal" template-id="<?php echo $value; ?>">Create Style</button>
                                 </div>
                             </div>
                         </div>
@@ -221,24 +235,25 @@ class Create {
         ?>
         <div class="oxi-addons-row">
             <?php
-            foreach ($this->TEMPLATE as $k => $value) {
-                $id = (int) explode('tyle', $k)[1];
+            foreach ($this->local_template as $id => $value) {
                 if (!array_key_exists($id, $this->IMPORT)):
-                    $REND = json_decode($this->TEMPLATE[$k], true);
-                    $C = 'OXI_TABS_PLUGINS\Render\\' . ucfirst($this->type) . '\\Views\\' . ucfirst($k);
+                    $folder = $this->safe_path(OXI_TABS_PATH . 'Render/' . $this->type . '/Json/');
+
+                    $template_data = json_decode(file_get_contents($folder . $value), true);
+                    $C = 'OXI_TABS_PLUGINS\Render\\' . ucfirst($this->type) . '\\Views\\Style' . ucfirst($id);
                     ?>
                     <div class="oxi-addons-col-1" id="<?php echo $k; ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
                                 <?php
-                                if (class_exists($C) && isset($REND['style']['rawdata'])):
-                                    new $C($REND['style'], $REND['child']);
+                                if (class_exists($C) && isset($template_data['style']['rawdata'])):
+                                    new $C($template_data['style'], $template_data['child']);
                                 endif;
                                 ?>
                             </div>
                             <div class="oxi-addons-style-preview-bottom">
                                 <div class="oxi-addons-style-preview-bottom-left">
-                                    <?php echo $REND['style']['name']; ?>
+                                    <?php echo $template_data['style']['name']; ?>
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <?php
