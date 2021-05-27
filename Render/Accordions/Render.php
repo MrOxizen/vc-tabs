@@ -103,6 +103,13 @@ class Render {
     public $attribute;
 
     /**
+     * Public Accordions Preloader
+     *
+     * @since 3.3.0
+     */
+    public $accordions_preloader;
+
+    /**
      * Public Header Class
      *
      * @since 3.3.0
@@ -122,8 +129,6 @@ class Render {
      * @since 3.3.0
      */
     public $keys;
-
-   
 
     public function __construct(array $dbdata = [], array $child = [], $admin = 'user', array $arg = [], array $keys = []) {
         if (count($dbdata) > 0):
@@ -211,6 +216,7 @@ class Render {
         wp_enqueue_style('oxi-accordions-ultimate', OXI_TABS_URL . 'assets/frontend/accordions/style.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxi-plugin-animate', OXI_TABS_URL . 'assets/frontend/css/animate.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxi-accordions-' . strtolower($this->style_name), OXI_TABS_URL . 'assets/frontend/accordions/' . strtolower($this->style_name) . '.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxi-accordions-collapse.min', OXI_TABS_URL . 'assets/frontend/js/collapse.min.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-accordions-ultimate', OXI_TABS_URL . 'assets/frontend/js/accordions.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
@@ -239,25 +245,20 @@ class Render {
      * @since 3.3.0
      */
     public function public_attribute($style) {
-
         $this->attribute = [
-            'header' => get_option('oxi_addons_fixed_header_size'),
             'animation' => array_key_exists('oxi-accordions-gen-animation', $style) ? $style['oxi-accordions-gen-animation'] : '',
-            'initial' => array_key_exists('oxi-accordions-gen-opening', $style) ? $style['oxi-accordions-gen-opening'] : '',
-            'trigger' => array_key_exists('oxi-accordions-gen-trigger', $style) ? $style['oxi-accordions-gen-trigger'] : '',
-            'type' => array_key_exists('oxi-accordions-gen-event', $style) ? $style['oxi-accordions-gen-event'] : '',
-            'lap' => array_key_exists('oxi-accordions-desc-content-height-lap', $style) ? $style['oxi-accordions-desc-content-height-lap'] : 'no',
-            'tab' => array_key_exists('oxi-accordions-desc-content-height-tab', $style) ? $style['oxi-accordions-desc-content-height-tab'] : 'no',
-            'mob' => array_key_exists('oxi-accordions-desc-content-height-mob', $style) ? $style['oxi-accordions-desc-content-height-mob'] : 'no',
+            'type' => array_key_exists('oxi-accordions-type', $style) ? $style['oxi-accordions-type'] : '',
+            'preloader' => array_key_exists('oxi-accordions-preloader', $style) ? $style['oxi-accordions-preloader'] : '',
         ];
+        $this->headerclass = $style['oxi-accordions-trigger'] . ' '
+                . ( $style['oxi-accordions-head-expand-collapse-location'] != false ? $style['oxi-accordions-head-expand-collapse-location'] : '') . ' '
+                . ( $style['oxi-accordions-head-aditional-location'] != false ? $style['oxi-accordions-head-aditional-location'] : '');
 
-        $responsive = ' ';
-        if ($style['oxi-accordions-heading-responsive-mode'] == 'oxi-accordions-heading-responsive-static'):
-            $responsive .= $style['oxi-accordions-header-horizontal-accordions-alignment-horizontal'] . ' ' . $style['oxi-accordions-header-horizontal-mobile-alignment-horizontal'] . ' ';
-            $responsive .= $style['oxi-accordions-header-vertical-accordions-alignment'] . '  ' . $style['oxi-accordions-header-vertical-accordions-alignment-horizontal'] . ' ';
-            $responsive .= $style['oxi-accordions-header-vertical-mobile-alignment'] . '  ' . $style['oxi-accordions-header-vertical-mobile-alignment-horizontal'] . ' ';
+        $this->accordions_preloader = isset($style['oxi-accordions-preloader']) && $style['oxi-accordions-preloader'] == 'yes' ? 'style="opacity:0"' : '';
+        
+        if (isset($style['oxi-accordions-content-type']) && $style['oxi-accordions-content-type'] === 'post'):
+            $this->post_query();
         endif;
-        $this->headerclass = $style['oxi-accordions-gen-event'] . ' ' . $style['oxi-accordions-heading-responsive-mode'] . ' ' . $style['oxi-accordions-heading-alignment'] . ' ' . $style['oxi-accordions-heading-horizontal-position'] . ' ' . $style['oxi-accordions-heading-vertical-position'] . ' ' . $responsive;
     }
 
     /**
@@ -334,12 +335,6 @@ class Render {
         return do_shortcode(str_replace('spTac', '&nbsp;', str_replace('spBac', '<br>', html_entity_decode($data))), $ignore_html = false);
     }
 
-    public function CatStringToClassReplacce($string, $number = '000') {
-        $entities = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', "t");
-        $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", " ");
-        return 'sa_STCR_' . str_replace($replacements, $entities, urlencode($string)) . $number;
-    }
-
     public function url_render($id, $style) {
         $link = [];
         if (array_key_exists($id . '-url', $style) && $style[$id . '-url'] != ''):
@@ -409,6 +404,11 @@ class Render {
             if (count($data) >= 1):
                 return ' data-link=\'' . json_encode($data) . '\'';
             endif;
+        endif;
+    }
+    public function default_open($value) {
+        if (isset($value['oxi-accordions-modal-default']) && $value['oxi-accordions-modal-default'] == 'yes'):
+                return ' default-opening="yes"';
         endif;
     }
 
@@ -603,7 +603,7 @@ class Render {
     }
 
     public function accordions_content_render($style, $child) {
-       if ($child['oxi-accordions-modal-components-type'] == 'popular-post'):
+        if ($child['oxi-accordions-modal-components-type'] == 'popular-post'):
             return $this->accordions_content_render_popular($style, $child);
         elseif ($child['oxi-accordions-modal-components-type'] == 'recent-post'):
             return $this->accordions_content_render_recent($style, $child);
@@ -615,9 +615,20 @@ class Render {
             return $this->accordions_content_render_nested_tabs($style, $child);
         elseif ($child['oxi-accordions-modal-components-type'] == 'nested-accordions'):
             return $this->accordions_content_render_nested_accordions($style, $child);
+        elseif ($child['oxi-accordions-modal-components-type'] == 'post'):
+            return $this->accordions_content_render_post($style, $child);
         else:
             return $this->special_charecter($child['oxi-accordions-modal-desc']);
         endif;
+    }
+
+    public function accordions_content_render_post($style, $child) {
+        $id = isset($child['oxi-accordions-modal-components-post']) ? $child['oxi-accordions-modal-components-post'] : false;
+        if ($id != false):
+            $content = apply_filters('the_content', get_post_field('post_content', $id));
+            return $content;
+        endif;
+        return;
     }
 
     public function accordions_content_render_nested_tabs($style, $child) {
@@ -648,19 +659,11 @@ class Render {
         return $data;
     }
 
-    public function header_responsive_static_render($style = [], $ids = []) {
-        $render = ' ';
-        foreach ($ids as $type) {
-            $render .= $style['oxi-accordions-heading-accordions-show-' . $type] . ' ';
-            $render .= $style['oxi-accordions-heading-mobile-show-' . $type] . ' ';
-        }
-        return $render;
-    }
-
     public function title_special_charecter($array, $title, $subtitle) {
-        $r = '<div class=\'oxi-accordions-header-li-title\'>';
+        $r = '<div class=\'oxi-accordions-header-title\'>';
         $t = false;
         if (!empty($array[$title]) && $array[$title] != ''):
+            $t = true;
             $r .= '<div class=\'oxi-accordions-main-title\'>' . $this->special_charecter($array[$title]) . '</div>';
         endif;
         if (!empty($array[$subtitle]) && $array[$subtitle] != ''):
@@ -698,6 +701,31 @@ class Render {
         endif;
     }
 
+    public function icon_special_rander($id = '') {
+        $value = $this->font_awesome_render($id);
+        if (!empty($value)):
+            return ' <div class="oxi-accordions-additional-icon"> ' . $value . '</div>';
+        endif;
+    }
+
+    public function expand_collapse_icon_number_render($style = [], $number) {
+        $data = '';
+        if (isset($style['oxi-accordions-head-start-number'])):
+            $data .= '<div class="oxi-accordions-expand-collapse-number">' . ($style['oxi-accordions-head-start-number'] + $number - 1) . '</div>';
+        endif;
+        if (isset($style['oxi-accordions-head-expand-icon']) && isset($style['oxi-accordions-head-collapse-icon'])):
+            $data .= '<div class="oxi-accordions-expand-collapse-icon">
+                        <div class="oxi-accordions-expand-icon">
+                        ' . $this->font_awesome_render($style['oxi-accordions-head-expand-icon']) . '
+                        </div>
+                        <div class="oxi-accordions-collapse-icon">
+                         ' . $this->font_awesome_render($style['oxi-accordions-head-collapse-icon']) . '
+                        </div>
+                    </div>';
+        endif;
+        return $data;
+    }
+
     public function admin_edit_panel($id) {
         $data = '';
         if ($this->admin == 'admin'):
@@ -715,11 +743,12 @@ class Render {
 
     public function defualt_value($id) {
         return [
-            'oxi-accordions-modal-title' => 'Lorem Ipsum',
+            'oxi-accordions-modal-default' => '',
+            'oxi-accordions-modal-title' => '',
             'oxi-accordions-modal-sub-title' => '',
             'oxi-accordions-modal-title-additional' => '',
-            'oxi-accordions-modal-icon' => 'fab fa-facebook-f',
-            'oxi-accordions-modal-number' => 1,
+            'oxi-accordions-modal-icon' => '',
+            'oxi-accordions-modal-number' => '',
             'oxi-accordions-modal-image-select' => 'media-library',
             'oxi-accordions-modal-image-image' => '',
             'oxi-accordions-modal-image-image-alt' => '',
@@ -728,8 +757,76 @@ class Render {
             'oxi-accordions-modal-link-url' => '',
             'oxi-accordions-modal-desc' => '',
             'shortcodeitemid' => $id,
-            'oxi-accordions-modal-link-target' => 0
+            'oxi-accordions-modal-link-target' => '0',
+            'oxi-accordions-modal-nested-tabs' => '',
+            'oxi-accordions-modal-nested-accordions' => ''
         ];
+    }
+
+    public function post_query() {
+        $style = $this->style;
+        $args = [
+            'post_status' => 'publish',
+            'ignore_sticky_posts' => 1,
+            'post_type' => $style['display_post_post_type'],
+            'orderby' => $style['display_post_orderby'],
+            'order' => $style['display_post_ordertype'],
+            'posts_per_page' => $style['display_post_per_page'],
+            'offset' => $style['display_post_offset'],
+            'tax_query' => [],
+        ];
+        if (!empty($style['display_post_author'])):
+            $args['author__in'] = $style['display_post_author'];
+        endif;
+
+        $type = $style['display_post_post_type'];
+
+        if (!empty($style[$type . '_exclude'])) {
+            $args['post__not_in'] = $style[$type . '_exclude'];
+        }
+        if (!empty($style[$type . '_include'])) {
+            $args['post__in'] = $style[$type . '_include'];
+        }
+        if ($type != 'page') :
+            if (!empty($style[$type . '_category'])) :
+                $args['tax_query'][] = [
+                    'taxonomy' => $type == 'post' ? 'category' : $type . '_category',
+                    'field' => 'term_id',
+                    'terms' => $style[$type . '_category'],
+                ];
+            endif;
+            if (!empty($style[$type . '_tag'])) :
+                $args['tax_query'][] = [
+                    'taxonomy' => $type . '_tag',
+                    'field' => 'term_id',
+                    'terms' => $style[$type . '_tag'],
+                ];
+            endif;
+            if (!empty($args['tax_query'])) :
+                $args['tax_query']['relation'] = 'OR';
+            endif;
+        endif;
+
+        $query = new \WP_Query($args);
+        $postdata = [];
+        $i = 1;
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $data = $this->defualt_value($i);
+                $query->the_post();
+                $data['shortcodeitemid'] = $this->oxiid;
+                $data['oxi-accordions-modal-title'] = get_the_title();
+                $data['oxi-accordions-modal-components-type'] = 'post';
+                $data['oxi-accordions-modal-components-post'] = get_the_ID();
+                $postdata[$i] = [
+                    'id' => '',
+                    'styleid' => '',
+                    'rawdata' => json_encode($data),
+                ];
+                $i++;
+            }
+        }
+        $this->child = $postdata;
     }
 
 }

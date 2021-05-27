@@ -522,9 +522,32 @@ trait Sanitization {
 
     public function switcher_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $retun = [];
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
+            if (array_key_exists('selector', $arg)) :
+                foreach ($arg['selector'] as $key => $val) {
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                    if (!empty($val) && $this->render_condition_control($id, $data, $arg)) {
+                        $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
+                        $file = str_replace('{{VALUE}}', $value, $val);
+                        if (strpos($file, '{{') !== FALSE):
+                            $file = $this->multiple_selector_handler($data, $file);
+                        endif;
+                        if (!empty($value)):
+                            $this->CSSDATA[$arg['responsive']][$class][$file] = $file;
+                        endif;
+                    }
+                    $retun[$key][$key]['type'] = ($val != '' ? 'CSS' : 'HTML');
+                    $retun[$key][$key]['value'] = $val;
+                }
+            endif;
+        }
+        $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($retun)) : '';
+        
+        
         echo '  <div class="shortcode-form-control-input-wrapper">
                     <label class="shortcode-switcher">  
-                        <input type="checkbox" ' . ($value == $arg['return_value'] ? 'checked ckdflt="true"' : '') . ' value="' . $arg['return_value'] . '"  name="' . $id . '" id="' . $id . '"/>
+                        <input type="checkbox" ' . ($value == $arg['return_value'] ? 'checked ckdflt="true"' : '') . ' value="' . $arg['return_value'] . '"  name="' . $id . '" id="' . $id . '"  retundata="' . $retunvalue . '"/>
                         <span data-on="' . $arg['label_on'] . '" data-off="' . $arg['label_off'] . '"></span>
                     </label>
                 </div>';

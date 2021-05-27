@@ -8,7 +8,7 @@ jQuery.noConflict();
     var WRAPPER = $('#oxi-addons-preview-data').attr('template-wrapper');
     var IFRAME = $("#oxi-addons-preview-iframe");
     var IFRAMEBODYCLASS = '.shortcode-addons-template-body';
-    var IFRAMETABSWRAPPER = '#oxi-tabs-wrapper-' + styleid;
+    var IFRAMETABSWRAPPER = $('#oxi-addons-preview-data').attr('template-id');
     function NEWRegExp(par = '') {
         return new RegExp(par, "g");
     }
@@ -109,6 +109,7 @@ jQuery.noConflict();
     $(document.body).on("click", ".shortcode-form-control-responsive-switchers a", function () {
         $curent = $(this).data('device');
         $arr = ['desktop', 'tablet', 'mobile'];
+        console.log(this);
         if ($curent === 'desktop') {
             $("#wpbody").toggleClass('shortcode-responsive-switchers-open');
         } else {
@@ -703,6 +704,28 @@ jQuery.noConflict();
             });
         }
     });
+
+    $(document.body).on("click", ".shortcode-control-type-switcher input", function (e) {
+        name = $(this).attr('name');
+        $value = $(this).val();
+        $current = $(this).is(':checked');
+        if ($(this).attr("retundata") !== '') {
+            var $data = JSON.parse($(this).attr("retundata"));
+            $.each($data, function (key, obj) {
+                if (key.indexOf('{{KEY}}') != -1) {
+                    key = key.replace(NEWRegExp("{{KEY}}"), name.split('saarsa')[1]);
+                }
+                $.each(obj, function (k, o) {
+                    var cls = key.replace(NEWRegExp("{{WRAPPER}}"), WRAPPER);
+                    if ($current) {
+                        IFRAME.contents().find(cls).addClass($value);
+                    } else {
+                        IFRAME.contents().find(cls).removeClass($value);
+                    }
+                });
+            });
+        }
+    });
     $(".shortcode-control-type-color input").on("keyup, change", function () {
         $input = $(this);
         $custom = $input.attr("custom");
@@ -1120,6 +1143,7 @@ jQuery.noConflict();
                 Cval = Cval.replace(NEWRegExp("{{RIGHT}}"), $('#' + RIGHT).val());
                 Cval = Cval.replace(NEWRegExp("{{BOTTOM}}"), $('#' + BOTTOM).val());
                 Cval = Cval.replace(NEWRegExp("{{LEFT}}"), $('#' + LEFT).val());
+                console.log(cls);
                 if ($input.attr('responsive') === 'tab') {
                     IFRAME.contents().find(IFRAMETABSWRAPPER).append('<style>@media only screen and (min-width : 769px) and (max-width : 993px){' + IFRAMEBODYCLASS + ' ' + cls + '{' + Cval + '}} < /style>');
                 } else if ($input.attr('responsive') === 'mobile') {
