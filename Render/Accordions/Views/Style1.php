@@ -26,7 +26,7 @@ class Style1 extends Render {
              */
 
             echo '<div class=\'oxi-accordions-header-card\'>';
-            echo '  <div class="oxi-accordions-header-body oxi-accordions-header oxi-accordions-clearfix" data-oxitoggle="oxicollapse" data-oxitarget="#oxi-accordions-content-' . $this->oxiid . '-' . $number . '" ' . $this->accordions_url_render($value) . ' ' . $this->default_open($value) . ' aria-expanded="false">';
+            echo '  <div class="oxi-accordions-header-body oxi-accordions-header oxi-accordions-clearfix" data-oxitarget="#oxi-accordions-content-' . $this->oxiid . '-' . $number . '" ' . $this->accordions_url_render($value) . ' ' . $this->default_open($value) . ' aria-expanded="false">';
             echo '      <div class="oxi-accordions-expand-collapse ' . $style['oxi-accordions-expand-collapse'] . ' ' . $style['oxi-accordions-head-expand-collapse-type'] . '">';
             echo $this->expand_collapse_icon_number_render($style, $number);
             echo '      </div>';

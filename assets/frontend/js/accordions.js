@@ -18,6 +18,57 @@ jQuery.noConflict();
                 OxiAccordionsController(parent);
             });
         }
+        $('[class*=oxi-accordions-wrapper-]').each(function () {
+            var This = $(this), id = This.attr('id'), explode = id.split("-"), parent = explode[3];
+            var autoplay = This.find(".oxi-accordions-autoplay");
+            if (autoplay.length > 0) {
+                var autoplay = $("#" + id + " > .oxi-addons-row > .oxi-accordions-ultimate-style .oxi-accordions-autoplay"),
+                        autoplayduration = css_time_to_milliseconds($(autoplay).css('transition-duration')),
+                        total_accordion = $(autoplay).length,
+                        count = 0;
+                function AutoPlay() {
+                    var ID = autoplay[count++];
+                    $(ID).find('.oxi-accordions-header-body').trigger('click');
+                    if (count === total_accordion) {
+                        count = 0;
+                    }
+                }
+                setInterval(function () {
+                    AutoPlay();
+                }, autoplayduration);
+
+
+
+            }
+
+        });
+
+
+
+        function css_time_to_milliseconds(time_string) {
+            var num = parseFloat(time_string, 10),
+                    unit = time_string.match(/m?s/),
+                    milliseconds;
+
+            if (unit) {
+                unit = unit[0];
+            }
+
+            switch (unit) {
+                case "s": // seconds
+                    milliseconds = num * 1000;
+                    break;
+                case "ms": // milliseconds
+                    milliseconds = num;
+                    break;
+                default:
+                    milliseconds = 0;
+                    break;
+            }
+
+            return milliseconds;
+        }
+
         /* Check any btn click for confirm event for tabs*/
         $(document).on('click', '[id^="oxi-accordions-trigger-"]', function (e) {
             e.preventDefault();
@@ -46,10 +97,11 @@ jQuery.noConflict();
             } else {
                 var t = $(this).data('oxitarget'), explode = t.split("-"), parent = explode[3], child = explode[4];
                 OxiAccordionsController(parent, child);
-               
+
             }
         });
-        /* Tabs Header Click Data Confirmation*/
+
+//        /* Tabs Header Click Data Confirmation*/
         $(document).on('click', '.oxi-accordions-click-event .oxi-accordions-header-body', function () {
             var link = $(this).data("link");
             if (typeof link !== typeof undefined && link !== false && $(".shortcode-addons-template-body").length === 0) {
@@ -65,8 +117,8 @@ jQuery.noConflict();
         });
         function OxiAccordionsController(p = '', c = '') {
             var cls = '#oxi-accordions-wrapper-' + p + " > .oxi-addons-row > .oxi-accordions-ultimate-style";
-            var accordions = '#oxi-accordions-wrapper-' + p + " > .oxi-addons-row > .oxi-accordions-ultimate-style > .oxi-accordions-single-card-" + p;
-            var content = '#oxi-accordions-wrapper-' + p + " > .oxi-addons-row >  .oxi-accordions-ultimate-style > #oxi-accordions-content-card-" + p + '-' + c;
+            var accordions = '#oxi-accordions-wrapper-' + p + " > .oxi-addons-row > .oxi-accordions-ultimate-style  .oxi-accordions-single-card-" + p;
+            var content = '#oxi-accordions-wrapper-' + p + " > .oxi-addons-row >  .oxi-accordions-ultimate-style #oxi-accordions-content-" + p + '-' + c;
             var j = $(cls).data('oxi-accordions');
             if (c === '') {
                 $(accordions).each(function () {
@@ -78,9 +130,9 @@ jQuery.noConflict();
                     }
                 });
             } else {
-                console.log(p, c);
-                var contentbody = '#oxi-accordions-content-' + p + '-' + c + ' > .oxi-accordions-content-body';
-                var Headerbody = '.oxi-accordions-single-card-' + p + '-' + c;
+                var contentbody = '#oxi-accordions-content-' + p + '-' + c + ' > .oxi-accordions-content-body',
+                        contentrows = '.oxi-accordions-content-card-' + p,
+                        Headerbody = '.oxi-accordions-single-card-' + p + '-' + c;
                 if ($(Headerbody).hasClass('oxi-accordions-expand')) {
                     if (j.type === 'oxi-accordions-toggle' && !$(accordions).hasClass('oxi-accordions-hover-event')) {
                         $(Headerbody).removeClass("oxi-accordions-expand");
@@ -90,15 +142,17 @@ jQuery.noConflict();
                     return false;
                 } else {
                     if (j.type === 'oxi-accordions-toggle') {
+                        console.log('toggle');
                         $(content).oxicollapse("show");
                         $(contentbody).addClass(j.animation);
                         $(Headerbody).addClass("oxi-accordions-expand");
                     } else {
+                        $(contentrows).oxicollapse("hide");
                         $(accordions).removeClass("oxi-accordions-expand");
+                        $(contentbody).removeClass(j.animation);
+                        $(content).oxicollapse("show");
                         $(Headerbody).addClass("oxi-accordions-expand");
-                        $(content).removeClass(j.animation);
                         $(contentbody).addClass(j.animation);
-                       
                     }
                 }
         }

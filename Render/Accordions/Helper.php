@@ -126,11 +126,38 @@ class Helper extends Admin {
                 'oxi-accordions-hover-event' => [
                     'title' => __('Hover', OXI_TABS_TEXTDOMAIN),
                 ],
+                'oxi-accordions-click-event oxi-accordions-autoplay' => [
+                    'title' => __('AutoPlay', OXI_TABS_TEXTDOMAIN),
+                ],
             ],
             'selector' => [
                 '{{WRAPPER}} .oxi-accordions-ultimate-style .oxi-accordions-single-card' => '',
             ],
             'description' => 'Select either your Accordions will open on Click or Hover.',
+                ]
+        );
+        $this->add_control(
+                'oxi-accordions-autoplay-duration', $this->style, [
+            'label' => __('AutoPay Duration', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::SLIDER,
+            'default' => [
+                'unit' => 's',
+                'size' => '',
+            ],
+            'condition' => [
+                'oxi-accordions-trigger' => 'oxi-accordions-click-event oxi-accordions-autoplay',
+            ],
+            'range' => [
+                's' => [
+                    'min' => 0,
+                    'max' => 60,
+                    'step' => 0.1,
+                ],
+            ],
+            'selector' => [
+                '{{WRAPPER}} > .oxi-accordions-ultimate-style .oxi-accordions-autoplay' => 'transition-duration: {{SIZE}}s;',
+            ],
+            'description' => 'Set fixed accordion content panel height.',
                 ]
         );
         $this->add_control(
