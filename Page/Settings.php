@@ -116,59 +116,7 @@ class Settings {
                     </table>	
                     <br>
                     <br>
-                    <?php
-                    if (!isset($installed_plugins['woocommerce/woocommerce.php'])):
-                        $new = new \OXI_TABS_PLUGINS\Modules\Shortcode();
-                        $get_style = $new->get_all_tabs_style();
-                        $default_tabs = get_option('oxilab_tabs_woocommerce_default');
-                        ?>
-                        <h2>WooCommerce Extension</h2>
-                        <table class="form-table" role="presentation">
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        <label for="oxilab_tabs_woocommerce">Active Extension</label>
-                                    </th>
-                                    <td>
-                                        <fieldset>
-                                            <label for="oxilab_tabs_woocommerce[yes]">
-                                                <input type="radio" class="radio" id="oxilab_tabs_woocommerce[yes]" name="oxilab_tabs_woocommerce" value="yes" <?php checked('yes', get_option('oxilab_tabs_woocommerce'), true); ?>>Yes</label>
-                                            <label for="oxilab_tabs_woocommerce[no]">
-                                                <input type="radio" class="radio" id="oxilab_tabs_woocommerce[no]" name="oxilab_tabs_woocommerce" value=""  <?php checked('', get_option('oxilab_tabs_woocommerce'), true); ?>>No
-                                            </label>
-                                            <span class="oxi-addons-settings-connfirmation oxilab_tabs_woocommerce"></span>
-                                            <br>
-                                            <p class="description">Active WooCommerce Tabs custom layouts. <a target="_blank" href="https://www.youtube.com/watch?v=LLhW2Nv1WDo">Tutorials</a></p>
-                                        </fieldset>
-                                    </td>
-                                </tr>
-
-                                <tr class="oxilab_tabs_woocommerce_active">
-                                    <th scope="row">
-                                        <label for="oxilab_tabs_woocommerce_default">Default Tabs</label>
-                                    </th>
-                                    <td>
-                                        <fieldset>
-                                            <select name="oxilab_tabs_woocommerce_default">
-                                                <?php foreach ($get_style as $key => $value) { ?>
-                                                    <option value="<?php echo $key; ?>" <?php selected($default_tabs, $key); ?>><?php echo $value; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                            <span class="oxi-addons-settings-connfirmation oxilab_tabs_woocommerce_default"></span>
-                                            <br>
-                                            <p class="description"><?php _e('Select Default Tabs layouts for WooCommerce. Default tabs will works while empty selected from woocommerce product page'); ?></p>
-                                        </fieldset>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>	
-                        <br>
-                        <br>
-                        <?php
-                    endif;
-                    ?>
-                    <?php ?>
-
+                   
                     <h2>Product License</h2>
                     <table class="form-table" role="presentation">
                         <tbody>

@@ -57,13 +57,13 @@ class Installation {
                 'name' => 'Shortcode',
                 'homepage' => 'oxi-tabs-ultimate'
             ];
-            $response['Tabs']['Create Tabs'] = [
-                'name' => 'Create Tabs',
-                'homepage' => 'oxi-tabs-ultimate-cr-tabs'
+            $response['Tabs']['Create New'] = [
+                'name' => 'Create New',
+                'homepage' => 'oxi-tabs-ultimate-new'
             ];
-            $response['Tabs']['Create Accordion'] = [
-                'name' => 'Create Accordion',
-                'homepage' => 'oxi-tabs-ultimate-cr-accordions'
+            $response['Tabs']['Import Template'] = [
+                'name' => 'Import Template',
+                'homepage' => 'oxi-tabs-ultimate-new&import'
             ];
             set_transient(self::ADMINMENU, $response, 10 * DAY_IN_SECONDS);
         endif;

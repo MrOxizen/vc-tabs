@@ -25,20 +25,20 @@ jQuery.noConflict();
                     }
                 });
                 console.log(result);
-                return callback(result);
+               return callback(result);
 
             } catch (error) {
                 console.error(error);
             }
         }
-        jQuery(".oxi-addons-addons-js-create").on("click", function (e) {
+        $(".oxi-addons-addons-js-create").on("click", function (e) {
             e.preventDefault();
             $('#addons-style-name').val('');
             $('#responsive-tabs-template-id').val($(this).attr('template-id'));
             $("#oxi-addons-style-create-modal").modal("show");
         });
 
-        jQuery("#oxi-addons-style-modal-form").submit(function (e) {
+        $("#oxi-addons-style-modal-form").submit(function (e) {
             e.preventDefault();
             var rawdata = JSON.stringify($(this).serializeJSON({checkboxUncheckedValue: "0"}));
             var functionname = "create_new";
@@ -50,7 +50,7 @@ jQuery.noConflict();
             });
         });
 
-        jQuery(".shortcode-addons-template-deactive").submit(function (e) {
+        $(".shortcode-addons-template-deactive").submit(function (e) {
             e.preventDefault();
             var $This = $(this);
             var rawdata = JSON.stringify($(this).serializeJSON({checkboxUncheckedValue: "0"}));
@@ -66,7 +66,7 @@ jQuery.noConflict();
             });
             return false;
         });
-        jQuery(".shortcode-addons-template-import").submit(function (e) {
+        $(".shortcode-addons-template-import").submit(function (e) {
             e.preventDefault();
             var rawdata = JSON.stringify($(this).serializeJSON({checkboxUncheckedValue: "0"}));
             var functionname = "shortcode_active";
@@ -78,7 +78,7 @@ jQuery.noConflict();
             });
             return false;
         });
-        jQuery(".shortcode-addons-template-pro-only").submit(function (e) {
+        $(".shortcode-addons-template-pro-only").submit(function (e) {
             e.preventDefault();
             return false;
         });

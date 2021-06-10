@@ -5,34 +5,6 @@ jQuery.noConflict();
             return new RegExp(par, "g");
         }
 
-
-//    async function Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, callback) {
-//        if (functionname === "") {
-//            alert('Confirm Function Name');
-//            return false;
-//        }
-//        let result;
-//        try {
-//            result = await $.ajax({
-//                url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
-//                method: 'POST',
-//                dataType: "json",
-//                beforeSend: function (xhr) {
-//                    xhr.setRequestHeader('X-WP-Nonce', oxilabtabsultimate.nonce);
-//                },
-//                data: {
-//                    styleid: styleid,
-//                    childid: childid,
-//                    rawdata: rawdata
-//                }
-//            });
-//            console.log(result);
-//            return callback(result);
-//
-//        } catch (error) {
-//            console.error(error);
-//        }
-//    }
         $(document.body).on("click", ".oxi-woo-header", function (e) {
             e.preventDefault();
             $(this).parent().toggleClass("oxi-hidden");

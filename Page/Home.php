@@ -44,8 +44,8 @@ class Home {
     public function admin_ajax_load() {
         wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/assets/backend/custom/home.js', false, OXI_TABS_TEXTDOMAIN);
     }
-    
-     /**
+
+    /**
      * Generate safe path
      * @since v1.0.0
      */
@@ -102,9 +102,9 @@ class Home {
         ?>
         <div class="oxi-addons-wrapper">
             <div class="oxi-addons-import-layouts">
-                <h1>Responsive Tabs & Accorsions › Home
+                <h1>Responsive Tabs › Home
                 </h1>
-                <p> Collect Responsive Tabs or Accordions Shortcode, Edit, Delect, Clone or Export it. </p>
+                <p> Collect Responsive Tabs Shortcode, Edit, Delect, Clone or Export it. </p>
             </div>
         </div>
         <?php
@@ -112,10 +112,10 @@ class Home {
 
     public function create_new() {
         echo _('<div class="oxi-addons-row">
-                        <div class="oxi-addons-col-3 oxi-import">
+                        <div class="oxi-addons-col-2 oxi-import">
                             <div class="oxi-addons-style-preview">
                                 <div class="oxilab-admin-style-preview-top">
-                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-cr-tabs") . '">
+                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new") . '">
                                         <div class="oxilab-admin-add-new-item">
                                             <span>
                                                 <i class="fas fa-plus-circle oxi-icons"></i>  
@@ -126,21 +126,7 @@ class Home {
                                 </div>
                             </div>
                         </div>
-                        <div class="oxi-addons-col-3 oxi-import">
-                            <div class="oxi-addons-style-preview">
-                                <div class="oxilab-admin-style-preview-top">
-                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-cr-accordions") . '">
-                                        <div class="oxilab-admin-add-new-item">
-                                            <span>
-                                                <i class="fas fa-plus-circle oxi-icons"></i>  
-                                                Create New Accordions
-                                            </span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="oxi-addons-col-3 oxi-import">
+                        <div class="oxi-addons-col-2 oxi-import">
                             <div class="oxi-addons-style-preview">
                                 <div class="oxilab-admin-style-preview-top">
                                     <a href="#" id="oxilab-tabs-import-json">
@@ -156,7 +142,7 @@ class Home {
                         </div>
                     </div>');
 
-        echo '<div class="modal fade" id="oxi-addons-style-create-modal" >
+        echo _('<div class="modal fade" id="oxi-addons-style-create-modal" >
                         <form method="post" id="oxi-addons-style-modal-form">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
@@ -181,8 +167,8 @@ class Home {
                             </div>
                         </form>
                     </div>
-                    ';
-        echo '<div class="modal fade" id="oxi-addons-style-import-modal" >
+                    ');
+         echo '<div class="modal fade" id="oxi-addons-style-import-modal" >
                         <form method="post" id="oxi-addons-import-modal-form" enctype = "multipart/form-data">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
@@ -228,13 +214,12 @@ class Home {
                     . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
             $return .= _('<td> 
                         <button type="button" class="btn btn-success oxi-addons-style-clone"  style="float:left" oxiaddonsdataid="' . $id . '">Clone</button>
-                        <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-cr-" . strtolower($value['type']) . "&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
-                        <form method="post" class="oxi-addons-style-delete">
+                        <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
+                       <form method="post" class="oxi-addons-style-delete">
                                <input type="hidden" name="oxideleteid" id="oxideleteid" value="' . $id . '">
                                <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>  
-                       </form>   
-                        <a href="' . esc_url_raw(rest_url()) . 'oxilabtabsultimate/v1/shortcode_export?styleid=' . $id . '"  title="Export"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Export</a>
-                    
+                       </form>
+                       <a href="' . esc_url_raw(rest_url()) . 'oxilabtabsultimate/v1/shortcode_export?styleid=' . $id . '"  title="Export"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Export</a>
                 </td>');
             $return .= _(' </tr>');
         }

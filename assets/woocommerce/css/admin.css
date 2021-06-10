@@ -9,7 +9,7 @@
     flex-direction: column;
     padding: 0px 15px;
 }
-.woo-oxilab-tabs-admin-header{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-header{
     padding: 10px 0px;
 }
 .woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-header h3{
@@ -20,19 +20,19 @@
     margin: 0 0 0 0;
     padding: 0 0 0 0;
 }
-.woo-oxilab-tabs-admin-body{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-body{
     width: 100%;
     padding: 15px;
     border: 1px solid rgb(169 169 169);
     background: #fff;
 }
-.woo-oxilab-tabs-admin-tabs{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-tabs{
     width: 100%;
     background-color: #e2e2e2;
     border: 1px solid rgb(169 169 169);
     margin-bottom: 20px;
 }
-.woo-oxilab-tabs-admin-tabs .oxi-woo-header{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-tabs .oxi-woo-header{
     position: relative;
     width: 100%;
     color: #3a3a3a;
@@ -42,17 +42,17 @@
     border-bottom: 1px solid rgb(169 169 169);
     cursor: pointer;
 }
-.woo-oxilab-tabs-admin-tabs .oxi-woo-header:hover{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-tabs .oxi-woo-header:hover{
     background: #cecece;
 }
-.woo-oxilab-tabs-admin-tabs.oxi-hidden .oxi-woo-header{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-tabs.oxi-hidden .oxi-woo-header{
     border: none;
 }
-.woo-oxilab-tabs-admin-tabs.oxi-hidden .woo-oxi-content{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-tabs.oxi-hidden .woo-oxi-content{
     display: none;
 }
 
-.woo-oxilab-tabs-admin-tabs .oxi-woo-header .oxi-delete-button{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-tabs .oxi-woo-header .oxi-delete-button{
     position: absolute;
     height: 100%;
     width: 40px;
@@ -62,7 +62,7 @@
     cursor: pointer;
     z-index: 1;
 }
-.woo-oxilab-tabs-admin-tabs .oxi-woo-header .oxi-delete-button:after{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-tabs .oxi-woo-header .oxi-delete-button:after{
     position: absolute;
     content: "\f335";
     top: 50%;
@@ -87,24 +87,24 @@
     transition: color .1s ease-in;
 }
 
-.woo-oxilab-tabs-admin-tabs .oxi-woo-header .oxi-delete-button:hover{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-tabs .oxi-woo-header .oxi-delete-button:hover{
     background: #c1bfbf;
 }
-.woo-oxilab-tabs-admin-tabs .woo-oxi-content{
+.woo-oxilab-tabs-admin-container .woo-oxilab-tabs-admin-tabs .woo-oxi-content{
     width: 100%;
     display: flex;
     flex-direction: column;
 }
-._oxilab_tabs_woo_layouts_content_field{
+.woo-oxilab-tabs-admin-container ._oxilab_tabs_woo_layouts_content_field{
     width: 100%;
     padding: 15px;
 }
-.oxi-woo-tabs-add-rows{
+.woo-oxilab-tabs-admin-container .oxi-woo-tabs-add-rows{
     width: 100%;
     text-align: center;
     padding: 10px;
 }
-.oxi-woo-tabs-add-rows-button{
+.woo-oxilab-tabs-admin-container .oxi-woo-tabs-add-rows-button{
     display: inline-block;
     font-size: 16px;
     background-color: black;
@@ -124,7 +124,7 @@
     -webkit-animation: anime 16s linear infinite;
     animation: anime 16s linear infinite;
 }
-.oxi-woo-tabs-add-rows-button:hover{
+.woo-oxilab-tabs-admin-container .oxi-woo-tabs-add-rows-button:hover{
     box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
 }
 @-webkit-keyframes anime {
@@ -149,6 +149,30 @@
         background-position: 0% 50%;
     }
 }
-.oxi-woo-tabs-add-rows-store{
+.woo-oxilab-tabs-admin-container .oxi-woo-tabs-add-rows-store{
     display: none;
+}
+
+
+.oxi-addons-tabs-woo-extension p.form-field {
+    color: #555;
+        line-height: 24px;
+        font-size: 12px;
+        margin: 9px 0;
+    padding: 5px 20px 5px 162px!important;
+}
+
+
+.oxi-addons-tabs-woo-extension label{
+    float: left;
+    width: 150px;
+    padding: 0;
+    margin: 0 0 0 -150px;
+}
+.oxi-addons-tabs-woo-extension input[type=text] {
+    width: 50%;
+    float: left;
+    border-style: solid;
+    border-width: 1px;
+        margin: 0;
 }

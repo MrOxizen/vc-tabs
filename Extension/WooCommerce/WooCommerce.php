@@ -48,9 +48,12 @@ class WooCommerce {
     }
 
     public function init() {
-        add_filter('oxi_woo_tab_content_filter', array($this, 'content_filter'), 10, 1);
-        // Allow the use of shortcodes within the tab content
+
+        if ($this->use_the_content_filter()):
+            add_filter('oxi_woo_tab_content_filter', array($this, 'content_filter'), 10, 1);
+        endif;
         add_filter('oxi_woo_tab_product_tabs_content', 'do_shortcode');
+        // Allow the use of shortcodes within the tab content
         // Add our custom product tabs section to the product page
         add_filter('woocommerce_product_tabs', array($this, 'add_custom_product_tabs'));
         // Add our custom product tabs layoouts to the product page
@@ -64,7 +67,7 @@ class WooCommerce {
         $content = function_exists('wpautop') ? wpautop($content) : $content;
         $content = function_exists('shortcode_unautop') ? shortcode_unautop($content) : $content;
         $content = function_exists('prepend_attachment') ? prepend_attachment($content) : $content;
-        $content = function_exists('wp_make_content_images_responsive') ? wp_make_content_images_responsive($content) : $content;
+        $content = function_exists('wp_filter_content_tags') ? wp_filter_content_tags($content) : $content;
         $content = function_exists('do_shortcode') ? do_shortcode($content) : $content;
 
         if (class_exists('WP_Embed')) {
@@ -95,7 +98,7 @@ class WooCommerce {
         global $post;
         $post_id = $post->ID;
         $new = new \OXI_TABS_PLUGINS\Modules\Shortcode();
-        $get_style = $new->get_all_tabs_style();
+        $get_style = $new->get_all_style();
         ?>
         <div id="oxilab_tabs_product_data" class="panel woocommerce_options_panel">
             <?php
@@ -123,7 +126,6 @@ class WooCommerce {
         else:
             delete_post_meta($post_id, '_oxilab_tabs_woo_layouts');
         endif;
-
 
         // save the woo data
         if (isset($_POST['_oxilab_tabs_woo_layouts_tab_title_'])):
@@ -202,7 +204,6 @@ class WooCommerce {
                     $tab['callback'] = [$this, 'product_tabs_content'];
                 endif;
 
-
                 $tabs[$keys] = array(
                     'title' => $tab['title'],
                     'priority' => $tab['priority'],
@@ -247,6 +248,13 @@ class WooCommerce {
         endif;
 
         return $template;
+    }
+
+    /**
+     * Check if we should use the filter
+     */
+    public function use_the_content_filter() {
+        return get_option('oxi_tabs_use_the_content') == 'yes' ? true : false;
     }
 
 }

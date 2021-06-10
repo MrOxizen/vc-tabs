@@ -62,7 +62,6 @@ Class Database {
 		id mediumint(5) NOT NULL AUTO_INCREMENT,
                 name varchar(50) NOT NULL,
 		style_name varchar(10) NOT NULL,
-                type varchar(20) DEFAULT 'Tabs' NOT NULL,
                 rawdata longtext,
                 stylesheet longtext,
                 font_family text,

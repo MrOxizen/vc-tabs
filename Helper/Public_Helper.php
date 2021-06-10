@@ -81,17 +81,10 @@ trait Public_Helper {
             $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
             $template = ucfirst($style['style_name']);
             $row = json_decode(stripslashes($style['rawdata']), true);
-
-            //define Tabs or Accordions
-            if ($style['type'] == 'Tabs'):
-                if (is_array($row)):
-                    $cls = '\OXI_TABS_PLUGINS\Render\Tabs\Views\\' . $template;
-                else:
-                    $cls = '\OXI_TABS_PLUGINS\Render\Tabs\Old_Views\\' . $template;
-                endif;
-            elseif ($style['type'] == 'Accordions'):
-                //New Modules
-                $cls = '\OXI_TABS_PLUGINS\Render\Accordions\Views\\' . $template;
+            if (is_array($row)):
+                $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $template;
+            else:
+                $cls = '\OXI_TABS_PLUGINS\Render\Old_Views\\' . $template;
             endif;
             if (class_exists($cls)):
                 new $cls($style, $child, $user);

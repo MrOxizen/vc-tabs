@@ -71,10 +71,10 @@ class Shortcode {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
     }
 
-    public function get_all_tabs_style() {
+    public function get_all_style() {
         $response = get_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         if (!$response) {
-            $rows = $this->database->wpdb->get_results($this->database->wpdb->prepare('SELECT id, name FROM ' . $this->database->parent_table . ' WHERE type = %s ORDER BY id DESC', 'Tabs'), ARRAY_A);
+            $rows = $this->database->wpdb->get_results("SELECT id, name FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
             $response = ['' => 'Default Tabs'];
             foreach ($rows as $key => $value):
                 $response[$value['id']] = !empty($value['name']) ? $value['name'] : 'Shortcode ' . $value['id'];
@@ -121,7 +121,6 @@ class Shortcode {
             $Installation->Datatase();
         endif;
         $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->oxiid), ARRAY_A);
-
         if ($this->user == 'woocommerce'):
             $current = count($child);
             $woo = count($this->arg);
@@ -131,6 +130,7 @@ class Shortcode {
                     unset($child[$i]);
                 endfor;
             else:
+
                 for ($i = $current; $i < $woo; $i++):
                     $child[$i] = $child[0];
                 endfor;
@@ -139,18 +139,11 @@ class Shortcode {
 
         $template = ucfirst($style['style_name']);
         $row = json_decode(stripslashes($style['rawdata']), true);
-
-        if ($style['type'] === 'Tabs'):
-            if (is_array($row)):
-                $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $template;
-            else:
-                $cls = '\OXI_TABS_PLUGINS\Render\Old_Views\\' . $template;
-            endif;
-        elseif ($style['type'] === 'Accordions'):
-            //New Modules
-            $cls = '\OXI_TABS_PLUGINS\Render\Accordions\Views\\' . $template;
+        if (is_array($row)):
+            $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $template;
+        else:
+            $cls = '\OXI_TABS_PLUGINS\Render\Old_Views\\' . $template;
         endif;
-
         if (class_exists($cls)):
             new $cls($style, $child, $this->user, $this->arg, $this->key);
         endif;

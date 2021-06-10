@@ -68,16 +68,10 @@ jQuery.noConflict();
         });
 
     });
-
     jQuery("#oxilab-tabs-import-json").on("click", function (e) {
         e.preventDefault();
         jQuery("#oxi-addons-style-import-modal").modal("show");
     });
-
-
-
-
-
 
     setTimeout(function () {
         if (jQuery(".table").hasClass("oxi_addons_table_data")) {

@@ -15,7 +15,6 @@ class Create {
      * @since 3.1.0
      */
     public $database;
-    public $type;
     public $local_template;
 
     /**
@@ -29,6 +28,7 @@ class Create {
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
     public $IMPORT = [];
+    public $TEMPLATE;
 
     /**
      * Constructor of Oxilab tabs Home Page
@@ -38,7 +38,6 @@ class Create {
     public function __construct() {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->layouts = (isset($_GET) ? $_GET : '');
-        $this->type = ((isset($_GET['page']) && $_GET['page'] == 'oxi-tabs-ultimate-cr-tabs') ? 'Tabs' : 'Accordions');
         $this->CSSJS_load();
         $this->Render();
     }
@@ -47,10 +46,10 @@ class Create {
         $this->admin_css_loader();
         $this->admin_ajax_load();
         apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
-        $template = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by name ASC", 'responsive-' . strtolower($this->type)), ARRAY_A);
+        $template = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by name ASC", 'responsive-tabs'), ARRAY_A);
         if (count($template) < 1):
             for ($i = 1; $i < 11; $i++) {
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array('responsive-' . strtolower($this->type), $i)));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array('responsive-tabs', $i)));
                 $this->IMPORT[$i] = $i;
             }
         else:
@@ -80,7 +79,7 @@ class Create {
     }
 
     public function get_local_tempalte() {
-        $basename = array_map('basename', glob(OXI_TABS_PATH . 'Render/' . ucfirst($this->type) . '/Json/' . '*.json', GLOB_BRACE));
+        $basename = array_map('basename', glob(OXI_TABS_PATH . 'Render/Json/' . '*.json', GLOB_BRACE));
         foreach ($basename as $key => $value) {
             $onlyname = explode('ultimateand', str_replace('.json', '', $value))[1];
             if ((int) $onlyname):
@@ -121,9 +120,9 @@ class Create {
         ?>
         <div class="oxi-addons-wrapper">
             <div class="oxi-addons-import-layouts">
-                <h1>Responsive <?php echo $this->type; ?> › Import Template
+                <h1>Responsive Tabs › Import Template
                 </h1>
-                <p> Select <?php echo $this->type; ?> layout and import for future use. </p>
+                <p> Select Tabs layout and import for future use. </p>
             </div>
         </div>
         <?php
@@ -133,9 +132,9 @@ class Create {
         ?>
         <div class="oxi-addons-wrapper">
             <div class="oxi-addons-import-layouts">
-                <h1>Responsive <?php echo $this->type; ?> › Create New
+                <h1>Responsive Tabs › Create New
                 </h1>
-                <p> Select <?php echo $this->type; ?> layouts, give your <?php echo $this->type; ?> name and create new <?php echo $this->type; ?>. </p>
+                <p> Select Tabs layouts, give your Tabs name and create new Tabs. </p>
             </div>
         </div>
         <?php
@@ -146,7 +145,7 @@ class Create {
                         <div class="oxi-addons-col-1 oxi-import">
                             <div class="oxi-addons-style-preview">
                                 <div class="oxilab-admin-style-preview-top">
-                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-cr-" . strtolower($this->type) . "&import") . '">
+                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&import") . '">
                                         <div class="oxilab-admin-add-new-item">
                                             <span>
                                                 <i class="fas fa-plus-circle oxi-icons"></i>  
@@ -164,7 +163,7 @@ class Create {
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
                                     <div class="modal-header">                    
-                                        <h4 class="modal-title">New ' . ucfirst($this->type) . '</h4>
+                                        <h4 class="modal-title">New Tabs</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
@@ -177,10 +176,9 @@ class Create {
                                     </div>
                                     <div class="modal-footer">
                                         <input type="hidden" id="responsive-tabs-template-id" name="responsive-tabs-template-id" value="">
-                                        <input type="hidden" id="oxicontenttype" name="oxicontenttype" value="' . ucfirst($this->type) . '">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
-                                    </div>
+                                      </div>
                                 </div>
                             </div>
                         </form>
@@ -188,15 +186,17 @@ class Create {
     }
 
     public function Create_template() {
+        $create_new = 'false';
         ?>
         <div class="oxi-addons-row">
             <?php
             foreach ($this->IMPORT as $value) {
                 $Style = 'Style' . $value;
+
                 if (array_key_exists($value, $this->local_template)):
-                    $folder = $this->safe_path(OXI_TABS_PATH . 'Render/' . $this->type . '/Json/');
+                    $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
                     $template_data = json_decode(file_get_contents($folder . $this->local_template[$value]), true);
-                    $C = 'OXI_TABS_PLUGINS\Render\\' . ucfirst($this->type) . '\\Views\\' . $Style;
+                    $C = 'OXI_TABS_PLUGINS\Render\Views\\' . $Style;
                     ?>
                     <div class="oxi-addons-col-1" id="<?php echo $Style; ?>">
                         <div class="oxi-addons-style-preview">
@@ -214,7 +214,6 @@ class Create {
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <form method="post" style=" display: inline-block; " class="shortcode-addons-template-deactive">
                                         <input type="hidden" name="oxideletestyle" value="<?php echo $value; ?>">
-                                        <input type="hidden" name="oxicontenttype" value="<?php echo ucfirst($this->type); ?>">
                                         <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Delete"  type="submit" value="Deactive" name="addonsstyledelete">Deactive</button>  
                                     </form>
                                     <button type="button" class="btn btn-success oxi-addons-addons-template-create oxi-addons-addons-js-create" data-toggle="modal" template-id="<?php echo $value; ?>">Create Style</button>
@@ -235,18 +234,19 @@ class Create {
         ?>
         <div class="oxi-addons-row">
             <?php
-            foreach ($this->local_template as $id => $value) {
+            foreach ($this->local_template as $id=> $value) {
                 if (!array_key_exists($id, $this->IMPORT)):
-                    $folder = $this->safe_path(OXI_TABS_PATH . 'Render/' . $this->type . '/Json/');
+                    $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
 
                     $template_data = json_decode(file_get_contents($folder . $value), true);
-                    $C = 'OXI_TABS_PLUGINS\Render\\' . ucfirst($this->type) . '\\Views\\Style' . ucfirst($id);
+                    $C = 'OXI_TABS_PLUGINS\Render\Views\\Style' . ucfirst($id);
+               
                     ?>
-                    <div class="oxi-addons-col-1" id="<?php echo $k; ?>">
+                    <div class="oxi-addons-col-1" id="Style<?php echo $id; ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
                                 <?php
-                                if (class_exists($C) && isset($template_data['style']['rawdata'])):
+                                 if (class_exists($C) && isset($template_data['style']['rawdata'])):
                                     new $C($template_data['style'], $template_data['child']);
                                 endif;
                                 ?>
@@ -267,7 +267,6 @@ class Create {
                                         ?>
                                         <form method="post" style=" display: inline-block; " class="shortcode-addons-template-import">
                                             <input type="hidden" name="oxiimportstyle" value="<?php echo $id; ?>">
-                                            <input type="hidden" name="oxiimporttype" value="<?php echo $this->type; ?>">
                                             <button class="btn btn-success oxi-addons-addons-template-create" title="import"  type="submit" value="Import" name="addonsstyleimport">Import</button>  
                                         </form>
                                     <?php

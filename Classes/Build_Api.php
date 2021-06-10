@@ -22,14 +22,6 @@ class Build_Api {
 
     const RESPONSIVE_TABS_ALL_STYLE = 'get_all_oxi_responsive_tabs_style';
 
-    public static function instance() {
-        if (self::$instance == null) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
-    }
-
     /**
      * Constructor of plugin class
      *
@@ -99,16 +91,11 @@ class Build_Api {
             $styleid = (int) $this->styleid;
             $newdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             $old = false;
-            if (isset($newdata['type']) && $newdata['type'] == 'Accordions'):
-                $type = 'Accordions';
-            else:
-                $type = 'Tabs';
-            endif;
             if (array_key_exists('css', $newdata) && $newdata['css'] != ''):
                 $old = true;
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, type, css) VALUES (%s, %s, %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'], $type, $newdata['css'])));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'], $newdata['css'])));
             else:
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, type) VALUES ( %s, %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'], $type)));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'])));
             endif;
             $redirect_id = $this->database->wpdb->insert_id;
             if ($redirect_id > 0):
@@ -121,7 +108,7 @@ class Build_Api {
                     $raw = json_decode(stripslashes($newdata['rawdata']), true);
                     $raw['style-id'] = $redirect_id;
                     $name = ucfirst($newdata['style_name']);
-                    $CLASS = '\OXI_TABS_PLUGINS\Render\\' . ucfirst($type) . '\\Admin\\' . $name;
+                    $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
                     $C = new $CLASS('admin');
                     $f = $C->template_css_render($raw);
                     $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
@@ -129,11 +116,13 @@ class Build_Api {
                         $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d, %s)", array($redirect_id, $value['rawdata'])));
                     }
                 endif;
-                return admin_url("admin.php?page=oxi-tabs-ultimate-cr-" . strtolower($type) . "&styleid=$redirect_id");
+                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
         else:
+            
+            
             $params = json_decode(stripslashes($this->rawdata), true);
-            $folder = $this->safe_path(OXI_TABS_PATH . 'Render/' . ucfirst($params['oxicontenttype']) . '/Json/');
+            $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
             $filename = 'responsive-tabs-and-accordions-ultimateand' . $params['responsive-tabs-template-id'] . '.json';
             return $this->post_json_import($folder, $filename, $params['addons-style-name']);
 
@@ -146,24 +135,19 @@ class Build_Api {
             $params = json_decode($this->rawdata, true);
             $style = $params['style'];
             $child = $params['child'];
-            if (isset($style['type']) && $style['type'] == 'Accordions'):
-                $type = 'Accordions';
-            else:
-                $type = 'Tabs';
-            endif;
             if ($name != 'truee'):
                 $style['name'] = $name;
 
             endif;
 
-            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, type) VALUES ( %s, %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'], $type)));
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
             $redirect_id = $this->database->wpdb->insert_id;
 
             if ($redirect_id > 0):
                 $raw = json_decode(stripslashes($style['rawdata']), true);
                 $raw['style-id'] = $redirect_id;
                 $style_name = ucfirst($style['style_name']);
-                $CLASS = '\OXI_TABS_PLUGINS\Render\\' . ucfirst($type) . '\\Admin\\' . $style_name;
+                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $style_name;
                 $C = new $CLASS('admin');
 
                 $f = $C->template_css_render($raw);
@@ -171,7 +155,7 @@ class Build_Api {
                     $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
                 }
                 if ($name != 'truee'):
-                    return admin_url("admin.php?page=oxi-tabs-ultimate-cr-" . strtolower($type) . "&styleid=$redirect_id");
+                    return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
                 endif;
 
             endif;
@@ -191,7 +175,6 @@ class Build_Api {
     }
 
     public function get_shortcode_export() {
-
         $styleid = (int) $this->styleid;
         if ($styleid):
             $style = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->parent_table} WHERE id = %d", $styleid), ARRAY_A);
@@ -230,11 +213,10 @@ class Build_Api {
 
     public function post_shortcode_deactive() {
         $params = json_decode(stripslashes($this->rawdata), true);
-        $name = (int) $params['oxideletestyle'];
-        $type = 'responsive-' . strtolower($params['oxicontenttype']);
-
-        if ($name > 0):
-            $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->import_table} WHERE name = %s and type = %s", $name, $type));
+        $id = (int) $params['oxideletestyle'];
+        $tabs = 'responsive-tabs';
+        if ($id > 0):
+            $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->import_table} WHERE name = %s and type = %s", $id, $tabs));
             return 'done';
         else:
             return 'Silence is Golden';
@@ -243,11 +225,11 @@ class Build_Api {
 
     public function post_shortcode_active() {
         $params = json_decode(stripslashes($this->rawdata), true);
-        $name = (int) $params['oxiimportstyle'];
-        $type = 'responsive-' . strtolower($params['oxiimporttype']);
-        if ($name > 0):
-            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (name, type) VALUES (%s, %s)", array($name, $type)));
-            return admin_url("admin.php?page=oxi-tabs-ultimate-cr-" . strtolower($params['oxiimporttype']) . "#Style" . $id);
+        $id = (int) $params['oxiimportstyle'];
+        $tabs = 'responsive-tabs';
+        if ($id > 0):
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array($tabs, $id)));
+            return admin_url("admin.php?page=oxi-tabs-ultimate-new#Style" . $id);
         else:
             return 'Silence is Golden';
         endif;
@@ -261,32 +243,30 @@ class Build_Api {
     public function post_elements_template_style() {
         $settings = json_decode(stripslashes($this->rawdata), true);
         $StyleName = sanitize_text_field($settings['style-name']);
-        $Type = sanitize_text_field($settings['style-type']);
-
         $stylesheet = '';
         if ((int) $this->styleid):
             $transient = 'oxi-responsive-tabs-transient-' . $this->styleid;
             delete_transient($transient);
             $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET rawdata = %s, stylesheet = %s WHERE id = %d", $this->rawdata, $stylesheet, $this->styleid));
             $name = ucfirst($StyleName);
-            $cls = '\OXI_TABS_PLUGINS\Render\\' . ucfirst($Type) . '\\Admin\\' . $name;
+            $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
             $CLASS = new $cls('admin');
             return $CLASS->template_css_render($settings);
         endif;
     }
 
-//    /**
-//     * Template Style Data
-//     *
-//     * @since 9.3.0
-//     */
-//    public function post_template_change() {
-//        $rawdata = sanitize_text_field($this->rawdata);
-//        if ((int) $this->styleid):
-//            $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
-//            return 'confirm';
-//        endif;
-//    }
+    /**
+     * Template Style Data
+     *
+     * @since 9.3.0
+     */
+    public function post_template_change() {
+        $rawdata = sanitize_text_field($this->rawdata);
+        if ((int) $this->styleid):
+            $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
+            return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$this->styleid");
+        endif;
+    }
 
     /**
      * Template Name Change
@@ -432,7 +412,7 @@ class Build_Api {
      */
     public function post_oxi_recommended() {
         $data = 'done';
-        update_option('oxi_image_hover_recommended', $data);
+        update_option('responsive_tabs_with_accordions_recommended', $data);
         return $data;
     }
 
@@ -444,9 +424,9 @@ class Build_Api {
         $notice = $this->request['notice'];
         if ($notice == 'maybe'):
             $data = strtotime("now");
-            update_option('oxi_image_hover_activation_date', $data);
+            update_option('responsive_tabs_with_accordions_activation_date', $data);
         else:
-            update_option('oxi_image_hover_nobug', $notice);
+            update_option('responsive_tabs_with_accordions_no_bug', $notice);
         endif;
         return $notice;
     }
@@ -458,6 +438,14 @@ class Build_Api {
     public function post_oxi_settings() {
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         update_option($rawdata['name'], $rawdata['value']);
+        return '<span class="oxi-confirmation-success"></span>';
+    }
+    /**
+     * Admin Settings
+     * @return void
+     */
+    public function post_customize_default_tabs() {
+        update_option('oxilab_tabs_woocommerce_customize_default_tabs', $this->rawdata);
         return '<span class="oxi-confirmation-success"></span>';
     }
 
