@@ -111,7 +111,7 @@ class WooExtension {
                 </div>
                 <div class="feature-section">
                     <div class="about-container">
-                        <div class="about-addons-videos"><iframe src="https://www.youtube.com/embed/3M6jrL_Ytes" frameborder="0" allowfullscreen="" class="about-video"></iframe></div>
+                        <div class="about-addons-videos"><iframe src="https://www.youtube.com/embed/LLhW2Nv1WDo" frameborder="0" allowfullscreen="" class="about-video"></iframe></div>
                     </div>
                 </div>
 
@@ -134,7 +134,7 @@ class WooExtension {
                                         </div>
                                         <div class="responsive_tabs_with_accordions_license_massage"></div>
                                         <div class="oxi-sa-cards-switcher ">
-                                            <input type="checkbox" class="oxi-addons-switcher-btn" id="oxilab_tabs_woocommerce" name="oxilab_tabs_woocommerce" checked="checked">
+                                            <input type="checkbox" class="oxi-addons-switcher-btn" id="oxilab_tabs_woocommerce" name="oxilab_tabs_woocommerce" <?php echo  get_option('oxilab_tabs_woocommerce') == 'yes' ? 'checked="checked"' : ''; ?>>
                                             <label for="oxilab_tabs_woocommerce" class="oxi-addons-switcher-label"></label>
                                         </div>
                                     </div>
@@ -145,7 +145,7 @@ class WooExtension {
                                         </div>
                                         <div class="responsive_tabs_with_accordions_license_massage"></div>
                                         <div class="oxi-sa-cards-switcher ">
-                                            <input type="checkbox" class="oxi-addons-switcher-btn" id="oxi_tabs_use_the_content" name="oxi_tabs_use_the_content" checked="checked">
+                                            <input type="checkbox" class="oxi-addons-switcher-btn" id="oxi_tabs_use_the_content" name="oxi_tabs_use_the_content" <?php echo get_option('oxi_tabs_use_the_content') == 'yes' ? 'checked="checked"' : ''; ?>>
                                             <label for="oxi_tabs_use_the_content" class="oxi-addons-switcher-label"></label>
                                         </div>
                                     </div>

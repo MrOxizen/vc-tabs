@@ -48,7 +48,7 @@ class Create {
         apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
         $template = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by name ASC", 'responsive-tabs'), ARRAY_A);
         if (count($template) < 1):
-            for ($i = 1; $i < 11; $i++) {
+            for ($i = 1; $i < 5; $i++) {
                 $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array('responsive-tabs', $i)));
                 $this->IMPORT[$i] = $i;
             }
@@ -257,7 +257,7 @@ class Create {
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <?php
-                                    if ($id > 10 && apply_filters('oxi-tabs-plugin/pro_version', true) == false):
+                                    if ($id > 7 && apply_filters('oxi-tabs-plugin/pro_version', true) == false):
                                         ?>
                                         <form method="post" style=" display: inline-block; " class="shortcode-addons-template-pro-only">
                                             <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Pro Only"  type="submit" value="pro only" name="addonsstyleproonly">Pro Only</button>  
