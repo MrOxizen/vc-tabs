@@ -112,28 +112,14 @@ class Home {
 
     public function create_new() {
         echo _('<div class="oxi-addons-row">
-                        <div class="oxi-addons-col-2 oxi-import">
-                            <div class="oxi-addons-style-preview">
-                                <div class="oxilab-admin-style-preview-top">
-                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new") . '">
-                                        <div class="oxilab-admin-add-new-item">
-                                            <span>
-                                                <i class="fas fa-plus-circle oxi-icons"></i>  
-                                                Create New tabs
-                                            </span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="oxi-addons-col-2 oxi-import">
+                        <div class="oxi-addons-col-1 oxi-import">
                             <div class="oxi-addons-style-preview">
                                 <div class="oxilab-admin-style-preview-top">
                                     <a href="#" id="oxilab-tabs-import-json">
                                         <div class="oxilab-admin-add-new-item">
                                             <span>
                                                 <i class="fas fa-plus-circle oxi-icons"></i>  
-                                                Import Json
+                                                Import Tabs
                                             </span>
                                         </div>
                                     </a>
@@ -144,7 +130,7 @@ class Home {
 
         echo _('<div class="modal fade" id="oxi-addons-style-create-modal" >
                         <form method="post" id="oxi-addons-style-modal-form">
-                            <div class="modal-dialog modal-sm">
+                            <div class="modal-dialog modal-sm modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">                    
                                         <h4 class="modal-title">Tabs Clone</h4>
@@ -170,7 +156,7 @@ class Home {
                     ');
          echo '<div class="modal fade" id="oxi-addons-style-import-modal" >
                         <form method="post" id="oxi-addons-import-modal-form" enctype = "multipart/form-data">
-                            <div class="modal-dialog modal-sm">
+                            <div class="modal-dialog modal-sm modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">                    
                                         <h4 class="modal-title">Import Form</h4>
