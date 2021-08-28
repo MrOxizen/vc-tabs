@@ -183,6 +183,23 @@ class Create {
                             </div>
                         </form>
                     </div>');
+        ?>
+        <div class="modal fade" tabindex="-1" role="dialog" id="oxi-addons-style-web-template" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Web Template</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
     }
 
     public function Create_template() {
@@ -216,6 +233,7 @@ class Create {
                                         <input type="hidden" name="oxideletestyle" value="<?php echo $value; ?>">
                                         <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Delete"  type="submit" value="Deactive" name="addonsstyledelete">Deactive</button>  
                                     </form>
+                                    <button type="button" class="btn btn-info oxi-addons-addons-web-template" template-id="<?php echo $value; ?>">Web Template</button>
                                     <button type="button" class="btn btn-success oxi-addons-addons-template-create oxi-addons-addons-js-create" data-toggle="modal" template-id="<?php echo $value; ?>">Create Style</button>
                                 </div>
                             </div>
@@ -234,19 +252,18 @@ class Create {
         ?>
         <div class="oxi-addons-row">
             <?php
-            foreach ($this->local_template as $id=> $value) {
+            foreach ($this->local_template as $id => $value) {
                 if (!array_key_exists($id, $this->IMPORT)):
                     $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
 
                     $template_data = json_decode(file_get_contents($folder . $value), true);
                     $C = 'OXI_TABS_PLUGINS\Render\Views\\Style' . ucfirst($id);
-               
                     ?>
                     <div class="oxi-addons-col-1" id="Style<?php echo $id; ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
                                 <?php
-                                 if (class_exists($C) && isset($template_data['style']['rawdata'])):
+                                if (class_exists($C) && isset($template_data['style']['rawdata'])):
                                     new $C($template_data['style'], $template_data['child']);
                                 endif;
                                 ?>

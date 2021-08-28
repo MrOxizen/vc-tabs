@@ -121,7 +121,7 @@ class Old_Render {
         $fadata = get_option('oxi_addons_font_awesome');
         $faversion = get_option('oxi_addons_font_awesome_version');
         $faversion = explode('||', $faversion);
-        if ($fadata == 'yes') {
+        if ($fadata != 'no') {
             wp_enqueue_style('font-awesome-' . $faversion[0], $faversion[1]);
         }
         $files = '<i class="' . $data . ' oxi-icons"></i>';

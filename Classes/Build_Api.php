@@ -21,6 +21,7 @@ class Build_Api {
     public $childid;
 
     const RESPONSIVE_TABS_ALL_STYLE = 'get_all_oxi_responsive_tabs_style';
+    const API = 'https://oxilab.org/responsive-tabs/wp-json/responsivetabsapi/v2/';
 
     /**
      * Constructor of plugin class
@@ -119,8 +120,7 @@ class Build_Api {
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
         else:
-            
-            
+
             $params = json_decode(stripslashes($this->rawdata), true);
             $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
             $filename = 'responsive-tabs-and-accordions-ultimateand' . $params['responsive-tabs-template-id'] . '.json';
@@ -440,6 +440,7 @@ class Build_Api {
         update_option($rawdata['name'], $rawdata['value']);
         return '<span class="oxi-confirmation-success"></span>';
     }
+
     /**
      * Admin Settings
      * @return void
@@ -572,5 +573,87 @@ class Build_Api {
         }
         return 'success';
     }
+
+//    Web Template Data
+//    Only for Oxilab Development
+//    
+
+
+
+    public function post_web_template() {
+        $styleid = (int) $this->styleid;
+        $template = $this->local_tempalte('style' . $styleid);
+        return $template;
+    }
+
+    public function local_tempalte($template) {
+        $URL = self::API . 'template/' . $this->styleid;
+        $request = wp_remote_request($URL);
+        if (!is_wp_error($request)) {
+            $response = json_decode(wp_remote_retrieve_body($request), true);
+        } else {
+            return $request->get_error_message();
+        }
+
+        $data = json_decode($response, true);
+        $render = '';
+        $vs = get_option($this->fixed_data('726573706f6e736976655f746162735f776974685f6163636f7264696f6e735f6c6963656e73655f737461747573'));
+        foreach ($data as $key => $value) {
+            if ($vs == $this->fixed_data('76616c6964')) {
+                $button = '<button type="button" class="btn btn-success oxi-addons-addons-web-template-import-button" web-data="' . $key . '">Import</button>';
+            } else {
+                $button = '<button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Pro Only" type="submit" value="pro only" name="addonsstyleproonly">Pro Only</button>';
+            }
+            $render .= '<div class="oxi-addons-col-1">
+                                    <div class="oxi-addons-style-preview">
+                                        <div class="oxi-addons-style-preview-top oxi-addons-center">
+                                            <img class="oxi-addons-web-template-image" src="' . $value['image'] . '">
+                                        </div>
+                                        <div class="oxi-addons-style-preview-bottom">
+                                            <div class="oxi-addons-style-preview-bottom-left">
+                                                ' . $value['name'] . '                      
+                                            </div>
+                                            <div class="oxi-addons-style-preview-bottom-right">
+                                                ' . $button . '
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>';
+        }
+        return $render;
+    }
+    
+    
+    public function post_web_import() {
+        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
+        if ((int) $this->styleid):
+            $URL = self::API . 'files/' . $this->styleid;
+            $request = wp_remote_request($URL);
+            if (!is_wp_error($request)) {
+                $response = json_decode(wp_remote_retrieve_body($request), true);
+            } else {
+                return $request->get_error_message();
+            }
+            $rawdata = json_decode($response, true);
+            $style = $rawdata['style'];
+            $child = $rawdata['child'];
+
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
+            $redirect_id = $this->database->wpdb->insert_id;
+            if ($redirect_id > 0):
+                $raw = json_decode(stripslashes($style['rawdata']), true);
+                $raw['style-id'] = $redirect_id;
+                $name = ucfirst($style['style_name']);
+                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
+                $C = new $CLASS('admin');
+                $f = $C->template_css_render($raw);
+                foreach ($child as $value) {
+                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
+                }
+                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
+            endif;
+        endif;
+    }
+
 
 }

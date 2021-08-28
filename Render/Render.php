@@ -702,7 +702,7 @@ class Render {
         endif;
 
         $fadata = get_option('oxi_addons_font_awesome');
-        if ($fadata == 'yes'):
+        if ($fadata != 'no'):
             wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
         endif;
         $files = '<i class="' . $data . ' oxi-icons"></i>';

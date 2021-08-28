@@ -68,7 +68,9 @@ class Home {
                     if (isset($_FILES['importtabsfilefile'])) :
                         $filename = $_FILES["importtabsfilefile"]["name"];
                         $folder = $this->safe_path(OXI_TABS_PATH . 'assets/export/');
-
+                        if (!is_dir($folder)):
+                            mkdir($folder, 0777);
+                        endif;
                         if (is_file($folder . $filename)):
                             unlink($folder . $filename); // delete file
                         endif;
@@ -76,7 +78,6 @@ class Home {
                         move_uploaded_file($_FILES['importtabsfilefile']['tmp_name'], $folder . $filename);
                         $ImportApi = new \OXI_TABS_PLUGINS\Classes\Build_Api;
                         $ImportApi->post_json_import($folder, $filename);
-
                         if (is_file($folder . $filename)):
                             unlink($folder . $filename); // delete file
                         endif;
@@ -111,22 +112,7 @@ class Home {
     }
 
     public function create_new() {
-        echo _('<div class="oxi-addons-row">
-                        <div class="oxi-addons-col-1 oxi-import">
-                            <div class="oxi-addons-style-preview">
-                                <div class="oxilab-admin-style-preview-top">
-                                    <a href="#" id="oxilab-tabs-import-json">
-                                        <div class="oxilab-admin-add-new-item">
-                                            <span>
-                                                <i class="fas fa-plus-circle oxi-icons"></i>  
-                                                Import Tabs
-                                            </span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>');
+
 
         echo _('<div class="modal fade" id="oxi-addons-style-create-modal" >
                         <form method="post" id="oxi-addons-style-modal-form">
@@ -154,7 +140,27 @@ class Home {
                         </form>
                     </div>
                     ');
-         echo '<div class="modal fade" id="oxi-addons-style-import-modal" >
+        if (apply_filters('oxi-tabs-plugin/pro_version', false)):
+
+
+            echo _('<div class="oxi-addons-row">
+                        <div class="oxi-addons-col-1 oxi-import">
+                            <div class="oxi-addons-style-preview">
+                                <div class="oxilab-admin-style-preview-top">
+                                    <a href="#" id="oxilab-tabs-import-json">
+                                        <div class="oxilab-admin-add-new-item">
+                                            <span>
+                                                <i class="fas fa-plus-circle oxi-icons"></i>  
+                                                Import Tabs
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>');
+
+            echo '<div class="modal fade" id="oxi-addons-style-import-modal" >
                         <form method="post" id="oxi-addons-import-modal-form" enctype = "multipart/form-data">
                             <div class="modal-dialog modal-sm modal-dialog-centered">
                                 <div class="modal-content">
@@ -163,8 +169,7 @@ class Home {
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                             ' . (apply_filters('oxi-tabs-plugin/pro_version', false) == FALSE ? ' <a target="_blank" style"text-align:center" href="https://oxilab.org/responsive-tabs/pricing">**Works only with Pro Version</a><br> <br>' : '') . '
-                                             <input class="form-control" type="file" name="importtabsfilefile" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
+                                        <input class="form-control" type="file" name="importtabsfilefile" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -175,6 +180,7 @@ class Home {
                                ' . wp_nonce_field("vc-tabs-ultimate-import") . '
                         </form>
                     </div>';
+        endif;
     }
 
     public function created_shortcode() {

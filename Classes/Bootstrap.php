@@ -103,6 +103,17 @@ class Bootstrap {
     public function User_Admin() {
         add_action('admin_menu', [$this, 'Admin_Menu']);
         add_action('admin_head', [$this, 'Tabs_Icon']);
+        add_action('admin_init', array($this, 'redirect_on_activation'));
+    }
+    
+     public function redirect_on_activation() {
+        if (get_transient('oxi_tabs_activation_redirect')) :
+            delete_transient('oxi_tabs_activation_redirect');
+            if (is_network_admin() || isset($_GET['activate-multi'])) :
+                return;
+            endif;
+            wp_safe_redirect(admin_url("admin.php?page=oxi-tabs-ultimate-welcome"));
+        endif;
     }
 
     public function view_count_jquery($content) {
@@ -139,4 +150,5 @@ class Bootstrap {
             new \OXI_TABS_PLUGINS\Extension\WooCommerce\WooCommerce();
         endif;
     }
+
 }

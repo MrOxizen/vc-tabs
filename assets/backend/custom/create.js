@@ -3,6 +3,7 @@ jQuery.noConflict();
     $(document).ready(function () {
         var styleid = '';
         var childid = '';
+        var rawdata = '';
 
         async function Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, callback) {
             if (functionname === "") {
@@ -25,7 +26,7 @@ jQuery.noConflict();
                     }
                 });
                 console.log(result);
-               return callback(result);
+                return callback(result);
 
             } catch (error) {
                 console.error(error);
@@ -82,6 +83,37 @@ jQuery.noConflict();
             e.preventDefault();
             return false;
         });
+
+        $(".oxi-addons-addons-web-template").on("click", function (e) {
+            e.preventDefault();
+            _This = $(this);
+            _This.html('<i class="fas fa-spinner fa-pulse"></i>');
+            styleid = $(this).attr('template-id');
+            var functionname = "web_template";
+            Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, function (callback) {
+                $('#oxi-addons-style-web-template .modal-body').html(callback);
+                $("#oxi-addons-style-web-template").modal("show");
+                _This.html('Web Template');
+            });
+
+        });
+        $(document.body).on("click", ".oxi-addons-addons-web-template-import-button", function (e) {
+            e.preventDefault();
+            _This = $(this);
+            _This.html('<i class="fas fa-spinner fa-pulse"></i>');
+            styleid = $(this).attr('web-data');
+            var functionname = "web_import";
+            Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, function (callback) {
+                setTimeout(function () {
+                    document.location.href = callback;
+                }, 1000);
+            });
+
+        });
+
+
+
+
     });
 
 })(jQuery)

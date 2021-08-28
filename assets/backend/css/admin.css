@@ -4978,3 +4978,15 @@ label:active:after {
 .woo-oxi-content .iconpicker-popover.popover.fade.bottom.in{
     opacity: 1;
 }
+
+
+.oxi-addons-addons-web-template,
+.oxi-addons-addons-web-template-import-button{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.oxi-addons-addons-web-template .spinner,
+.oxi-addons-addons-web-template-import-button .spinner{
+    color: #fff;
+}
