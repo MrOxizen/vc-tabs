@@ -8,6 +8,13 @@ namespace OXI_TABS_PLUGINS\Classes;
  * @author biplo
  */
 class Support_Recommended {
+
+    const GET_LOCAL_PLUGINS = 'get_all_oxilab_plugins';
+    const PLUGINS = 'https://www.oxilab.org/wp-json/oxilabplugins/v2/all_plugins';
+
+    public $get_plugins = [];
+    public $current_plugins = 'vc-tabs/index.php';
+
     /**
      * Revoke this function when the object is created.
      *
@@ -21,10 +28,26 @@ class Support_Recommended {
         if (isset($screen->parent_file) && 'plugins.php' === $screen->parent_file && 'update' === $screen->id) {
             return;
         }
+        $this->extension();
         add_action('admin_notices', array($this, 'first_install'));
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
         add_action('wp_ajax_oxi_tabs_admin_recommended', array($this, 'notice_dissmiss'));
         add_action('admin_notices', array($this, 'dismiss_button_scripts'));
+    }
+
+    public function extension() {
+        $response = get_transient(self::GET_LOCAL_PLUGINS);
+        if (!$response || !is_array($response)) {
+            $URL = self::PLUGINS;
+            $request = wp_remote_request($URL);
+            if (!is_wp_error($request)) {
+                $response = json_decode(wp_remote_retrieve_body($request), true);
+                set_transient(self::GET_LOCAL_PLUGINS, $response, 10 * DAY_IN_SECONDS);
+            } else {
+                $response = $request->get_error_message();
+            }
+        }
+        $this->get_plugins = $response;
     }
 
     /**
@@ -32,34 +55,54 @@ class Support_Recommended {
      * @return void
      */
     public function first_install() {
+
         $installed_plugins = get_plugins();
-        $plugin = '';
-//        if (isset($installed_plugins['elementor/elementor.php'])):
-//            if (!isset($installed_plugins['sb-image-hover-effects/index.php'])):
-//                $plugin = 'sb-image-hover-effects';
-//            endif;
-//        else
-        if (!isset($installed_plugins['shortcode-addons/index.php'])):
-            $plugin = 'shortcode-addons';
-        endif;
-        if (!empty($plugin)):
-            if ($plugin == 'sb-image-hover-effects'):
-                $massage = '<p>Thank you for using <strong>Elementor Page Builder</strong>. We suggest you to use our <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">Elementor Addons</a> - Premuim Elementor Addons comes with 100+ Elements and Elementor Template Library. Header Footer Builder and Menu Builder also Included with this Mega Addons</p>';
-            else:
-                $massage = '<p>Thank you for using my Responsive Tabs with Accordions.  We suggest you to use our <a href="https://wordpress.org/support/plugin/shortcode-addons">Shortcode Addons</a>, The most Easiest Shortcode Builder with 70+ Elements. Create your wonderful website with most Flexible, Creative and Mordern Elements .</p>';
+
+        $plugin = [];
+        $i = 1;
+
+        foreach ($this->get_plugins as $key => $value) {
+            if (!isset($installed_plugins[$value['modules-path']])):
+                $plugin[$i] = $value;
+                $i++;
             endif;
+        }
+
+        $recommend = [];
+
+        for ($p = 1; $p < 100; $p++):
+            if (isset($plugin[$p])):
+                if (isset($plugin[$p]['dependency']) && $plugin[$p]['dependency'] != ''):
+                    if (isset($installed_plugins[$plugin[$p]['dependency']])):
+                        $recommend = $plugin[$p];
+                        $p = 100;
+                    endif;
+                elseif ($plugin[$p]['modules-path'] != $this->current_plugins):
+                    $recommend = $plugin[$p];
+                    $p = 100;
+                endif;
+            else:
+                $p = 100;
+            endif;
+        endfor;
+
+        if (count($recommend) > 2 && $recommend['modules-path'] != ''):
+            $plugin = explode('/', $recommend['modules-path'])[0];
+
+            $massage = '<p>Thank you for using my Responsive Tabs with Accordions. ' . $recommend['modules-massage'] . '</p>';
+
             $install_url = wp_nonce_url(add_query_arg(array('action' => 'install-plugin', 'plugin' => $plugin), admin_url('update.php')), 'install-plugin' . '_' . $plugin);
             echo '<div class="wrap oxi-addons-admin-notifications" style=" width: auto;">
                         <h3>
-                            <span class="dashicons dashicons-flag"></span> 
+                            <span class="dashicons dashicons-flag"></span>
                             Notifications
                         </h3>
                         <p></p>
                         <div class="oxi-addons-admin-notifications-holder">
                             <div class="oxi-addons-admin-notifications-alert">
                                 ' . $massage . '
-                                <p>' . sprintf('<a href="%s" class="button button-large button-primary">%s</a>', $install_url, __('Install Now', OXI_TABS_TEXTDOMAIN)) . ' &nbsp;&nbsp;<a href="#" class="button button-large button-secondary oxi-tabs-admin-recommended-dismiss">No, Thanks</a></p>
-                            </div>                     
+                                <p>' . sprintf('<a href="%s" class="button button-large button-primary">%s</a>', $install_url, __('Install Now', OXI_TABS_TEXTDOMAIN)) . ' &nbsp;&nbsp;<a href="#" class="button button-large button-secondary oxi-tabs-admin-recommended-dismiss" sup-data="done">No, Thanks</a></p>
+                            </div>
                         </div>
                         <p></p>
                     </div>';

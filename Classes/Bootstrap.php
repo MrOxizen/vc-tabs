@@ -27,8 +27,6 @@ class Bootstrap {
      */
     public $database;
 
-    const ADMINMENU = 'get_oxilab_addons_menu';
-
     public static function instance() {
         if (self::$instance == null) {
             self::$instance = new self;
@@ -105,8 +103,8 @@ class Bootstrap {
         add_action('admin_head', [$this, 'Tabs_Icon']);
         add_action('admin_init', array($this, 'redirect_on_activation'));
     }
-    
-     public function redirect_on_activation() {
+
+    public function redirect_on_activation() {
         if (get_transient('oxi_tabs_activation_redirect')) :
             delete_transient('oxi_tabs_activation_redirect');
             if (is_network_admin() || isset($_GET['activate-multi'])) :

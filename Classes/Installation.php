@@ -14,15 +14,13 @@ class Installation {
 
     protected static $lfe_instance = NULL;
 
-    const ADMINMENU = 'get_oxilab_addons_menu';
-
     /**
      * Constructor of Shortcode Addons
      *
      * @since 2.0.0
      */
     public function __construct() {
-        
+
     }
 
     /**
@@ -47,37 +45,6 @@ class Installation {
     }
 
     /**
-     * Get  Oxi Tabs Menu.
-     * @return mixed
-     */
-    public function Tabs_Menu() {
-        $response = !empty(get_transient(self::ADMINMENU)) ? get_transient(self::ADMINMENU) : [];
-        if (!array_key_exists('Tabs', $response)):
-            $response['Tabs']['Shortcode'] = [
-                'name' => 'Shortcode',
-                'homepage' => 'oxi-tabs-ultimate'
-            ];
-            $response['Tabs']['Create New'] = [
-                'name' => 'Create New',
-                'homepage' => 'oxi-tabs-ultimate-new'
-            ];
-            $response['Tabs']['Import Template'] = [
-                'name' => 'Import Template',
-                'homepage' => 'oxi-tabs-ultimate-new&import'
-            ];
-            set_transient(self::ADMINMENU, $response, 10 * DAY_IN_SECONDS);
-        endif;
-    }
-
-    /**
-     * Get  Oxi Tabs Menu Deactive.
-     * @return mixed
-     */
-    public function Tabs_Menu_Deactive() {
-        delete_transient(self::ADMINMENU);
-    }
-
-    /**
      * Check woocommerce during active.
      * @return mixed
      */
@@ -96,21 +63,12 @@ class Installation {
      * @since 3.1.0
      */
     public function plugin_activation_hook() {
-        $this->Tabs_Menu();
+
         $this->Tabs_Datatase();
         $this->Tabs_Post_Count();
         $this->check_woocommerce_during_active();
         // Redirect to options page
         set_transient('oxi_tabs_activation_redirect', true, 30);
-    }
-
-    /**
-     * Plugin deactivation hook
-     *
-     * @since 3.1.0
-     */
-    public function plugin_deactivation_hook() {
-        $this->Tabs_Menu_Deactive();
     }
 
     /**
@@ -133,7 +91,6 @@ class Installation {
     public function plugin_upgrade_hook($upgrader_object, $options) {
         if ($options['action'] == 'update' && $options['type'] == 'plugin') {
             if (isset($options['plugins'][OXI_TABS_TEXTDOMAIN])) {
-                $this->Tabs_Menu();
                 $this->Tabs_Datatase();
                 $this->Tabs_Post_Count();
             }

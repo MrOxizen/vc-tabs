@@ -21,7 +21,7 @@ class Build_Api {
     public $childid;
 
     const RESPONSIVE_TABS_ALL_STYLE = 'get_all_oxi_responsive_tabs_style';
-    const API = 'https://oxilab.org/responsive-tabs/wp-json/responsivetabsapi/v2/';
+    const API = 'https://www.oxilabdemos.com/responsive-tabs/wp-json/responsivetabsapi/v2/';
 
     /**
      * Constructor of plugin class
@@ -377,7 +377,7 @@ class Build_Api {
     }
 
     /**
-     * Template Modal Data Edit Form 
+     * Template Modal Data Edit Form
      *
      * @since 9.3.0
      */
@@ -576,7 +576,7 @@ class Build_Api {
 
 //    Web Template Data
 //    Only for Oxilab Development
-//    
+//
 
 
 
@@ -611,7 +611,7 @@ class Build_Api {
                                         </div>
                                         <div class="oxi-addons-style-preview-bottom">
                                             <div class="oxi-addons-style-preview-bottom-left">
-                                                ' . $value['name'] . '                      
+                                                ' . $value['name'] . '
                                             </div>
                                             <div class="oxi-addons-style-preview-bottom-right">
                                                 ' . $button . '
@@ -622,8 +622,7 @@ class Build_Api {
         }
         return $render;
     }
-    
-    
+
     public function post_web_import() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         if ((int) $this->styleid):
@@ -654,6 +653,5 @@ class Build_Api {
             endif;
         endif;
     }
-
 
 }

@@ -46,24 +46,24 @@ class Welcome {
                                 <div class="oxi-docs-admin-header">
                                     <div class="oxi-docs-admin-header-icon">
                                         <span class="dashicons dashicons-format-aside"></span>
-                                    </div>    
-                                    <h4 class="oxi-docs-admin-header-title">Documentation</h4>  
+                                    </div>
+                                    <h4 class="oxi-docs-admin-header-title">Documentation</h4>
                                 </div>
                                 <div class="oxi-docs-admin-block-content">
                                     <p>Get started by spending some time with the documentation to get familiar with Responsive Tabs with WooCommerce Extension. Build awesome Tabs  for you or your clients with ease.</p>
-                                    <a href="https://oxilab.org/responsive-tabs/docs/" class="oxi-docs-button" target="_blank">Documentation</a>
+                                    <a href="https://www.oxilabdemos.com/responsive-tabs/docs/" class="oxi-docs-button" target="_blank">Documentation</a>
                                 </div>
                             </div>
                         </div>
-                    </div>   
+                    </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="oxi-docs-admin-wrapper">
                             <div class="oxi-docs-admin-block">
                                 <div class="oxi-docs-admin-header">
                                     <div class="oxi-docs-admin-header-icon">
                                         <span class="dashicons dashicons-format-aside"></span>
-                                    </div>    
-                                    <h4 class="oxi-docs-admin-header-title">Contribute to Responsive Tabs</h4>  
+                                    </div>
+                                    <h4 class="oxi-docs-admin-header-title">Contribute to Responsive Tabs</h4>
                                 </div>
                                 <div class="oxi-docs-admin-block-content">
                                     <p>You can contribute to make Responsive Tabs with WooCommerce Extension better reporting bugs &amp; creating issues. Our Development team always try to make more powerfull Plugins day by day with solved Issues</p>
@@ -71,15 +71,15 @@ class Welcome {
                                 </div>
                             </div>
                         </div>
-                    </div>   
+                    </div>
                     <div class="col-lg-6 col-md-12">
                         <div class="oxi-docs-admin-wrapper">
                             <div class="oxi-docs-admin-block">
                                 <div class="oxi-docs-admin-header">
                                     <div class="oxi-docs-admin-header-icon">
                                         <span class="dashicons dashicons-format-aside"></span>
-                                    </div>    
-                                    <h4 class="oxi-docs-admin-header-title">Video Tutorials </h4>  
+                                    </div>
+                                    <h4 class="oxi-docs-admin-header-title">Video Tutorials </h4>
                                 </div>
                                 <div class="oxi-docs-admin-block-content">
                                     <p>Unable to use Responsive Tabs with WooCommerce Extension? Don't worry you can check your web tutorials to make easier to use :) </p>
@@ -87,33 +87,8 @@ class Welcome {
                                 </div>
                             </div>
                         </div>
-                    </div>   
-<!--                    <div class="col-lg-6 col-md-12">
-                        <div class="oxi-docs-admin-wrapper">
-                            <div class="oxi-docs-admin-block">
-                                <div class="oxi-docs-admin-header">
-                                    <div class="oxi-docs-admin-header-icon">
-                                        <span class="dashicons dashicons-format-aside"></span>
-                                    </div>    
-                                    <h4 class="oxi-docs-admin-header-title">WooCommerce Integrations </h4>  
-                                </div>
-                                <div class="oxi-docs-admin-block-content">
-                                    <p>Responsive Tabs with WooCommerce Extension fully compatible  with popular Page Builder like
-                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/elementor-page-builder/">Elementor</a>,
-                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/beaver-builder-integration/">Beaver Builder</a>, 
-                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/wpbakery-page-builder/">WPBakery</a>,
-                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/visual-composer/"> Visual Composer</a>, 
-                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/divi-builder/"> Divi Builder</a>, 
-                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/brizy/"> Brizy</a>,
-                                        <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/siteorigin-page-builder/"> SiteOrigin</a>,
-                                        <a href="image-hover.oxilab.org/docs/integrate-with-page-builder/themify-builder/"> Themefy Builder</a>.
-                                        As shortcode based Plugins you can use any wedpress sites and works properly.</p>
-                                    <a href="https://www.image-hover.oxilab.org/docs/integrate-with-page-builder/" class="oxi-docs-button" target="_blank">Learn More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>   -->
-                </div>   
+                    </div>
+                </div>
             </div>
         </div>
 

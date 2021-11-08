@@ -54,17 +54,17 @@ trait Admin_helper {
     public function SupportAndComments($agr) {
         echo '  <div class="oxi-addons-admin-notifications">
                     <h3>
-                        <span class="dashicons dashicons-flag"></span> 
+                        <span class="dashicons dashicons-flag"></span>
                         Notifications
                     </h3>
                     <p></p>
                     <div class="oxi-addons-admin-notifications-holder">
                         <div class="oxi-addons-admin-notifications-alert">
                             <p>Thank you for using my Responsive Tabs with WooCommerce Extension. I Just wanted to see if you have any questions or concerns about my plugins. If you do, Please do not hesitate to <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">file a bug report</a>. </p>
-                            ' . (apply_filters('oxi-tabs-plugin/pro_version', false) ? '' : '<p>By the way, did you know we also have a <a href="https://oxilab.org/responsive-tabs/pricing">Premium Version</a>? It offers lots of options with automatic update. It also comes with 16/5 personal support.</p>') . '
+                            ' . (apply_filters('oxi-tabs-plugin/pro_version', false) ? '' : '<p>By the way, did you know we also have a <a href="https://www.oxilabdemos.com/responsive-tabs/pricing">Premium Version</a>? It offers lots of options with automatic update. It also comes with 16/5 personal support.</p>') . '
                             <p>Thanks Again!</p>
                             <p></p>
-                        </div>                     
+                        </div>
                     </div>
                     <p></p>
                 </div>';
@@ -76,22 +76,22 @@ trait Admin_helper {
      * @since 2.0.0
      */
     public function oxilab_admin_menu($agr) {
-        $response = !empty(get_transient(self::ADMINMENU)) ? get_transient(self::ADMINMENU) : [];
-        if (!array_key_exists('Tabs', $response)):
-            $response['Tabs']['Shortcode'] = [
+
+        $response = [
+            'Shortcode' => [
                 'name' => 'Shortcode',
                 'homepage' => 'oxi-tabs-ultimate'
-            ];
-            $response['Tabs']['Create New'] = [
+            ],
+            'Create New' => [
                 'name' => 'Create New',
                 'homepage' => 'oxi-tabs-ultimate-new'
-            ];
-            $response['Tabs']['Import Template'] = [
+            ],
+            'Import Template' => [
                 'name' => 'Import Template',
                 'homepage' => 'oxi-tabs-ultimate-new&import'
-            ];
-            set_transient(self::ADMINMENU, $response, 10 * DAY_IN_SECONDS);
-        endif;
+            ]
+        ];
+
         $bgimage = OXI_TABS_URL . 'assets/image/sa-logo.png';
         $sub = '';
 
@@ -105,38 +105,16 @@ trait Admin_helper {
                             <ul class="oxilab-sa-admin-menu">';
 
         $GETPage = sanitize_text_field($_GET['page']);
-        if (count($response) == 1):
-            foreach ($response['Tabs'] as $key => $value) {
-                $active = ($GETPage == $value['homepage'] ? ' class="active" ' : '');
-                $menu .= '<li ' . $active . '><a href="' . $this->admin_url_convert($value['homepage']) . '">' . $this->name_converter($value['name']) . '</a></li>';
-            }
-        else:
-            foreach ($response as $key => $value) {
-                $active = ($key == 'Tabs' ? 'active' : '');
-                $menu .= '<li class="' . $active . '"><a class="oxi-nev-drop-menu" href="#">' . $this->name_converter($key) . '</a>';
-                $menu .= '   <div class="oxi-nev-d-menu">
-                                    <div class="oxi-nev-drop-menu-li">';
-                foreach ($value as $key2 => $submenu) {
-                    $menu .= '<a href="' . $this->admin_url_convert($submenu['homepage']) . '">' . $this->name_converter($submenu['name']) . '</a>';
-                }
-                $menu .= '</div>';
-                $menu .= '</li>';
-            }
-            if (strpos($GETPage, 'oxi-tabs-ultimate') !== false):
-                $sub .= '<div class="shortcode-addons-main-tab-header">';
-                foreach ($response['Tabs'] as $key => $value) {
-                    $active = ($GETPage == $value['homepage'] ? 'oxi-active' : '');
-                    $sub .= '<a href="' . $this->admin_url_convert($value['homepage']) . '">
-                                <div class="shortcode-addons-header ' . $active . '">' . $this->name_converter($value['name']) . '</div>
-                              </a>';
-                }
-                $sub .= '</div>';
-            endif;
-        endif;
+
+        foreach ($response as $key => $value) {
+            $active = ($GETPage == $value['homepage'] ? ' class="active" ' : '');
+            $menu .= '<li ' . $active . '><a href="' . $this->admin_url_convert($value['homepage']) . '">' . $this->name_converter($value['name']) . '</a></li>';
+        }
+
         $menu .= '              </ul>
                             <ul class="oxilab-sa-admin-menu2">
-                               ' . (apply_filters('oxi-tabs-plugin/pro_version', false) == FALSE ? ' <li class="fazil-class" ><a target="_blank" href="https://oxilab.org/responsive-tabs/pricing">Upgrade</a></li>' : '') . '
-                               <li class="saadmin-doc"><a target="_black" href="https://oxilab.org/responsive-tabs/docs/">Docs</a></li>
+                               ' . (apply_filters('oxi-tabs-plugin/pro_version', false) == FALSE ? ' <li class="fazil-class" ><a target="_blank" href="https://www.oxilabdemos.com/responsive-tabs/pricing">Upgrade</a></li>' : '') . '
+                               <li class="saadmin-doc"><a target="_black" href="https://www.oxilabdemos.com/responsive-tabs/docs/">Docs</a></li>
                                <li class="saadmin-doc"><a target="_black" href="https://wordpress.org/support/plugin/vc-tabs/">Support</a></li>
                                <li class="saadmin-set"><a href="' . admin_url('admin.php?page=oxi-tabs-ultimate-settings') . '"><span class="dashicons dashicons-admin-generic"></span></a></li>
                             </ul>
@@ -249,12 +227,13 @@ trait Admin_helper {
     }
 
     public function admin_recommended() {
-        if (!empty($this->admin_recommended_status())):
-            return;
-        endif;
-        if (strtotime('-1 days') < $this->installation_date()):
-            return;
-        endif;
+//        if (!empty($this->admin_recommended_status())):
+//            return;
+//        endif;
+//        if (strtotime('-1 days') < $this->installation_date()):
+//            return;
+//        endif;
+
         new \OXI_TABS_PLUGINS\Classes\Support_Recommended();
     }
 

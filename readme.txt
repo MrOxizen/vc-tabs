@@ -3,9 +3,9 @@ Contributors: biplob018
 Donate link: https://www.oxilab.org
 Tags: tab, tabs, responsive tabs, woocommerce tabs, tabs content, product tabs, custom tabs, woocommerce custom tabs
 Requires at least: 3.8
-Stable tag: 3.5.1
+Stable tag: 3.5.2
 Requires PHP: 5.4
-Tested up to: 5.8
+Tested up to: 5.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,10 +37,10 @@ So, now it's time to say GoodBye to any highly paid tools which offers WooCommer
 
 =Quick Links=
 
-+ [Features ](https://oxilab.org/responsive-tabs/features "Demo (Features)")
-+ [Demo ) ](https://oxilab.org/responsive-tabs/template/ "Demo")
++ [Features ](https://www.oxilabdemos.com/responsive-tabs/features "Demo (Features)")
++ [Demo ) ](https://www.oxilabdemos.com/responsive-tabs/template/ "Demo")
 + [How to Use (Video) ](https://youtu.be/elU_RjGqX4g "How to Use (Video)")
-+ [How to Use (Documentation) ](https://www.oxilab.org/docs "How to Use (Documentation)")
++ [How to Use (Documentation) ](https://www.oxilabdemos.com/responsive-tabs/docs "How to Use (Documentation)")
 + [Help and Support ](https://wordpress.org/support/plugin/vc-tabs#new-post "Help and Support")
 
 Responsive Tabs with WooCommerce Product Tabs Extension comes with major page builder integration. That means, page builder users can now find more flexibility to use our Content Tabs within their builder interface. Major Builder Supported Responsive Tabs is totally compatible with all the page builders including Beaver Builder, Divi, Visual Composer or the most popular Elementor. 
@@ -253,6 +253,9 @@ On Non Responsive Themes Our Responsive Tabs with WooCommerce Custom Tabs Extens
 
 
 == Changelog ==
+= 3.5.2 =
+*Fixed Admin Bugs
+
 = 3.5.1 =
 *Import Oxilab template
 *Customize Admin Modules
@@ -342,6 +345,8 @@ On Non Responsive Themes Our Responsive Tabs with WooCommerce Custom Tabs Extens
 
 
 == Upgrade Notice ==
+= 3.5.2 =
+Fixed Admin Bugs
 
 = 3.5.1 =
 Import Oxilab template
