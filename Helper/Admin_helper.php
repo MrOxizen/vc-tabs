@@ -227,12 +227,12 @@ trait Admin_helper {
     }
 
     public function admin_recommended() {
-//        if (!empty($this->admin_recommended_status())):
-//            return;
-//        endif;
-//        if (strtotime('-1 days') < $this->installation_date()):
-//            return;
-//        endif;
+        if (!empty($this->admin_recommended_status())):
+            return;
+        endif;
+        if (strtotime('-1 days') < $this->installation_date()):
+            return;
+        endif;
 
         new \OXI_TABS_PLUGINS\Classes\Support_Recommended();
     }
