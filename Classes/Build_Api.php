@@ -137,23 +137,33 @@ class Build_Api {
             $child = $params['child'];
             if ($name != 'truee'):
                 $style['name'] = $name;
-
+            endif;
+            if (array_key_exists('css', $style) && $style['css'] != ''):
+                $old = true;
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'], $style['css'])));
+            else:
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
             endif;
 
-            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
             $redirect_id = $this->database->wpdb->insert_id;
 
             if ($redirect_id > 0):
-                $raw = json_decode(stripslashes($style['rawdata']), true);
-                $raw['style-id'] = $redirect_id;
-                $style_name = ucfirst($style['style_name']);
-                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $style_name;
-                $C = new $CLASS('admin');
+                if ($old == true):
+                    foreach ($child as $value) {
+                        $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($redirect_id, $value['rawdata'], $value['title'], $value['files'], $value['css'])));
+                    }
+                else:
+                    $raw = json_decode(stripslashes($style['rawdata']), true);
+                    $raw['style-id'] = $redirect_id;
+                    $style_name = ucfirst($style['style_name']);
+                    $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $style_name;
+                    $C = new $CLASS('admin');
 
-                $f = $C->template_css_render($raw);
-                foreach ($child as $value) {
-                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
-                }
+                    $f = $C->template_css_render($raw);
+                    foreach ($child as $value) {
+                        $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
+                    }
+                endif;
                 if ($name != 'truee'):
                     return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
                 endif;

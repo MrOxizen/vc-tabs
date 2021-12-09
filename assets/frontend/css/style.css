@@ -97,7 +97,7 @@
 }
 .oxi-tab-header-horizontal.oxi-tab-header-top-compact-position > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header,
 .oxi-tab-header-horizontal.oxi-tab-header-bottom-compact-position > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header,
-.oxi-tab-header-horizontal.oxi-tab-header-top-compact-position > .oxi-tabs-ultimate-header-wrap.oxi-tabs-header-li,
+.oxi-tab-header-horizontal.oxi-tab-header-top-compact-position > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li,
 .oxi-tab-header-horizontal.oxi-tab-header-bottom-compact-position > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li{
     width: 100%;
 }

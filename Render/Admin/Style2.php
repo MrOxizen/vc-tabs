@@ -218,7 +218,10 @@ class Style2 extends Helper {
                 ],
             ],
             'selector' => [
-                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style.oxi-tab-header-horizontal > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style.oxi-tab-header-vertical > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                '@media only screen and (min-width: 994px){ {{WRAPPER}} > .oxi-tabs-ultimate-template-2.oxi-tab-header-horizontal.oxi-tab-header-top-left-position .oxi-tabs-header-triangle-shape, {{WRAPPER}} > .oxi-tabs-ultimate-template-2.oxi-tab-header-horizontal.oxi-tab-header-top-right-position .oxi-tabs-header-triangle-shape, {{WRAPPER}} > .oxi-tabs-ultimate-template-2.oxi-tab-header-horizontal.oxi-tab-header-top-compact-position .oxi-tabs-header-triangle-shape, {{WRAPPER}} > .oxi-tabs-ultimate-template-2.oxi-tab-header-horizontal.oxi-tab-header-top-center-position .oxi-tabs-header-triangle-shape ' => ' bottom:-{{BOTTOM}}{{UNIT}};}',
+                '@media only screen and (min-width: 994px){ {{WRAPPER}} > .oxi-tabs-ultimate-template-2.oxi-tab-header-horizontal.oxi-tab-header-bottom-left-position .oxi-tabs-header-triangle-shape, {{WRAPPER}} > .oxi-tabs-ultimate-template-2.oxi-tab-header-horizontal.oxi-tab-header-bottom-right-position .oxi-tabs-header-triangle-shape, {{WRAPPER}} > .oxi-tabs-ultimate-template-2.oxi-tab-header-horizontal.oxi-tab-header-bottom-center-position .oxi-tabs-header-triangle-shape, {{WRAPPER}} > .oxi-tabs-ultimate-template-2.oxi-tab-header-horizontal.oxi-tab-header-bottom-compact-position .oxi-tabs-header-triangle-shape ' => ' top:-{{TOP}}{{UNIT}};}',
             ],
             'description' => 'Create some Space outside of the Header Section.',
                 ]
