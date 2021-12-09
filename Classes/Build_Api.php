@@ -49,12 +49,21 @@ class Build_Api {
 
     public function api_action($request) {
         $this->request = $request;
+
+        $wpnonce = $request['_wpnonce'];
+        if (!wp_verify_nonce($wpnonce, 'wp_rest')):
+            return new \WP_REST_Request('Invalid URL', 422);
+        endif;
+
         $this->rawdata = addslashes($request['rawdata']);
         $this->styleid = $request['styleid'];
         $this->childid = $request['childid'];
         $class = $request['class'];
         $action_class = strtolower($request->get_method()) . '_' . sanitize_key($request['action']);
         if ($class != ''):
+            if (strpos($class, 'OXI_TABS_PLUGINS') === false):
+                return new \WP_REST_Request('Invalid URL', 422);
+            endif;
             $args = $request['args'];
             $optional = $request['optional'];
             ob_start();

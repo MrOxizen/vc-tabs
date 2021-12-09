@@ -118,7 +118,7 @@ class Home {
                         <form method="post" id="oxi-addons-style-modal-form">
                             <div class="modal-dialog modal-sm modal-dialog-centered">
                                 <div class="modal-content">
-                                    <div class="modal-header">                    
+                                    <div class="modal-header">
                                         <h4 class="modal-title">Tabs Clone</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
@@ -150,7 +150,7 @@ class Home {
                                     <a href="#" id="oxilab-tabs-import-json">
                                         <div class="oxilab-admin-add-new-item">
                                             <span>
-                                                <i class="fas fa-plus-circle oxi-icons"></i>  
+                                                <i class="fas fa-plus-circle oxi-icons"></i>
                                                 Import Tabs
                                             </span>
                                         </div>
@@ -164,7 +164,7 @@ class Home {
                         <form method="post" id="oxi-addons-import-modal-form" enctype = "multipart/form-data">
                             <div class="modal-dialog modal-sm modal-dialog-centered">
                                 <div class="modal-content">
-                                    <div class="modal-header">                    
+                                    <div class="modal-header">
                                         <h4 class="modal-title">Import Form</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
@@ -204,14 +204,14 @@ class Home {
             $return .= _('<td>' . $this->name_converter($value['style_name']) . '</td>');
             $return .= _('<td><span>Shortcode &nbsp;&nbsp;<input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $id . '&quot;]"></span> <br>'
                     . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
-            $return .= _('<td> 
+            $return .= _('<td>
                         <button type="button" class="btn btn-success oxi-addons-style-clone"  style="float:left" oxiaddonsdataid="' . $id . '">Clone</button>
                         <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
                        <form method="post" class="oxi-addons-style-delete">
                                <input type="hidden" name="oxideleteid" id="oxideleteid" value="' . $id . '">
-                               <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>  
+                               <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>
                        </form>
-                       <a href="' . esc_url_raw(rest_url()) . 'oxilabtabsultimate/v1/shortcode_export?styleid=' . $id . '"  title="Export"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Export</a>
+                       <a href="' . esc_url_raw(rest_url()) . 'oxilabtabsultimate/v1/shortcode_export?styleid=' . $id . '&_wpnonce=' . wp_create_nonce('wp_rest') . '"  title="Export"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Export</a>
                 </td>');
             $return .= _(' </tr>');
         }

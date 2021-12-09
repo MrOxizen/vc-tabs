@@ -9,11 +9,9 @@ jQuery.noConflict();
             result = await $.ajax({
                 url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
                 method: 'POST',
-                dataType: "json",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('X-WP-Nonce', oxilabtabsultimate.nonce);
-                },
+               
                 data: {
+                       _wpnonce: oxilabtabsultimate.nonce,
                     styleid: styleid,
                     childid: childid,
                     rawdata: rawdata
