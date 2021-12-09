@@ -4,6 +4,51 @@ namespace OXI_TABS_PLUGINS\Helper;
 
 trait Admin_helper {
 
+    public function redirect_on_activation() {
+        if (get_transient('oxi_tabs_activation_redirect')) :
+            delete_transient('oxi_tabs_activation_redirect');
+            if (is_network_admin() || isset($_GET['activate-multi'])) :
+                return;
+            endif;
+            wp_safe_redirect(admin_url("admin.php?page=oxi-tabs-ultimate-welcome"));
+        endif;
+    }
+
+    public function view_count_jquery($content) {
+        if (!is_single()):
+            return $content; // Only on single posts
+        endif;
+
+        global $post;
+        $id = $post->ID;
+
+        $exclude_admins = apply_filters('oxi_view_count_exclude_admins', false);
+        if ($exclude_admins === true):
+            $exclude_admins = 'edit_posts';
+        endif;
+        if ($exclude_admins && current_user_can($exclude_admins)):
+            return $content;
+        endif;
+
+        $count = get_post_meta($id, '_oxi_post_view_count', true);
+        if ((int) $count):
+            update_post_meta($id, '_oxi_post_view_count', $count + 1);
+        else:
+            update_post_meta($id, '_oxi_post_view_count', 1);
+        endif;
+
+        remove_filter('the_content', [$this, 'view_count_jquery']);
+
+        return $content;
+    }
+
+    public function Extension() {
+        $tabs = get_option('oxilab_tabs_woocommerce');
+        if ($tabs == 'yes'):
+            new \OXI_TABS_PLUGINS\Extension\WooCommerce\WooCommerce();
+        endif;
+    }
+
     /**
      * Plugin fixed
      *
