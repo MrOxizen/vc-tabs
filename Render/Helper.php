@@ -8,6 +8,9 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Helper
  *
@@ -418,7 +421,6 @@ class Helper extends Admin {
                 ]
         );
 
-
         $this->add_control(
                 'oxi-tabs-header-vertical-tabs-alignment', $this->style, [
             'label' => __('Header Alignment', OXI_TABS_TEXTDOMAIN),
@@ -461,7 +463,6 @@ class Helper extends Admin {
             'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-header-tab-vertical-width', $this->style, [
@@ -599,7 +600,6 @@ class Helper extends Admin {
             'description' => 'Show/Hide the header Image on Tabs Mode.',
                 ]
         );
-
 
         $this->end_controls_tab();
         $this->start_controls_tab();
@@ -896,10 +896,6 @@ class Helper extends Admin {
                 ]
         );
 
-
-
-
-
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
                 [
@@ -922,7 +918,6 @@ class Helper extends Admin {
             'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
         );
-
 
         $this->end_controls_tab();
         $this->start_controls_tab();
@@ -2029,7 +2024,6 @@ class Helper extends Admin {
             'description' => 'Select Content Height as Equal or Dynamic.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [
@@ -3220,7 +3214,7 @@ class Helper extends Admin {
     }
 
     public function modal_form_data() {
-        echo '<div class="modal-header">                    
+        echo '<div class="modal-header">
                     <h4 class="modal-title">Tabs Modal Form</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
@@ -3254,7 +3248,6 @@ class Helper extends Admin {
             'description' => 'Add the Additional elements beside the Tab’s Title (Icon, Number or Image).',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-modal-icon', [], [
@@ -3316,7 +3309,7 @@ class Helper extends Admin {
             'description' => 'Add Custom link with opening type.',
                 ]
         );
-        
+
         $this->add_control(
                 'oxi-tabs-modal-desc', [], [
             'label' => __('Description', OXI_TABS_TEXTDOMAIN),

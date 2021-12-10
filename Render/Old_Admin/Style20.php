@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Style1
  *
@@ -229,7 +232,7 @@ class Style20 extends Old_Admin {
                                 ?> value="inherit">Inherit</option>
                             </select>
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-font-weight" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Customize Your Title Font Weight, Based on CSS Weight" >Font Weight  </label>
                         <div class="col-sm-6">
@@ -302,7 +305,7 @@ class Style20 extends Old_Admin {
                             </select>
                         </div>
                     </div>
-                </div>                                            
+                </div>
             </div>
             <div class="oxi-addons-col-6">
                 <div class="oxi-addons-content-div">
@@ -466,7 +469,7 @@ class Style20 extends Old_Admin {
                         <label for="content-padding-top" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Use Padding to Generate Space Around Content as Top, Bottom. Based on Pixel">Padding Top Bottom</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="number" value="<?php echo $styledata[19]; ?>" id="content-padding-top" name="content-padding-top">
-                        </div>                                                    
+                        </div>
                         <div class="col-sm-3">
                             <input class="form-control" type="number" value="<?php echo $styledata[23]; ?>" id="content-padding-bottom" name="content-padding-bottom">
                         </div>
@@ -478,7 +481,7 @@ class Style20 extends Old_Admin {
                         </div>
                         <div class="col-sm-3">
                             <input class="form-control" type="number" value="<?php echo $styledata[21]; ?>" id="content-padding-right" name="content-padding-right">
-                        </div>                                                    
+                        </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-font-align" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title=" Set Content Text Position, Based on left or center or Right">Text Align  </label>
@@ -502,7 +505,7 @@ class Style20 extends Old_Admin {
                             </select>
                         </div>
                     </div>
-                </div>                                            
+                </div>
 
             </div>
 
@@ -622,4 +625,5 @@ class Style20 extends Old_Admin {
         </div>
         <?php
     }
+
 }

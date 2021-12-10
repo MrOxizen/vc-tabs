@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Helper;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  *
  * @author biplo
@@ -73,8 +76,8 @@ Class Database {
 		rawdata longtext,
 		PRIMARY KEY  (id)
 	)$charset_collate;";
-        
-          $sql3 = "CREATE TABLE $this->import_table (
+
+        $sql3 = "CREATE TABLE $this->import_table (
 		id mediumint(5) NOT NULL AUTO_INCREMENT,
                 type varchar(50) NULL,
                 name varchar(100) NULL,

@@ -7,6 +7,9 @@
 
 namespace OXI_TABS_PLUGINS\Page;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Settings
  *
@@ -58,7 +61,7 @@ class Settings {
     public function Render() {
         $this->admin_css_loader();
         ?>
-        <div class="wrap">   
+        <div class="wrap">
             <?php
             echo apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
             ?>
@@ -76,7 +79,7 @@ class Settings {
                                         <select name="oxi_addons_user_permission">
                                             <?php foreach ($this->roles as $key => $role) { ?>
                                                 <option value="<?php echo $key; ?>" <?php selected($this->saved_role, $key); ?>><?php echo $role; ?></option>
-                                            <?php } ?>
+        <?php } ?>
                                         </select>
                                         <span class="oxi-addons-settings-connfirmation oxi_addons_user_permission"></span>
                                         <br>
@@ -113,10 +116,10 @@ class Settings {
                                 </td>
                             </tr>
                         </tbody>
-                    </table>	
+                    </table>
                     <br>
                     <br>
-                   
+
                     <h2>Product License</h2>
                     <table class="form-table" role="presentation">
                         <tbody>
@@ -159,7 +162,7 @@ class Settings {
                     </table>
                 </form>
             </div>
-        </div>  
+        </div>
         <?php
     }
 

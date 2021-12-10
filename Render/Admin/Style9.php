@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -11,8 +14,6 @@ use OXI_TABS_PLUGINS\Render\Helper;
 use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 class Style9 extends Helper {
-
-   
 
     public function register_header_general() {
         $this->start_controls_section(
@@ -37,7 +38,7 @@ class Style9 extends Helper {
             'description' => 'Set the Location of Title’s Additionals (Icon, Image, or Number.)',
                 ]
         );
-          $this->add_responsive_control(
+        $this->add_responsive_control(
                 'oxi-tabs-head-alignment-left-right', $this->style, [
             'label' => __('Title Alignment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
@@ -77,7 +78,7 @@ class Style9 extends Helper {
             'description' => 'Set the Location of Title’s Alignment',
                 ]
         );
-        
+
         $this->add_control(
                 'oxi-tabs-head-bg', $this->style, [
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
@@ -102,7 +103,7 @@ class Style9 extends Helper {
                     'description' => 'Customize Divider Border of the Header. Set Type, Size, and Color.',
                 ]
         );
-        
+
         $this->add_responsive_control(
                 'oxi-tabs-head-triangle-shape', $this->style, [
             'label' => __('Arrow Size', OXI_TABS_TEXTDOMAIN),

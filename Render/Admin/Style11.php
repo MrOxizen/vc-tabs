@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -75,7 +78,6 @@ class Style11 extends Helper {
             'description' => 'Set the Location of Title’s Alignment',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-head-bg', $this->style, [
@@ -1129,7 +1131,7 @@ class Style11 extends Helper {
     }
 
     public function modal_form_data() {
-        echo '<div class="modal-header">                    
+        echo '<div class="modal-header">
                     <h4 class="modal-title">Tabs Modal Form</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
@@ -1163,7 +1165,6 @@ class Style11 extends Helper {
             'description' => 'Add the Additional elements beside the Tab’s Title (Icon, Number or Image).',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-modal-icon', [], [

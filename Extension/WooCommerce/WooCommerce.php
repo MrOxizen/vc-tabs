@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Extension\WooCommerce;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of WooCommerce
  *
@@ -37,7 +40,7 @@ class WooCommerce {
         /*
          * Enqueue our JS / CSS files
          */
-        // 
+        //
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts_and_styles'), 10, 1);
         /*
          * Tab content Panels

@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -26,7 +29,7 @@ class Style10 extends Helper {
             'description' => 'Some Property Not Works Properly at live preview, Kindly check after saved.)',
                 ]
         );
-        
+
         $this->add_control(
                 'oxi-tabs-head-aditional-location', $this->style, [
             'label' => __('Title Additional Location', OXI_TABS_TEXTDOMAIN),
@@ -145,7 +148,6 @@ class Style10 extends Helper {
 
         $this->end_controls_tab();
         $this->end_controls_tabs();
-
 
         $this->add_group_control(
                 'oxi-tabs-head-boxshadow', $this->style, [

@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Helper;
 
+if (!defined('ABSPATH'))
+    exit;
+
 trait Admin_helper {
 
     public function redirect_on_activation() {
@@ -180,6 +183,7 @@ trait Admin_helper {
         } else {
             $first_key = 'manage_options';
         }
+
         add_menu_page('Content Tabs', 'Content Tabs', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
         add_submenu_page('oxi-tabs-ultimate', 'Content Tabs', 'Shortcode', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
         add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'tabs_create']);

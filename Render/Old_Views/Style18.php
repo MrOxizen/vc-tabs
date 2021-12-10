@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Old Style
  *
@@ -69,7 +72,7 @@ class Style18 extends Old_Render {
     public function inline_public_css() {
         $styledata = $this->style;
         $styleid = $this->ID;
-        $this->CSS = '.ctu-ultimate-wrapper-' . $styleid . '{           
+        $this->CSS = '.ctu-ultimate-wrapper-' . $styleid . '{
             width: 100%;
             float: left;
             text-align: center;
@@ -82,7 +85,7 @@ class Style18 extends Old_Render {
             border-radius: ' . $styledata[51] . 'px;
         }
         .ctu-ulimate-style-' . $styleid . '{
-            display: inline-block; 
+            display: inline-block;
             margin: 0 0 0 0;
             list-style: none;
             text-align: center;
@@ -133,7 +136,7 @@ class Style18 extends Old_Render {
             background-color:' . $styledata[5] . ';
             font-size: ' . $styledata[1] . 'px;
             padding: ' . $styledata[17] . 'px 10px;
-            font-weight: ' . $styledata[13] . ';            
+            font-weight: ' . $styledata[13] . ';
             font-style: ' . $styledata[57] . ';
             font-family:  ' . $this->font_familly($styledata[11]) . ';
             -webkit-box-shadow:  ' . $styledata[65] . 'px ' . $styledata[67] . 'px ' . $styledata[25] . 'px ' . $styledata[69] . 'px ' . $styledata[27] . ';
@@ -152,7 +155,7 @@ class Style18 extends Old_Render {
         .ctu-ulitate-style-' . $styleid . '-tabs{
             width: 100%;
             float: left;
-            display: none;            
+            display: none;
             text-align: ' . $styledata[49] . ';
             padding: ' . $styledata[35] . 'px ' . $styledata[37] . 'px ' . $styledata[39] . 'px ' . $styledata[41] . 'px ;
         }
@@ -204,7 +207,7 @@ class Style18 extends Old_Render {
         $styleid = $this->ID;
         echo '<div class="ctu-ultimate-wrapper-' . $styleid . '">
              <div class="ctu-ulimate-style-' . $styleid . '">';
-        
+
         $linkopening = '';
         if (!empty($styledata[77]) && $styledata[77] != 'new-tab') {
             $linkopening = ", '_self'";
@@ -222,7 +225,7 @@ class Style18 extends Old_Render {
         echo '<div class="ctu-ultimate-style-' . $styleid . '-content">';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
+            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                     ' . $this->special_charecter($titlefiles[0]) . '
                 </div>
                 <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">

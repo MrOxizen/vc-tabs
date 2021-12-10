@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Modules;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Visual_Composer
  *

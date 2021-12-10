@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -75,8 +78,6 @@ class Style4 extends Helper {
             'description' => 'Set the Location of Title’s Alignment',
                 ]
         );
-
-
 
         $this->add_control(
                 'oxi-tabs-head-bg', $this->style, [
@@ -366,7 +367,6 @@ class Style4 extends Helper {
                 ]
         );
         $this->end_popover_control();
-
 
         $this->add_group_control(
                 'oxi-tabs-desc-general-boxshadow', $this->style, [

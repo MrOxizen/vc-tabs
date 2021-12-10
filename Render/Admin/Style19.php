@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -97,7 +100,7 @@ class Style19 extends Helper {
             'description' => 'Customize Content Divider of the Header which divide with content. Set Type, Size, and Color.',
                 ]
         );
-         $this->add_control(
+        $this->add_control(
                 'oxi-tabs-head-active-border', $this->style, [
             'label' => __('Active Border C0lor', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
@@ -142,8 +145,8 @@ class Style19 extends Helper {
         );
         $this->end_controls_section();
     }
-    
-     public function register_desc_general() {
+
+    public function register_desc_general() {
         $this->start_controls_section(
                 'oxi-tabs-desc-general', [
             'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
@@ -167,7 +170,6 @@ class Style19 extends Helper {
             'description' => 'Select Content Height as Equal or Dynamic.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [

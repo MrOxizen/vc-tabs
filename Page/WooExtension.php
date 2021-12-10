@@ -7,6 +7,9 @@
 
 namespace OXI_TABS_PLUGINS\Page;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Settings
  *
@@ -97,7 +100,7 @@ class WooExtension {
     public function Render() {
         $this->admin_css_loader();
         ?>
-        <div class="wrap">   
+        <div class="wrap">
             <?php
             echo apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
             ?>
@@ -123,8 +126,8 @@ class WooExtension {
                                 <div class="sa-el-admin-header">
                                     <div class="sa-el-admin-header-icon">
                                         <span class="dashicons dashicons-format-aside"></span>
-                                    </div>    
-                                    <h4 class="sa-el-admin-header-title">Global Settings</h4>  
+                                    </div>
+                                    <h4 class="sa-el-admin-header-title">Global Settings</h4>
                                 </div>
                                 <div class="sa-el-admin-block-content">
                                     <div class="oxi-sa-cards">
@@ -134,7 +137,7 @@ class WooExtension {
                                         </div>
                                         <div class="responsive_tabs_with_accordions_license_massage"></div>
                                         <div class="oxi-sa-cards-switcher ">
-                                            <input type="checkbox" class="oxi-addons-switcher-btn" id="oxilab_tabs_woocommerce" name="oxilab_tabs_woocommerce" <?php echo  get_option('oxilab_tabs_woocommerce') == 'yes' ? 'checked="checked"' : ''; ?>>
+                                            <input type="checkbox" class="oxi-addons-switcher-btn" id="oxilab_tabs_woocommerce" name="oxilab_tabs_woocommerce" <?php echo get_option('oxilab_tabs_woocommerce') == 'yes' ? 'checked="checked"' : ''; ?>>
                                             <label for="oxilab_tabs_woocommerce" class="oxi-addons-switcher-label"></label>
                                         </div>
                                     </div>
@@ -159,7 +162,7 @@ class WooExtension {
                                             <select name="oxilab_tabs_woocommerce_default">
                                                 <?php foreach ($this->get_style as $key => $value) { ?>
                                                     <option value="<?php echo $key; ?>" <?php selected($this->default_tabs, $key); ?>><?php echo $value; ?></option>
-                                                <?php } ?>
+        <?php } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -193,7 +196,7 @@ class WooExtension {
                                                 </p>
                                                 <p class="form-field [<?php echo $key; ?>][title]_field ">
                                                     <label for="[<?php echo $key; ?>][title]">Tab Title</label>
-                                                    <input type="text" class="oxilab_tabs_woo_layouts_title_field" name="[<?php echo $key; ?>][title]" id="[<?php echo $key; ?>][title]" value="<?php echo $value['title']; ?>" placeholder="Write New Title else make it Blank"> 
+                                                    <input type="text" class="oxilab_tabs_woo_layouts_title_field" name="[<?php echo $key; ?>][title]" id="[<?php echo $key; ?>][title]" value="<?php echo $value['title']; ?>" placeholder="Write New Title else make it Blank">
                                                 </p>
                                                 <p class="form-field [<?php echo $key; ?>][icon]_field">
                                                     <label for="[<?php echo $key; ?>][icon]">Custom Icon</label>
@@ -206,7 +209,7 @@ class WooExtension {
 
                                                 <p class="form-field [<?php echo $key; ?>][callback]_field ">
                                                     <label for="[<?php echo $key; ?>][callback]">Callback Function</label>
-                                                    <input type="text" class="oxilab_tabs_woo_layouts_callback_field" style="" name="[<?php echo $key; ?>][callback]" id="[<?php echo $key; ?>][callback]" value="<?php echo $value['callback'] ?>" placeholder="Add callback function else make it blank"> 
+                                                    <input type="text" class="oxilab_tabs_woo_layouts_callback_field" style="" name="[<?php echo $key; ?>][callback]" id="[<?php echo $key; ?>][callback]" value="<?php echo $value['callback'] ?>" placeholder="Add callback function else make it blank">
                                                 </p>
                                             </div>
                                         </div>
@@ -228,7 +231,7 @@ class WooExtension {
                 </div>
 
             </div>
-        </div>  
+        </div>
         <?php
     }
 

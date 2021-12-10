@@ -42,6 +42,7 @@ jQuery.noConflict();
             var rawdata = JSON.stringify($(this).serializeJSON({checkboxUncheckedValue: "0"}));
             var functionname = "create_new";
             $('.modal-footer').prepend('<span class="spinner sa-spinner-open-left"></span>');
+            var styleid = '';
             Oxi_Tabs_Admin_Create(functionname, rawdata, styleid, childid, function (callback) {
                 setTimeout(function () {
                     document.location.href = callback;

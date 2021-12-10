@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -75,10 +78,6 @@ class Style12 extends Helper {
             'description' => 'Set the Location of Title’s Alignment',
                 ]
         );
-
-
-
-
 
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
@@ -286,4 +285,5 @@ class Style12 extends Helper {
         );
         $this->end_controls_section();
     }
+
 }

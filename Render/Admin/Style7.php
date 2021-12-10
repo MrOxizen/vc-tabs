@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -12,7 +15,7 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 class Style7 extends Helper {
 
-     public function register_header_general() {
+    public function register_header_general() {
         $this->start_controls_section(
                 'oxi-tabs-head', [
             'label' => esc_html__('Header General', OXI_TABS_TEXTDOMAIN),
@@ -76,10 +79,6 @@ class Style7 extends Helper {
                 ]
         );
 
-
-
-
-
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
                 [
@@ -102,7 +101,6 @@ class Style7 extends Helper {
             'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
         );
-
 
         $this->end_controls_tab();
         $this->start_controls_tab();
@@ -237,4 +235,5 @@ class Style7 extends Helper {
         );
         $this->end_controls_section();
     }
+
 }

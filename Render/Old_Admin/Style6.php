@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Style1
  *
@@ -55,8 +58,6 @@ class Style6 extends Old_Admin {
         return $data;
     }
 
-   
-
     public function admin_field($styledata) {
         $styleid = $this->styleid;
         if (empty($styledata[57])) {
@@ -76,7 +77,7 @@ class Style6 extends Old_Admin {
                     <div class="oxi-head">
                         Initial Opening
                     </div>
-                       <div class="form-group row form-group-sm">
+                    <div class="form-group row form-group-sm">
                         <label for="oxi-tabs-opening" class="col-sm-6 col-form-label" data-toggle="tooltip" data-placement="top" title="Set Which tabs You want to Open Initial" >Initial Opening </label>
                         <div class="col-sm-6">
                             <select class="form-control" id="oxi-tabs-opening" name="oxi-tabs-opening">
@@ -334,7 +335,7 @@ class Style6 extends Old_Admin {
                                 ?> value="inherit">Inherit</option>
                             </select>
                         </div>
-                    </div> 
+                    </div>
                 </div>
 
             </div>
@@ -386,7 +387,7 @@ class Style6 extends Old_Admin {
                         <div class="col-sm-6 ">
                             <input type="text" data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="content-background-color" name="content-background-color" value="<?php echo $styledata[23]; ?>" oxivalue="<?php echo $styledata[23]; ?>">
                         </div>
-                    </div>  
+                    </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-line-height" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Customize Your Content Font Line Height, Based on Point">Line Height </label>
                         <div class="col-sm-6 ">
@@ -689,4 +690,5 @@ class Style6 extends Old_Admin {
         </div>
         <?php
     }
+
 }

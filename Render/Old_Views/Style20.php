@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Old Style
  *
@@ -14,7 +17,7 @@ class Style20 extends Old_Render {
     public function inline_public_jquery() {
         $styledata = $this->style;
         $styleid = $this->ID;
-         $oxi_fixed_header = get_option('oxi_addons_fixed_header_size');
+        $oxi_fixed_header = get_option('oxi_addons_fixed_header_size');
         if (empty($styledata[39])) {
             $initialopen = ':first';
         } else if ($styledata[39] == 'none') {
@@ -197,7 +200,7 @@ class Style20 extends Old_Render {
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
             $cssdata = explode('|', $value['css']);
-            echo '  <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '" style="color: ' . $cssdata[1] . '; background-color:  ' . $cssdata[3] . '"> 
+            echo '  <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '" style="color: ' . $cssdata[1] . '; background-color:  ' . $cssdata[3] . '">
                         ' . $this->special_charecter($titlefiles[0]) . '
                     </div>
                     <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"  style="color: ' . $cssdata[1] . '; background-color:  ' . $cssdata[3] . '">

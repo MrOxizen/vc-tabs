@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Old Style
  *
@@ -96,7 +99,7 @@ class Style10 extends Old_Render {
             text-align: left;
             color: ' . $styledata[3] . ';
             border-left: 5px solid;
-            border-left-color: transparent; 
+            border-left-color: transparent;
             font-size: ' . $styledata[1] . 'px;
             font-family:    ' . $this->font_familly($styledata[9]) . ';
             font-weight: ' . $styledata[11] . ';
@@ -191,7 +194,7 @@ class Style10 extends Old_Render {
         }
         .ctu-ultimate-style-heading-' . $styleid . '.active{
             color: ' . $styledata[5] . ';
-            border-radius: 5px 5px 0 0;                         
+            border-radius: 5px 5px 0 0;
         }
         .ctu-ulitate-style-' . $styleid . '-tabs{
             float: left;
@@ -277,12 +280,12 @@ class Style10 extends Old_Render {
         echo '<div class="ctu-ultimate-style-' . $styleid . '-content">';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo '  <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
+            echo '  <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                      <em>' . $index++ . '</em> ' . $this->special_charecter($titlefiles[0]) . '
                 </div>
                 <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                     ' . $this->special_charecter($value['files']) . '
-                    ' . $this->admin_edit_panel($value['id']) . ' 
+                    ' . $this->admin_edit_panel($value['id']) . '
                 </div> ';
         }
         echo '</div> </div>';

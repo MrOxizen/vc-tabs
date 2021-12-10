@@ -2,10 +2,13 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Render Core Class
  *
- * 
+ *
  * @author biplob018
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0
@@ -133,7 +136,7 @@ class Old_Render {
         if ($this->user == 'admin'):
             $data = '<div class="oxi-addons-admin-absulote">
                         <div class="oxi-addons-admin-absulate-edit">
-                            <form method="post"> 
+                            <form method="post">
                                 <input type="hidden" name="item-id" value="' . $id . '">
                                 <button class="btn btn-primary" type="submit" value="edit" name="edit" title="Edit">Edit</button>
                                 ' . wp_nonce_field("oxitabseditdata") . '

@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Style1
  *
@@ -64,6 +67,7 @@ class Style10 extends Old_Admin {
                 . ' tabs-link-options |' . sanitize_text_field($_POST['tabs-link-options']) . '|';
         return $data;
     }
+
     public function admin_field($styledata) {
         $styleid = $this->styleid;
         if (empty($styledata[77])) {
@@ -88,60 +92,60 @@ class Style10 extends Old_Admin {
                         <div class="col-sm-6">
                             <select class="form-control" id="oxi-tabs-opening" name="oxi-tabs-opening">
                                 <option value=":eq(0)"     <?php
-                                if ($styledata[77] == ':eq(0)') {
-                                    echo 'selected';
-                                };
-                                ?>>First</option>
+                                        if ($styledata[77] == ':eq(0)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>First</option>
                                 <option value=":eq(1)"     <?php
-                                if ($styledata[77] == ':eq(1)') {
-                                    echo 'selected';
-                                };
-                                ?>>2nd</option>
+                                        if ($styledata[77] == ':eq(1)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>2nd</option>
                                 <option value=":eq(2)"     <?php
-                                if ($styledata[77] == ':eq(2)') {
-                                    echo 'selected';
-                                };
-                                ?>>3rd</option>
+                                        if ($styledata[77] == ':eq(2)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>3rd</option>
                                 <option value=":eq(3)"     <?php
-                                if ($styledata[77] == ':eq(3)') {
-                                    echo 'selected';
-                                };
-                                ?>>4th</option>
+                                        if ($styledata[77] == ':eq(3)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>4th</option>
                                 <option value=":eq(4)"     <?php
-                                if ($styledata[77] == ':eq(4)') {
-                                    echo 'selected';
-                                };
-                                ?>>5th</option>
+                                        if ($styledata[77] == ':eq(4)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>5th</option>
                                 <option value=":eq(5)"     <?php
-                                if ($styledata[77] == ':eq(5)') {
-                                    echo 'selected';
-                                };
-                                ?>>6th</option>
+                                        if ($styledata[77] == ':eq(5)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>6th</option>
                                 <option value=":eq(6)"     <?php
-                                if ($styledata[77] == ':eq(6)') {
-                                    echo 'selected';
-                                };
-                                ?>>7th</option>
+                                        if ($styledata[77] == ':eq(6)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>7th</option>
                                 <option value=":eq(7)"     <?php
-                                if ($styledata[77] == ':eq(7)') {
-                                    echo 'selected';
-                                };
-                                ?>>8th</option>
+                                        if ($styledata[77] == ':eq(7)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>8th</option>
                                 <option value=":eq(8)"     <?php
-                                if ($styledata[77] == ':eq(8)') {
-                                    echo 'selected';
-                                };
-                                ?>>9th</option>
+                                        if ($styledata[77] == ':eq(8)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>9th</option>
                                 <option value=":eq(9)" <?php
-                                if ($styledata[77] == ':eq(9)') {
-                                    echo 'selected';
-                                };
-                                ?>>10th</option>
+                                        if ($styledata[77] == ':eq(9)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>10th</option>
                                 <option value=":eq(109)"    <?php
-                                if ($styledata[77] == ':eq(109)') {
-                                    echo 'selected';
-                                };
-                                ?>>None</option>
+                                        if ($styledata[77] == ':eq(109)') {
+                                            echo 'selected';
+                                        };
+                                        ?>>None</option>
                             </select>
                         </div>
                     </div>
@@ -150,20 +154,20 @@ class Style10 extends Old_Admin {
                         <div class="col-sm-6">
                             <select class="form-control" id="oxi-tabs-opening" name="oxi-tabs-animation">
                                 <option value="show"<?php
-                                if ($styledata[79] == 'show') {
-                                    echo 'selected';
-                                };
-                                ?>>No Animation</option>
+                                        if ($styledata[79] == 'show') {
+                                            echo 'selected';
+                                        };
+                                        ?>>No Animation</option>
                                 <option value="fade"<?php
-                                if ($styledata[79] == 'fade') {
-                                    echo 'selected';
-                                };
-                                ?>>Fade</option>
+                                        if ($styledata[79] == 'fade') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Fade</option>
                                 <option value="slide"     <?php
-                                if ($styledata[79] == 'slide') {
-                                    echo 'selected';
-                                };
-                                ?>>Slide</option>
+                                        if ($styledata[79] == 'slide') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Slide</option>
                             </select>
                         </div>
                     </div>
@@ -172,26 +176,26 @@ class Style10 extends Old_Admin {
                         <div class="col-sm-6">
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-primary  <?php
-                                if ($styledata[81] == 'new-tab') {
-                                    echo 'active';
-                                };
-                                ?>" >
+                                       if ($styledata[81] == 'new-tab') {
+                                           echo 'active';
+                                       };
+                                       ?>" >
                                     <input type="radio" <?php
-                                    if ($styledata[81] == 'new-tab') {
-                                        echo 'checked';
-                                    };
-                                    ?> name="tabs-link-options" id="link-options1" value="new-tab"> New Tab
+                                           if ($styledata[81] == 'new-tab') {
+                                               echo 'checked';
+                                           };
+                                           ?> name="tabs-link-options" id="link-options1" value="new-tab"> New Tab
                                 </label>
                                 <label class="btn btn-primary <?php
-                                if ($styledata[81] != 'new-tab') {
-                                    echo 'active';
-                                };
-                                ?>">
+                                       if ($styledata[81] != 'new-tab') {
+                                           echo 'active';
+                                       };
+                                       ?>">
                                     <input type="radio" <?php
-                                    if ($styledata[81] != 'new-tab') {
-                                        echo 'checked';
-                                    };
-                                    ?> name="tabs-link-options" id="link-options2"> Same Tab
+                                           if ($styledata[81] != 'new-tab') {
+                                               echo 'checked';
+                                           };
+                                           ?> name="tabs-link-options" id="link-options2"> Same Tab
                                 </label>
                             </div>
                         </div>
@@ -236,70 +240,70 @@ class Style10 extends Old_Admin {
                         <div class="col-sm-6">
                             <select class="form-control" id="heading-font-weight" name="heading-font-weight">
                                 <option value="100"     <?php
-                                if ($styledata[11] == '100') {
-                                    echo 'selected';
-                                };
-                                ?>>100</option>
+                                        if ($styledata[11] == '100') {
+                                            echo 'selected';
+                                        };
+                                        ?>>100</option>
                                 <option value="200"     <?php
-                                if ($styledata[11] == '200') {
-                                    echo 'selected';
-                                };
-                                ?>>200</option>
+                                        if ($styledata[11] == '200') {
+                                            echo 'selected';
+                                        };
+                                        ?>>200</option>
                                 <option value="300"     <?php
-                                if ($styledata[11] == '300') {
-                                    echo 'selected';
-                                };
-                                ?>>300</option>
+                                        if ($styledata[11] == '300') {
+                                            echo 'selected';
+                                        };
+                                        ?>>300</option>
                                 <option value="400"     <?php
-                                if ($styledata[11] == '400') {
-                                    echo 'selected';
-                                };
-                                ?>>400</option>
+                                        if ($styledata[11] == '400') {
+                                            echo 'selected';
+                                        };
+                                        ?>>400</option>
                                 <option value="500"     <?php
-                                if ($styledata[11] == '500') {
-                                    echo 'selected';
-                                };
-                                ?>>500</option>
+                                        if ($styledata[11] == '500') {
+                                            echo 'selected';
+                                        };
+                                        ?>>500</option>
                                 <option value="600"     <?php
-                                if ($styledata[11] == '600') {
-                                    echo 'selected';
-                                };
-                                ?>>600</option>
+                                        if ($styledata[11] == '600') {
+                                            echo 'selected';
+                                        };
+                                        ?>>600</option>
                                 <option value="700"     <?php
-                                if ($styledata[11] == '700') {
-                                    echo 'selected';
-                                };
-                                ?>>700</option>
+                                        if ($styledata[11] == '700') {
+                                            echo 'selected';
+                                        };
+                                        ?>>700</option>
                                 <option value="800"     <?php
-                                if ($styledata[11] == '800') {
-                                    echo 'selected';
-                                };
-                                ?>>800</option>
+                                        if ($styledata[11] == '800') {
+                                            echo 'selected';
+                                        };
+                                        ?>>800</option>
                                 <option value="900"     <?php
-                                if ($styledata[11] == '900') {
-                                    echo 'selected';
-                                };
-                                ?>>900</option>
+                                        if ($styledata[11] == '900') {
+                                            echo 'selected';
+                                        };
+                                        ?>>900</option>
                                 <option value="normal" <?php
-                                if ($styledata[11] == 'normal') {
-                                    echo 'selected';
-                                };
-                                ?>>Normal</option>
+                                        if ($styledata[11] == 'normal') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Normal</option>
                                 <option value="bold"    <?php
-                                if ($styledata[11] == 'bold') {
-                                    echo 'selected';
-                                };
-                                ?>>Bold</option>
+                                        if ($styledata[11] == 'bold') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Bold</option>
                                 <option value="lighter" <?php
-                                if ($styledata[11] == 'lighter') {
-                                    echo 'selected';
-                                };
-                                ?>>Lighter</option>
+                                        if ($styledata[11] == 'lighter') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Lighter</option>
                                 <option value="initial"   <?php
-                                if ($styledata[11] == 'initial') {
-                                    echo 'selected';
-                                };
-                                ?>>Initial</option>
+                                        if ($styledata[11] == 'initial') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Initial</option>
                             </select>
                         </div>
                     </div>
@@ -367,7 +371,7 @@ class Style10 extends Old_Admin {
                 <div class="oxi-addons-content-div">
                     <div class="oxi-head">
                         Box Shadow
-                    </div>                                               
+                    </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-box-shadow-Horizontal" class="col-sm-6 col-form-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Attach Shadow Length to Heading, Based on Pixel">Box Shadow Length</label>
                         <div class="col-sm-3">
@@ -431,70 +435,70 @@ class Style10 extends Old_Admin {
                         <div class="col-sm-6">
                             <select class="form-control" id="content-font-weight" name="content-font-weight">
                                 <option value="100" <?php
-                                if ($styledata[49] == '100') {
-                                    echo 'selected';
-                                };
-                                ?>>100</option>
+                                        if ($styledata[49] == '100') {
+                                            echo 'selected';
+                                        };
+                                        ?>>100</option>
                                 <option value="200" <?php
-                                if ($styledata[49] == '200') {
-                                    echo 'selected';
-                                };
-                                ?>>200</option>
+                                        if ($styledata[49] == '200') {
+                                            echo 'selected';
+                                        };
+                                        ?>>200</option>
                                 <option value="300" <?php
-                                if ($styledata[49] == '300') {
-                                    echo 'selected';
-                                };
-                                ?>>300</option>
+                                        if ($styledata[49] == '300') {
+                                            echo 'selected';
+                                        };
+                                        ?>>300</option>
                                 <option value="400" <?php
-                                if ($styledata[49] == '400') {
-                                    echo 'selected';
-                                };
-                                ?>>400</option>
+                                        if ($styledata[49] == '400') {
+                                            echo 'selected';
+                                        };
+                                        ?>>400</option>
                                 <option value="500" <?php
-                                if ($styledata[49] == '500') {
-                                    echo 'selected';
-                                };
-                                ?>>500</option>
+                                        if ($styledata[49] == '500') {
+                                            echo 'selected';
+                                        };
+                                        ?>>500</option>
                                 <option value="600" <?php
-                                if ($styledata[49] == '600') {
-                                    echo 'selected';
-                                };
-                                ?>>600</option>
+                                        if ($styledata[49] == '600') {
+                                            echo 'selected';
+                                        };
+                                        ?>>600</option>
                                 <option value="700" <?php
-                                if ($styledata[49] == '700') {
-                                    echo 'selected';
-                                };
-                                ?>>700</option>
+                                        if ($styledata[49] == '700') {
+                                            echo 'selected';
+                                        };
+                                        ?>>700</option>
                                 <option value="800" <?php
-                                if ($styledata[49] == '800') {
-                                    echo 'selected';
-                                };
-                                ?>>800</option>
+                                        if ($styledata[49] == '800') {
+                                            echo 'selected';
+                                        };
+                                        ?>>800</option>
                                 <option value="900" <?php
-                                if ($styledata[49] == '900') {
-                                    echo 'selected';
-                                };
-                                ?>>900</option>
+                                        if ($styledata[49] == '900') {
+                                            echo 'selected';
+                                        };
+                                        ?>>900</option>
                                 <option value="normal" <?php
-                                if ($styledata[49] == 'normal') {
-                                    echo 'selected';
-                                };
-                                ?>>Normal</option>
+                                        if ($styledata[49] == 'normal') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Normal</option>
                                 <option value="bold" <?php
-                                if ($styledata[49] == 'bold') {
-                                    echo 'selected';
-                                };
-                                ?>>Bold</option>
+                                        if ($styledata[49] == 'bold') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Bold</option>
                                 <option value="lighter" <?php
-                                if ($styledata[49] == 'lighter') {
-                                    echo 'selected';
-                                };
-                                ?>>Lighter</option>
+                                        if ($styledata[49] == 'lighter') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Lighter</option>
                                 <option value="initial" <?php
-                                if ($styledata[49] == 'initial') {
-                                    echo 'selected';
-                                };
-                                ?>>Initial</option>
+                                        if ($styledata[49] == 'initial') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Initial</option>
                             </select>
                         </div>
                     </div>
@@ -522,10 +526,10 @@ class Style10 extends Old_Admin {
                         <label for="content-padding-top" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Use Padding to Generate Space Around Content as Tom Bottom. Based on Pixel">Padding Top Bottom</label>
                         <div class="col-sm-3">
                             <input class="form-control" type="number" value="<?php echo $styledata[37]; ?>" id="content-padding-top" name="content-padding-top">
-                        </div>                                                   
+                        </div>
                         <div class="col-sm-3">
                             <input class="form-control" type="number" value="<?php echo $styledata[41]; ?>" id="content-padding-bottom" name="content-padding-bottom">
-                        </div>                                                   
+                        </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-padding-top" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Use Padding to Generate Space Around Content as Left Right. Based on Pixel">Padding Left Right</label>
@@ -534,27 +538,27 @@ class Style10 extends Old_Admin {
                         </div>
                         <div class="col-sm-3">
                             <input class="form-control" type="number" value="<?php echo $styledata[39]; ?>" id="content-padding-right" name="content-padding-right">
-                        </div> 
+                        </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-font-align" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Set Content Text Position, Based on left or center or Right">Text Align  </label>
                         <div class="col-sm-6">
                             <select class="form-control" id="content-font-align" name="content-font-align">
                                 <option value="left" <?php
-                                if ($styledata[51] == 'left') {
-                                    echo 'selected';
-                                };
-                                ?>>Left</option>
+                                        if ($styledata[51] == 'left') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Left</option>
                                 <option value="center" <?php
-                                if ($styledata[51] == 'center') {
-                                    echo 'selected';
-                                };
-                                ?>>Center</option>
+                                        if ($styledata[51] == 'center') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Center</option>
                                 <option value="right" <?php
-                                if ($styledata[51] == 'right') {
-                                    echo 'selected';
-                                };
-                                ?>>Right</option>
+                                        if ($styledata[51] == 'right') {
+                                            echo 'selected';
+                                        };
+                                        ?>>Right</option>
                             </select>
                         </div>
                     </div>
@@ -567,7 +571,7 @@ class Style10 extends Old_Admin {
                 </div>
                 <div class="oxi-addons-content-div">
                     <div class="oxi-head">
-                        Box Shadow                                                
+                        Box Shadow
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-box-shadow-Horizontal" class="col-sm-6 col-form-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Attach Shadow Length to Tabs, Based on Pixel">Box Shadow  Length</label>
@@ -592,8 +596,8 @@ class Style10 extends Old_Admin {
                         <div class="col-sm-6 ">
                             <input type="text" data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="content-box-shadow-color" name="content-box-shadow-color" value="<?php echo $styledata[55]; ?>" oxivalue="<?php echo $styledata[55]; ?>">
                         </div>
-                    </div>                                                
-                </div>                                   
+                    </div>
+                </div>
             </div>
 
         </div>

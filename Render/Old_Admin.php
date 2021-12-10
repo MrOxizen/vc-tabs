@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Old_Admin
  *
@@ -238,11 +241,11 @@ class Old_Admin {
     }
 
     public function admin_field($styledata) {
-        
+
     }
 
     public function admin_child_field() {
-        
+
     }
 
     public function add_new_form_opener() {
@@ -277,7 +280,7 @@ class Old_Admin {
                             <input type="submit" class="btn btn-success" name="oxi-addons-name-change" value="Save">
                         </div>
                     </div>
-                    <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
+        <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
                 </form>
             </div>
         </div>
@@ -321,7 +324,7 @@ class Old_Admin {
                         </div>
                     </div>
                     <div id="modal-rearrange-store-file">
-                        <?php echo $this->admin_child_rearrange(); ?>
+        <?php echo $this->admin_child_rearrange(); ?>
                     </div>
                 </form>
 
@@ -355,7 +358,7 @@ class Old_Admin {
 
     public function Templates() {
         ?>
-        <div class="wrap oxi-template-old-admin-wrap">  
+        <div class="wrap oxi-template-old-admin-wrap">
             <div class="oxi-addons-row">
                 <div class="oxi-addons-wrapper ">
                     <?php
@@ -378,13 +381,13 @@ class Old_Admin {
                                             </li>
                                         </ul>
                                         <div class="oxilab-tabs-content">
-                                            <?php echo $this->admin_field($this->styledata); ?>
+        <?php echo $this->admin_field($this->styledata); ?>
                                         </div>
                                     </div>
                                     <div class="oxi-addons-setting-save">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         <input type="submit" class="btn btn-primary" name="data-submit" value="Save">
-                                        <?php wp_nonce_field("oxitabsstylecss") ?>
+        <?php wp_nonce_field("oxitabsstylecss") ?>
                                     </div>
                                 </div>
                             </form>
@@ -441,7 +444,7 @@ class Old_Admin {
                                     <input type="submit" class="btn btn-primary" id="item-submit" name="item-submit" value="Submit">
                                 </div>
                             </div>
-                            <?php wp_nonce_field("oxitabschildnonce") ?>
+        <?php wp_nonce_field("oxitabschildnonce") ?>
                         </form>
                     </div>
                 </div>
@@ -789,7 +792,7 @@ class Old_Admin {
         $checking = apply_filters('oxi-tabs-plugin/pro_version', true);
 
         if ($checking == false) {
-            $data .= 'jQuery(".oxilab-vendor-color").each(function (index, value) {                             
+            $data .= 'jQuery(".oxilab-vendor-color").each(function (index, value) {
                             jQuery(this).closest(".col-sm-6").siblings(".col-sm-6.control-label").append(" <span class=\"oxi-pro-only\">Pro</span>");
                             var datavalue = jQuery(this).val();
                             jQuery(this).attr("oxivalue", datavalue);

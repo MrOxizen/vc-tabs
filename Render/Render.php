@@ -2,10 +2,13 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Render Core Class
  *
- * 
+ *
  * @author biplob018
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0

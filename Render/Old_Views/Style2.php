@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Old Style
  *
@@ -185,8 +188,8 @@ class Style2 extends Old_Render {
                     line-height: 120%;
                     font-style: ' . $styledata[47] . ';
                     padding: ' . $styledata[17] . 'px 10px;
-                    text-align: center;            
-                    border-radius: ' . $styledata[19] . 'px;            
+                    text-align: center;
+                    border-radius: ' . $styledata[19] . 'px;
                     background-color:  ' . $styledata[5] . ';
                     color: ' . $styledata[3] . ';
                 }
@@ -202,7 +205,7 @@ class Style2 extends Old_Render {
                 .ctu-ulitate-style-' . $styleid . '-tabs{
                     width: 100%;
                     display: none;
-                    padding: ' . $styledata[27] . 'px ' . $styledata[29] . 'px ' . $styledata[31] . 'px ' . $styledata[33] . 'px;            
+                    padding: ' . $styledata[27] . 'px ' . $styledata[29] . 'px ' . $styledata[31] . 'px ' . $styledata[33] . 'px;
                     background-color: ' . $styledata[25] . ';
                 }
                 .ctu-ulitate-style-' . $styleid . '-tabs p{
@@ -231,7 +234,7 @@ class Style2 extends Old_Render {
                     }
                     .ctu-ultimate-style-' . $styleid . '-content{
                         margin-bottom: 10px;
-                    } 
+                    }
                     .ctu-ultimate-wrapper-' . $styleid . '{
                         -webkit-box-shadow: none !important;
                         -o-box-shadow: none !important;
@@ -267,7 +270,7 @@ class Style2 extends Old_Render {
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
             echo '<div class="ctu-ultimate-style-' . $styleid . '-content">
-                    <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
+                    <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                         ' . $this->special_charecter($titlefiles[0]) . '
                     </div>
                     <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">

@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Style1
  *
@@ -50,7 +53,6 @@ class Style8 extends Old_Admin {
         return $data;
     }
 
-
     public function admin_field($styledata) {
         $styleid = $this->styleid;
         if (empty($styledata[47])) {
@@ -70,7 +72,7 @@ class Style8 extends Old_Admin {
                     <div class="oxi-head">
                         Initial Opening
                     </div>
-                         <div class="form-group row form-group-sm">
+                    <div class="form-group row form-group-sm">
                         <label for="oxi-tabs-opening" class="col-sm-6 col-form-label" data-toggle="tooltip" data-placement="top" title="Set Which tabs You want to Open Initial" >Initial Opening </label>
                         <div class="col-sm-6">
                             <select class="form-control" id="oxi-tabs-opening" name="oxi-tabs-opening">

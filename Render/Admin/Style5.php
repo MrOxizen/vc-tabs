@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -76,8 +79,6 @@ class Style5 extends Helper {
                 ]
         );
 
-
-
         $this->add_control(
                 'oxi-tabs-head-bg', $this->style, [
             'label' => __('Background', OXI_TABS_TEXTDOMAIN),
@@ -89,7 +90,7 @@ class Style5 extends Helper {
             'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
         );
-         $this->start_popover_control(
+        $this->start_popover_control(
                 'oxi-tabs-head-general-popover', [
             'label' => 'Circle Shape',
             'description' => 'Customize the Tabs’s Content Circle Shape.',
@@ -139,7 +140,7 @@ class Style5 extends Helper {
             'type' => Controls::SINGLEBORDER,
             'selector' => [
                 '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => 'border: {{SIZE}}px {{TYPE}} {{COLOR}};',
-                 '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li .oxi-tabs-header-shape' => 'top: -{{SIZE}}px ;bottom: -{{SIZE}}px;left: -{{SIZE}}px;right: -{{SIZE}}px;',
+                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li .oxi-tabs-header-shape' => 'top: -{{SIZE}}px ;bottom: -{{SIZE}}px;left: -{{SIZE}}px;right: -{{SIZE}}px;',
             ],
             'description' => 'Customize Content Divider of the Header which divide with content. Set Type, Size, and Color.',
                 ]
@@ -178,8 +179,8 @@ class Style5 extends Helper {
         );
         $this->end_controls_section();
     }
-    
-     public function register_desc_general() {
+
+    public function register_desc_general() {
         $this->start_controls_section(
                 'oxi-tabs-desc-general', [
             'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
@@ -203,7 +204,6 @@ class Style5 extends Helper {
             'description' => 'Select Content Height as Equal or Dynamic.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [

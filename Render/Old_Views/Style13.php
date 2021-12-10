@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Old Style
  *
@@ -155,8 +158,8 @@ class Style13 extends Old_Render {
         .ctu-ulitate-style-' . $styleid . '-tabs{
             display: none;
             width: 100%;
-            float: left;            
-            background-color: ' . $styledata[35] . ';           
+            float: left;
+            background-color: ' . $styledata[35] . ';
             padding: ' . $styledata[37] . 'px ' . $styledata[39] . 'px ' . $styledata[41] . 'px ' . $styledata[43] . 'px;
             text-align: ' . $styledata[51] . ';
             border-radius: ' . $styledata[53] . 'px;
@@ -200,8 +203,8 @@ class Style13 extends Old_Render {
         $styleid = $this->ID;
         echo '<div class="ctu-ultimate-wrapper-' . $styleid . '">
             <div class="ctu-ulimate-style-' . $styleid . '">';
-       
-         $linkopening = '';
+
+        $linkopening = '';
         if (!empty($styledata[79]) && $styledata[79] != 'new-tab') {
             $linkopening = ", '_self'";
         }
@@ -219,7 +222,7 @@ class Style13 extends Old_Render {
         echo '<div class="ctu-ultimate-style-' . $styleid . '-content">';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
+            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                             ' . $this->special_charecter($titlefiles[0]) . '
                         </div>
                         <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">

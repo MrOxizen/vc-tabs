@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Style1
  *
@@ -78,7 +81,7 @@ class Style22 extends Old_Admin {
                     <div class="oxi-head">
                         Initial Opening
                     </div>
-                      <div class="form-group row form-group-sm">
+                    <div class="form-group row form-group-sm">
                         <label for="oxi-tabs-opening" class="col-sm-6 col-form-label" data-toggle="tooltip" data-placement="top" title="Set Which tabs You want to Open Initial" >Initial Opening </label>
                         <div class="col-sm-6">
                             <select class="form-control" id="oxi-tabs-opening" name="oxi-tabs-opening">
@@ -263,7 +266,7 @@ class Style22 extends Old_Admin {
                                 ?> value="inherit">Inherit</option>
                             </select>
                         </div>
-                    </div> 
+                    </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-font-weight" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Customize Your Title Font Weight, Based on CSS Weight" >Font Weight  </label>
                         <div class="col-sm-6">
@@ -336,7 +339,7 @@ class Style22 extends Old_Admin {
                             </select>
                         </div>
                     </div>
-                </div>                                            
+                </div>
             </div>
             <div class="oxi-addons-col-6">
                 <div class="oxi-addons-content-div">
@@ -535,7 +538,7 @@ class Style22 extends Old_Admin {
                         </div>
                         <div class="col-sm-3">
                             <input class="form-control" type="number" value="<?php echo $styledata[31]; ?>" id="content-padding-right" name="content-padding-right">
-                        </div>                                                    
+                        </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-border-radius" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Add Rounded Corner on tabs, Based on Pixel">Border Radius </label>
@@ -546,7 +549,7 @@ class Style22 extends Old_Admin {
                 </div>
                 <div class="oxi-addons-content-div">
                     <div class="oxi-head">
-                        Box Shadow                                                
+                        Box Shadow
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-box-shadow-Horizontal" class="col-sm-6 col-form-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Attach Shadow Length to Tabs, Based on Pixel">Box Shadow  Length</label>
@@ -571,7 +574,7 @@ class Style22 extends Old_Admin {
                         <div class="col-sm-6 ">
                             <input type="text" data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="content-box-shadow-color" name="content-box-shadow-color" value="<?php echo $styledata[49]; ?>">
                         </div>
-                    </div> 
+                    </div>
                 </div>
 
             </div>
@@ -726,4 +729,5 @@ class Style22 extends Old_Admin {
         </div>
         <?php
     }
+
 }

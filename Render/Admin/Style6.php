@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -76,10 +79,6 @@ class Style6 extends Helper {
                 ]
         );
 
-
-
-
-
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
                 [
@@ -102,7 +101,6 @@ class Style6 extends Helper {
             'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
         );
-
 
         $this->end_controls_tab();
         $this->start_controls_tab();
@@ -147,10 +145,6 @@ class Style6 extends Helper {
             'description' => 'Horizontal will extend height & Vertical will be width .',
                 ]
         );
-
-
-
-
 
         $this->start_popover_control(
                 'oxi-tabs-head-general-popover', [
@@ -253,7 +247,6 @@ class Style6 extends Helper {
 
         $this->end_popover_control();
 
-
         $this->add_group_control(
                 'oxi-tabs-head-boxshadow', $this->style, [
             'type' => Controls::BOXSHADOW,
@@ -327,7 +320,8 @@ class Style6 extends Helper {
         );
         $this->end_controls_section();
     }
-     public function register_desc_general() {
+
+    public function register_desc_general() {
         $this->start_controls_section(
                 'oxi-tabs-desc-general', [
             'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
@@ -351,7 +345,6 @@ class Style6 extends Helper {
             'description' => 'Select Content Height as Equal or Dynamic.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [
@@ -448,4 +441,5 @@ class Style6 extends Helper {
         );
         $this->end_controls_section();
     }
+
 }

@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Old Style
  *
@@ -70,28 +73,28 @@ class Style15 extends Old_Render {
     public function inline_public_css() {
         $styledata = $this->style;
         $styleid = $this->ID;
-        $this->CSS = '.ctu-ultimate-wrapper-'. $styleid.'{
+        $this->CSS = '.ctu-ultimate-wrapper-' . $styleid . '{
             margin: 0 0 0 0;
             width: 100%;
             float: left;
-            border-radius: '. $styledata[45].'px;
+            border-radius: ' . $styledata[45] . 'px;
             overflow: hidden;
-            background-color: '. $styledata[25].';
-            -webkit-box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-            -o-box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-            -ms-box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-            -moz-box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-            box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
+            background-color: ' . $styledata[25] . ';
+            -webkit-box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+            -o-box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+            -ms-box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+            -moz-box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+            box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
         }
-        .ctu-ulimate-style-'. $styleid.'{
-            width: calc(100% - '. $styledata[35].'%);
-            float: '. $styledata[51].';
+        .ctu-ulimate-style-' . $styleid . '{
+            width: calc(100% - ' . $styledata[35] . '%);
+            float: ' . $styledata[51] . ';
             list-style: none;
             text-align: center;
             overflow: hidden;
             margin-bottom: 0;
         }
-        .ctu-ulimate-style-'. $styleid.' .vc-tabs-li{
+        .ctu-ulimate-style-' . $styleid . ' .vc-tabs-li{
             width: 100%;
             list-style: none;
             cursor: pointer;
@@ -106,15 +109,15 @@ class Style15 extends Old_Render {
             -o-flex-align:   center;
             -moz-flex-align:   center;
             align-items:   center;
-            margin-bottom: '. $styledata[19].'px;
-            padding: '. $styledata[15].'px 12px;
+            margin-bottom: ' . $styledata[19] . 'px;
+            padding: ' . $styledata[15] . 'px 12px;
             text-align: left;
-            color: '. $styledata[3].';
-            background-color:  '. $styledata[5].';
-            font-size: '. $styledata[1].'px;
-            font-family:    '. $this->font_familly($styledata[11]).';
-            font-weight:  '. $styledata[13].';
-            font-style: '. $styledata[53].';
+            color: ' . $styledata[3] . ';
+            background-color:  ' . $styledata[5] . ';
+            font-size: ' . $styledata[1] . 'px;
+            font-family:    ' . $this->font_familly($styledata[11]) . ';
+            font-weight:  ' . $styledata[13] . ';
+            font-style: ' . $styledata[53] . ';
             line-height: 100%;
             -webkit-box-shadow: inset 3px -36px 52px -24px rgba(255, 255, 255, 0.28);
             -moz-box-shadow: inset 3px -36px 52px -24px rgba(255, 255, 255, 0.28);
@@ -122,22 +125,22 @@ class Style15 extends Old_Render {
             -moz-box-shadow: inset 3px -36px 52px -24px rgba(255, 255, 255, 0.28);
             box-shadow: inset 3px -36px 52px -24px rgba(255, 255, 255, 0.28);
         }
-        .ctu-ulimate-style-'. $styleid.' .vc-tabs-li.active{
-            color: '. $styledata[7].';
-            background-color: '. $styledata[9].';
+        .ctu-ulimate-style-' . $styleid . ' .vc-tabs-li.active{
+            color: ' . $styledata[7] . ';
+            background-color: ' . $styledata[9] . ';
         }
-        .ctu-ulimate-style-'. $styleid.' .vc-tabs-li .oxi-icons{
-            font-size: '. $styledata[17].'px !important;
+        .ctu-ulimate-style-' . $styleid . ' .vc-tabs-li .oxi-icons{
+            font-size: ' . $styledata[17] . 'px !important;
             margin-right: 10px !important;
         }
-        .ctu-ulimate-style-'. $styleid.' .vc-tabs-li:last-child{
+        .ctu-ulimate-style-' . $styleid . ' .vc-tabs-li:last-child{
             margin-bottom: 0;
         }
-        .ctu-ultimate-style-'. $styleid.'-content{
-            width: '. $styledata[35].'%;
+        .ctu-ultimate-style-' . $styleid . '-content{
+            width: ' . $styledata[35] . '%;
             float: left;
         }
-        .ctu-ultimate-style-heading-'. $styleid.'{
+        .ctu-ultimate-style-heading-' . $styleid . '{
             width: 100%;
             float: left;
             display: -webkit-box;
@@ -153,46 +156,46 @@ class Style15 extends Old_Render {
             cursor: pointer;
             display: none;
             line-height: 100%;
-            color: '. $styledata[3].';
-            background-color: '. $styledata[5].';
-            font-size: '. $styledata[1].'px;
-            padding: '. $styledata[15].'px 10px;
-            font-weight: '. $styledata[13].';
-            font-family:  '. $this->font_familly($styledata[11]).';
-            font-style: '. $styledata[53].';
+            color: ' . $styledata[3] . ';
+            background-color: ' . $styledata[5] . ';
+            font-size: ' . $styledata[1] . 'px;
+            padding: ' . $styledata[15] . 'px 10px;
+            font-weight: ' . $styledata[13] . ';
+            font-family:  ' . $this->font_familly($styledata[11]) . ';
+            font-style: ' . $styledata[53] . ';
             -webkit-box-shadow: inset 3px -36px 52px -24px rgba(255, 255, 255, 0.28);
             -moz-box-shadow: inset 3px -36px 52px -24px rgba(255, 255, 255, 0.28);
             -o-box-shadow: inset 3px -36px 52px -24px rgba(255, 255, 255, 0.28);
             -ms-box-shadow: inset 3px -36px 52px -24px rgba(255, 255, 255, 0.28);
             box-shadow: inset 3px -36px 52px -24px rgba(255, 255, 255, 0.28);
         }
-        .ctu-ultimate-style-heading-'. $styleid.'.active{
-            color: '. $styledata[7].';
-            background-color:'. $styledata[9].';
+        .ctu-ultimate-style-heading-' . $styleid . '.active{
+            color: ' . $styledata[7] . ';
+            background-color:' . $styledata[9] . ';
             border-radius: 5px 5px 0 0;
         }
-        .ctu-ultimate-style-heading-'. $styleid.' i{
-            font-size: '. $styledata[17].'px !important;
+        .ctu-ultimate-style-heading-' . $styleid . ' i{
+            font-size: ' . $styledata[17] . 'px !important;
             margin-right: 10px !important;
         }
-        .ctu-ulitate-style-'. $styleid.'-tabs{
+        .ctu-ulitate-style-' . $styleid . '-tabs{
             float: left;
             width: 100%;
-            display: none;           
-            padding: '. $styledata[27].'px '. $styledata[29].'px '. $styledata[31].'px '. $styledata[33].'px ;
-            text-align: '. $styledata[43].';
+            display: none;
+            padding: ' . $styledata[27] . 'px ' . $styledata[29] . 'px ' . $styledata[31] . 'px ' . $styledata[33] . 'px ;
+            text-align: ' . $styledata[43] . ';
         }
-        .ctu-ulitate-style-'. $styleid.'-tabs p{
-            font-size: '. $styledata[21].'px;
-            color: '. $styledata[23].';
-            font-weight: '. $styledata[41].';
-            line-height: '. $styledata[37].';
-            font-family: '. $this->font_familly($styledata[39]).';
+        .ctu-ulitate-style-' . $styleid . '-tabs p{
+            font-size: ' . $styledata[21] . 'px;
+            color: ' . $styledata[23] . ';
+            font-weight: ' . $styledata[41] . ';
+            line-height: ' . $styledata[37] . ';
+            font-family: ' . $this->font_familly($styledata[39]) . ';
             margin-bottom: 0;
             margin-top:0;
         }
         @media only screen and (max-width: 900px) {
-            .ctu-ultimate-wrapper-'. $styleid.'{
+            .ctu-ultimate-wrapper-' . $styleid . '{
                 display: block;
                 overflow: visible;
                 border-radius:  0;
@@ -203,38 +206,38 @@ class Style15 extends Old_Render {
                 -moz-box-shadow: none;
                 box-shadow: none;
             }
-            .ctu-ultimate-style-'. $styleid.'-content{
+            .ctu-ultimate-style-' . $styleid . '-content{
                 width: 100%;
                 display: block;
                 overflow: visible;
             }
-            .ctu-ulimate-style-'. $styleid.' {
+            .ctu-ulimate-style-' . $styleid . ' {
                 display: none;
             }
-            .ctu-ultimate-style-heading-'. $styleid.'{
+            .ctu-ultimate-style-heading-' . $styleid . '{
                 width: 100%;
                 float: left;
                 display: block;
                 border-radius: 5px;
-                -webkit-box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-                -o-box-shadow: '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-                -ms-box-shadow:  '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-                -moz-box-shadow:  '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-                box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
+                -webkit-box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+                -o-box-shadow: ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+                -ms-box-shadow:  ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+                -moz-box-shadow:  ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+                box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
                 margin-bottom: 10px;
             }
-            .ctu-ulitate-style-'. $styleid.'-tabs{
+            .ctu-ulitate-style-' . $styleid . '-tabs{
                 margin-bottom: 10px;
                 border-radius: 0 0 5px 5px;
-                -webkit-box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-                -o-box-shadow:    '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-                -ms-box-shadow:    '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-                -moz-box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
-                box-shadow:   '. $styledata[55].'px '. $styledata[57].'px '. $styledata[47].'px '. $styledata[59].'px '. $styledata[49].';
+                -webkit-box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+                -o-box-shadow:    ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+                -ms-box-shadow:    ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+                -moz-box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
+                box-shadow:   ' . $styledata[55] . 'px ' . $styledata[57] . 'px ' . $styledata[47] . 'px ' . $styledata[59] . 'px ' . $styledata[49] . ';
 
             }
         }
-        '. $styledata[61].'';
+        ' . $styledata[61] . '';
     }
 
     public function default_render() {
@@ -260,7 +263,7 @@ class Style15 extends Old_Render {
         echo '<div class="ctu-ultimate-style-' . $styleid . '-content">';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
+            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                     ' . $this->icon_font_selector($value['css']) . '
                     ' . $this->special_charecter($titlefiles[0]) . '
                 </div>

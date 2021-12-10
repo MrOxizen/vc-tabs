@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -209,7 +212,6 @@ class Style17 extends Helper {
             'description' => 'Select Content Height as Equal or Dynamic.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [

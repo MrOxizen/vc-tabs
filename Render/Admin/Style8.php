@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Effects1
  *
@@ -12,7 +15,7 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 class Style8 extends Helper {
 
-     public function register_header_general() {
+    public function register_header_general() {
         $this->start_controls_section(
                 'oxi-tabs-head', [
             'label' => esc_html__('Header General', OXI_TABS_TEXTDOMAIN),
@@ -163,7 +166,8 @@ class Style8 extends Helper {
         );
         $this->end_controls_section();
     }
-      public function register_desc_general() {
+
+    public function register_desc_general() {
         $this->start_controls_section(
                 'oxi-tabs-desc-general', [
             'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
@@ -187,7 +191,6 @@ class Style8 extends Helper {
             'description' => 'Select Content Height as Equal or Dynamic.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [
@@ -275,4 +278,5 @@ class Style8 extends Helper {
         );
         $this->end_controls_section();
     }
+
 }

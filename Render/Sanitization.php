@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  *
  * @author $biplob018
@@ -11,7 +14,7 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 trait Sanitization {
 
     /**
-     * font settings sanitize 
+     * font settings sanitize
      * works at layouts page to adding font Settings sanitize
      */
     public function AdminTextSenitize($data) {
@@ -41,7 +44,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel header
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -55,7 +58,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Body
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -71,7 +74,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel end Body
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -81,7 +84,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Col 6 or Entry devider
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -91,7 +94,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel end Entry Divider
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -100,8 +103,8 @@ trait Sanitization {
     }
 
     /*
-     * Oxi Tabs Style Admin Panel Form Dependency 
-     * 
+     * Oxi Tabs Style Admin Panel Form Dependency
+     *
      * @since 3.3.0
      */
 
@@ -152,7 +155,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Each Tabs
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -170,7 +173,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel end Each Tabs
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -181,7 +184,7 @@ trait Sanitization {
     /*
      * Oxi Tabs Style Admin Panel Section Inner Tabs
      * This Tabs like inner tabs as Normal view and Hover View
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -206,7 +209,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel end Section Inner Tabs
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -216,7 +219,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Section Inner Tabs Child
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -226,7 +229,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel End Section Inner Tabs Child
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -236,7 +239,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel  Section Popover
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -247,28 +250,27 @@ trait Sanitization {
             $this->Popover_Condition = false;
         endif;
 
-
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
         echo '  <div class="shortcode-form-control shortcode-control-type-popover ' . $separator . '" ' . $condition . '>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover">
                         <div class="shortcode-form-control-field">
-                            <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>  
+                            <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>
                             <div class="shortcode-form-control-input-wrapper">
                                 <span class="dashicons popover-set"></span>
                             </div>
                         </div>
                         ' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '') . '
-                        
+
                     </div>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover-body">
-                        
+
                ';
     }
 
     /*
      * Oxi Tabs Style Admin Panel end Popover
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -279,8 +281,8 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Form Add Control.
-     * Call All Input Control from here Based on Control Name. 
-     * 
+     * Call All Input Control from here Based on Control Name.
+     *
      * @since 3.3.0
      */
 
@@ -328,7 +330,7 @@ trait Sanitization {
         ];
 
         /*
-         * Data Currection while Its comes from group Control 
+         * Data Currection while Its comes from group Control
          */
         if (array_key_exists('selector-value', $arg)) :
             foreach ($arg['selector'] as $key => $value) {
@@ -376,7 +378,7 @@ trait Sanitization {
     /*
      * Oxi Tabs Style Admin Panel Responsive Control.
      * Can Possible to modify any Add control to Responsive Control
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -427,7 +429,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Group Control.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -467,7 +469,7 @@ trait Sanitization {
         }
         echo '          <div class="shortcode-form-control-input-wrapper">
                             <input type="hidden" value="' . $value . '" name="' . $id . '" id="' . $id . '">
-                        </div>      
+                        </div>
                     </div>
                 </div>
             </div>';
@@ -475,7 +477,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Heading Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -485,7 +487,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Switcher Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -495,7 +497,7 @@ trait Sanitization {
 
     public function multiple_selector_handler($data, $val) {
 
-        $val = preg_replace_callback('/\{\{\K(.*?)(?=}})/', function($match)use ($data) {
+        $val = preg_replace_callback('/\{\{\K(.*?)(?=}})/', function ($match)use ($data) {
             $ER = explode('.', $match[0]);
             if (strpos($match[0], 'SIZE') !== FALSE):
                 $size = array_key_exists($ER[0] . '-size', $data) ? $data[$ER[0] . '-size'] : '';
@@ -516,14 +518,14 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Switcher Input.
-     * 
+     *
      * @since 3.3.0
      */
 
     public function switcher_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <label class="shortcode-switcher">  
+                    <label class="shortcode-switcher">
                         <input type="checkbox" ' . ($value == $arg['return_value'] ? 'checked ckdflt="true"' : '') . ' value="' . $arg['return_value'] . '"  name="' . $id . '" id="' . $id . '"/>
                         <span data-on="' . $arg['label_on'] . '" data-off="' . $arg['label_off'] . '"></span>
                     </label>
@@ -532,7 +534,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Text Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -552,7 +554,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Hidden Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -583,7 +585,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Textarea Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -597,7 +599,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel WYSIWYG Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -619,7 +621,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Image Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -645,7 +647,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Number Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -678,7 +680,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Slider Input.
-     * 
+     *
      * @since 3.3.0
      * Done With Number Information
      */
@@ -727,7 +729,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Select Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -735,7 +737,6 @@ trait Sanitization {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
-
 
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
@@ -785,14 +786,13 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Choose Input.
-     * 
+     *
      * @since 3.3.0
      */
 
     public function choose_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
-
 
         $operator = array_key_exists('operator', $arg) ? $arg['operator'] : 'text';
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
@@ -829,7 +829,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Color Input.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -900,7 +900,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Icon Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -915,7 +915,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Font Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -952,7 +952,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Date and Time Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -972,7 +972,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Gradient Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -1005,7 +1005,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Dimensions Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -1078,7 +1078,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Typography.
-     * 
+     *
      * @since 3.3.0
      * Simple Interface Enable
      */
@@ -1157,7 +1157,6 @@ trait Sanitization {
                     ]
             );
         endif;
-
 
         $this->add_control(
                 $id . '-weight', $data, [
@@ -1345,9 +1344,9 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Media Group Control.
-     * 
+     *
      * @since 3.3.0
-     * 
+     *
      * Works at any version
      */
 
@@ -1409,7 +1408,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Box Shadow Control.
-     * 
+     *
      * @since 3.3.0
      * Only Works At Customizable Version
      */
@@ -1600,7 +1599,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Text Shadow .
-     * 
+     *
      * @since 3.3.0
      * Only Works at Customizable Options
      */
@@ -1720,9 +1719,9 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Text Shadow .
-     * 
+     *
      * @since 3.3.0
-     * 
+     *
      * Simple Interface Enable
      */
 
@@ -1733,7 +1732,6 @@ trait Sanitization {
             $condition = $arg['condition'];
         endif;
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
-
 
         $this->start_popover_control(
                 $id, [
@@ -1897,7 +1895,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Border .
-     * 
+     *
      * @since 3.3.0
      * Complete Simple Version
      */
@@ -1931,7 +1929,7 @@ trait Sanitization {
         if (array_key_exists($id . '-type', $data) && $data[$id . '-type'] == '') :
             $render = 'render';
         endif;
-       
+
         $this->start_popover_control(
                 $id, [
             'label' => __('Border', OXI_TABS_TEXTDOMAIN),
@@ -2011,7 +2009,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Border .
-     * 
+     *
      * @since 3.3.0
      * Complete Simple Version
      */
@@ -2113,7 +2111,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Background .
-     * 
+     *
      * @since 3.3.0
      * Simple Interface Enable
      */
@@ -2327,7 +2325,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Background .
-     * 
+     *
      * @since 3.3.0
      * Simple Interfaece Enable
      */
@@ -2369,7 +2367,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Column Size.
-     * 
+     *
      * @since 3.3.0
      * Complete Simple Interface
      */
@@ -2454,17 +2452,17 @@ trait Sanitization {
     }
 
     /*
-     * 
-     * 
+     *
+     *
      * Templates Substitute Data
-     * 
-     * 
-     * 
-     * 
+     *
+     *
+     *
+     *
      */
     /*
      * Oxi Tabs Style Admin Panel Template Substitute Control.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -2475,7 +2473,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Template Substitute Modal Opener.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -2489,7 +2487,7 @@ trait Sanitization {
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         * 
+         *
          */
         echo ' <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
@@ -2515,7 +2513,7 @@ trait Sanitization {
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         * 
+         *
          */
         echo ' <div class="oxi-addons-shortcode  shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
@@ -2538,7 +2536,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Template Shortcode Info.
-     * 
+     *
      * @since 3.3.0
      */
 
@@ -2551,7 +2549,7 @@ trait Sanitization {
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         * 
+         *
          */
         echo ' <div class="oxi-addons-shortcode shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
@@ -2583,7 +2581,7 @@ trait Sanitization {
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         * 
+         *
          */
         echo '  <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">

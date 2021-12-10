@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Helper;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  *
  * @author biplo
@@ -77,7 +80,7 @@ trait CSS_JS_Loader {
     /**
      * Admin Media Scripts.
      * Most of time using into Style Editing Page
-     * 
+     *
      * @since 9.3.0
      */
     public function admin_media_scripts() {
@@ -424,9 +427,8 @@ trait CSS_JS_Loader {
                         })(jQuery);
                         jQuery(\'.shortcode-addons-family\').fontselect();';
 
-
         if (apply_filters('oxi-tabs-plugin/pro_version', false) == false):
-            $data .= 'setTimeout(function () {jQuery(".oxi-addons-minicolor").each(function (index, value) {                             
+            $data .= 'setTimeout(function () {jQuery(".oxi-addons-minicolor").each(function (index, value) {
                             jQuery(this).parent().parent().siblings(".shortcode-form-control-title").append(" <span class=\"oxi-pro-only\">Pro Only</span>");
                             var datavalue = jQuery(this).val();
                             jQuery(this).attr("oxilabvalue", datavalue);

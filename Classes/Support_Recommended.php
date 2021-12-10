@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Classes;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Support_Recommended
  *

@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Helper;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  *
  * @author biplo

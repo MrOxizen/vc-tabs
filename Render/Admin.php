@@ -2,10 +2,13 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Admin Core Class
  *
- * 
+ *
  * @author biplob018
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0
@@ -65,7 +68,6 @@ class Admin {
      * @since 3.3.0
      */
     public $CSSWRAPPER;
-    
 
     /**
      * Define $wpdb
@@ -135,7 +137,7 @@ class Admin {
                 $this->Get_Nested_Tabs[$value['id']] = !empty($value['name']) ? $value['name'] : 'Tabs id ' . $value['id'];
             endif;
         }
-        
+
         $this->child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->oxiid), ARRAY_A);
         if (!empty($this->dbdata['rawdata'])):
             $s = json_decode(stripslashes($this->dbdata['rawdata']), true);
@@ -346,7 +348,7 @@ class Admin {
      */
     public function render() {
         ?>
-        <div class="wrap">  
+        <div class="wrap">
             <div class="oxi-addons-wrapper">
                 <?php
                 apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
@@ -371,10 +373,10 @@ class Admin {
                                             <input type="hidden"  id="oxilab-preview-color" name="oxilab-preview-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
                                             <input type="hidden"  id="style-id" name="style-id" value="<?php echo $this->dbdata['id']; ?>">
                                             <input type="hidden"  id="style-name" name="style-name" value="<?php echo $this->StyleName; ?>">
-                                            <input type="hidden"  id="style-changing-trigger" name="style-changing-trigger" value=""> 
+                                            <input type="hidden"  id="style-changing-trigger" name="style-changing-trigger" value="">
                                             <button type="button" class="btn btn-success" id="oxi-addons-templates-submit"> Save</button>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </form>
                             </div>
                             <div class="oxi-addons-style-right">
@@ -404,7 +406,7 @@ class Admin {
                                                     <span class="dashicons dashicons-smartphone"></span>
                                                 </a>
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div class="oxi-addons-style-left-preview-heading-right">
                                             <input type="text" data-format="rgb" data-opacity="TRUE" class="oxi-addons-minicolor" id="oxi-addons-2-0-color" name="oxi-addons-2-0-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
                                         </div>
@@ -412,8 +414,8 @@ class Admin {
                                     <div class="oxi-addons-preview-wrapper">
                                         <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> > .oxi-addons-row" template-id="#oxi-tabs-wrapper-<?php echo $this->dbdata['id']; ?>">
 
-                                            <iframe  src="<?php echo admin_url('admin.php?page=oxi-tabs-style-view&styleid=' . $this->oxiid); ?>" 
-                                                     id="oxi-addons-preview-iframe" 
+                                            <iframe  src="<?php echo admin_url('admin.php?page=oxi-tabs-style-view&styleid=' . $this->oxiid); ?>"
+                                                     id="oxi-addons-preview-iframe"
                                                      class="oxi-addons-preview-iframe"
                                                      width="100%" scrolling="no"
                                                      frameborder="0"></iframe>
@@ -433,12 +435,12 @@ class Admin {
                                     </div>
                                 </div>
                                 <div class="modal-body text-center">
-                                    <h4></h4>	
+                                    <h4></h4>
                                     <p></p>
                                 </div>
                             </div>
                         </div>
-                    </div>  
+                    </div>
 
                 </div>
             </div>

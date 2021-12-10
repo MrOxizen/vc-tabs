@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Old Style
  *
@@ -156,7 +159,7 @@ class Style17 extends Old_Render {
         .ctu-ultimate-style-heading-' . $styleid . '.active{
             color: ' . $styledata[7] . ';
             background-color: ' . $styledata[9] . ';
-            border-color: ' . $styledata[9] . ';   
+            border-color: ' . $styledata[9] . ';
             border-radius: 5px 5px 0 0;
         }
         .ctu-ulitate-style-' . $styleid . '-tabs{
@@ -172,7 +175,7 @@ class Style17 extends Old_Render {
             -ms-box-shadow: ' . $styledata[65] . 'px ' . $styledata[67] . 'px ' . $styledata[59] . 'px ' . $styledata[59] . 'px ' . $styledata[61] . ';
             -moz-box-shadow:' . $styledata[65] . 'px ' . $styledata[67] . 'px ' . $styledata[59] . 'px ' . $styledata[59] . 'px ' . $styledata[61] . ';
             box-shadow: ' . $styledata[65] . 'px ' . $styledata[67] . 'px ' . $styledata[59] . 'px ' . $styledata[59] . 'px ' . $styledata[61] . ';
-        } 
+        }
         .ctu-ulitate-style-' . $styleid . '-tabs p{
             font-size: ' . $styledata[35] . 'px;
             color: ' . $styledata[37] . ';
@@ -220,15 +223,15 @@ class Style17 extends Old_Render {
                 $this->JQUERY .= '$(".vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '").click(function() {window.open("' . $titlefiles[1] . '" ' . $linkopening . ');});';
             }
             echo '  <div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
-                                    ' . $this->special_charecter($titlefiles[0]) . ' 
+                                    ' . $this->special_charecter($titlefiles[0]) . '
                                 </div>';
         }
         echo '</div>';
         echo '<div class="ctu-ultimate-style-' . $styleid . '-content">';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
-                        ' . $this->special_charecter($titlefiles[0]) . ' 
+            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+                        ' . $this->special_charecter($titlefiles[0]) . '
                 </div>
                 <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                     ' . $this->special_charecter($value['files']) . '

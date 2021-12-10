@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Classes;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Tabs Rest API
  *
@@ -42,9 +45,22 @@ class Build_Api {
             register_rest_route(untrailingslashit('oxilabtabsultimate/v1/'), '/(?P<action>\w+)/', array(
                 'methods' => array('GET', 'POST'),
                 'callback' => [$this, 'api_action'],
-                'permission_callback' => '__return_true'
+                'permission_callback' => array($this, 'get_permissions_check'),
             ));
         });
+    }
+
+    public function get_permissions_check($request) {
+        $user_role = get_option('oxi_addons_user_permission');
+        $role_object = get_role($user_role);
+        $first_key = '';
+        if (isset($role_object->capabilities) && is_array($role_object->capabilities)) {
+            reset($role_object->capabilities);
+            $first_key = key($role_object->capabilities);
+        } else {
+            $first_key = 'manage_options';
+        }
+        return current_user_can($first_key);
     }
 
     public function api_action($request) {
@@ -56,24 +72,11 @@ class Build_Api {
         endif;
 
         $this->rawdata = addslashes($request['rawdata']);
-        $this->styleid = $request['styleid'];
-        $this->childid = $request['childid'];
-        $class = $request['class'];
+        $this->styleid = (int) $request['styleid'];
+        $this->childid = (int) $request['childid'];
         $action_class = strtolower($request->get_method()) . '_' . sanitize_key($request['action']);
-        if ($class != ''):
-            if (strpos($class, 'OXI_TABS_PLUGINS') === false):
-                return new \WP_REST_Request('Invalid URL', 422);
-            endif;
-            $args = $request['args'];
-            $optional = $request['optional'];
-            ob_start();
-            $CLASS = new $class;
-            $CLASS->__construct($request['action'], $this->rawdata, $args, $optional);
-            return ob_get_clean();
-        else:
-            if (method_exists($this, $action_class)):
-                return $this->{$action_class}();
-            endif;
+        if (method_exists($this, $action_class)):
+            return $this->{$action_class}();
         endif;
         return 'Silence is Golden';
     }

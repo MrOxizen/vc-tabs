@@ -2,6 +2,9 @@
 
 namespace OXI_TABS_PLUGINS\Extension\WooCommerce;
 
+if (!defined('ABSPATH'))
+    exit;
+
 /**
  * Description of Admin
  *
@@ -145,7 +148,7 @@ class Admin {
                     </div>
                 </div>
             </div>
-            <?php ?>
+        <?php ?>
         </div>
         <?php
     }
