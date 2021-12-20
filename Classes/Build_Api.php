@@ -471,7 +471,6 @@ class Build_Api {
             update_option('oxi_addons_fixed_header_size', $value);
             echo '<span class="oxi-confirmation-success"></span>';
         endif;
-        return '<span class="oxi-confirmation-success"></span>';
     }
 
     /**
