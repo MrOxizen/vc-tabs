@@ -132,10 +132,10 @@ class WooCommerce {
 
         // save the woo data
         if (isset($_POST['_oxilab_tabs_woo_layouts_tab_title_'])):
-            $titles = $_POST['_oxilab_tabs_woo_layouts_tab_title_'];
-            $prioritys = $_POST['_oxilab_tabs_woo_layouts_tab_priority_'];
-            $contents = $_POST['_oxilab_tabs_woo_layouts_tab_content_'];
-            $callback = $_POST['_oxilab_tabs_woo_layouts_tab_callback_'];
+            $titles = sanitize_text_field($_POST['_oxilab_tabs_woo_layouts_tab_title_']);
+            $prioritys = sanitize_text_field($_POST['_oxilab_tabs_woo_layouts_tab_priority_']);
+            $contents = sanitize_text_field($_POST['_oxilab_tabs_woo_layouts_tab_content_']);
+            $callback = sanitize_text_field($_POST['_oxilab_tabs_woo_layouts_tab_callback_']);
 
             $tab_data = [];
             foreach ($titles as $key => $value) {

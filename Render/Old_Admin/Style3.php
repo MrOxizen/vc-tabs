@@ -58,8 +58,8 @@ class Style3 extends Old_Admin {
                 . 'content-box-shadow-Horizontal |' . sanitize_text_field($_POST['content-box-shadow-Horizontal']) . '| '
                 . 'content-box-shadow-Vertical |' . sanitize_text_field($_POST['content-box-shadow-Vertical']) . '| '
                 . 'content-box-shadow-Spread |' . sanitize_text_field($_POST['content-box-shadow-Spread']) . '| '
-                . 'heading-font-style |' . $_POST['heading-font-style'] . '|'
-                . ' custom-css |' . $_POST['custom-css'] . '|'
+                . 'heading-font-style |' . sanitize_text_field($_POST['heading-font-style']) . '|'
+                . ' custom-css |' . sanitize_text_field($_POST['custom-css']) . '|'
                 . ' oxi-tabs-opening |' . sanitize_text_field($_POST['oxi-tabs-opening']) . '|'
                 . ' oxi-tabs-animation |' . sanitize_text_field($_POST['oxi-tabs-animation']) . '|'
                 . ' tabs-link-options |' . sanitize_text_field($_POST['tabs-link-options']) . '|';

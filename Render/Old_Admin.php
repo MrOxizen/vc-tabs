@@ -160,13 +160,13 @@ class Old_Admin {
             if (!wp_verify_nonce($this->nonce, 'oxitabschildnonce')) {
                 die('You do not have sufficient permissions to access this page.');
             } else {
-                $id = $_POST['item-id'];
+                $id = (int) $_POST['item-id'];
                 $child = $this->clild();
                 if ($id == '') {
                     $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (title, files, css, styleid) VALUES ( %s, %s, %s, %d)", array($child['title'], $child['files'], $child['css'], $this->styleid)));
-                } else if ($id != '' && is_numeric($id)) {
+                } elseif ($id != '' && is_numeric($id)) {
                     $item_id = (int) $id;
-                    $this->wpdb->update("$this->child_table", array("title" => $child['title'], "files" => $child['files'], "css" => $child['css']), array('id' => $item_id), array('%s', '%s', '%s'), array('%d'));
+                    $this->wpdb->query($this->wpdb->prepare("UPDATE $this->child_table SET title = %s, files = %s, css = $s WHERE id = %d", $child['title'], $child['files'], $child['css'], $item_id));
                 }
             }
         }
@@ -280,7 +280,7 @@ class Old_Admin {
                             <input type="submit" class="btn btn-success" name="oxi-addons-name-change" value="Save">
                         </div>
                     </div>
-        <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
+                    <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
                 </form>
             </div>
         </div>
@@ -324,7 +324,7 @@ class Old_Admin {
                         </div>
                     </div>
                     <div id="modal-rearrange-store-file">
-        <?php echo $this->admin_child_rearrange(); ?>
+                        <?php echo $this->admin_child_rearrange(); ?>
                     </div>
                 </form>
 
@@ -381,13 +381,13 @@ class Old_Admin {
                                             </li>
                                         </ul>
                                         <div class="oxilab-tabs-content">
-        <?php echo $this->admin_field($this->styledata); ?>
+                                            <?php echo $this->admin_field($this->styledata); ?>
                                         </div>
                                     </div>
                                     <div class="oxi-addons-setting-save">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         <input type="submit" class="btn btn-primary" name="data-submit" value="Save">
-        <?php wp_nonce_field("oxitabsstylecss") ?>
+                                        <?php wp_nonce_field("oxitabsstylecss") ?>
                                     </div>
                                 </div>
                             </form>
@@ -444,7 +444,7 @@ class Old_Admin {
                                     <input type="submit" class="btn btn-primary" id="item-submit" name="item-submit" value="Submit">
                                 </div>
                             </div>
-        <?php wp_nonce_field("oxitabschildnonce") ?>
+                            <?php wp_nonce_field("oxitabschildnonce") ?>
                         </form>
                     </div>
                 </div>

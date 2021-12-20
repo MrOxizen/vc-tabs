@@ -57,7 +57,7 @@ class Style4 extends Old_Admin {
                 . ' content-box-shadow-Spread |' . sanitize_text_field($_POST['content-box-shadow-Spread']) . '|'
                 . ' heading-font-style |' . sanitize_text_field($_POST['heading-font-style']) . '|'
                 . ' content-width |' . sanitize_text_field($_POST['content-width']) . '|'
-                . ' custom-css |' . $_POST['custom-css'] . '|'
+                . ' custom-css |' . sanitize_text_field($_POST['custom-css']) . '|'
                 . ' oxi-tabs-opening |' . sanitize_text_field($_POST['oxi-tabs-opening']) . '|'
                 . ' tabs-link-options |' . sanitize_text_field($_POST['tabs-link-options']) . '|';
         return $data;

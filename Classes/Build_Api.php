@@ -459,7 +459,18 @@ class Build_Api {
      */
     public function post_oxi_settings() {
         $rawdata = json_decode(stripslashes($this->rawdata), true);
-        update_option($rawdata['name'], $rawdata['value']);
+        $name = sanitize_text_field($rawdata['name']);
+        $value = sanitize_text_field($rawdata['value']);
+        if ($name === 'oxi_addons_user_permission'):
+            update_option('oxi_addons_user_permission', $value);
+            echo '<span class="oxi-confirmation-success"></span>';
+        elseif ($name === 'oxi_addons_font_awesome'):
+            update_option('oxi_addons_font_awesome', $value);
+            echo '<span class="oxi-confirmation-success"></span>';
+        elseif ($name === 'oxi_addons_fixed_header_size'):
+            update_option('oxi_addons_fixed_header_size', $value);
+            echo '<span class="oxi-confirmation-success"></span>';
+        endif;
         return '<span class="oxi-confirmation-success"></span>';
     }
 

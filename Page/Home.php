@@ -68,7 +68,7 @@ class Home {
                 die('You do not have sufficient permissions to access this page.');
             } else {
                 if (apply_filters('oxi-tabs-plugin/pro_version', false) == TRUE):
-                    if (isset($_FILES['importtabsfilefile'])) :
+                    if (isset($_FILES['importtabsfilefile']) && current_user_can('upload_files')) :
                         $filename = $_FILES["importtabsfilefile"]["name"];
                         $folder = $this->safe_path(OXI_TABS_PATH . 'assets/export/');
                         if (!is_dir($folder)):
