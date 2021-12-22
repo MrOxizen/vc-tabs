@@ -118,13 +118,13 @@ class Plugins {
                             ?>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="oxi-addons-modules-elements">
-                                    <img class="oxi-addons-modules-banner" src="<?php echo $value['modules-img']; ?>">
+                                    <img class="oxi-addons-modules-banner" src="<?php echo esc_url($value['modules-img']); ?>">
                                     <div class="oxi-addons-modules-action-wrapper">
-                                        <span class="oxi-addons-modules-name"><?php echo $value['modules-name']; ?></span>
-                                        <span class="oxi-addons-modules-desc"><?php echo $value['modules-desc']; ?></span>
+                                        <span class="oxi-addons-modules-name"><?php echo esc_html($value['modules-name']); ?></span>
+                                        <span class="oxi-addons-modules-desc"><?php echo esc_html($value['modules-desc']); ?></span>
                                     </div>
                                     <div class="oxi-addons-modules-action-status">
-                                        <span class="oxi-addons-modules-preview"><a href="<?php echo $value['plugin-url']; ?>" class="btn btn-dark">Preview</a></span>
+                                        <span class="oxi-addons-modules-preview"><a href="<?php echo esc_url($value['plugin-url']); ?>" class="btn btn-dark">Preview</a></span>
                                         <span class="oxi-addons-modules-installing"><?php echo $message; ?></span>
                                     </div>
                                 </div>

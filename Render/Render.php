@@ -184,28 +184,12 @@ class Render {
             $inlinecss .= $this->CSSDATA;
         }
         if ($inlinejs != ''):
-            if ($this->admin == 'admin'):
-                echo _('<script>
-                        (function ($) {
-                            setTimeout(function () {');
-                echo $inlinejs;
-                echo _('    }, 2000);
-                        })(jQuery)</script>');
-            else:
-                $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
-                wp_add_inline_script($this->JSHANDLE, $jquery);
-            endif;
+            $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
+            wp_add_inline_script($this->JSHANDLE, $jquery);
         endif;
         if ($inlinecss != ''):
             $inlinecss = html_entity_decode($inlinecss);
-            if ($this->admin == 'admin'):
-                //only load while ajax called
-                echo _('<style>');
-                echo $inlinecss;
-                echo _('</style>');
-            else:
-                wp_add_inline_style('oxi-tabs-ultimate', $inlinecss);
-            endif;
+            wp_add_inline_style('oxi-tabs-ultimate', $inlinecss);
         endif;
     }
 
@@ -231,10 +215,10 @@ class Render {
 
         $this->public_attribute($this->style);
 
-        echo '<div class="oxi-addons-container ' . $this->WRAPPER . '" id="' . $this->WRAPPER . '">
+        echo '<div class="oxi-addons-container ' . esc_attr($this->WRAPPER) . '" id="' . esc_attr($this->WRAPPER) . '">
                  <div class="oxi-addons-row">';
         if ($this->admin == 'admin'):
-            echo '<input type="hidden" id="oxi-addons-iframe-background-color" name="oxi-addons-iframe-background-color" value="' . (is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF') . '">';
+            echo '<input type="hidden" id="oxi-addons-iframe-background-color" name="oxi-addons-iframe-background-color" value="' . (is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? esc_attr($this->style['oxilab-preview-color']) : '#FFF' : '#FFF') . '">';
         endif;
         $this->default_render($this->style, $this->child, $this->admin);
         echo '   </div>
@@ -459,14 +443,14 @@ class Render {
                 $public .= '<div class="oxi-tabs-comment">';
                 if ($show_avatar) :
                     $public .= ' <div class="oxi-tabs-comment-avatar">
-                                    <a href="' . get_comment_link($comment->comment_ID) . '">
+                                    <a href="' . esc_url(get_comment_link($comment->comment_ID)) . '">
                                         ' . get_avatar($comment->comment_author_email, $avatar_size) . '
                                     </a>
                                 </div>';
                 endif;
                 $public .= '<div class="oxi-tabs-comment-body">
                                 <div class=oxi-tabs-comment-meta">
-                                    <a href="' . get_comment_link($comment->comment_ID) . '">
+                                    <a href="' . esc_url(get_comment_link($comment->comment_ID)) . '">
                                         <span class="oxi-tabs-comment-author">' . get_comment_author($comment->comment_ID) . ' </span> - <span class="oxi-tabs-comment-post">' . get_the_title($comment->comment_post_ID) . '</span>
                                     </a>
                                 </div>
@@ -519,14 +503,14 @@ class Render {
                 if ($show_thumb) {
                     $image = $image_url[0] != '' ? $image_url[0] : '';
                     $public .= '    <div class="oxi-tabs-recent-avatar">
-                                        <a href="' . get_permalink($query->post->ID) . '">
-                                           <img class="oxi-image" src="' . $image . '">
+                                        <a href="' . esc_url(get_permalink($query->post->ID)) . '">
+                                           <img class="oxi-image" src="' . esc_url($image) . '">
                                         </a>
                                     </div>';
                 }
                 $public .= '<div class="oxi-tabs-recent-body">
                                 <div class="oxi-tabs-recent-meta">
-                                    <a href="' . get_permalink($query->post->ID) . '">
+                                    <a href="' . esc_url(get_permalink($query->post->ID)) . '">
                                         ' . get_the_title($query->post->ID) . '
                                     </a>
                                 </div>
@@ -585,14 +569,14 @@ class Render {
                 if ($show_thumb) {
                     $image = $image_url[0] != '' ? $image_url[0] : '';
                     $public .= '    <div class="oxi-tabs-popular-avatar">
-                                        <a href="' . get_permalink($query->post->ID) . '">
+                                        <a href="' . esc_url(get_permalink($query->post->ID)) . '">
                                            <img class="oxi-image" src="' . $image . '">
                                         </a>
                                     </div>';
                 }
                 $public .= '<div class="oxi-tabs-popular-body">
                                 <div class="oxi-tabs-popular-meta">
-                                    <a href="' . get_permalink($query->post->ID) . '">
+                                    <a href="' . esc_url(get_permalink($query->post->ID)) . '">
                                         ' . get_the_title($query->post->ID) . '
                                     </a>
                                 </div>
@@ -708,7 +692,7 @@ class Render {
         if ($fadata != 'no'):
             wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
         endif;
-        $files = '<i class="' . $data . ' oxi-icons"></i>';
+        $files = '<i class="' . esc_attr($data) . ' oxi-icons"></i>';
         return $files;
     }
 
@@ -724,10 +708,10 @@ class Render {
         if ($this->admin == 'admin'):
             $data = '   <div class="oxi-addons-admin-absulote">
                             <div class="oxi-addons-admin-absulate-edit">
-                                <button class="btn btn-primary shortcode-addons-template-item-edit" type="button" value="' . $id . '">Edit</button>
+                                <button class="btn btn-primary shortcode-addons-template-item-edit" type="button" value="' . esc_attr($id) . '">Edit</button>
                             </div>
                             <div class="oxi-addons-admin-absulate-delete">
-                                <button class="btn btn-danger shortcode-addons-template-item-delete" type="submit" value="' . $id . '">Delete</button>
+                                <button class="btn btn-danger shortcode-addons-template-item-delete" type="submit" value="' . esc_attr($id) . '">Delete</button>
                             </div>
                         </div>';
         endif;

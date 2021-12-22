@@ -76,10 +76,10 @@ class Settings {
                                 </th>
                                 <td>
                                     <fieldset>
-                                        <select name="oxi_addons_user_permission">
+                                        <select name="oxi_addons_user_permission" id="oxi_addons_user_permission">
                                             <?php foreach ($this->roles as $key => $role) { ?>
-                                                <option value="<?php echo $key; ?>" <?php selected($this->saved_role, $key); ?>><?php echo $role; ?></option>
-        <?php } ?>
+                                                <option value="<?php echo esc_attr($key); ?>" <?php selected($this->saved_role, $key); ?>><?php echo esc_html($role); ?></option>
+                                            <?php } ?>
                                         </select>
                                         <span class="oxi-addons-settings-connfirmation oxi_addons_user_permission"></span>
                                         <br>
@@ -110,7 +110,7 @@ class Settings {
                                     <label for="oxi_addons_fixed_header_size">Fixed Header Size</label>
                                 </th>
                                 <td class="valid">
-                                    <input type="text" class="regular-text" id="oxi_addons_fixed_header_size" name="oxi_addons_fixed_header_size" value="<?php echo $this->oxi_fixed_header; ?>">
+                                    <input type="text" class="regular-text" id="oxi_addons_fixed_header_size" name="oxi_addons_fixed_header_size" value="<?php echo esc_attr($this->oxi_fixed_header); ?>">
                                     <span class="oxi-addons-settings-connfirmation oxi_addons_fixed_header_size "></span>
                                     <p class="description">Set Fixed Header Size for Responsive Tabs with Accordions.</p>
                                 </td>
@@ -128,7 +128,7 @@ class Settings {
                                     <label for="responsive_tabs_with_accordions_license_key">License Key</label>
                                 </th>
                                 <td class="valid">
-                                    <input type="text" class="regular-text" id="responsive_tabs_with_accordions_license_key" name="responsive_tabs_with_accordions_license_key" value="<?php echo $this->license; ?>">
+                                    <input type="text" class="regular-text" id="responsive_tabs_with_accordions_license_key" name="responsive_tabs_with_accordions_license_key" value="<?php echo esc_attr($this->license); ?>">
                                     <span class="oxi-addons-settings-connfirmation responsive_tabs_with_accordions_license_massage">
                                         <?php
                                         if ($this->status == 'valid' && empty($this->license)):
@@ -149,7 +149,7 @@ class Settings {
                                         elseif ($this->status == 'valid' && !empty($this->license)):
                                             echo '<span class="oxi-addons-settings-massage">Active</span>';
                                         elseif (!empty($this->license)):
-                                            echo '<span class="oxi-addons-settings-massage">' . $this->status . '</span>';
+                                            echo '<span class="oxi-addons-settings-massage">' . esc_attr($this->status) . '</span>';
                                         else:
                                             echo '<span class="oxi-addons-settings-massage"></span>';
                                         endif;

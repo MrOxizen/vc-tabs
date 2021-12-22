@@ -68,22 +68,34 @@ class Home {
                 die('You do not have sufficient permissions to access this page.');
             } else {
                 if (apply_filters('oxi-tabs-plugin/pro_version', false) == TRUE):
-                    if (isset($_FILES['importtabsfilefile']) && current_user_can('upload_files')) :
-                        $filename = $_FILES["importtabsfilefile"]["name"];
-                        $folder = $this->safe_path(OXI_TABS_PATH . 'assets/export/');
-                        if (!is_dir($folder)):
-                            mkdir($folder, 0777);
-                        endif;
-                        if (is_file($folder . $filename)):
-                            unlink($folder . $filename); // delete file
+                    if (isset($_FILES['importtabsfilefile'])) :
+                        if (!current_user_can('upload_files')):
+                            wp_die(__('You do not have permission to upload files.'));
                         endif;
 
-                        move_uploaded_file($_FILES['importtabsfilefile']['tmp_name'], $folder . $filename);
+                        $allowedMimes = array(
+                            'json' => 'text/plain'
+                        );
+
+                        $fileInfo = wp_check_filetype(basename($_FILES['importtabsfilefile']['name']), $allowedMimes);
+                        if (empty($fileInfo['ext'])) {
+                            wp_die(__('You do not have permission to upload files.'));
+                        }
+
+                        $content = json_decode(file_get_contents($_FILES['importtabsfilefile']['tmp_name']), true);
+
+                        if (empty($content)) {
+                            return new \WP_Error('file_error', 'Invalid File');
+                        }
+                        $style = $content['style'];
+
+                        if (!is_array($style)) {
+                            return new \WP_Error('file_error', 'Invalid Content In File');
+                        }
+
                         $ImportApi = new \OXI_TABS_PLUGINS\Classes\Build_Api;
-                        $ImportApi->post_json_import($folder, $filename);
-                        if (is_file($folder . $filename)):
-                            unlink($folder . $filename); // delete file
-                        endif;
+                        $new_slug = $ImportApi->post_json_import($content);
+                        wp_safe_redirect($new_slug);
                     endif;
                 endif;
             }
@@ -115,115 +127,119 @@ class Home {
     }
 
     public function create_new() {
+        ?>
 
-
-        echo _('<div class="modal fade" id="oxi-addons-style-create-modal" >
-                        <form method="post" id="oxi-addons-style-modal-form">
-                            <div class="modal-dialog modal-sm modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Tabs Clone</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class=" form-group row">
-                                            <label for="addons-style-name" class="col-sm-6 col-form-label" oxi-addons-tooltip="Give your Shortcode Name Here">Name</label>
-                                            <div class="col-sm-6 addons-dtm-laptop-lock">
-                                                <input class="form-control" type="text" value="" id="addons-style-name"  name="addons-style-name" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input type="hidden" id="oxistyleid" name="oxistyleid" value="">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    ');
-        if (apply_filters('oxi-tabs-plugin/pro_version', false)):
-
-
-            echo _('<div class="oxi-addons-row">
-                        <div class="oxi-addons-col-1 oxi-import">
-                            <div class="oxi-addons-style-preview">
-                                <div class="oxilab-admin-style-preview-top">
-                                    <a href="#" id="oxilab-tabs-import-json">
-                                        <div class="oxilab-admin-add-new-item">
-                                            <span>
-                                                <i class="fas fa-plus-circle oxi-icons"></i>
-                                                Import Tabs
-                                            </span>
-                                        </div>
-                                    </a>
+        <div class="modal fade" id="oxi-addons-style-create-modal" >
+            <form method="post" id="oxi-addons-style-modal-form">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Tabs Clone</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class=" form-group row">
+                                <label for="addons-style-name" class="col-sm-6 col-form-label" oxi-addons-tooltip="Give your Shortcode Name Here">Name</label>
+                                <div class="col-sm-6 addons-dtm-laptop-lock">
+                                    <input class="form-control" type="text" value="" id="addons-style-name"  name="addons-style-name" required>
                                 </div>
                             </div>
                         </div>
-                    </div>');
-
-            echo '<div class="modal fade" id="oxi-addons-style-import-modal" >
-                        <form method="post" id="oxi-addons-import-modal-form" enctype = "multipart/form-data">
-                            <div class="modal-dialog modal-sm modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Import Form</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <input class="form-control" type="file" name="importtabsfilefile" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <input type="submit" class="btn btn-success" name="importdatasubmit" id="importdatasubmit" value="Save">
-                                    </div>
+                        <div class="modal-footer">
+                            <input type="hidden" id="oxistyleid" name="oxistyleid" value="">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <?php
+        if (apply_filters('oxi-tabs-plugin/pro_version', false)):
+            ?>
+            <div class="oxi-addons-row">
+                <div class="oxi-addons-col-1 oxi-import">
+                    <div class="oxi-addons-style-preview">
+                        <div class="oxilab-admin-style-preview-top">
+                            <a href="#" id="oxilab-tabs-import-json">
+                                <div class="oxilab-admin-add-new-item">
+                                    <span>
+                                        <i class="fas fa-plus-circle oxi-icons"></i>
+                                        Import Tabs
+                                    </span>
                                 </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="oxi-addons-style-import-modal" >
+                <form method="post" id="oxi-addons-import-modal-form" enctype = "multipart/form-data">
+                    <div class="modal-dialog modal-sm modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Import Form</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
-                               ' . wp_nonce_field("vc-tabs-ultimate-import") . '
-                        </form>
-                    </div>';
+                            <div class="modal-body">
+                                <input class="form-control" type="file" name="importtabsfilefile" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-success" name="importdatasubmit" id="importdatasubmit" value="Save">
+                            </div>
+                        </div>
+                    </div>
+                    <?php echo wp_nonce_field("vc-tabs-ultimate-import"); ?>
+                </form>
+            </div><?php
         endif;
     }
 
     public function created_shortcode() {
-        $return = _(' <div class="oxi-addons-row"> <div class="oxi-addons-row table-responsive abop" style="margin-bottom: 20px; opacity: 0; height: 0px">
-                        <table class="table table-hover widefat oxi_addons_table_data" style="background-color: #fff; border: 1px solid #ccc">
-                            <thead>
-                                <tr>
-                                    <th style="width: 5%">ID</th>
-                                    <th style="width: 15%">Name</th>
-                                    <th style="width: 10%">Templates</th>
-                                    <th style="width: 30%">Shortcode</th>
-                                    <th style="width: 40%">Edit Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>');
-        foreach ($this->database_data() as $value) {
-            $id = $value['id'];
-            $return .= _('<tr>');
-            $return .= _('<td>' . $id . '</td>');
-            $return .= _('<td>' . ucwords($value['name']) . '</td>');
-            $return .= _('<td>' . $this->name_converter($value['style_name']) . '</td>');
-            $return .= _('<td><span>Shortcode &nbsp;&nbsp;<input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $id . '&quot;]"></span> <br>'
-                    . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
-            $return .= _('<td>
-                        <button type="button" class="btn btn-success oxi-addons-style-clone"  style="float:left" oxiaddonsdataid="' . $id . '">Clone</button>
-                        <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
-                       <form method="post" class="oxi-addons-style-delete">
-                               <input type="hidden" name="oxideleteid" id="oxideleteid" value="' . $id . '">
-                               <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>
-                       </form>
-                       <a href="' . esc_url_raw(rest_url()) . 'oxilabtabsultimate/v1/shortcode_export?styleid=' . $id . '&_wpnonce=' . wp_create_nonce('wp_rest') . '"  title="Export"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Export</a>
-                </td>');
-            $return .= _(' </tr>');
-        }
-        $return .= _('      </tbody>
+        ?>
+        <div class="oxi-addons-row"> <div class="oxi-addons-row table-responsive abop" style="margin-bottom: 20px; opacity: 0; height: 0px">
+                <table class="table table-hover widefat oxi_addons_table_data" style="background-color: #fff; border: 1px solid #ccc">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%">ID</th>
+                            <th style="width: 15%">Name</th>
+                            <th style="width: 10%">Templates</th>
+                            <th style="width: 30%">Shortcode</th>
+                            <th style="width: 40%">Edit Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($this->database_data() as $value) {
+                            $id = $value['id'];
+                            ?>
+                            <tr>
+                                <td><?php echo esc_html($id); ?></td>
+                                <td><?php echo esc_html(ucwords($value['name'])); ?></td>
+                                <td><?php echo esc_html($this->name_converter($value['style_name'])); ?></td>
+                                <td><span>Shortcode &nbsp;&nbsp;<input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;<?php echo esc_html($id); ?>&quot;]"></span> <br>
+                                    <span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;<?php echo esc_html($id); ?>&quot;]&#039;); ?&gt;"></span></td>
+                                <td>
+                                    <button type="button" class="btn btn-success oxi-addons-style-clone"  style="float:left" oxiaddonsdataid="<?php echo esc_attr($id); ?>">Clone</button>
+                                    <a href="<?php echo esc_url(admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$id")); ?>"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
+                                    <form method="post" class="oxi-addons-style-delete">
+                                        <input type="hidden" name="oxideleteid" id="oxideleteid" value="<?php echo esc_attr($id); ?>">
+                                        <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>
+                                    </form>
+                                    <a href="<?php echo esc_url_raw(rest_url()) . 'oxilabtabsultimate/v1/shortcode_export?styleid=' . $id . '&_wpnonce=' . wp_create_nonce('wp_rest'); ?>"  title="Export"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Export</a>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
                 </table>
             </div>
             <br>
-            <br></div>');
-        echo $return;
+            <br></div>
+        <?php
     }
 
 }

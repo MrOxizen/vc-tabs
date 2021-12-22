@@ -161,7 +161,7 @@ class Old_Admin {
                 die('You do not have sufficient permissions to access this page.');
             } else {
                 $id = (int) $_POST['item-id'];
-                $child = $this->clild();
+                $child = sanitize_post($this->clild());
                 if ($id == '') {
                     $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (title, files, css, styleid) VALUES ( %s, %s, %s, %d)", array($child['title'], $child['files'], $child['css'], $this->styleid)));
                 } elseif ($id != '' && is_numeric($id)) {
@@ -191,13 +191,13 @@ class Old_Admin {
                 $item_id = (int) $_POST['item-id'];
                 $child = $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE id = %d ", $item_id), ARRAY_A);
                 $storefile = explode('{}{}{}', $child['title']);
-                $this->title = $this->admin_special_charecter($storefile[0]);
+                $this->title = sanitize_post($this->admin_special_charecter($storefile[0]));
                 if (array_key_exists(1, $storefile)):
-                    $this->link = $this->admin_special_charecter($storefile[1]);
+                    $this->link = sanitize_post($this->admin_special_charecter($storefile[1]));
                 endif;
                 $this->files = $this->admin_special_charecter($child['files']);
-                $this->css = $child['css'];
-                $this->itemid = $child['id'];
+                $this->css = sanitize_post($child['css']);
+                $this->itemid = (int) $child['id'];
                 echo '<script type="text/javascript"> jQuery(document).ready(function () {setTimeout(function() { jQuery("#oxilab-add-new-data").modal("show")  }, 500); });</script>';
             }
         }
@@ -274,8 +274,8 @@ class Old_Admin {
             <div class="oxi-addons-shortcode-body oxi-addons-form-body">
                 <form method="post">
                     <div class="input-group mb-3" style="display: inline-flex;">
-                        <input type="hidden" class="form-control" name="oxi-addons-id" value="<?php echo $this->styleid; ?>">
-                        <input type="text" class="form-control" name="oxi-addons-name" value="<?php echo $this->style['name']; ?>">
+                        <input type="hidden" class="form-control" name="oxi-addons-id" value="<?php echo esc_attr($this->styleid); ?>">
+                        <input type="text" class="form-control" name="oxi-addons-name" value="<?php echo esc_attr($this->style['name']); ?>">
                         <div class="input-group-append" style="margin-left:5px">
                             <input type="submit" class="btn btn-success" name="oxi-addons-name-change" value="Save">
                         </div>
@@ -344,12 +344,12 @@ class Old_Admin {
                 <em>Shortcode for posts/pages/plugins</em>
                 <p>Copy &amp;
                     paste the shortcode directly into any WordPress post, page or Page Builder.</p>
-                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;<?php echo $this->styleid; ?>&quot;]">
+                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;<?php echo esc_attr($this->styleid); ?>&quot;]">
                 <span></span>
                 <em>Shortcode for templates/themes</em>
                 <p>Copy &amp;
                     paste this code into a template file to include the slideshow within your theme.</p>
-                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi id=&quot;<?php echo $this->styleid; ?>&quot;]&#039;); ?&gt;">
+                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi id=&quot;<?php echo esc_attr($this->styleid); ?>&quot;]&#039;); ?&gt;">
                 <span></span>
             </div>
         </div>
@@ -439,7 +439,7 @@ class Old_Admin {
                                     ?>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="hidden" id="item-id" name="item-id" value="<?php echo $this->itemid; ?>">
+                                    <input type="hidden" id="item-id" name="item-id" value="<?php echo esc_attr($this->itemid); ?>">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     <input type="submit" class="btn btn-primary" id="item-submit" name="item-submit" value="Submit">
                                 </div>

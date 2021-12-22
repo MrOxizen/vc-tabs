@@ -24,9 +24,9 @@ jQuery.noConflict();
             result = await $.ajax({
                 url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
                 method: 'POST',
-               
+
                 data: {
-                       _wpnonce: oxilabtabsultimate.nonce,
+                    _wpnonce: oxilabtabsultimate.nonce,
                     styleid: styleid,
                     childid: childid,
                     rawdata: rawdata
@@ -39,33 +39,57 @@ jQuery.noConflict();
         }
     }
 
-    $(".oxi-addons-switcher-btn:not(.oxi-addons-switcher-btn-unset)").on("click", delay(function (e) {
+//    $(".oxi-addons-switcher-btn:not(.oxi-addons-switcher-btn-unset)").on("click", delay(function (e) {
+//        var $This = $(this), name = $This.attr('name'), $value = '', $link = $(this).parents('.oxi-sa-cards').children('.responsive_tabs_with_accordions_license_massage');
+//        if ($(this).is(":checked")) {
+//            var $value = 'yes';
+//        }
+//        var rawdata = JSON.stringify({name: name, value: $value});
+//        if (name === 'oxilab_tabs_woocommerce') {
+//            if ($value === 'yes') {
+//                $('.oxilab_tabs_woocommerce_active').slideDown();
+//            } else {
+//                $('.oxilab_tabs_woocommerce_active').slideUp();
+//            }
+//        }
+//        var functionname = "oxi_settings";
+//        $link.html('<span class="spinner sa-spinner-open"></span>');
+//        Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
+//            $link.html(callback);
+//            setTimeout(function () {
+//                $link.html('');
+//            }, 8000);
+//
+//        });
+//    }, 1000));
+
+    $("input[name=oxilab_tabs_woocommerce] ").on("change", function (e) {
         var $This = $(this), name = $This.attr('name'), $value = '', $link = $(this).parents('.oxi-sa-cards').children('.responsive_tabs_with_accordions_license_massage');
         if ($(this).is(":checked")) {
             var $value = 'yes';
         }
-        var rawdata = JSON.stringify({name: name, value: $value});
-        if (name === 'oxilab_tabs_woocommerce') {
-            if ($value === 'yes') {
-                $('.oxilab_tabs_woocommerce_active').slideDown();
-            } else {
-                $('.oxilab_tabs_woocommerce_active').slideUp();
-            }
-        }
-        var functionname = "oxi_settings";
+        var rawdata = JSON.stringify({value: $value});
+        var functionname = "oxilab_tabs_woocommerce";
         $link.html('<span class="spinner sa-spinner-open"></span>');
+        if ($value === 'yes') {
+            $('.oxilab_tabs_woocommerce_active').slideDown();
+        } else {
+            $('.oxilab_tabs_woocommerce_active').slideUp();
+        }
         Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
             $link.html(callback);
             setTimeout(function () {
                 $link.html('');
             }, 8000);
-
         });
-    }, 1000));
-    $(document.body).on("change", "select", function (e) {
-        var $This = $(this), name = $This.attr('name'), $value = $This.val(), $link = $(this).parents('.oxi-sa-cards').children('.responsive_tabs_with_accordions_license_massage');
-        var rawdata = JSON.stringify({name: name, value: $value});
-        var functionname = "oxi_settings";
+    });
+    $("input[name=oxi_tabs_use_the_content] ").on("change", function (e) {
+        var $This = $(this), name = $This.attr('name'), $value = '', $link = $(this).parents('.oxi-sa-cards').children('.responsive_tabs_with_accordions_license_massage');
+        if ($(this).is(":checked")) {
+            var $value = 'yes';
+        }
+        var rawdata = JSON.stringify({value: $value});
+        var functionname = "oxi_tabs_use_the_content";
         $link.html('<span class="spinner sa-spinner-open"></span>');
         Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
             $link.html(callback);
@@ -74,6 +98,20 @@ jQuery.noConflict();
             }, 8000);
         });
     });
+    $("#oxilab_tabs_woocommerce_default").on("change", function (e) {
+        var $This = $(this), name = $This.attr('name'), $value = $This.val(), $link = $(this).parents('.oxi-sa-cards').children('.responsive_tabs_with_accordions_license_massage');
+        var rawdata = JSON.stringify({value: $value});
+        var functionname = "oxilab_tabs_woocommerce_default";
+        $link.html('<span class="spinner sa-spinner-open"></span>');
+        Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
+            $link.html(callback);
+            setTimeout(function () {
+                $link.html('');
+            }, 8000);
+        });
+    });
+
+
 
 
 
@@ -104,7 +142,8 @@ jQuery.noConflict();
         handle: ".oxi-woo-header-text"
     });
 
-$('.oxilab_tabs_woo_layouts_icon_field').iconpicker();
+    $('.oxilab_tabs_woo_layouts_icon_field').iconpicker();
+    
     $("#oxi-addons-customize_default_tabs_form").submit(function (e) {
         e.preventDefault();
         $This = $(this);
@@ -113,8 +152,8 @@ $('.oxilab_tabs_woo_layouts_icon_field').iconpicker();
         $This.find('.oxi-woo-tabs-add-rows-button').val('Savings');
         $This.find('.oxi-woo-tabs-add-rows').prepend('<span class="spinner sa-spinner-open-left"></span>');
         Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
-             $This.find('.oxi-woo-tabs-add-rows-button').val('Saved');
-             setTimeout(function () {
+            $This.find('.oxi-woo-tabs-add-rows-button').val('Saved');
+            setTimeout(function () {
                 $This.find('.oxi-woo-tabs-add-rows-button').val('Save Data');
                 $This.find('.sa-spinner-open-left').remove();
             }, 3000);

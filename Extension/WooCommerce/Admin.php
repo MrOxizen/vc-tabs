@@ -59,7 +59,7 @@ class Admin {
             ?>
             <div class="woo-oxilab-tabs-admin-tabs oxi-hidden">
                 <div class="oxi-woo-header">
-                    <div class="oxi-woo-header-text"><?php echo isset($tab['title']) ? $tab['title'] : 'Tabs Title'; ?></div>
+                    <div class="oxi-woo-header-text"><?php echo isset($tab['title']) ? esc_html($tab['title']) : 'Tabs Title'; ?></div>
                     <div class="oxi-delete-button"></div>
                 </div>
                 <div class="woo-oxi-content">
@@ -120,7 +120,7 @@ class Admin {
         wp_editor($tab['content'], '_oxilab_tabs_woo_' . $i . '_tab_content_' . $key, $editor_settings);
 
         if (isset($tab['description']) && $tab['description']) {
-            echo '<span class="description">' . $tab['description'] . '</span>';
+            echo '<span class="description">' . esc_html($tab['description']) . '</span>';
         }
 
         echo '</div>';
@@ -148,7 +148,7 @@ class Admin {
                     </div>
                 </div>
             </div>
-        <?php ?>
+            <?php ?>
         </div>
         <?php
     }

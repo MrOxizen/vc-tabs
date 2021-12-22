@@ -51,7 +51,7 @@ trait Sanitization {
     public function start_section_header($id, array $arg = []) {
         echo '<ul class="oxi-addons-tabs-ul">   ';
         foreach ($arg['options'] as $key => $value) {
-            echo '<li ref="#shortcode-addons-section-' . $key . '">' . $value . '</li>';
+            echo '<li ref="#shortcode-addons-section-' . esc_attr($key) . '">' . $value . '</li>';
         }
         echo '</ul>';
     }
@@ -66,10 +66,10 @@ trait Sanitization {
         echo '<div class="oxi-addons-tabs-content-tabs" id="shortcode-addons-section-';
         if (array_key_exists('condition', $arg)) :
             foreach ($arg['condition'] as $value) {
-                echo $value;
+                echo esc_attr($value);
             }
         endif;
-        echo '"  ' . (array_key_exists('padding', $arg) ? 'style="padding: ' . $arg['padding'] . '"' : '') . '>';
+        echo '"  ' . (array_key_exists('padding', $arg) ? 'style="padding: ' . esc_attr($arg['padding']) . '"' : '') . '>';
     }
 
     /*
@@ -165,7 +165,7 @@ trait Sanitization {
         $condition = $this->forms_condition($arg);
         echo '<div class="oxi-addons-content-div ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '" ' . $condition . '>
                     <div class="oxi-head">
-                    ' . $arg['label'] . '
+                    ' . esc_html($arg['label']) . '
                     <div class="oxi-head-toggle"></div>
                     </div>
                     <div class="oxi-addons-content-div-body">';
@@ -198,7 +198,7 @@ trait Sanitization {
         foreach ($arg['options'] as $key => $value) {
             echo '  <div class="shortcode-control-type-control-tab-child">
 			<div class="shortcode-control-content">
-				' . $value . '
+				' . esc_html($value) . '
                         </div>
                     </div>';
         }
@@ -255,12 +255,12 @@ trait Sanitization {
         echo '  <div class="shortcode-form-control shortcode-control-type-popover ' . $separator . '" ' . $condition . '>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover">
                         <div class="shortcode-form-control-field">
-                            <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>
+                            <label for="" class="shortcode-form-control-title">' . esc_html($arg['label']) . '</label>
                             <div class="shortcode-form-control-input-wrapper">
                                 <span class="dashicons popover-set"></span>
                             </div>
                         </div>
-                        ' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '') . '
+                        ' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . esc_html($arg['description']) . '</div>' : '') . '
 
                     </div>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover-body">
@@ -363,13 +363,13 @@ trait Sanitization {
         echo '<div class="shortcode-form-control shortcode-control-type-' . $arg['type'] . ' ' . $separator . ' ' . $toggle . ' ' . $responsiveclass . ' ' . $loader . '" ' . $condition . '>
                 <div class="shortcode-form-control-content">
                     <div class="shortcode-form-control-field">';
-        echo '<label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>';
+        echo '<label for="" class="shortcode-form-control-title">' . esc_html($arg['label']) . '</label>';
         echo $responsive;
 
         $fun = $arg['type'] . '_admin_control';
         echo $this->$fun($id, $data, $arg);
         echo '      </div>';
-        echo (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '');
+        echo (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . esc_html($arg['description']) . '</div>' : '');
 
         echo ' </div>
         </div>';
@@ -449,26 +449,26 @@ trait Sanitization {
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
-        echo '<div class="shortcode-form-control shortcode-control-type-' . $arg['type'] . ' ' . $separator . '" ' . $condition . '>
+        echo '<div class="shortcode-form-control shortcode-control-type-' . esc_attr($arg['type']) . ' ' . $separator . '" ' . $condition . '>
                 <div class="shortcode-form-control-content">
                     <div class="shortcode-form-control-field">
-                        <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>
+                        <label for="" class="shortcode-form-control-title">' . esc_html($arg['label']) . '</label>
                     </div>
-                    <div class="shortcode-form-rearrange-fields-wrapper" vlid="#' . $id . '">';
+                    <div class="shortcode-form-rearrange-fields-wrapper" vlid="#' . esc_attr($id) . '">';
         $rearrange = explode(',', $value);
         foreach ($rearrange as $k => $vl) {
             if ($vl != ''):
-                echo '  <div class="shortcode-form-repeater-fields" id="' . $vl . '">
+                echo '  <div class="shortcode-form-repeater-fields" id="' . esc_attr($vl) . '">
                             <div class="shortcode-form-repeater-controls">
                                 <div class="shortcode-form-repeater-controls-title">
-                                    ' . ($arg['fields'][$vl]['label']) . '
+                                    ' . esc_html($arg['fields'][$vl]['label']) . '
                                 </div>
                             </div>
                         </div>';
             endif;
         }
         echo '          <div class="shortcode-form-control-input-wrapper">
-                            <input type="hidden" value="' . $value . '" name="' . $id . '" id="' . $id . '">
+                            <input type="hidden" value="' . esc_attr($value) . '" name="' . esc_attr($id) . '" id="' . esc_attr($id) . '">
                         </div>
                     </div>
                 </div>
@@ -523,11 +523,11 @@ trait Sanitization {
      */
 
     public function switcher_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
                     <label class="shortcode-switcher">
-                        <input type="checkbox" ' . ($value == $arg['return_value'] ? 'checked ckdflt="true"' : '') . ' value="' . $arg['return_value'] . '"  name="' . $id . '" id="' . $id . '"/>
-                        <span data-on="' . $arg['label_on'] . '" data-off="' . $arg['label_off'] . '"></span>
+                        <input type="checkbox" ' . ($value == esc_attr($arg['return_value']) ? 'checked ckdflt="true"' : '') . ' value="' . esc_attr($arg['return_value']) . '"  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '"/>
+                        <span data-on="' . esc_attr($arg['label_on']) . '" data-off="' . esc_attr($arg['label_off']) . '"></span>
                     </label>
                 </div>';
     }
@@ -539,15 +539,15 @@ trait Sanitization {
      */
 
     public function text_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         if (array_key_exists('link', $arg)) :
             echo '<div class="shortcode-form-control-input-wrapper shortcode-form-control-input-link">
-                     <input type="text"  name="' . $id . '" id="' . $id . '" value="' . htmlspecialchars($value) . '" placeholder="' . $arg['placeholder'] . '" retundata=\'' . $retunvalue . '\'>
+                     <input type="text"  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '" value="' . esc_attr(htmlspecialchars($value)) . '" placeholder="' . esc_attr($arg['placeholder']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
                      <span class="dashicons dashicons-admin-generic"></span>';
         else :
             echo '<div class="shortcode-form-control-input-wrapper">
-                <input type="text"  name="' . $id . '" id="' . $id . '" value="' . htmlspecialchars($value) . '" placeholder="' . $arg['placeholder'] . '" retundata=\'' . $retunvalue . '\'>
+                <input type="text"  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '" value="' . esc_attr(htmlspecialchars($value)) . '" placeholder="' . esc_attr($arg['placeholder']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
             </div>';
         endif;
     }
@@ -560,13 +560,13 @@ trait Sanitization {
 
     public function hidden_admin_control($id, array $data = [], array $arg = []) {
 
-        $value = array_key_exists($id, $data) ? $data[$id] : '';
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : '';
 
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) :
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) :
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
                     $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                     $file = str_replace('{{VALUE}}', $value, $val);
                     if (strpos($file, '{{') !== FALSE):
@@ -579,7 +579,7 @@ trait Sanitization {
             endif;
         endif;
         echo ' <div class="shortcode-form-control-input-wrapper">
-                   <input type="hidden" value="' . $value . '" name="' . $id . '" id="' . $id . '">
+                   <input type="hidden" value="' . $value . '" name="' . esc_attr($id) . '" id="' . esc_attr($id) . '">
                </div>';
     }
 
@@ -590,10 +590,10 @@ trait Sanitization {
      */
 
     public function textarea_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         echo '<div class="shortcode-form-control-input-wrapper">
-                 <textarea  name="' . $id . '" id="' . $id . '" retundata=\'' . $retunvalue . '\' class="shortcode-form-control-tag-area" rows="' . (int) ((strlen($value) / 50) + 2) . '" placeholder="' . $arg['placeholder'] . '">' . str_replace('&nbsp;', '  ', str_replace('<br>', '&#13;&#10;', $value)) . '</textarea>
+                 <textarea  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '" retundata=\'' . esc_attr($retunvalue) . '\' class="shortcode-form-control-tag-area" rows="' . (int) ((strlen($value) / 50) + 2) . '" placeholder="' . esc_attr($arg['placeholder']) . '">' . str_replace('&nbsp;', '  ', str_replace('<br>', '&#13;&#10;', $value)) . '</textarea>
               </div>';
     }
 
@@ -604,12 +604,12 @@ trait Sanitization {
      */
 
     public function wysiwyg_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        echo ' <div class="shortcode-form-control-input-wrapper"  retundata=\'' . $retunvalue . '\'>';
+        echo ' <div class="shortcode-form-control-input-wrapper"  retundata=\'' . esc_attr($retunvalue) . '\'>';
         echo wp_editor(
-                $value, $id, $settings = array(
-            'textarea_name' => $id,
+                $value, esc_attr($id), $settings = array(
+            'textarea_name' => esc_attr($id),
             'wpautop' => false,
             'textarea_rows' => 7,
             'force_br_newlines' => true,
@@ -626,8 +626,8 @@ trait Sanitization {
      */
 
     public function image_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
-        $alt = array_key_exists($id . '-alt', $data) ? $data[$id . '-alt'] : '';
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $alt = array_key_exists($id . '-alt', $data) ? $data[esc_attr($id) . '-alt'] : '';
         echo '  <div class="shortcode-form-control-input-wrapper">
                     <div class="shortcode-addons-media-control ' . (empty($value) ? 'shortcode-addons-media-control-hidden-button' : '') . '">
                         <div class="shortcode-addons-media-control-pre-load">
@@ -640,8 +640,8 @@ trait Sanitization {
                             Choose Image
                         </div>
                     </div>
-                    <input type="hidden" class="shortcode-addons-media-control-link" id="' . $id . '" name="' . $id . '" value="' . $value . '" >
-                    <input type="hidden" class="shortcode-addons-media-control-link-alt" id="' . $id . '-alt" name="' . $id . '-alt" value="' . $alt . '" >
+                    <input type="hidden" class="shortcode-addons-media-control-link" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '" >
+                    <input type="hidden" class="shortcode-addons-media-control-link-alt" id="' . esc_attr($id) . '-alt" name="' . esc_attr($id) . '-alt" value="' . $alt . '" >
                 </div>';
     }
 
@@ -653,12 +653,12 @@ trait Sanitization {
 
     public function number_admin_control($id, array $data = [], array $arg = []) {
 
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) :
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) :
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
                     $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                     $file = str_replace('{{VALUE}}', $value, $val);
                     if (strpos($file, '{{') !== FALSE):
@@ -674,7 +674,7 @@ trait Sanitization {
         $defualt = ['min' => 0, 'max' => 1000, 'step' => 1,];
         $arg = array_merge($defualt, $arg);
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input id="' . $id . '" name="' . $id . '" type="number" min="' . $arg['min'] . '" max="' . $arg['max'] . '" step="' . $arg['step'] . '" value="' . $value . '"  responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
+                    <input id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" type="number" min="' . $arg['min'] . '" max="' . $arg['max'] . '" step="' . $arg['step'] . '" value="' . $value . '"  responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
                 </div>';
     }
 
@@ -686,14 +686,14 @@ trait Sanitization {
      */
 
     public function slider_admin_control($id, array $data = [], array $arg = []) {
-        $unit = array_key_exists($id . '-choices', $data) ? $data[$id . '-choices'] : $arg['default']['unit'];
-        $size = array_key_exists($id . '-size', $data) ? $data[$id . '-size'] : $arg['default']['size'];
+        $unit = array_key_exists($id . '-choices', $data) ? $data[esc_attr($id) . '-choices'] : $arg['default']['unit'];
+        $size = array_key_exists($id . '-size', $data) ? $data[esc_attr($id) . '-size'] : $arg['default']['size'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE && $this->render_condition_control($id, $data, $arg)) :
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) :
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
                     if ($size != '' && $val != '') :
-                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{SIZE}}', $size, $val);
                         $file = str_replace('{{UNIT}}', $unit, $file);
@@ -712,17 +712,17 @@ trait Sanitization {
                 echo ' <div class="shortcode-form-units-choices">';
                 foreach ($arg['range'] as $key => $val) {
                     $rand = rand(10000, 233333333);
-                    echo '<input id="' . $id . '-choices-' . $rand . '" type="radio" name="' . $id . '-choices"  value="' . $key . '" ' . ($key == $unit ? 'checked' : '') . '  min="' . $val['min'] . '" max="' . $val['max'] . '" step="' . $val['step'] . '">
-                      <label class="shortcode-form-units-choices-label" for="' . $id . '-choices-' . $rand . '">' . $key . '</label>';
+                    echo '<input id="' . esc_attr($id) . '-choices-' . $rand . '" type="radio" name="' . esc_attr($id) . '-choices"  value="' . esc_attr($key) . '" ' . ( esc_attr($key) == $unit ? 'checked' : '') . '  min="' . esc_attr($val['min']) . '" max="' . esc_attr($val['max']) . '" step="' . esc_attr($val['step']) . '">
+                      <label class="shortcode-form-units-choices-label" for="' . esc_attr($id) . '-choices-' . $rand . '">' . esc_html($key) . '</label>';
                 }
                 echo '</div>';
             endif;
         endif;
-        $unitvalue = array_key_exists($id . '-choices', $data) ? 'unit="' . $data[$id . '-choices'] . '"' : '';
+        $unitvalue = array_key_exists(esc_attr($id) . '-choices', $data) ? 'unit="' . $data[esc_attr($id) . '-choices'] . '"' : '';
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <div class="shortcode-form-slider" id="' . $id . '-slider' . '"></div>
+                    <div class="shortcode-form-slider" id="' . esc_attr($id) . '-slider' . '"></div>
                     <div class="shortcode-form-slider-input">
-                        <input name="' . $id . '-size" custom="' . (array_key_exists('custom', $arg) ? '' . $arg['custom'] . '' : '') . '" id="' . $id . '-size' . '" type="number" min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $size . '" default-value="' . $size . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
+                        <input name="' . esc_attr($id) . '-size" custom="' . (array_key_exists('custom', $arg) ? '' . esc_attr($arg['custom']) . '' : '') . '" id="' . esc_attr($id) . '-size' . '" type="number" min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr($arg['range'][$unit]['step']) . '" value="' . esc_attr($size) . '" default-value="' . esc_attr($size) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
                     </div>
                 </div>';
     }
@@ -734,15 +734,15 @@ trait Sanitization {
      */
 
     public function select_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : esc_attr($id) );
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         $retun = [];
 
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
-                    if (!empty($value) && !empty($val) && $arg['render'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                    if (!empty($value) && !empty($val) && $arg['render'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) {
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{VALUE}}', $value, $val);
                         if (strpos($file, '{{') !== FALSE):
@@ -762,7 +762,7 @@ trait Sanitization {
 
         echo '<div class="shortcode-form-control-input-wrapper">
                 <div class="shortcode-form-control-input-select-wrapper">
-                <select id="' . $id . '" class="shortcode-addons-select-input ' . ($multiple ? 'js-example-basic-multiple' : '' ) . '" ' . ($multiple ? 'multiple' : '' ) . ' name="' . $id . '' . ($multiple ? '[]' : '' ) . '"  responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>';
+                <select id="' . esc_attr($id) . '" class="shortcode-addons-select-input ' . ($multiple ? 'js-example-basic-multiple' : '' ) . '" ' . ($multiple ? 'multiple' : '' ) . ' name="' . esc_attr($id) . '' . ($multiple ? '[]' : '' ) . '"  responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>';
         foreach ($arg['options'] as $key => $val) {
             if (is_array($val)):
                 if (isset($val[0]) && $val[0] == true):
@@ -773,9 +773,9 @@ trait Sanitization {
             else:
                 if (is_array($value)):
                     $new = array_flip($value);
-                    echo ' <option value="' . $key . '" ' . (array_key_exists($key, $new) ? 'selected' : '') . '>' . $val . '</option>';
+                    echo ' <option value="' . esc_attr($key) . '" ' . (array_key_exists($key, $new) ? 'selected' : '') . '>' . $val . '</option>';
                 else:
-                    echo ' <option value="' . $key . '" ' . ($value == $key ? 'selected' : '') . '>' . $val . '</option>';
+                    echo ' <option value="' . esc_attr($key) . '" ' . ($value == $key ? 'selected' : '') . '>' . $val . '</option>';
                 endif;
             endif;
         }
@@ -791,15 +791,15 @@ trait Sanitization {
      */
 
     public function choose_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         $retun = [];
 
         $operator = array_key_exists('operator', $arg) ? $arg['operator'] : 'text';
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
-                    if (!empty($val) && $this->render_condition_control($id, $data, $arg)) {
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                    if (!empty($val) && $this->render_condition_control(esc_attr($id), $data, $arg)) {
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{VALUE}}', $value, $val);
                         if (strpos($file, '{{') !== FALSE):
@@ -816,10 +816,10 @@ trait Sanitization {
         }
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($retun)) : '';
         echo '<div class="shortcode-form-control-input-wrapper">
-                <div class="shortcode-form-choices" responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>';
+                <div class="shortcode-form-choices" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>';
         foreach ($arg['options'] as $key => $val) {
-            echo '  <input id="' . $id . '-' . $key . '" type="radio" name="' . $id . '" value="' . $key . '" ' . ($value == $key ? 'checked  ckdflt="true"' : '') . '>
-                                    <label class="shortcode-form-choices-label" for="' . $id . '-' . $key . '" tooltip="' . $val['title'] . '">
+            echo '  <input id="' . esc_attr($id) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($id) . '" value="' . esc_attr($key) . '" ' . ($value == $key ? 'checked  ckdflt="true"' : '') . '>
+                                    <label class="shortcode-form-choices-label" for="' . esc_attr($id) . '-' . esc_attr($key) . '" tooltip="' . $val['title'] . '">
                                         ' . (($operator == 'text') ? $val['title'] : '<i class="' . $val['icon'] . '" aria-hidden="true"></i>') . '
                                     </label>';
         }
@@ -874,13 +874,13 @@ trait Sanitization {
     }
 
     public function color_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? esc_attr($id) . ']' : esc_attr($id) );
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
                     $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                     $file = str_replace('{{VALUE}}', $value, $val);
                     if (strpos($file, '{{') !== FALSE):
@@ -894,7 +894,7 @@ trait Sanitization {
         }
         $type = array_key_exists('oparetor', $arg) ? 'data-format="rgb" data-opacity="TRUE"' : '';
         echo '<div class="shortcode-form-control-input-wrapper">
-                <input ' . $type . ' type="text"  class="oxi-addons-minicolor" id="' . $id . '" name="' . $id . '" value="' . $value . '" responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\' custom="' . (array_key_exists('custom', $arg) ? '' . $arg['custom'] . '' : '') . '">
+                <input ' . $type . ' type="text"  class="oxi-addons-minicolor" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\' custom="' . (array_key_exists('custom', $arg) ? '' . esc_attr($arg['custom']) . '' : '') . '">
              </div>';
     }
 
@@ -905,10 +905,10 @@ trait Sanitization {
      */
 
     public function icon_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : esc_attr($id) );
+        $value = array_key_exists(esc_attr($id), $data) ? $data[esc_attr($id)] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text"  class="oxi-admin-icon-selector" id="' . $id . '" name="' . $id . '" value="' . $value . '">
+                    <input type="text"  class="oxi-admin-icon-selector" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '">
                     <span class="input-group-addon"></span>
                 </div>';
     }
@@ -920,8 +920,8 @@ trait Sanitization {
      */
 
     public function font_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : esc_attr($id) );
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         if ($value != '' && array_key_exists($value, $this->google_font)) :
             $this->font[$value] = $value;
         endif;
@@ -930,7 +930,7 @@ trait Sanitization {
             if (array_key_exists('selector', $arg) && $value != '') :
                 foreach ($arg['selector'] as $key => $val) {
                     if ($arg['render'] == TRUE && !empty($val)) :
-                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{VALUE}}', str_replace("+", ' ', $value), $val);
                         if (strpos($file, '{{') !== FALSE):
@@ -946,7 +946,7 @@ trait Sanitization {
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
 
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text"  class="shortcode-addons-family" id="' . $id . '" name="' . $id . '" value="' . $value . '" responsive="' . $arg['responsive'] . '" retundata="' . $retunvalue . '">
+                    <input type="text"  class="shortcode-addons-family" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '" responsive="' . esc_attr($arg['responsive']) . '" retundata="' . esc_attr($retunvalue) . '">
                 </div>';
     }
 
@@ -957,8 +957,8 @@ trait Sanitization {
      */
 
     public function date_time_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : esc_attr($id) );
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         $format = 'date';
         if (array_key_exists('time', $arg)) :
             if ($arg['time'] == TRUE) :
@@ -966,7 +966,7 @@ trait Sanitization {
             endif;
         endif;
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="' . $format . '"  id="' . $id . '" name="' . $id . '" value="' . $value . '">
+                    <input type="' . $format . '"  id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '">
                 </div>';
     }
 
@@ -977,14 +977,14 @@ trait Sanitization {
      */
 
     public function gradient_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
-        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? esc_attr($id) . ']' : esc_attr($id) );
+        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
                     if ($arg['render'] == TRUE) :
-                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{VALUE}}', $value, $val);
                         if (strpos($file, '{{') !== FALSE):
@@ -999,7 +999,7 @@ trait Sanitization {
         }
         $background = (array_key_exists('gradient', $arg) ? $arg['gradient'] : '');
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text" background="' . $background . '"  class="oxi-addons-gradient-color" id="' . $id . '" name="' . $id . '" value="' . $value . '" responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
+                    <input type="text" background="' . $background . '"  class="oxi-addons-gradient-color" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
                 </div>';
     }
 
@@ -1010,20 +1010,20 @@ trait Sanitization {
      */
 
     public function dimensions_admin_control($id, array $data = [], array $arg = []) {
-        $unit = array_key_exists($id . '-choices', $data) ? $data[$id . '-choices'] : $arg['default']['unit'];
-        $top = array_key_exists($id . '-top', $data) ? $data[$id . '-top'] : $arg['default']['size'];
-        $bottom = array_key_exists($id . '-bottom', $data) ? $data[$id . '-bottom'] : $top;
-        $left = array_key_exists($id . '-left', $data) ? $data[$id . '-left'] : $top;
-        $right = array_key_exists($id . '-right', $data) ? $data[$id . '-right'] : $top;
+        $unit = array_key_exists($id . '-choices', $data) ? $data[esc_attr($id) . '-choices'] : $arg['default']['unit'];
+        $top = array_key_exists($id . '-top', $data) ? $data[esc_attr($id) . '-top'] : $arg['default']['size'];
+        $bottom = array_key_exists($id . '-bottom', $data) ? $data[esc_attr($id) . '-bottom'] : $top;
+        $left = array_key_exists($id . '-left', $data) ? $data[esc_attr($id) . '-left'] : $top;
+        $right = array_key_exists($id . '-right', $data) ? $data[esc_attr($id) . '-right'] : $top;
 
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         $ar = [$top, $bottom, $left, $right];
         $unlink = (count(array_unique($ar)) === 1 ? '' : 'link-dimensions-unlink');
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
-                if (is_numeric($top) && is_numeric($right) && is_numeric($bottom) && is_numeric($left) && $this->render_condition_control($id, $data, $arg)) :
+                if (is_numeric($top) && is_numeric($right) && is_numeric($bottom) && is_numeric($left) && $this->render_condition_control(esc_attr($id), $data, $arg)) :
                     foreach ($arg['selector'] as $key => $val) {
-                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{UNIT}}', $unit, $val);
                         $file = str_replace('{{TOP}}', $top, $file);
@@ -1044,30 +1044,30 @@ trait Sanitization {
                 echo ' <div class="shortcode-form-units-choices">';
                 foreach ($arg['range'] as $key => $val) {
                     $rand = rand(10000, 233333333);
-                    echo '<input id="' . $id . '-choices-' . $rand . '" type="radio" name="' . $id . '-choices"  value="' . $key . '" ' . ($key == $unit ? 'checked' : '') . '  min="' . $val['min'] . '" max="' . $val['max'] . '" step="' . $val['step'] . '">
-                      <label class="shortcode-form-units-choices-label" for="' . $id . '-choices-' . $rand . '">' . $key . '</label>';
+                    echo '<input id="' . esc_attr($id) . '-choices-' . $rand . '" type="radio" name="' . esc_attr($id) . '-choices"  value="' . esc_attr($key) . '" ' . ($key == $unit ? 'checked' : '') . '  min="' . esc_attr($val['min']) . '" max="' . esc_attr($val['max']) . '" step="' . esc_attr($val['step']) . '">
+                      <label class="shortcode-form-units-choices-label" for="' . esc_attr($id) . '-choices-' . $rand . '">' . esc_html($key) . '</label>';
                 }
                 echo '</div>';
             endif;
         endif;
-        $unitvalue = array_key_exists($id . '-choices', $data) ? 'unit="' . $data[$id . '-choices'] . '"' : '';
+        $unitvalue = array_key_exists(esc_attr($id) . '-choices', $data) ? 'unit="' . $data[esc_attr($id) . '-choices'] . '"' : '';
         echo '<div class="shortcode-form-control-input-wrapper">
                 <ul class="shortcode-form-control-dimensions">
                     <li class="shortcode-form-control-dimension">
-                        <input id="' . $id . '-top" input-id="' . $id . '" name="' . $id . '-top" type="number"  min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $top . '" default-value="' . $top . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
-                        <label for="' . $id . '-top" class="shortcode-form-control-dimension-label">Top</label>
+                        <input id="' . esc_attr($id) . '-top" input-id="' . esc_attr($id) . '" name="' . esc_attr($id) . '-top" type="number"  min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr($arg['range'][$unit]['step']) . '" value="' . esc_attr($top) . '" default-value="' . esc_attr($top) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                        <label for="' . esc_attr($id) . '-top" class="shortcode-form-control-dimension-label">Top</label>
                     </li>
                     <li class="shortcode-form-control-dimension">
-                       <input id="' . $id . '-right" input-id="' . $id . '" name="' . $id . '-right" type="number"  min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $right . '" default-value="' . $right . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
-                         <label for="' . $id . '-right" class="shortcode-form-control-dimension-label">Right</label>
+                       <input id="' . esc_attr($id) . '-right" input-id="' . esc_attr($id) . '" name="' . esc_attr($id) . '-right" type="number"  min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr($arg['range'][$unit]['step']) . '" value="' . esc_attr($right) . '" default-value="' . esc_attr($right) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                         <label for="' . esc_attr($id) . '-right" class="shortcode-form-control-dimension-label">Right</label>
                     </li>
                     <li class="shortcode-form-control-dimension">
-                       <input id="' . $id . '-bottom" input-id="' . $id . '" name="' . $id . '-bottom" type="number"  min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $bottom . '" default-value="' . $bottom . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
-                       <label for="' . $id . '-bottom" class="shortcode-form-control-dimension-label">Bottom</label>
+                       <input id="' . esc_attr($id) . '-bottom" input-id="' . esc_attr($id) . '" name="' . esc_attr($id) . '-bottom" type="number"  min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr($arg['range'][$unit]['step']) . '" value="' . esc_attr($bottom) . '" default-value="' . esc_attr($bottom) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                       <label for="' . esc_attr($id) . '-bottom" class="shortcode-form-control-dimension-label">Bottom</label>
                     </li>
                     <li class="shortcode-form-control-dimension">
-                        <input id="' . $id . '-left" input-id="' . $id . '" name="' . $id . '-left" type="number"  min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $left . '" default-value="' . $left . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
-                         <label for="' . $id . '-left" class="shortcode-form-control-dimension-label">Left</label>
+                        <input id="' . esc_attr($id) . '-left" input-id="' . esc_attr($id) . '" name="' . esc_attr($id) . '-left" type="number"  min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr(esc_attr($arg['range'][$unit]['step'])) . '" value="' . esc_attr($left) . '" default-value="' . esc_attr($left) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                         <label for="' . esc_attr($id) . '-left" class="shortcode-form-control-dimension-label">Left</label>
                     </li>
                     <li class="shortcode-form-control-dimension">
                         <button type="button" class="shortcode-form-link-dimensions ' . $unlink . '"  data-tooltip="Link values together"></button>
@@ -1104,7 +1104,7 @@ trait Sanitization {
 
         $this->start_popover_control(
                 $id, [
-            'label' => array_key_exists('label', $arg) ? $arg['label'] : 'Typography',
+            'label' => array_key_exists('label', $arg) ? esc_html($arg['label']) : 'Typography',
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'description' => $arg['description'],
@@ -1353,7 +1353,7 @@ trait Sanitization {
     public function media_admin_group_control($id, array $data = [], array $arg = []) {
         $type = array_key_exists('default', $arg) ? $arg['default']['type'] : 'media-library';
         $value = array_key_exists('default', $arg) ? $arg['default']['link'] : '';
-        $level = array_key_exists('label', $arg) ? $arg['label'] : 'Photo Source';
+        $level = array_key_exists('label', $arg) ? esc_html($arg['label']) : 'Photo Source';
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         echo '<div class="shortcode-form-control" style="padding: 0;" ' . $this->forms_condition($arg) . '>';
         $this->add_control(
@@ -1436,11 +1436,11 @@ trait Sanitization {
             $data[$id . '-vertical-size'] = 0;
         endif;
 
-        if (array_key_exists($id . '-shadow', $data) && $data[$id . '-shadow'] == 'yes' && array_key_exists($id . '-color', $data) && array_key_exists($id . '-blur-size', $data) && array_key_exists($id . '-spread-size', $data) && array_key_exists($id . '-horizontal-size', $data) && array_key_exists($id . '-vertical-size', $data)) :
-            $true = ($data[$id . '-blur-size'] == 0 || empty($data[$id . '-blur-size'])) && ($data[$id . '-spread-size'] == 0 || empty($data[$id . '-spread-size'])) && ($data[$id . '-horizontal-size'] == 0 || empty($data[$id . '-horizontal-size'])) && ($data[$id . '-vertical-size'] == 0 || empty($data[$id . '-vertical-size'])) ? TRUE : FALSE;
-            $boxshadow = ($true == FALSE ? '-webkit-box-shadow:' . (array_key_exists($id . '-type', $data) ? $data[$id . '-type'] : '') . ' ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[$id . '-blur-size'] . 'px ' . $data[$id . '-spread-size'] . 'px ' . $data[$id . '-color'] . ';' : '');
-            $boxshadow .= ($true == FALSE ? '-moz-box-shadow:' . (array_key_exists($id . '-type', $data) ? $data[$id . '-type'] : '') . ' ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[$id . '-blur-size'] . 'px ' . $data[$id . '-spread-size'] . 'px ' . $data[$id . '-color'] . ';' : '');
-            $boxshadow .= ($true == FALSE ? 'box-shadow:' . (array_key_exists($id . '-type', $data) ? $data[$id . '-type'] : '') . ' ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[$id . '-blur-size'] . 'px ' . $data[$id . '-spread-size'] . 'px ' . $data[$id . '-color'] . ';' : '');
+        if (array_key_exists(esc_attr($id) . '-shadow', $data) && $data[esc_attr($id) . '-shadow'] == 'yes' && array_key_exists(esc_attr($id) . '-color', $data) && array_key_exists(esc_attr($id) . '-blur-size', $data) && array_key_exists(esc_attr($id) . '-spread-size', $data) && array_key_exists(esc_attr($id) . '-horizontal-size', $data) && array_key_exists(esc_attr($id) . '-vertical-size', $data)) :
+            $true = ($data[esc_attr($id) . '-blur-size'] == 0 || empty($data[esc_attr($id) . '-blur-size'])) && ($data[esc_attr($id) . '-spread-size'] == 0 || empty($data[esc_attr($id) . '-spread-size'])) && ($data[esc_attr($id) . '-horizontal-size'] == 0 || empty($data[esc_attr($id) . '-horizontal-size'])) && ($data[esc_attr($id) . '-vertical-size'] == 0 || empty($data[esc_attr($id) . '-vertical-size'])) ? TRUE : FALSE;
+            $boxshadow = ($true == FALSE ? '-webkit-box-shadow:' . (array_key_exists(esc_attr($id) . '-type', $data) ? $data[esc_attr($id) . '-type'] : '') . ' ' . $data[esc_attr($id) . '-horizontal-size'] . 'px ' . $data[esc_attr($id) . '-vertical-size'] . 'px ' . $data[esc_attr($id) . '-blur-size'] . 'px ' . $data[esc_attr($id) . '-spread-size'] . 'px ' . $data[esc_attr($id) . '-color'] . ';' : '');
+            $boxshadow .= ($true == FALSE ? '-moz-box-shadow:' . (array_key_exists(esc_attr($id) . '-type', $data) ? $data[esc_attr($id) . '-type'] : '') . ' ' . $data[esc_attr($id) . '-horizontal-size'] . 'px ' . $data[esc_attr($id) . '-vertical-size'] . 'px ' . $data[esc_attr($id) . '-blur-size'] . 'px ' . $data[esc_attr($id) . '-spread-size'] . 'px ' . $data[esc_attr($id) . '-color'] . ';' : '');
+            $boxshadow .= ($true == FALSE ? 'box-shadow:' . (array_key_exists(esc_attr($id) . '-type', $data) ? $data[esc_attr($id) . '-type'] : '') . ' ' . $data[esc_attr($id) . '-horizontal-size'] . 'px ' . $data[esc_attr($id) . '-vertical-size'] . 'px ' . $data[esc_attr($id) . '-blur-size'] . 'px ' . $data[esc_attr($id) . '-spread-size'] . 'px ' . $data[esc_attr($id) . '-color'] . ';' : '');
         endif;
 
         if (array_key_exists('selector', $arg)) :
@@ -1449,7 +1449,7 @@ trait Sanitization {
             $selector = $arg['selector'];
             $boxshadow = array_key_exists($id . '-shadow', $data) && $data[$id . '-shadow'] == 'yes' ? $boxshadow : '';
             foreach ($arg['selector'] as $key => $val) {
-                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], esc_attr($key)) : esc_attr($key) );
                 $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                 $this->CSSDATA['laptop'][$class][$boxshadow] = $boxshadow;
             }
@@ -1614,16 +1614,16 @@ trait Sanitization {
         endif;
         $true = TRUE;
         $selector_key = $selector = $selectorvalue = $loader = $loadervalue = '';
-        if (array_key_exists($id . '-color', $data) && array_key_exists($id . '-blur-size', $data) && array_key_exists($id . '-horizontal-size', $data) && array_key_exists($id . '-vertical-size', $data)) :
-            $true = ($data[$id . '-blur-size'] == 0 || empty($data[$id . '-blur-size'])) && ($data[$id . '-horizontal-size'] == 0 || empty($data[$id . '-horizontal-size'])) && ($data[$id . '-vertical-size'] == 0 || empty($data[$id . '-vertical-size'])) ? TRUE : FALSE;
-            $textshadow = ($true == FALSE ? 'text-shadow: ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[$id . '-blur-size'] . 'px ' . $data[$id . '-color'] . ';' : '');
+        if (array_key_exists($id . '-color', $data) && array_key_exists($id . '-blur-size', $data) && array_key_exists(esc_attr($id) . '-horizontal-size', $data) && array_key_exists(esc_attr($id) . '-vertical-size', $data)) :
+            $true = ($data[$id . '-blur-size'] == 0 || empty($data[$id . '-blur-size'])) && ($data[esc_attr($id) . '-horizontal-size'] == 0 || empty($data[esc_attr($id) . '-horizontal-size'])) && ($data[esc_attr($id) . '-vertical-size'] == 0 || empty($data[esc_attr($id) . '-vertical-size'])) ? TRUE : FALSE;
+            $textshadow = ($true == FALSE ? 'text-shadow: ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[esc_attr($id) . '-blur-size'] . 'px ' . $data[esc_attr($id) . '-color'] . ';' : '');
         endif;
         if (array_key_exists('selector', $arg)) :
             $selectorvalue = 'selector-value';
             $selector_key = 'selector';
             $selector = $arg['selector'];
             foreach ($arg['selector'] as $key => $val) {
-                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
                 $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                 $this->CSSDATA['laptop'][$class][$textshadow] = $textshadow;
             }
@@ -2027,7 +2027,7 @@ trait Sanitization {
         if (array_key_exists('selector', $arg)) :
             $selector_key = 'selector';
             foreach ($arg['selector'] as $key => $value) {
-                $v = str_replace('{{SIZE}}', '{{' . $id . '-width.SIZE}}', str_replace('{{TYPE}}', '{{' . $id . '-type.VALUE}}', str_replace('{{COLOR}}', '{{' . $id . '-color.VALUE}}', $value)));
+                $v = str_replace('{{SIZE}}', '{{' . esc_attr($id) . '-width.SIZE}}', str_replace('{{TYPE}}', '{{' . esc_attr($id) . '-type.VALUE}}', str_replace('{{COLOR}}', '{{' . esc_attr($id) . '-color.VALUE}}', $value)));
                 $selector[$key] = $v;
             }
         endif;
@@ -2036,7 +2036,7 @@ trait Sanitization {
             $loader = 'loader';
             $loadervalue = $arg['loader'];
         endif;
-        if (array_key_exists($id . '-type', $data) && $data[$id . '-type'] == '') :
+        if (array_key_exists(esc_attr($id) . '-type', $data) && $data[esc_attr($id) . '-type'] == '') :
             $render = 'render';
         endif;
 
@@ -2121,15 +2121,15 @@ trait Sanitization {
         $backround = '';
         $render = FALSE;
         if (array_key_exists($id . '-color', $data)) :
-            $color = $data[$id . '-color'];
+            $color = $data[esc_attr($id) . '-color'];
             if (array_key_exists($id . '-img', $data) && $data[$id . '-img'] == 'yes') :
                 if (strpos(strtolower($color), 'gradient') === FALSE) :
                     $color = 'linear-gradient(0deg, ' . $color . ' 0%, ' . $color . ' 100%)';
                 endif;
-                if ($data[$id . '-select'] == 'media-library') :
-                    $backround .= 'background: ' . $color . ', url(\'' . $data[$id . '-image'] . '\') ' . $data[$id . '-repeat'] . ' ' . $data[$id . '-position'] . ';';
+                if ($data[esc_attr($id) . '-select'] == 'media-library') :
+                    $backround .= 'background: ' . $color . ', url(\'' . $data[esc_attr($id) . '-image'] . '\') ' . $data[esc_attr($id) . '-repeat'] . ' ' . $data[esc_attr($id) . '-position'] . ';';
                 else :
-                    $backround .= 'background: ' . $color . ', url(\'' . $data[$id . '-url'] . '\') ' . $data[$id . '-repeat'] . ' ' . $data[$id . '-position'] . ';';
+                    $backround .= 'background: ' . $color . ', url(\'' . $data[esc_attr($id) . '-url'] . '\') ' . $data[esc_attr($id) . '-repeat'] . ' ' . $data[esc_attr($id) . '-position'] . ';';
                 endif;
             else :
                 $backround .= 'background: ' . $color . ';';
@@ -2137,7 +2137,7 @@ trait Sanitization {
         endif;
         if (array_key_exists('selector', $arg)) :
             foreach ($arg['selector'] as $key => $val) {
-                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
                 $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                 $this->CSSDATA['laptop'][$class][$backround] = $backround;
                 $render = TRUE;
@@ -2255,7 +2255,7 @@ trait Sanitization {
             'loader' => TRUE,
             'condition' => [
                 $id . '-img' => 'yes',
-                '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
+                '((' . esc_attr($id) . '-select === \'media-library\' && ' . esc_attr($id) . '-image !== \'\') || (' . esc_attr($id) . '-select === \'custom-url\' && ' . esc_attr($id) . '-url !== \'\'))' => 'COMPILED',
             ],
                 ]
         );
@@ -2275,7 +2275,7 @@ trait Sanitization {
             $selector_key => $selector,
             'condition' => [
                 $id . '-img' => 'yes',
-                '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
+                '((' . esc_attr($id) . '-select === \'media-library\' && ' . esc_attr($id) . '-image !== \'\') || (' . esc_attr($id) . '-select === \'custom-url\' && ' . esc_attr($id) . '-url !== \'\'))' => 'COMPILED',
             ],
                 ]
         );
@@ -2295,7 +2295,7 @@ trait Sanitization {
             'loader' => TRUE,
             'condition' => [
                 $id . '-img' => 'yes',
-                '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
+                '((' . esc_attr($id) . '-select === \'media-library\' && ' . esc_attr($id) . '-image !== \'\') || (' . esc_attr($id) . '-select === \'custom-url\' && ' . esc_attr($id) . '-url !== \'\'))' => 'COMPILED',
             ],
                 ]
         );
@@ -2316,7 +2316,7 @@ trait Sanitization {
             $selector_key => $selector,
             'condition' => [
                 $id . '-img' => 'yes',
-                '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
+                '((' . esc_attr($id) . '-select === \'media-library\' && ' . esc_attr($id) . '-image !== \'\') || (' . esc_attr($id) . '-select === \'custom-url\' && ' . esc_attr($id) . '-url !== \'\'))' => 'COMPILED',
             ],
                 ]
         );
@@ -2524,7 +2524,7 @@ trait Sanitization {
                     <form method="post" id="shortcode-addons-name-change-submit">
                         <div class="input-group my-2">
                             <input type="hidden" class="form-control" name="addonsstylenameid" value="' . $data['id'] . '">
-                            <input type="text" class="form-control" name="addonsstylename" placeholder=" ' . $arg['placeholder'] . '" value="' . $data['name'] . '">
+                            <input type="text" class="form-control" name="addonsstylename" placeholder=" ' . esc_attr($arg['placeholder']) . '" value="' . $data['name'] . '">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-success" id="addonsstylenamechange">Save</button>
                             </div>
@@ -2560,12 +2560,12 @@ trait Sanitization {
                     <em>Shortcode for posts/pages/plugins</em>
                     <p>Copy &amp;
                     paste the shortcode directly into any WordPress post, page or Page Builder.</p>
-                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $id . '&quot;]">
+                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . esc_attr($id) . '&quot;]">
                     <span></span>
                     <em>Shortcode for templates/themes</em>
                     <p>Copy &amp;
                     paste this code into a template file to include the slideshow within your theme.</p>
-                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="<?php echo do_shortcode(\'[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]\'); ?>">
+                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="<?php echo do_shortcode(\'[ctu_ultimate_oxi  id=&quot;' . esc_attr($id) . '&quot;]\'); ?>">
                     <span></span>
                 </div>
             </div>';
@@ -2619,7 +2619,7 @@ trait Sanitization {
                             </div>
                         </form>
                     <div id="modal-rearrange-store-file">
-                        ' . $id . '
+                        ' . esc_attr($id) . '
                     </div>
                 </div>
             </div>';

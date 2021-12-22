@@ -71,14 +71,15 @@ class Build_Api {
             return new \WP_REST_Request('Invalid URL', 422);
         endif;
 
-        $this->rawdata = addslashes($request['rawdata']);
+        $this->rawdata = sanitize_textarea_field(addslashes($request['rawdata']));
         $this->styleid = (int) $request['styleid'];
         $this->childid = (int) $request['childid'];
         $action_class = strtolower($request->get_method()) . '_' . sanitize_key($request['action']);
         if (method_exists($this, $action_class)):
             return $this->{$action_class}();
+        else:
+            return die(__('Security check', OXI_ACCORDIONS_TEXTDOMAIN));
         endif;
-        return 'Silence is Golden';
     }
 
     public function array_replace($arr = [], $search = '', $replace = '') {
@@ -135,53 +136,60 @@ class Build_Api {
 
             $params = json_decode(stripslashes($this->rawdata), true);
             $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
-            $filename = 'responsive-tabs-and-accordions-ultimateand' . $params['responsive-tabs-template-id'] . '.json';
-            return $this->post_json_import($folder, $filename, $params['addons-style-name']);
+            $filename = 'responsive-tabs-and-accordions-ultimateand' . sanitize_text_field($params['responsive-tabs-template-id']) . '.json';
+            $name = sanitize_text_field($params['addons-style-name']);
+            $data = json_decode(file_get_contents($folder . $filename), true);
 
+            if (empty($data)) {
+                return new \WP_Error('file_error', 'Invalid File');
+            }
+            $content = $data['style'];
+            if (!is_array($content)) {
+                return new \WP_Error('file_error', 'Invalid Content In File');
+            }
+
+            return $this->post_json_import($data, $name);
         endif;
     }
 
-    public function post_json_import($folder, $filename, $name = 'truee') {
-        if (is_file($folder . $filename)) {
-            $this->rawdata = file_get_contents($folder . $filename);
-            $params = json_decode($this->rawdata, true);
-            $style = $params['style'];
-            $child = $params['child'];
-            if ($name != 'truee'):
-                $style['name'] = $name;
-            endif;
-            if (array_key_exists('css', $style) && $style['css'] != ''):
-                $old = true;
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'], $style['css'])));
-            else:
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
-            endif;
-
-            $redirect_id = $this->database->wpdb->insert_id;
-
-            if ($redirect_id > 0):
-                if ($old == true):
-                    foreach ($child as $value) {
-                        $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($redirect_id, $value['rawdata'], $value['title'], $value['files'], $value['css'])));
-                    }
-                else:
-                    $raw = json_decode(stripslashes($style['rawdata']), true);
-                    $raw['style-id'] = $redirect_id;
-                    $style_name = ucfirst($style['style_name']);
-                    $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $style_name;
-                    $C = new $CLASS('admin');
-
-                    $f = $C->template_css_render($raw);
-                    foreach ($child as $value) {
-                        $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
-                    }
-                endif;
-                if ($name != 'truee'):
-                    return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
-                endif;
-
-            endif;
+    public function post_json_import($params, $name = 'truee') {
+        if (!is_array($params)) {
+            return new \WP_Error('file_error', 'Invalid Content In File');
         }
+        $old = false;
+        $style = $params['style'];
+        $child = $params['child'];
+        if ($name != 'truee'):
+            $style['name'] = $name;
+        endif;
+        if (array_key_exists('css', $style) && $style['css'] != ''):
+            $old = true;
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'], $style['css'])));
+        else:
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
+        endif;
+
+        $redirect_id = $this->database->wpdb->insert_id;
+
+        if ($redirect_id > 0):
+            if ($old == true):
+                foreach ($child as $value) {
+                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($redirect_id, $value['rawdata'], $value['title'], $value['files'], $value['css'])));
+                }
+            else:
+                $raw = json_decode(stripslashes($style['rawdata']), true);
+                $raw['style-id'] = $redirect_id;
+                $style_name = ucfirst($style['style_name']);
+                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $style_name;
+                $C = new $CLASS('admin');
+
+                $f = $C->template_css_render($raw);
+                foreach ($child as $value) {
+                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
+                }
+            endif;
+            return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
+        endif;
     }
 
     public function post_shortcode_delete() {
@@ -457,20 +465,55 @@ class Build_Api {
      * Admin Settings
      * @return void
      */
-    public function post_oxi_settings() {
+    public function post_oxi_addons_user_permission() {
         $rawdata = json_decode(stripslashes($this->rawdata), true);
-        $name = sanitize_text_field($rawdata['name']);
         $value = sanitize_text_field($rawdata['value']);
-        if ($name === 'oxi_addons_user_permission'):
-            update_option('oxi_addons_user_permission', $value);
-            echo '<span class="oxi-confirmation-success"></span>';
-        elseif ($name === 'oxi_addons_font_awesome'):
-            update_option('oxi_addons_font_awesome', $value);
-            echo '<span class="oxi-confirmation-success"></span>';
-        elseif ($name === 'oxi_addons_fixed_header_size'):
-            update_option('oxi_addons_fixed_header_size', $value);
-            echo '<span class="oxi-confirmation-success"></span>';
-        endif;
+        update_option('oxi_addons_user_permission', $value);
+        return '<span class="oxi-confirmation-success"></span>';
+    }
+
+    /**
+     * Admin Settings
+     * @return void
+     */
+    public function post_oxi_addons_font_awesome() {
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
+        $value = sanitize_text_field($rawdata['value']);
+        update_option('oxi_addons_font_awesome', $value);
+        return '<span class="oxi-confirmation-success"></span>';
+    }
+
+    /**
+     * Admin Settings
+     * @return void
+     */
+    public function post_oxilab_tabs_woocommerce() {
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
+        $value = sanitize_text_field($rawdata['value']);
+        update_option('oxilab_tabs_woocommerce', $value);
+        return '<span class="oxi-confirmation-success"></span>';
+    }
+
+    /**
+     * Admin Settings
+     * @return void
+     */
+    public function post_oxi_tabs_use_the_content() {
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
+        $value = sanitize_text_field($rawdata['value']);
+        update_option('oxi_tabs_use_the_content', $value);
+        return '<span class="oxi-confirmation-success"></span>';
+    }
+
+    /**
+     * Admin Settings
+     * @return void
+     */
+    public function post_oxilab_tabs_woocommerce_default() {
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
+        $value = sanitize_text_field($rawdata['value']);
+        update_option('oxilab_tabs_woocommerce_default', $value);
+        return '<span class="oxi-confirmation-success"></span>';
     }
 
     /**
@@ -478,7 +521,19 @@ class Build_Api {
      * @return void
      */
     public function post_customize_default_tabs() {
-        update_option('oxilab_tabs_woocommerce_customize_default_tabs', $this->rawdata);
+        $value = sanitize_text_field($this->rawdata);
+        update_option('oxilab_tabs_woocommerce_customize_default_tabs', $value);
+        return '<span class="oxi-confirmation-success"></span>';
+    }
+
+    /**
+     * Admin Settings
+     * @return void
+     */
+    public function post_oxi_addons_fixed_header_size() {
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
+        $value = sanitize_text_field($rawdata['value']);
+        update_option('oxi_addons_fixed_header_size', $value);
         return '<span class="oxi-confirmation-success"></span>';
     }
 
@@ -488,7 +543,7 @@ class Build_Api {
      */
     public function post_oxi_license() {
         $rawdata = json_decode(stripslashes($this->rawdata), true);
-        $new = $rawdata['license'];
+        $new = sanitize_text_field($rawdata['license']);
         $old = get_option('responsive_tabs_with_accordions_license_key');
         $status = get_option('responsive_tabs_with_accordions_license_status');
         if ($new == ''):
@@ -639,7 +694,7 @@ class Build_Api {
             $render .= '<div class="oxi-addons-col-1">
                                     <div class="oxi-addons-style-preview">
                                         <div class="oxi-addons-style-preview-top oxi-addons-center">
-                                            <img class="oxi-addons-web-template-image" src="' . $value['image'] . '">
+                                            <img class="oxi-addons-web-template-image" src="' . esc_url($value['image']) . '">
                                         </div>
                                         <div class="oxi-addons-style-preview-bottom">
                                             <div class="oxi-addons-style-preview-bottom-left">

@@ -145,49 +145,50 @@ class Create {
     }
 
     public function Create_new() {
-        echo _('<div class="oxi-addons-row">
-                        <div class="oxi-addons-col-1 oxi-import">
-                            <div class="oxi-addons-style-preview">
-                                <div class="oxilab-admin-style-preview-top">
-                                    <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&import") . '">
-                                        <div class="oxilab-admin-add-new-item">
-                                            <span>
-                                                <i class="fas fa-plus-circle oxi-icons"></i>
-                                                Import Templates
-                                            </span>
-                                        </div>
-                                    </a>
+        ?>
+        <div class="oxi-addons-row">
+            <div class="oxi-addons-col-1 oxi-import">
+                <div class="oxi-addons-style-preview">
+                    <div class="oxilab-admin-style-preview-top">
+                        <a href="<?php echo esc_url(admin_url("admin.php?page=oxi-tabs-ultimate-new&import")); ?>">
+                            <div class="oxilab-admin-add-new-item">
+                                <span>
+                                    <i class="fas fa-plus-circle oxi-icons"></i>
+                                    Import Templates
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="oxi-addons-style-create-modal" >
+            <form method="post" id="oxi-addons-style-modal-form">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">New Tabs</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class=" form-group row">
+                                <label for="addons-style-name" class="col-sm-6 col-form-label" oxi-addons-tooltip="Give your Shortcode Name Here">Name</label>
+                                <div class="col-sm-6 addons-dtm-laptop-lock">
+                                    <input class="form-control" type="text" value="" id="addons-style-name"  name="addons-style-name" required>
                                 </div>
                             </div>
                         </div>
-                    </div>');
+                        <div class="modal-footer">
+                            <input type="hidden" id="responsive-tabs-template-id" name="responsive-tabs-template-id" value="">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-        echo __('<div class="modal fade" id="oxi-addons-style-create-modal" >
-                        <form method="post" id="oxi-addons-style-modal-form">
-                            <div class="modal-dialog modal-sm">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">New Tabs</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class=" form-group row">
-                                            <label for="addons-style-name" class="col-sm-6 col-form-label" oxi-addons-tooltip="Give your Shortcode Name Here">Name</label>
-                                            <div class="col-sm-6 addons-dtm-laptop-lock">
-                                                <input class="form-control" type="text" value="" id="addons-style-name"  name="addons-style-name" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input type="hidden" id="responsive-tabs-template-id" name="responsive-tabs-template-id" value="">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <input type="submit" class="btn btn-success" name="addonsdatasubmit" id="addonsdatasubmit" value="Save">
-                                      </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>');
-        ?>
         <div class="modal fade" tabindex="-1" role="dialog" id="oxi-addons-style-web-template" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -219,7 +220,7 @@ class Create {
                     $template_data = json_decode(file_get_contents($folder . $this->local_template[$value]), true);
                     $C = 'OXI_TABS_PLUGINS\Render\Views\\' . $Style;
                     ?>
-                    <div class="oxi-addons-col-1" id="<?php echo $Style; ?>">
+                    <div class="oxi-addons-col-1" id="<?php echo esc_attr($Style); ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
                                 <?php
@@ -230,15 +231,15 @@ class Create {
                             </div>
                             <div class="oxi-addons-style-preview-bottom">
                                 <div class="oxi-addons-style-preview-bottom-left">
-                                    <?php echo $template_data['style']['name']; ?>
+                                    <?php echo esc_html($template_data['style']['name']); ?>
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <form method="post" style=" display: inline-block; " class="shortcode-addons-template-deactive">
-                                        <input type="hidden" name="oxideletestyle" value="<?php echo $value; ?>">
+                                        <input type="hidden" name="oxideletestyle" value="<?php echo esc_attr($value); ?>">
                                         <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Delete"  type="submit" value="Deactive" name="addonsstyledelete">Deactive</button>
                                     </form>
-                                    <button type="button" class="btn btn-info oxi-addons-addons-web-template" template-id="<?php echo $value; ?>">Web Template</button>
-                                    <button type="button" class="btn btn-success oxi-addons-addons-template-create oxi-addons-addons-js-create" data-toggle="modal" template-id="<?php echo $value; ?>">Create Style</button>
+                                    <button type="button" class="btn btn-info oxi-addons-addons-web-template" template-id="<?php echo esc_attr($value); ?>">Web Template</button>
+                                    <button type="button" class="btn btn-success oxi-addons-addons-template-create oxi-addons-addons-js-create" data-toggle="modal" template-id="<?php echo esc_attr($value); ?>">Create Style</button>
                                 </div>
                             </div>
                         </div>
@@ -263,7 +264,7 @@ class Create {
                     $template_data = json_decode(file_get_contents($folder . $value), true);
                     $C = 'OXI_TABS_PLUGINS\Render\Views\\Style' . ucfirst($id);
                     ?>
-                    <div class="oxi-addons-col-1" id="Style<?php echo $id; ?>">
+                    <div class="oxi-addons-col-1" id="Style<?php echo esc_attr($id); ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
                                 <?php
@@ -274,7 +275,7 @@ class Create {
                             </div>
                             <div class="oxi-addons-style-preview-bottom">
                                 <div class="oxi-addons-style-preview-bottom-left">
-                                    <?php echo $template_data['style']['name']; ?>
+                                    <?php echo esc_attr($template_data['style']['name']); ?>
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <?php
@@ -287,7 +288,7 @@ class Create {
                                     else:
                                         ?>
                                         <form method="post" style=" display: inline-block; " class="shortcode-addons-template-import">
-                                            <input type="hidden" name="oxiimportstyle" value="<?php echo $id; ?>">
+                                            <input type="hidden" name="oxiimportstyle" value="<?php echo esc_attr($id); ?>">
                                             <button class="btn btn-success oxi-addons-addons-template-create" title="import"  type="submit" value="Import" name="addonsstyleimport">Import</button>
                                         </form>
                                     <?php

@@ -221,7 +221,7 @@ class WooCommerce {
     public function product_tabs_content($key, $tab) {
         $content = '';
         $content = apply_filters('oxi_woo_tab_content_filter', $tab['content']);
-        $tab_title_html = '<h2 class="oxi_woo_tab-title oxi_woo_tab-tab-title-' . urldecode(sanitize_title($tab['title'])) . '">' . $tab['title'] . '</h2>';
+        $tab_title_html = '<h2 class="oxi_woo_tab-title oxi_woo_tab-tab-title-' . urldecode(sanitize_title($tab['title'])) . '">' . esc_html($tab['title']) . '</h2>';
         echo apply_filters('oxi_woo_tab_product_tabs_heading', $tab_title_html, $tab);
         echo apply_filters('oxi_woo_tab_product_tabs_content', $content, $tab);
     }

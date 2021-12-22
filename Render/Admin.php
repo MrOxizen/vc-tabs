@@ -370,9 +370,9 @@ class Admin {
                                         </div>
                                         <div class="oxi-addons-setting-save">
                                             <button type="button" class="btn btn-danger" id="oxi-addons-setting-reload">Reload</button>
-                                            <input type="hidden"  id="oxilab-preview-color" name="oxilab-preview-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
-                                            <input type="hidden"  id="style-id" name="style-id" value="<?php echo $this->dbdata['id']; ?>">
-                                            <input type="hidden"  id="style-name" name="style-name" value="<?php echo $this->StyleName; ?>">
+                                            <input type="hidden"  id="oxilab-preview-color" name="oxilab-preview-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? esc_attr($this->style['oxilab-preview-color']) : '#FFF' : '#FFF'); ?>">
+                                            <input type="hidden"  id="style-id" name="style-id" value="<?php echo esc_attr($this->dbdata['id']); ?>">
+                                            <input type="hidden"  id="style-name" name="style-name" value="<?php echo esc_attr($this->StyleName); ?>">
                                             <input type="hidden"  id="style-changing-trigger" name="style-changing-trigger" value="">
                                             <button type="button" class="btn btn-success" id="oxi-addons-templates-submit"> Save</button>
                                         </div>
@@ -412,9 +412,9 @@ class Admin {
                                         </div>
                                     </div>
                                     <div class="oxi-addons-preview-wrapper">
-                                        <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> > .oxi-addons-row" template-id="#oxi-tabs-wrapper-<?php echo $this->dbdata['id']; ?>">
+                                        <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo esc_attr($this->WRAPPER); ?> > .oxi-addons-row" template-id="#oxi-tabs-wrapper-<?php echo esc_attr($this->dbdata['id']); ?>">
 
-                                            <iframe  src="<?php echo admin_url('admin.php?page=oxi-tabs-style-view&styleid=' . $this->oxiid); ?>"
+                                            <iframe  src="<?php echo esc_url(admin_url('admin.php?page=oxi-tabs-style-view&styleid=' . $this->oxiid)); ?>"
                                                      id="oxi-addons-preview-iframe"
                                                      class="oxi-addons-preview-iframe"
                                                      width="100%" scrolling="no"

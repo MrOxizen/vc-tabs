@@ -127,7 +127,7 @@ class Old_Render {
         if ($fadata != 'no') {
             wp_enqueue_style('font-awesome-' . $faversion[0], $faversion[1]);
         }
-        $files = '<i class="' . $data . ' oxi-icons"></i>';
+        $files = '<i class="' . esc_attr($data) . ' oxi-icons"></i>';
         return $files;
     }
 
@@ -137,14 +137,14 @@ class Old_Render {
             $data = '<div class="oxi-addons-admin-absulote">
                         <div class="oxi-addons-admin-absulate-edit">
                             <form method="post">
-                                <input type="hidden" name="item-id" value="' . $id . '">
+                                <input type="hidden" name="item-id" value="' . esc_attr($id) . '">
                                 <button class="btn btn-primary" type="submit" value="edit" name="edit" title="Edit">Edit</button>
                                 ' . wp_nonce_field("oxitabseditdata") . '
                             </form>
                         </div>
                         <div class="oxi-addons-admin-absulate-delete">
                             <form method="post">
-                                <input type="hidden" name="item-id" value="' . $id . '">
+                                <input type="hidden" name="item-id" value="' . esc_attr($id) . '">
                                 <button class="btn btn-danger" type="submit" value="delete" name="delete" title="Delete">Delete</button>
                                 ' . wp_nonce_field("oxitabsdeletedata") . '
                             </form>
