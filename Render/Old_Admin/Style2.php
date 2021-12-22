@@ -205,7 +205,7 @@ class Style2 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="heading-font-color" class="col-sm-6 control-label heading-font-color" data-toggle="tooltip" class="tooltipLink" data-original-title=" Set Your Title Font Color, Based on Color">Color</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control oxilab-vendor-color" id="heading-font-color" name="heading-font-color" value="<?php echoesc_attr($styledata[3]); ?>" oxivalue="<?php echoesc_attr($styledata[3]); ?>">
+                            <input type="text" class="form-control oxilab-vendor-color" id="heading-font-color" name="heading-font-color" value="<?php echo esc_attr($styledata[3]); ?>" oxivalue="<?php echo esc_attr($styledata[3]); ?>">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">

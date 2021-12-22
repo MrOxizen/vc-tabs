@@ -29,16 +29,16 @@ class Visual_Composer {
 
     public function VC_extension() {
         vc_map(array(
-            "name" => __("Content Tabs"),
+            "name" => esc_html("Content Tabs"),
             "base" => "ctu_ultimate_oxi_VC",
-            "category" => __("Content"),
+            "category" => esc_html("Content"),
             "params" => array(
                 array(
                     "type" => "textfield",
                     "holder" => "div",
-                    "heading" => __("ID"),
+                    "heading" => esc_html("ID"),
                     "param_name" => "id",
-                    "description" => __("Input your Tabs ID in input box")
+                    "description" => esc_html("Input your Tabs ID in input box")
                 ),
             )
         ));

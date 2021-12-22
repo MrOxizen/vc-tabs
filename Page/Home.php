@@ -45,7 +45,7 @@ class Home {
      * @return void
      */
     public function admin_ajax_load() {
-        wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/assets/backend/custom/home.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/assets/backend/custom/home.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     /**
@@ -70,7 +70,7 @@ class Home {
                 if (apply_filters('oxi-tabs-plugin/pro_version', false) == TRUE):
                     if (isset($_FILES['importtabsfilefile'])) :
                         if (!current_user_can('upload_files')):
-                            wp_die(__('You do not have permission to upload files.'));
+                            wp_die(esc_html('You do not have permission to upload files.'));
                         endif;
 
                         $allowedMimes = array(
@@ -79,7 +79,7 @@ class Home {
 
                         $fileInfo = wp_check_filetype(basename($_FILES['importtabsfilefile']['name']), $allowedMimes);
                         if (empty($fileInfo['ext'])) {
-                            wp_die(__('You do not have permission to upload files.'));
+                            wp_die(esc_html('You do not have permission to upload files.'));
                         }
 
                         $content = json_decode(file_get_contents($_FILES['importtabsfilefile']['tmp_name']), true);

@@ -53,9 +53,9 @@ class Support_Reviews {
             return;
         }
         $image = OXI_TABS_URL . 'assets/image/logo.png';
-        echo _(' <div class="notice notice-info put-dismiss-noticenotice-has-thumbnail shortcode-addons-review-notice">
+        echo ' <div class="notice notice-info put-dismiss-noticenotice-has-thumbnail shortcode-addons-review-notice">
                     <div class="shortcode-addons-notice-thumbnail">
-                        <img src="' . $image . '" alt=""></div>
+                        <img src="' . esc_url($image) . '" alt=""></div>
                     <div class="shortcode-addons--notice-message">
                         <p>Hey, You’ve using <strong>Tabs - Responsive Tabs with  Accordions</strong> more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.!</p>
                         <ul class="shortcode-addons--notice-link">
@@ -86,7 +86,7 @@ class Support_Reviews {
                             </li>
                         </ul>
                     </div>
-                </div>');
+                </div>';
     }
 
     /**

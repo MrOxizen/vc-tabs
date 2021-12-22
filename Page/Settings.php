@@ -55,7 +55,7 @@ class Settings {
      * @return void
      */
     public function admin_ajax() {
-        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/settings.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/settings.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     public function Render() {
@@ -149,7 +149,7 @@ class Settings {
                                         elseif ($this->status == 'valid' && !empty($this->license)):
                                             echo '<span class="oxi-addons-settings-massage">Active</span>';
                                         elseif (!empty($this->license)):
-                                            echo '<span class="oxi-addons-settings-massage">' . esc_attr($this->status) . '</span>';
+                                            echo '<span class="oxi-addons-settings-massage">' . esc_html__($this->status, 'vc-tabs') . '</span>';
                                         else:
                                             echo '<span class="oxi-addons-settings-massage"></span>';
                                         endif;

@@ -212,7 +212,7 @@ class Style16 extends Old_Render {
     public function default_render() {
         $styledata = $this->style;
         $styleid = $this->ID;
-        echo '<div class="ctu-ultimate-wrapper-' . $styleid . '">
+        $content .= '<div class="ctu-ultimate-wrapper-' . $styleid . '">
             <div class="ctu-ulimate-style-' . $styleid . '">';
         $linkopening = '';
         if (!empty($styledata[81]) && $styledata[81] != 'new-tab') {
@@ -223,16 +223,16 @@ class Style16 extends Old_Render {
             if (!empty($titlefiles[1]) && $this->user != 'admin') {
                 $this->JQUERY .= '$(".vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '").click(function() {window.open("' . $titlefiles[1] . '" ' . $linkopening . ');});';
             }
-            echo ' <div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+            $content .= ' <div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                                ' . $this->icon_font_selector($value['css']) . '
                                 ' . $this->special_charecter($titlefiles[0]) . '
                             </div>';
         }
-        echo '</div>';
-        echo '<div class="ctu-ultimate-style-' . $styleid . '-content">';
+        $content .= '</div>';
+        $content .= '<div class="ctu-ultimate-style-' . $styleid . '-content">';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+            $content .= '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                     ' . $this->icon_font_selector($value['css']) . '
                    ' . $this->special_charecter($titlefiles[0]) . '
                </div>
@@ -241,7 +241,9 @@ class Style16 extends Old_Render {
                     ' . $this->admin_edit_panel($value['id']) . '
                 </div> ';
         }
-        echo '</div></div> ';
+        $content .= ' </div> </div>';
+
+        echo wp_kses($content, $this->allowed_tags());
     }
 
 }

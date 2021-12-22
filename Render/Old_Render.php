@@ -53,8 +53,8 @@ class Old_Render {
 
     public function public_jquery_css() {
         wp_enqueue_script("jquery");
-        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
-        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/old.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/old.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     public function default_render() {
@@ -65,27 +65,129 @@ class Old_Render {
         $inlinejs = $this->JQUERY;
         $inlinecss = $this->CSS;
         if ($inlinejs != ''):
-            if ($this->user == 'admin'):
-                echo _('<script>
-                        (function ($) {
-                            setTimeout(function () {');
-                echo $inlinejs;
-                echo _('    }, 2000);
-                        })(jQuery)</script>');
-            else:
-                $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
-                wp_add_inline_script('vc-tabs-jquery', $jquery);
-            endif;
+            $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
+            wp_add_inline_script('vc-tabs-jquery', $jquery);
         endif;
         if ($inlinecss != ''):
-            if ($this->user == 'admin'):
-                echo _('<style>');
-                echo $inlinecss;
-                echo _('</style>');
-            else:
-                wp_add_inline_style('vc-tabs-style', $inlinecss);
-            endif;
+            wp_add_inline_style('vc-tabs-style', $inlinecss);
         endif;
+    }
+
+    public function allowed_tags() {
+
+        $allowed_tags = array(
+            'a' => array(
+                'class' => array(),
+                'href' => array(),
+                'rel' => array(),
+                'title' => array(),
+            ),
+            'abbr' => array(
+                'title' => array(),
+            ),
+            'b' => array(),
+            'blockquote' => array(
+                'cite' => array(),
+            ),
+            'cite' => array(
+                'title' => array(),
+            ),
+            'code' => array(),
+            'del' => array(
+                'datetime' => array(),
+                'title' => array(),
+            ),
+            'dd' => array(),
+            'div' => array(
+                'class' => array(),
+                'ref' => array(),
+                'style' => array(),
+                'id' => array(),
+                'data-oxi-tabs' => array(),
+                'data-link' => array(),
+            ),
+            'blockquote' => array(
+                'class' => array(),
+                'ref' => array(),
+                'style' => array(),
+                'id' => array(),
+                'data-oxi-tabs' => array(),
+                'data-link' => array(),
+            ),
+            'table' => array(
+                'class' => array(),
+                'id' => array(),
+                'style' => array(),
+            ),
+            'button' => array(
+                'class' => array(),
+                'type' => array(),
+                'value' => array(),
+            ),
+            'input' => array(
+                'onkeyup' => array(),
+                'class' => array(),
+                'id' => array(),
+                'name' => array(),
+                'type' => array(),
+                'value' => array(),
+                'placeholder' => array(),
+                'onclick' => array(),
+            ),
+            'form' => array(
+                'class' => array(),
+                'id' => array(),
+                'method' => array(),
+                'action' => array(),
+            ),
+            'thead' => array(),
+            'tbody' => array(),
+            'tr' => array(),
+            'td' => array(),
+            'dt' => array(),
+            'em' => array(),
+            'h1' => array(),
+            'h2' => array(),
+            'h3' => array(),
+            'h4' => array(),
+            'h5' => array(),
+            'h6' => array(),
+            'i' => array(
+                'class' => array(),
+            ),
+            'img' => array(
+                'alt' => array(),
+                'class' => array(),
+                'height' => array(),
+                'src' => array(),
+                'width' => array(),
+            ),
+            'li' => array(
+                'class' => array(),
+            ),
+            'ol' => array(
+                'class' => array(),
+            ),
+            'p' => array(
+                'class' => array(),
+            ),
+            'q' => array(
+                'cite' => array(),
+                'title' => array(),
+            ),
+            'span' => array(
+                'class' => array(),
+                'title' => array(),
+                'style' => array(),
+            ),
+            'strike' => array(),
+            'strong' => array(),
+            'ul' => array(
+                'class' => array(),
+            ),
+        );
+
+        return $allowed_tags;
     }
 
     public function JS_CSS() {

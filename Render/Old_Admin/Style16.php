@@ -212,7 +212,7 @@ class Style16 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="heading-font-color" class="col-sm-6 control-label" data-toggle="tooltip" data-placement="top" title="Set Your Title Font Color, Based on Color">Color</label>
                         <div class="col-sm-6 ">
-                            <input type="text" class="form-control oxilab-vendor-color" id="heading-font-color" name="heading-font-color" value="<?php echoesc_attr($styledata[3]); ?>">
+                            <input type="text" class="form-control oxilab-vendor-color" id="heading-font-color" name="heading-font-color" value="<?php echo esc_attr($styledata[3]); ?>">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
@@ -646,142 +646,7 @@ class Style16 extends Old_Admin {
             </div>
         </div>
 
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                jQuery("#heading-font-size").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li{ font-size:" + jQuery('#heading-font-size').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-font-color").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li{ color:" + jQuery('#heading-font-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-background-color").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li{ background-color:" + jQuery('#heading-background-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-font-active-color").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li.active{ color:" + jQuery('#heading-font-active-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-background-active-color").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li.active{ background-color:" + jQuery('#heading-background-active-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-position").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> { float:" + jQuery('#heading-position').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery('#heading-font-familly').change(function () {
-                    var font = jQuery(this).val().replace(/\+/g, ' ');
-                    font = font.split(':');
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li{ font-family:" + font[0] + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-font-style").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li{ font-style: " + jQuery('#heading-font-style').val() + ";}</style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-font-weight").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li{ font-weight:" + jQuery('#heading-font-weight').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-padding").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li { padding: " + jQuery('#heading-padding').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-margin").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> { padding: " + jQuery('#heading-margin').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li{ margin-bottom: " + jQuery('#heading-margin').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li { padding: " + jQuery('#heading-margin').val() + "px 10px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
 
-                });
-                jQuery("#heading-icon-size").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?> .vc-tabs-li .oxi-icons{ font-size: " + jQuery('#heading-icon-size').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-icon-padding-bottom").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?> .vc-tabs-li .oxi-icons{ padding-bottom: " + jQuery('#heading-icon-padding-bottom').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-border-radius").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?> .vc-tabs-li{ border-radius: " + jQuery('#heading-border-radius').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-box-shadow-Horizontal").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-box-shadow-Vertical").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-box-shadow-Blur").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-box-shadow-Spread").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#heading-box-shadow-color").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-font-size").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs p{ font-size:" + jQuery('#content-font-size').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-font-color").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs p{ color:" + jQuery('#content-font-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-background-color").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?> { background-color:" + jQuery('#content-background-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-width").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-style-<?php echo esc_attr($styleid); ?>-content{ width:" + jQuery('#content-width').val() + "%;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo esc_attr($styleid); ?>{ width:calc(100% - " + jQuery('#content-width').val() + "%);} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-padding-top").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs{padding: " + jQuery("#content-padding-top").val() + "px " + jQuery("#content-padding-right").val() + "px " + jQuery("#content-padding-bottom").val() + "px " + jQuery("#content-padding-left").val() + "px;} </style>").appendTo("#oxi-addons-preview-data");
-                });
-                jQuery("#content-padding-bottom").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs{padding: " + jQuery("#content-padding-top").val() + "px " + jQuery("#content-padding-right").val() + "px " + jQuery("#content-padding-bottom").val() + "px " + jQuery("#content-padding-left").val() + "px;} </style>").appendTo("#oxi-addons-preview-data");
-                });
-                jQuery("#content-padding-right").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs{padding: " + jQuery("#content-padding-top").val() + "px " + jQuery("#content-padding-right").val() + "px " + jQuery("#content-padding-bottom").val() + "px " + jQuery("#content-padding-left").val() + "px;} </style>").appendTo("#oxi-addons-preview-data");
-                });
-                jQuery("#content-padding-left").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs{padding: " + jQuery("#content-padding-top").val() + "px " + jQuery("#content-padding-right").val() + "px " + jQuery("#content-padding-bottom").val() + "px " + jQuery("#content-padding-left").val() + "px;} </style>").appendTo("#oxi-addons-preview-data");
-                });
-                jQuery("#content-line-height").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs p{ line-height:" + jQuery('#content-line-height').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery('#content-font-familly').change(function () {
-                    var font = jQuery(this).val().replace(/\+/g, ' ');
-                    font = font.split(':');
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs p{ font-family:" + font[0] + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-font-weight").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs p{ font-weight:" + jQuery('#content-font-weight').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-font-align").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs p{ text-align:" + jQuery('#content-font-align').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-border-radius").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>{ border-radius:" + jQuery('#content-border-radius').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data  @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs{ border-radius:" + jQuery('#content-border-radius').val() + "px;}} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-
-                });
-                jQuery("#content-box-shadow-Blur").on("change", function () {
-                    var idvalue = jQuery('#content-box-shadow-Horizontal').val() + 'px ' + jQuery('#content-box-shadow-Vertical').val() + 'px ' + jQuery('#content-box-shadow-Blur').val() + 'px ' + jQuery('#content-box-shadow-Spread').val() + 'px ' + jQuery('#content-box-shadow-color').val();
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data    .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?> {box-shadow :" + idvalue + ";} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-box-shadow-Horizontal").on("change", function () {
-                    var idvalue = jQuery('#content-box-shadow-Horizontal').val() + 'px ' + jQuery('#content-box-shadow-Vertical').val() + 'px ' + jQuery('#content-box-shadow-Blur').val() + 'px ' + jQuery('#content-box-shadow-Spread').val() + 'px ' + jQuery('#content-box-shadow-color').val();
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data    .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?> {box-shadow :" + idvalue + ";} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-box-shadow-Vertical").on("change", function () {
-                    var idvalue = jQuery('#content-box-shadow-Horizontal').val() + 'px ' + jQuery('#content-box-shadow-Vertical').val() + 'px ' + jQuery('#content-box-shadow-Blur').val() + 'px ' + jQuery('#content-box-shadow-Spread').val() + 'px ' + jQuery('#content-box-shadow-color').val();
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data    .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?> {box-shadow :" + idvalue + ";} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-box-shadow-Spread").on("change", function () {
-                    var idvalue = jQuery('#content-box-shadow-Horizontal').val() + 'px ' + jQuery('#content-box-shadow-Vertical').val() + 'px ' + jQuery('#content-box-shadow-Blur').val() + 'px ' + jQuery('#content-box-shadow-Spread').val() + 'px ' + jQuery('#content-box-shadow-color').val();
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data    .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?> {box-shadow :" + idvalue + ";} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                });
-                jQuery("#content-box-shadow-color").on("change", function () {
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data   .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>{box-shadow:" + jQuery('#content-box-shadow-Horizontal').val() + "px " + jQuery('#content-box-shadow-Vertical').val() + "px " + jQuery('#content-box-shadow-Blur').val() + "px " + jQuery('#content-box-shadow-Spread').val() + "px " + jQuery('#content-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo esc_attr($styleid); ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo esc_attr($styleid); ?>");
-
-                });
-
-            });
-        </script>
         <?php
     }
 

@@ -107,8 +107,8 @@ class WooCommerce {
             <?php
             woocommerce_wp_select(array(
                 'id' => '_oxilab_tabs_woo_layouts',
-                'label' => __('Select Tabs Layots', 'my_theme_domain'),
-                'description' => __('Select Layouts which ', OXI_TABS_TEXTDOMAIN),
+                'label' => esc_html__('Select Tabs Layots', 'my_theme_domain'),
+                'description' => esc_html__('Select Layouts which ', 'vc-tabs'),
                 'desc_tip' => true,
                 'options' => $get_style,
             ));

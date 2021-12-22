@@ -88,7 +88,7 @@ class Template {
         <html <?php language_attributes(); ?>>
             <meta name="viewport" content="width=device-width"/>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-            <title><?php esc_html_e('Responsive Tabs &rsaquo; Admin template', OXI_TABS_TEXTDOMAIN); ?></title>
+            <title><?php esc_html_e('Responsive Tabs &rsaquo; Admin template', 'vc-tabs'); ?></title>
             <?php wp_head(); ?>
         </head>
         <body class="shortcode-addons-template-body" id="shortcode-addons-template-body">

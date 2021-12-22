@@ -160,8 +160,8 @@ class Admin {
     public function modal_opener() {
         $this->add_substitute_control('', [], [
             'type' => Controls::MODALOPENER,
-            'title' => __('Tabs Data Form', OXI_TABS_TEXTDOMAIN),
-            'sub-title' => __('Open Form', OXI_TABS_TEXTDOMAIN),
+            'title' => esc_html__('Tabs Data Form', 'vc-tabs'),
+            'sub-title' => esc_html__('Open Form', 'vc-tabs'),
             'showing' => TRUE,
         ]);
     }
@@ -175,8 +175,8 @@ class Admin {
     public function shortcode_name() {
         $this->add_substitute_control('', $this->dbdata, [
             'type' => Controls::SHORTCODENAME,
-            'title' => __('Shortcode Name', OXI_TABS_TEXTDOMAIN),
-            'placeholder' => __('Set Your Shortcode Name', OXI_TABS_TEXTDOMAIN),
+            'title' => esc_html__('Shortcode Name', 'vc-tabs'),
+            'placeholder' => esc_html__('Set Your Shortcode Name', 'vc-tabs'),
             'showing' => TRUE,
         ]);
     }
@@ -190,7 +190,7 @@ class Admin {
     public function shortcode_info() {
         $this->add_substitute_control($this->oxiid, $this->dbdata, [
             'type' => Controls::SHORTCODEINFO,
-            'title' => __('Shortcode', OXI_TABS_TEXTDOMAIN),
+            'title' => esc_html__('Shortcode', 'vc-tabs'),
             'showing' => TRUE,
         ]);
     }
@@ -408,7 +408,7 @@ class Admin {
                                             </div>
                                         </div>
                                         <div class="oxi-addons-style-left-preview-heading-right">
-                                            <input type="text" data-format="rgb" data-opacity="TRUE" class="oxi-addons-minicolor" id="oxi-addons-2-0-color" name="oxi-addons-2-0-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
+                                            <input type="text" data-format="rgb" data-opacity="TRUE" class="oxi-addons-minicolor" id="oxi-addons-2-0-color" name="oxi-addons-2-0-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? esc_attr($this->style['oxilab-preview-color']) : '#FFF' : '#FFF'); ?>">
                                         </div>
                                     </div>
                                     <div class="oxi-addons-preview-wrapper">
@@ -452,8 +452,8 @@ class Admin {
         $this->start_section_header(
                 'shortcode-addons-start-tabs', [
             'options' => [
-                'button-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
-                'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+                'button-settings' => esc_html__('General Settings', 'vc-tabs'),
+                'custom' => esc_html__('Custom CSS', 'vc-tabs'),
             ]
                 ]
         );
@@ -484,13 +484,13 @@ class Admin {
 
         $this->start_controls_section(
                 'oxi-tabs-start-tabs-css', [
-            'label' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Custom CSS', 'vc-tabs'),
             'showing' => TRUE,
                 ]
         );
         $this->add_control(
                 'oxi-tabs-custom-css', $this->style, [
-            'label' => __('', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('', 'vc-tabs'),
             'type' => Controls::TEXTAREA,
             'default' => '',
             'description' => 'Custom CSS Section. You can add custom css into textarea.'

@@ -78,46 +78,46 @@ class Admin {
 
         woocommerce_wp_text_input(
                 array(
-                    'id' => '_oxilab_tabs_woo_' . $i . '_tab_title_[]',
-                    'label' => __('Tab Title', OXI_TABS_TEXTDOMAIN),
+                    'id' => '_oxilab_tabs_woo_' . esc_attr($i) . '_tab_title_[]',
+                    'label' => esc_html__('Tab Title', 'vc-tabs'),
                     'description' => '',
                     'value' => isset($tab['title']) ? $tab['title'] : 'Tabs Title',
-                    'placeholder' => __('Tab Title', OXI_TABS_TEXTDOMAIN),
-                    'class' => 'oxilab_tabs_woo_' . $i . '_title_field'
+                    'placeholder' => esc_html__('Tab Title', 'vc-tabs'),
+                    'class' => 'oxilab_tabs_woo_' . esc_attr($i) . '_title_field'
                 )
         );
         woocommerce_wp_text_input(
                 array(
-                    'id' => '_oxilab_tabs_woo_' . $i . '_tab_priority_[]',
-                    'label' => __('Tab Priority', OXI_TABS_TEXTDOMAIN),
+                    'id' => '_oxilab_tabs_woo_' . esc_attr($i) . '_tab_priority_[]',
+                    'label' => esc_html__('Tab Priority', 'vc-tabs'),
                     'description' => '',
                     'value' => isset($tab['priority']) ? $tab['priority'] : 0,
-                    'placeholder' => __('Tabs Priority', OXI_TABS_TEXTDOMAIN),
-                    'class' => 'oxilab_tabs_woo_' . $i . '_priority_field'
+                    'placeholder' => esc_html__('Tabs Priority', 'vc-tabs'),
+                    'class' => 'oxilab_tabs_woo_' . esc_attr($i) . '_priority_field'
                 )
         );
         woocommerce_wp_text_input(
                 array(
-                    'id' => '_oxilab_tabs_woo_' . $i . '_tab_callback_[]',
-                    'label' => __('Callback Function', OXI_TABS_TEXTDOMAIN),
+                    'id' => '_oxilab_tabs_woo_' . esc_attr($i) . '_tab_callback_[]',
+                    'label' => esc_html__('Callback Function', 'vc-tabs'),
                     'description' => '',
                     'value' => isset($tab['callback']) ? $tab['callback'] : '',
-                    'placeholder' => __('Add callback function else make it blank', OXI_TABS_TEXTDOMAIN),
-                    'class' => 'oxilab_tabs_woo_' . $i . '_callback_field'
+                    'placeholder' => esc_html__('Add callback function else make it blank', 'vc-tabs'),
+                    'class' => 'oxilab_tabs_woo_' . esc_attr($i) . '_callback_field'
                 )
         );
     }
 
     protected function woocommerce_wp_wysiwyg_input($i, $tab, $key = '') {
-        echo '<div class="form-field-tinymce _oxilab_tabs_woo_layouts_content_field _oxilab_tabs_woo_layouts_tab_content_' . $i . '_field">';
+        echo '<div class="form-field-tinymce _oxilab_tabs_woo_layouts_content_field _oxilab_tabs_woo_layouts_tab_content_' . esc_attr($i) . '_field">';
         if (!isset($tab['content'])):
             $tab['content'] = '';
         endif;
         $editor_settings = array(
-            'textarea_name' => '_oxilab_tabs_woo_' . $i . '_tab_content_[]'
+            'textarea_name' => '_oxilab_tabs_woo_' . esc_attr($i) . '_tab_content_[]'
         );
 
-        wp_editor($tab['content'], '_oxilab_tabs_woo_' . $i . '_tab_content_' . $key, $editor_settings);
+        wp_editor($tab['content'], '_oxilab_tabs_woo_' . esc_attr($i) . '_tab_content_' . esc_attr($key), $editor_settings);
 
         if (isset($tab['description']) && $tab['description']) {
             echo '<span class="description">' . esc_html($tab['description']) . '</span>';

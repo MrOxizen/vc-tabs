@@ -234,22 +234,22 @@ class Style1 extends Old_Render {
         if (!empty($styledata[75]) && $styledata[75] != 'new-tab') {
             $linkopening = ", '_self'";
         }
-        echo '<div class="ctu-ultimate-wrapper ctu-ultimate-wrapper-' . $styleid . '"><div class="ctu-ulimate-style-' . $styleid . '">';
+        $content = '<div class="ctu-ultimate-wrapper ctu-ultimate-wrapper-' . $styleid . '"><div class="ctu-ulimate-style-' . $styleid . '">';
 
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
             if (!empty($titlefiles[1])) {
                 $this->JQUERY .= '$(".vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '").click(function() {window.open("' . $titlefiles[1] . '" ' . $linkopening . ');});';
             }
-            echo '<div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+            $content .= '<div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                             ' . $this->special_charecter($titlefiles[0]) . '';
-            echo '</div>';
+            $content .= '</div>';
         }
-        echo ' </div> <div class="ctu-ultimate-style-' . $styleid . '-content">';
+        $content .= ' </div> <div class="ctu-ultimate-style-' . $styleid . '-content">';
 
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo '  <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+            $content .= '  <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                               ' . $this->special_charecter($titlefiles[0]) . '
                     </div>
                     <div class="ctu-ulitate-style-' . $styleid . '-tabs  ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . ' " id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
@@ -257,7 +257,9 @@ class Style1 extends Old_Render {
                        ' . $this->admin_edit_panel($value['id']) . '
             </div>';
         }
-        echo ' </div> </div>';
+        $content .= ' </div> </div>';
+
+        echo wp_kses($content, $this->allowed_tags());
     }
 
 }

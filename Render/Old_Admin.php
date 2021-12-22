@@ -224,10 +224,12 @@ class Old_Admin {
         wp_enqueue_script('jquery-ui-slider');
         wp_enqueue_script('jquery-ui-draggable');
         wp_enqueue_script('jquery-ui-sortable');
-        wp_enqueue_style('jquery.minicolors', OXI_TABS_URL . '/assets/backend/css/minicolors.css', false, OXI_TABS_TEXTDOMAIN);
-        wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . '/assets/backend/css/jquery.fontselect.css', false, OXI_TABS_TEXTDOMAIN);
-        wp_enqueue_script('jquery.minicolors', OXI_TABS_URL . '/assets/backend/js/minicolors.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_style('jquery.minicolors', OXI_TABS_URL . '/assets/backend/css/minicolors.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . '/assets/backend/css/jquery.fontselect.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('jquery.minicolors', OXI_TABS_URL . '/assets/backend/js/minicolors.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs-old-editor', OXI_TABS_URL . 'assets/backend/custom/old-editor.js', false, OXI_TABS_PLUGIN_VERSION);
+        $template = ucfirst($this->style['style_name']);
+        wp_enqueue_script('oxi-tabs-' . $template, OXI_TABS_URL . 'assets/backend/old_js/' . $template . '.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     public function admin_database_data_loader() {
@@ -387,6 +389,7 @@ class Old_Admin {
                                     <div class="oxi-addons-setting-save">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         <input type="submit" class="btn btn-primary" name="data-submit" value="Save">
+                                        <input  type="hidden" id="ctu-ultimate-style-styleid"  value="<?php echo esc_attr($this->styleid); ?>">
                                         <?php wp_nonce_field("oxitabsstylecss") ?>
                                     </div>
                                 </div>
@@ -450,28 +453,8 @@ class Old_Admin {
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            var str = '<script type="text/javascript">';
-            str += 'setTimeout(function () {';
-            str += ' jQuery(".media-button-insert").on("click", function () {';
-            str += ' jQuery("#oxilab-add-new-data").css({"overflow-x": "hidden", "overflow-y": "auto"});jQuery("body").css({ "overflow" : "hidden" });';
-            str += ' });';
-            str += ' jQuery(".media-modal-close").on("click", function () {';
-            str += ' jQuery("#oxilab-add-new-data").css({"overflow-x": "hidden", "overflow-y": "auto"});jQuery("body").css({ "overflow" : "hidden" });';
-            str += '});';
-            str += '}, 1000);';
-            str += '<';
-            str += '/script>';
-            jQuery('#insert-media-button').on('click', function () {
-                jQuery(str).appendTo("#oxi-addons-style-left");
-            });
 
-        </script>
-        <style type="text/css">
-            body#tinymce {
-                max-width: 100%!important;
-            }
-        </style>
+
 
         <?php
         $this->import_font_family();

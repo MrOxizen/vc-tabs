@@ -3932,6 +3932,7 @@ span.multiselect-native-select select {
 ul.shortcode-form-control-dimensions {
     overflow: hidden;
     margin: 0px !important;
+    padding: 0px !important;
 }
 
 ul.shortcode-form-control-dimensions li.shortcode-form-control-dimension {

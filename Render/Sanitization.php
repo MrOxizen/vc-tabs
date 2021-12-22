@@ -51,7 +51,7 @@ trait Sanitization {
     public function start_section_header($id, array $arg = []) {
         echo '<ul class="oxi-addons-tabs-ul">   ';
         foreach ($arg['options'] as $key => $value) {
-            echo '<li ref="#shortcode-addons-section-' . esc_attr($key) . '">' . $value . '</li>';
+            echo '<li ref="#shortcode-addons-section-' . esc_attr($key) . '">' . esc_html($value) . '</li>';
         }
         echo '</ul>';
     }
@@ -163,7 +163,7 @@ trait Sanitization {
         $defualt = ['showing' => FALSE];
         $arg = array_merge($defualt, $arg);
         $condition = $this->forms_condition($arg);
-        echo '<div class="oxi-addons-content-div ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '" ' . $condition . '>
+        echo '<div class="oxi-addons-content-div ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '" ' . esc_attr($condition) . '>
                     <div class="oxi-head">
                     ' . esc_html($arg['label']) . '
                     <div class="oxi-head-toggle"></div>
@@ -192,7 +192,7 @@ trait Sanitization {
         $defualt = ['options' => ['normal' => 'Normal', 'hover' => 'Hover']];
         $arg = array_merge($defualt, $arg);
         $condition = $this->forms_condition($arg);
-        echo '<div class="shortcode-form-control shortcode-control-type-control-tabs ' . (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '') . '" ' . $condition . ' >
+        echo '<div class="shortcode-form-control shortcode-control-type-control-tabs ' . (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '') . '" ' . esc_attr($condition) . ' >
                 <div class="shortcode-form-control-content shortcode-form-control-content-tabs">
                     <div class="shortcode-form-control-field">';
         foreach ($arg['options'] as $key => $value) {
@@ -252,7 +252,7 @@ trait Sanitization {
 
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
-        echo '  <div class="shortcode-form-control shortcode-control-type-popover ' . $separator . '" ' . $condition . '>
+        echo '  <div class="shortcode-form-control shortcode-control-type-popover ' . esc_attr($separator) . '" ' . esc_attr($condition) . '>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover">
                         <div class="shortcode-form-control-field">
                             <label for="" class="shortcode-form-control-title">' . esc_html($arg['label']) . '</label>
@@ -300,18 +300,6 @@ trait Sanitization {
             elseif ($arg['responsive'] == 'mobile') :
                 $responsiveclass = 'shortcode-addons-form-responsive-mobile';
             endif;
-            $responsive = '<div class="shortcode-form-control-responsive-switchers">
-                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-desktop" data-device="desktop">
-                                    <span class="dashicons dashicons-desktop"></span>
-                                </a>
-                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-tablet" data-device="tablet">
-                                    <span class="dashicons dashicons-tablet"></span>
-                                </a>
-                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-mobile" data-device="mobile">
-                                    <span class="dashicons dashicons-smartphone"></span>
-                                </a>
-                            </div>';
-
         endif;
 
         if (array_key_exists('customresponsive', $arg)):
@@ -321,9 +309,9 @@ trait Sanitization {
             'type' => 'text',
             'label' => 'Input Text',
             'default' => '',
-            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
-            'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
-            'placeholder' => __('', OXI_TABS_TEXTDOMAIN),
+            'label_on' => esc_html__('Yes', 'vc-tabs'),
+            'label_off' => esc_html__('No', 'vc-tabs'),
+            'placeholder' => esc_html__('', 'vc-tabs'),
             'selector-data' => TRUE,
             'render' => TRUE,
             'responsive' => 'laptop',
@@ -342,16 +330,16 @@ trait Sanitization {
         if ($arg['type'] == 'animation'):
             $arg['type'] = 'select';
             $arg['options'] = [
-                '' => __('None', OXI_TABS_TEXTDOMAIN),
-                'bounce' => __('Bounce', OXI_TABS_TEXTDOMAIN),
-                'flash' => __('Flash', OXI_TABS_TEXTDOMAIN),
-                'pulse' => __('Pulse', OXI_TABS_TEXTDOMAIN),
-                'rubberBand' => __('RubberBand', OXI_TABS_TEXTDOMAIN),
-                'shake' => __('Shake', OXI_TABS_TEXTDOMAIN),
-                'swing' => __('Swing', OXI_TABS_TEXTDOMAIN),
-                'tada' => __('Tada', OXI_TABS_TEXTDOMAIN),
-                'wobble' => __('Wobble', OXI_TABS_TEXTDOMAIN),
-                'jello' => __('Jello', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('None', 'vc-tabs'),
+                'bounce' => esc_html__('Bounce', 'vc-tabs'),
+                'flash' => esc_html__('Flash', 'vc-tabs'),
+                'pulse' => esc_html__('Pulse', 'vc-tabs'),
+                'rubberBand' => esc_html__('RubberBand', 'vc-tabs'),
+                'shake' => esc_html__('Shake', 'vc-tabs'),
+                'swing' => esc_html__('Swing', 'vc-tabs'),
+                'tada' => esc_html__('Tada', 'vc-tabs'),
+                'wobble' => esc_html__('Wobble', 'vc-tabs'),
+                'jello' => esc_html__('Jello', 'vc-tabs'),
             ];
         endif;
 
@@ -360,11 +348,23 @@ trait Sanitization {
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
 
         $loader = (array_key_exists('loader', $arg) ? $arg['loader'] == TRUE ? ' shortcode-addons-control-loader ' : '' : '');
-        echo '<div class="shortcode-form-control shortcode-control-type-' . $arg['type'] . ' ' . $separator . ' ' . $toggle . ' ' . $responsiveclass . ' ' . $loader . '" ' . $condition . '>
+        echo '<div class="shortcode-form-control shortcode-control-type-' . esc_attr($arg['type']) . ' ' . esc_attr($separator) . ' ' . esc_attr($toggle) . ' ' . esc_attr($responsiveclass) . ' ' . esc_attr($loader) . '" ' . esc_attr($condition) . '>
                 <div class="shortcode-form-control-content">
                     <div class="shortcode-form-control-field">';
         echo '<label for="" class="shortcode-form-control-title">' . esc_html($arg['label']) . '</label>';
-        echo $responsive;
+        if (array_key_exists('responsive', $arg)) :
+            echo '<div class="shortcode-form-control-responsive-switchers">
+                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-desktop" data-device="desktop">
+                                    <span class="dashicons dashicons-desktop"></span>
+                                </a>
+                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-tablet" data-device="tablet">
+                                    <span class="dashicons dashicons-tablet"></span>
+                                </a>
+                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-mobile" data-device="mobile">
+                                    <span class="dashicons dashicons-smartphone"></span>
+                                </a>
+                            </div>';
+        endif;
 
         $fun = $arg['type'] . '_admin_control';
         echo $this->$fun($id, $data, $arg);
@@ -449,7 +449,7 @@ trait Sanitization {
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
-        echo '<div class="shortcode-form-control shortcode-control-type-' . esc_attr($arg['type']) . ' ' . $separator . '" ' . $condition . '>
+        echo '<div class="shortcode-form-control shortcode-control-type-' . esc_attr($arg['type']) . ' ' . esc_attr($separator) . '" ' . esc_attr($condition) . '>
                 <div class="shortcode-form-control-content">
                     <div class="shortcode-form-control-field">
                         <label for="" class="shortcode-form-control-title">' . esc_html($arg['label']) . '</label>
@@ -523,7 +523,7 @@ trait Sanitization {
      */
 
     public function switcher_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
                     <label class="shortcode-switcher">
                         <input type="checkbox" ' . ($value == esc_attr($arg['return_value']) ? 'checked ckdflt="true"' : '') . ' value="' . esc_attr($arg['return_value']) . '"  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '"/>
@@ -539,7 +539,7 @@ trait Sanitization {
      */
 
     public function text_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         if (array_key_exists('link', $arg)) :
             echo '<div class="shortcode-form-control-input-wrapper shortcode-form-control-input-link">
@@ -560,13 +560,13 @@ trait Sanitization {
 
     public function hidden_admin_control($id, array $data = [], array $arg = []) {
 
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : '';
+        $value = array_key_exists($id, $data) ? $data[$id] : '';
 
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) :
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) :
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                     $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                     $file = str_replace('{{VALUE}}', $value, $val);
                     if (strpos($file, '{{') !== FALSE):
@@ -579,7 +579,7 @@ trait Sanitization {
             endif;
         endif;
         echo ' <div class="shortcode-form-control-input-wrapper">
-                   <input type="hidden" value="' . $value . '" name="' . esc_attr($id) . '" id="' . esc_attr($id) . '">
+                   <input type="hidden" value="' . esc_attr($value) . '" name="' . esc_attr($id) . '" id="' . esc_attr($id) . '">
                </div>';
     }
 
@@ -590,10 +590,10 @@ trait Sanitization {
      */
 
     public function textarea_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         echo '<div class="shortcode-form-control-input-wrapper">
-                 <textarea  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '" retundata=\'' . esc_attr($retunvalue) . '\' class="shortcode-form-control-tag-area" rows="' . (int) ((strlen($value) / 50) + 2) . '" placeholder="' . esc_attr($arg['placeholder']) . '">' . str_replace('&nbsp;', '  ', str_replace('<br>', '&#13;&#10;', $value)) . '</textarea>
+                 <textarea  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '" retundata=\'' . esc_attr($retunvalue) . '\' class="shortcode-form-control-tag-area" rows="' . (int) ((strlen($value) / 50) + 2) . '" placeholder="' . esc_attr($arg['placeholder']) . '">' . esc_textarea($value) . '</textarea>
               </div>';
     }
 
@@ -604,12 +604,12 @@ trait Sanitization {
      */
 
     public function wysiwyg_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         echo ' <div class="shortcode-form-control-input-wrapper"  retundata=\'' . esc_attr($retunvalue) . '\'>';
         echo wp_editor(
-                $value, esc_attr($id), $settings = array(
-            'textarea_name' => esc_attr($id),
+                $value, $id, $settings = array(
+            'textarea_name' => $id,
             'wpautop' => false,
             'textarea_rows' => 7,
             'force_br_newlines' => true,
@@ -626,13 +626,13 @@ trait Sanitization {
      */
 
     public function image_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
-        $alt = array_key_exists($id . '-alt', $data) ? $data[esc_attr($id) . '-alt'] : '';
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
+        $alt = array_key_exists($id . '-alt', $data) ? $data[$id . '-alt'] : '';
         echo '  <div class="shortcode-form-control-input-wrapper">
                     <div class="shortcode-addons-media-control ' . (empty($value) ? 'shortcode-addons-media-control-hidden-button' : '') . '">
                         <div class="shortcode-addons-media-control-pre-load">
                         </div>
-                        <div class="shortcode-addons-media-control-image-load" style="background-image: url(' . $value . ');" ckdflt="background-image: url(' . $value . ');">
+                        <div class="shortcode-addons-media-control-image-load" style="background-image: url(' . $value . ');" ckdflt="background-image: url(' . esc_url($value) . ');">
                             <div class="shortcode-addons-media-control-image-load-delete-button">
                             </div>
                         </div>
@@ -640,8 +640,8 @@ trait Sanitization {
                             Choose Image
                         </div>
                     </div>
-                    <input type="hidden" class="shortcode-addons-media-control-link" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '" >
-                    <input type="hidden" class="shortcode-addons-media-control-link-alt" id="' . esc_attr($id) . '-alt" name="' . esc_attr($id) . '-alt" value="' . $alt . '" >
+                    <input type="hidden" class="shortcode-addons-media-control-link" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_url($value) . '" >
+                    <input type="hidden" class="shortcode-addons-media-control-link-alt" id="' . esc_attr($id) . '-alt" name="' . esc_attr($id) . '-alt" value="' . esc_html($alt) . '" >
                 </div>';
     }
 
@@ -653,12 +653,12 @@ trait Sanitization {
 
     public function number_admin_control($id, array $data = [], array $arg = []) {
 
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) :
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) :
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                     $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                     $file = str_replace('{{VALUE}}', $value, $val);
                     if (strpos($file, '{{') !== FALSE):
@@ -674,7 +674,7 @@ trait Sanitization {
         $defualt = ['min' => 0, 'max' => 1000, 'step' => 1,];
         $arg = array_merge($defualt, $arg);
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" type="number" min="' . $arg['min'] . '" max="' . $arg['max'] . '" step="' . $arg['step'] . '" value="' . $value . '"  responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                    <input id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" type="number" min="' . esc_attr($arg['min']) . '" max="' . esc_attr($arg['max']) . '" step="' . esc_attr($arg['step']) . '" value="' . esc_attr($value) . '"  responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
                 </div>';
     }
 
@@ -686,14 +686,14 @@ trait Sanitization {
      */
 
     public function slider_admin_control($id, array $data = [], array $arg = []) {
-        $unit = array_key_exists($id . '-choices', $data) ? $data[esc_attr($id) . '-choices'] : $arg['default']['unit'];
-        $size = array_key_exists($id . '-size', $data) ? $data[esc_attr($id) . '-size'] : $arg['default']['size'];
+        $unit = array_key_exists($id . '-choices', $data) ? $data[$id . '-choices'] : $arg['default']['unit'];
+        $size = array_key_exists($id . '-size', $data) ? $data[$id . '-size'] : $arg['default']['size'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) :
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE && $this->render_condition_control($id, $data, $arg)) :
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
                     if ($size != '' && $val != '') :
-                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{SIZE}}', $size, $val);
                         $file = str_replace('{{UNIT}}', $unit, $file);
@@ -712,13 +712,13 @@ trait Sanitization {
                 echo ' <div class="shortcode-form-units-choices">';
                 foreach ($arg['range'] as $key => $val) {
                     $rand = rand(10000, 233333333);
-                    echo '<input id="' . esc_attr($id) . '-choices-' . $rand . '" type="radio" name="' . esc_attr($id) . '-choices"  value="' . esc_attr($key) . '" ' . ( esc_attr($key) == $unit ? 'checked' : '') . '  min="' . esc_attr($val['min']) . '" max="' . esc_attr($val['max']) . '" step="' . esc_attr($val['step']) . '">
-                      <label class="shortcode-form-units-choices-label" for="' . esc_attr($id) . '-choices-' . $rand . '">' . esc_html($key) . '</label>';
+                    echo '<input id="' . esc_attr($id) . '-choices-' . esc_attr($rand) . '" type="radio" name="' . esc_attr($id) . '-choices"  value="' . esc_attr($key) . '" ' . ( esc_attr($key) == $unit ? 'checked' : '') . '  min="' . esc_attr($val['min']) . '" max="' . esc_attr($val['max']) . '" step="' . esc_attr($val['step']) . '">
+                      <label class="shortcode-form-units-choices-label" for="' . esc_attr($id) . '-choices-' . esc_attr($rand) . '">' . esc_html($key) . '</label>';
                 }
                 echo '</div>';
             endif;
         endif;
-        $unitvalue = array_key_exists(esc_attr($id) . '-choices', $data) ? 'unit="' . $data[esc_attr($id) . '-choices'] . '"' : '';
+        $unitvalue = array_key_exists($id . '-choices', $data) ? 'unit="' . $data[$id . '-choices'] . '"' : '';
         echo '  <div class="shortcode-form-control-input-wrapper">
                     <div class="shortcode-form-slider" id="' . esc_attr($id) . '-slider' . '"></div>
                     <div class="shortcode-form-slider-input">
@@ -734,15 +734,15 @@ trait Sanitization {
      */
 
     public function select_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : esc_attr($id) );
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
 
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
-                    if (!empty($value) && !empty($val) && $arg['render'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) {
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                    if (!empty($value) && !empty($val) && $arg['render'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{VALUE}}', $value, $val);
                         if (strpos($file, '{{') !== FALSE):
@@ -773,9 +773,9 @@ trait Sanitization {
             else:
                 if (is_array($value)):
                     $new = array_flip($value);
-                    echo ' <option value="' . esc_attr($key) . '" ' . (array_key_exists($key, $new) ? 'selected' : '') . '>' . $val . '</option>';
+                    echo ' <option value="' . esc_attr($key) . '" ' . (array_key_exists($key, $new) ? 'selected' : '') . '>' . esc_html($val) . '</option>';
                 else:
-                    echo ' <option value="' . esc_attr($key) . '" ' . ($value == $key ? 'selected' : '') . '>' . $val . '</option>';
+                    echo ' <option value="' . esc_attr($key) . '" ' . ($value == $key ? 'selected' : '') . '>' . esc_html($val) . '</option>';
                 endif;
             endif;
         }
@@ -791,15 +791,15 @@ trait Sanitization {
      */
 
     public function choose_admin_control($id, array $data = [], array $arg = []) {
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
 
         $operator = array_key_exists('operator', $arg) ? $arg['operator'] : 'text';
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
-                    if (!empty($val) && $this->render_condition_control(esc_attr($id), $data, $arg)) {
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
+                    if (!empty($val) && $this->render_condition_control($id, $data, $arg)) {
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{VALUE}}', $value, $val);
                         if (strpos($file, '{{') !== FALSE):
@@ -819,8 +819,8 @@ trait Sanitization {
                 <div class="shortcode-form-choices" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>';
         foreach ($arg['options'] as $key => $val) {
             echo '  <input id="' . esc_attr($id) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($id) . '" value="' . esc_attr($key) . '" ' . ($value == $key ? 'checked  ckdflt="true"' : '') . '>
-                                    <label class="shortcode-form-choices-label" for="' . esc_attr($id) . '-' . esc_attr($key) . '" tooltip="' . $val['title'] . '">
-                                        ' . (($operator == 'text') ? $val['title'] : '<i class="' . $val['icon'] . '" aria-hidden="true"></i>') . '
+                                    <label class="shortcode-form-choices-label" for="' . esc_attr($id) . '-' . esc_attr($key) . '" tooltip="' . esc_html($val['title']) . '">
+                                        ' . (($operator == 'text') ? esc_html($val['title']) : '<i class="' . esc_attr($val['icon']) . '" aria-hidden="true"></i>') . '
                                     </label>';
         }
         echo '</div>
@@ -874,13 +874,13 @@ trait Sanitization {
     }
 
     public function color_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? esc_attr($id) . ']' : esc_attr($id) );
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) {
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
-                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                    $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                     $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                     $file = str_replace('{{VALUE}}', $value, $val);
                     if (strpos($file, '{{') !== FALSE):
@@ -894,7 +894,7 @@ trait Sanitization {
         }
         $type = array_key_exists('oparetor', $arg) ? 'data-format="rgb" data-opacity="TRUE"' : '';
         echo '<div class="shortcode-form-control-input-wrapper">
-                <input ' . $type . ' type="text"  class="oxi-addons-minicolor" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\' custom="' . (array_key_exists('custom', $arg) ? '' . esc_attr($arg['custom']) . '' : '') . '">
+                <input ' . esc_attr($type) . ' type="text"  class="oxi-addons-minicolor" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_attr($value) . '" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\' custom="' . (array_key_exists('custom', $arg) ? '' . esc_attr($arg['custom']) . '' : '') . '">
              </div>';
     }
 
@@ -905,10 +905,10 @@ trait Sanitization {
      */
 
     public function icon_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : esc_attr($id) );
-        $value = array_key_exists(esc_attr($id), $data) ? $data[esc_attr($id)] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text"  class="oxi-admin-icon-selector" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '">
+                    <input type="text"  class="oxi-admin-icon-selector" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_html($value) . '">
                     <span class="input-group-addon"></span>
                 </div>';
     }
@@ -920,8 +920,8 @@ trait Sanitization {
      */
 
     public function font_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : esc_attr($id) );
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         if ($value != '' && array_key_exists($value, $this->google_font)) :
             $this->font[$value] = $value;
         endif;
@@ -930,9 +930,9 @@ trait Sanitization {
             if (array_key_exists('selector', $arg) && $value != '') :
                 foreach ($arg['selector'] as $key => $val) {
                     if ($arg['render'] == TRUE && !empty($val)) :
-                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
-                        $file = str_replace('{{VALUE}}', str_replace("+", ' ', $value), $val);
+                        $file = str_replace('{{VALUE}}', str_replace("+", ' ', esc_html($value)), $val);
                         if (strpos($file, '{{') !== FALSE):
                             $file = $this->multiple_selector_handler($data, $file);
                         endif;
@@ -946,7 +946,7 @@ trait Sanitization {
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
 
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text"  class="shortcode-addons-family" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '" responsive="' . esc_attr($arg['responsive']) . '" retundata="' . esc_attr($retunvalue) . '">
+                    <input type="text"  class="shortcode-addons-family" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_html($value) . '" responsive="' . esc_attr($arg['responsive']) . '" retundata="' . esc_attr($retunvalue) . '">
                 </div>';
     }
 
@@ -957,8 +957,8 @@ trait Sanitization {
      */
 
     public function date_time_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : esc_attr($id) );
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $format = 'date';
         if (array_key_exists('time', $arg)) :
             if ($arg['time'] == TRUE) :
@@ -966,7 +966,7 @@ trait Sanitization {
             endif;
         endif;
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="' . $format . '"  id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '">
+                    <input type="' . esc_attr($format) . '"  id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_html($value) . '">
                 </div>';
     }
 
@@ -977,14 +977,14 @@ trait Sanitization {
      */
 
     public function gradient_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? esc_attr($id) . ']' : esc_attr($id) );
-        $value = array_key_exists($id, $data) ? $data[esc_attr($id)] : $arg['default'];
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control(esc_attr($id), $data, $arg)) {
+        if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
                     if ($arg['render'] == TRUE) :
-                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{VALUE}}', $value, $val);
                         if (strpos($file, '{{') !== FALSE):
@@ -999,7 +999,7 @@ trait Sanitization {
         }
         $background = (array_key_exists('gradient', $arg) ? $arg['gradient'] : '');
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text" background="' . $background . '"  class="oxi-addons-gradient-color" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . $value . '" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                    <input type="text" background="' . esc_attr($background) . '"  class="oxi-addons-gradient-color" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_html($value) . '" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
                 </div>';
     }
 
@@ -1010,20 +1010,20 @@ trait Sanitization {
      */
 
     public function dimensions_admin_control($id, array $data = [], array $arg = []) {
-        $unit = array_key_exists($id . '-choices', $data) ? $data[esc_attr($id) . '-choices'] : $arg['default']['unit'];
-        $top = array_key_exists($id . '-top', $data) ? $data[esc_attr($id) . '-top'] : $arg['default']['size'];
-        $bottom = array_key_exists($id . '-bottom', $data) ? $data[esc_attr($id) . '-bottom'] : $top;
-        $left = array_key_exists($id . '-left', $data) ? $data[esc_attr($id) . '-left'] : $top;
-        $right = array_key_exists($id . '-right', $data) ? $data[esc_attr($id) . '-right'] : $top;
+        $unit = array_key_exists($id . '-choices', $data) ? $data[$id . '-choices'] : $arg['default']['unit'];
+        $top = array_key_exists($id . '-top', $data) ? $data[$id . '-top'] : $arg['default']['size'];
+        $bottom = array_key_exists($id . '-bottom', $data) ? $data[$id . '-bottom'] : $top;
+        $left = array_key_exists($id . '-left', $data) ? $data[$id . '-left'] : $top;
+        $right = array_key_exists($id . '-right', $data) ? $data[$id . '-right'] : $top;
 
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         $ar = [$top, $bottom, $left, $right];
         $unlink = (count(array_unique($ar)) === 1 ? '' : 'link-dimensions-unlink');
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
-                if (is_numeric($top) && is_numeric($right) && is_numeric($bottom) && is_numeric($left) && $this->render_condition_control(esc_attr($id), $data, $arg)) :
+                if (is_numeric($top) && is_numeric($right) && is_numeric($bottom) && is_numeric($left) && $this->render_condition_control($id, $data, $arg)) :
                     foreach ($arg['selector'] as $key => $val) {
-                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                        $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                         $file = str_replace('{{UNIT}}', $unit, $val);
                         $file = str_replace('{{TOP}}', $top, $file);
@@ -1045,12 +1045,12 @@ trait Sanitization {
                 foreach ($arg['range'] as $key => $val) {
                     $rand = rand(10000, 233333333);
                     echo '<input id="' . esc_attr($id) . '-choices-' . $rand . '" type="radio" name="' . esc_attr($id) . '-choices"  value="' . esc_attr($key) . '" ' . ($key == $unit ? 'checked' : '') . '  min="' . esc_attr($val['min']) . '" max="' . esc_attr($val['max']) . '" step="' . esc_attr($val['step']) . '">
-                      <label class="shortcode-form-units-choices-label" for="' . esc_attr($id) . '-choices-' . $rand . '">' . esc_html($key) . '</label>';
+                      <label class="shortcode-form-units-choices-label" for="' . esc_attr($id) . '-choices-' . esc_attr($rand) . '">' . esc_html($key) . '</label>';
                 }
                 echo '</div>';
             endif;
         endif;
-        $unitvalue = array_key_exists(esc_attr($id) . '-choices', $data) ? 'unit="' . $data[esc_attr($id) . '-choices'] . '"' : '';
+        $unitvalue = array_key_exists($id . '-choices', $data) ? 'unit="' . $data[$id . '-choices'] . '"' : '';
         echo '<div class="shortcode-form-control-input-wrapper">
                 <ul class="shortcode-form-control-dimensions">
                     <li class="shortcode-form-control-dimension">
@@ -1070,7 +1070,7 @@ trait Sanitization {
                          <label for="' . esc_attr($id) . '-left" class="shortcode-form-control-dimension-label">Left</label>
                     </li>
                     <li class="shortcode-form-control-dimension">
-                        <button type="button" class="shortcode-form-link-dimensions ' . $unlink . '"  data-tooltip="Link values together"></button>
+                        <button type="button" class="shortcode-form-link-dimensions ' . esc_attr($unlink) . '"  data-tooltip="Link values together"></button>
                     </li>
                 </ul>
             </div>';
@@ -1113,7 +1113,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-font', $data, [
-            'label' => __('Font Family', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Font Family', 'vc-tabs'),
             'type' => Controls::FONT,
             $selectorvalue => 'font-family:\'{{VALUE}}\';',
             $selector_key => $selector,
@@ -1123,7 +1123,7 @@ trait Sanitization {
         if (!array_key_exists('typo-font-size', $arg) || $arg['typo-font-size'] == true):
             $this->add_responsive_control(
                     $id . '-size', $data, [
-                'label' => __('Size', OXI_TABS_TEXTDOMAIN),
+                'label' => esc_html__('Size', 'vc-tabs'),
                 'type' => Controls::SLIDER,
                 'default' => [
                     'unit' => 'px',
@@ -1160,38 +1160,38 @@ trait Sanitization {
 
         $this->add_control(
                 $id . '-weight', $data, [
-            'label' => __('Weight', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Weight', 'vc-tabs'),
             'type' => Controls::SELECT,
             $selectorvalue => 'font-weight: {{VALUE}};',
             $loader => $loadervalue,
             $selector_key => $selector,
             'options' => [
-                '100' => __('100', OXI_TABS_TEXTDOMAIN),
-                '200' => __('200', OXI_TABS_TEXTDOMAIN),
-                '300' => __('300', OXI_TABS_TEXTDOMAIN),
-                '400' => __('400', OXI_TABS_TEXTDOMAIN),
-                '500' => __('500', OXI_TABS_TEXTDOMAIN),
-                '600' => __('600', OXI_TABS_TEXTDOMAIN),
-                '700' => __('700', OXI_TABS_TEXTDOMAIN),
-                '800' => __('800', OXI_TABS_TEXTDOMAIN),
-                '900' => __('900', OXI_TABS_TEXTDOMAIN),
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'normal' => __('Normal', OXI_TABS_TEXTDOMAIN),
-                'bold' => __('Bold', OXI_TABS_TEXTDOMAIN)
+                '100' => esc_html__('100', 'vc-tabs'),
+                '200' => esc_html__('200', 'vc-tabs'),
+                '300' => esc_html__('300', 'vc-tabs'),
+                '400' => esc_html__('400', 'vc-tabs'),
+                '500' => esc_html__('500', 'vc-tabs'),
+                '600' => esc_html__('600', 'vc-tabs'),
+                '700' => esc_html__('700', 'vc-tabs'),
+                '800' => esc_html__('800', 'vc-tabs'),
+                '900' => esc_html__('900', 'vc-tabs'),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'normal' => esc_html__('Normal', 'vc-tabs'),
+                'bold' => esc_html__('Bold', 'vc-tabs')
             ],
                 ]
         );
         $this->add_control(
                 $id . '-transform', $data, [
-            'label' => __('Transform', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Transform', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'uppercase' => __('Uppercase', OXI_TABS_TEXTDOMAIN),
-                'lowercase' => __('Lowercase', OXI_TABS_TEXTDOMAIN),
-                'capitalize' => __('Capitalize', OXI_TABS_TEXTDOMAIN),
-                'none' => __('Normal', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'uppercase' => esc_html__('Uppercase', 'vc-tabs'),
+                'lowercase' => esc_html__('Lowercase', 'vc-tabs'),
+                'capitalize' => esc_html__('Capitalize', 'vc-tabs'),
+                'none' => esc_html__('Normal', 'vc-tabs'),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'text-transform: {{VALUE}};',
@@ -1200,14 +1200,14 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-style', $data, [
-            'label' => __('Style', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Style', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'normal' => __('normal', OXI_TABS_TEXTDOMAIN),
-                'italic' => __('Italic', OXI_TABS_TEXTDOMAIN),
-                'oblique' => __('Oblique', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'normal' => esc_html__('normal', 'vc-tabs'),
+                'italic' => esc_html__('Italic', 'vc-tabs'),
+                'oblique' => esc_html__('Oblique', 'vc-tabs'),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'font-style: {{VALUE}};',
@@ -1216,15 +1216,15 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-decoration', $data, [
-            'label' => __('Decoration', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Decoration', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'underline' => __('Underline', OXI_TABS_TEXTDOMAIN),
-                'overline' => __('Overline', OXI_TABS_TEXTDOMAIN),
-                'line-through' => __('Line Through', OXI_TABS_TEXTDOMAIN),
-                'none' => __('None', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'underline' => esc_html__('Underline', 'vc-tabs'),
+                'overline' => esc_html__('Overline', 'vc-tabs'),
+                'line-through' => esc_html__('Line Through', 'vc-tabs'),
+                'none' => esc_html__('None', 'vc-tabs'),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'text-decoration: {{VALUE}};',
@@ -1235,14 +1235,14 @@ trait Sanitization {
             if ($arg['include'] == 'align_normal') :
                 $this->add_responsive_control(
                         $id . '-align', $data, [
-                    'label' => __('Text Align', OXI_TABS_TEXTDOMAIN),
+                    'label' => esc_html__('Text Align', 'vc-tabs'),
                     'type' => Controls::SELECT,
                     'default' => '',
                     'options' => [
-                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                        'left' => __('Left', OXI_TABS_TEXTDOMAIN),
-                        'center' => __('Center', OXI_TABS_TEXTDOMAIN),
-                        'right' => __('Right', OXI_TABS_TEXTDOMAIN),
+                        '' => esc_html__('Default', 'vc-tabs'),
+                        'left' => esc_html__('Left', 'vc-tabs'),
+                        'center' => esc_html__('Center', 'vc-tabs'),
+                        'right' => esc_html__('Right', 'vc-tabs'),
                     ],
                     $loader => $loadervalue,
                     $selectorvalue => 'text-align: {{VALUE}};',
@@ -1252,16 +1252,16 @@ trait Sanitization {
             else :
                 $this->add_responsive_control(
                         $id . '-justify', $data, [
-                    'label' => __('Justify Content', OXI_TABS_TEXTDOMAIN),
+                    'label' => esc_html__('Justify Content', 'vc-tabs'),
                     'type' => Controls::SELECT,
                     'default' => '',
                     'options' => [
-                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                        'flex-start' => __('Flex Start', OXI_TABS_TEXTDOMAIN),
-                        'flex-end' => __('Flex End', OXI_TABS_TEXTDOMAIN),
-                        'center' => __('Center', OXI_TABS_TEXTDOMAIN),
-                        'space-around' => __('Space Around', OXI_TABS_TEXTDOMAIN),
-                        'space-between' => __('Space Between', OXI_TABS_TEXTDOMAIN),
+                        '' => esc_html__('Default', 'vc-tabs'),
+                        'flex-start' => esc_html__('Flex Start', 'vc-tabs'),
+                        'flex-end' => esc_html__('Flex End', 'vc-tabs'),
+                        'center' => esc_html__('Center', 'vc-tabs'),
+                        'space-around' => esc_html__('Space Around', 'vc-tabs'),
+                        'space-between' => esc_html__('Space Between', 'vc-tabs'),
                     ],
                     $loader => $loadervalue,
                     $selectorvalue => 'justify-content: {{VALUE}};',
@@ -1270,16 +1270,16 @@ trait Sanitization {
                 );
                 $this->add_responsive_control(
                         $id . '-align', $data, [
-                    'label' => __('Align Items', OXI_TABS_TEXTDOMAIN),
+                    'label' => esc_html__('Align Items', 'vc-tabs'),
                     'type' => Controls::SELECT,
                     'default' => '',
                     'options' => [
-                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                        'stretch' => __('Stretch', OXI_TABS_TEXTDOMAIN),
-                        'baseline' => __('Baseline', OXI_TABS_TEXTDOMAIN),
-                        'center' => __('Center', OXI_TABS_TEXTDOMAIN),
-                        'flex-start' => __('Flex Start', OXI_TABS_TEXTDOMAIN),
-                        'flex-end' => __('Flex End', OXI_TABS_TEXTDOMAIN),
+                        '' => esc_html__('Default', 'vc-tabs'),
+                        'stretch' => esc_html__('Stretch', 'vc-tabs'),
+                        'baseline' => esc_html__('Baseline', 'vc-tabs'),
+                        'center' => esc_html__('Center', 'vc-tabs'),
+                        'flex-start' => esc_html__('Flex Start', 'vc-tabs'),
+                        'flex-end' => esc_html__('Flex End', 'vc-tabs'),
                     ],
                     $loader => $loadervalue,
                     $selectorvalue => 'align-items: {{VALUE}};',
@@ -1291,7 +1291,7 @@ trait Sanitization {
 
         $this->add_responsive_control(
                 $id . '-l-height', $data, [
-            'label' => __('Line Height', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Line Height', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1316,7 +1316,7 @@ trait Sanitization {
         );
         $this->add_responsive_control(
                 $id . '-l-spacing', $data, [
-            'label' => __('Letter Spacing', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Letter Spacing', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1358,18 +1358,18 @@ trait Sanitization {
         echo '<div class="shortcode-form-control" style="padding: 0;" ' . $this->forms_condition($arg) . '>';
         $this->add_control(
                 $id . '-select', $data, [
-            'label' => __($level, OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__($level, 'vc-tabs'),
             'type' => Controls::CHOOSE,
             'loader' => TRUE,
             'default' => $type,
             'separator' => $separator,
             'options' => [
                 'media-library' => [
-                    'title' => __('Media Library', OXI_TABS_TEXTDOMAIN),
+                    'title' => esc_html__('Media Library', 'vc-tabs'),
                     'icon' => 'fa fa-align-left',
                 ],
                 'custom-url' => [
-                    'title' => __('Custom URL', OXI_TABS_TEXTDOMAIN),
+                    'title' => esc_html__('Custom URL', 'vc-tabs'),
                     'icon' => 'fa fa-align-center',
                 ]
             ],
@@ -1377,7 +1377,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-image', $data, [
-            'label' => __('Image', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Image', 'vc-tabs'),
             'type' => Controls::IMAGE,
             'loader' => TRUE,
             'default' => $value,
@@ -1390,7 +1390,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-url', $data, [
-            'label' => __('Image URL', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Image URL', 'vc-tabs'),
             'type' => Controls::TEXT,
             'default' => $value,
             'loader' => TRUE,
@@ -1436,11 +1436,11 @@ trait Sanitization {
             $data[$id . '-vertical-size'] = 0;
         endif;
 
-        if (array_key_exists(esc_attr($id) . '-shadow', $data) && $data[esc_attr($id) . '-shadow'] == 'yes' && array_key_exists(esc_attr($id) . '-color', $data) && array_key_exists(esc_attr($id) . '-blur-size', $data) && array_key_exists(esc_attr($id) . '-spread-size', $data) && array_key_exists(esc_attr($id) . '-horizontal-size', $data) && array_key_exists(esc_attr($id) . '-vertical-size', $data)) :
-            $true = ($data[esc_attr($id) . '-blur-size'] == 0 || empty($data[esc_attr($id) . '-blur-size'])) && ($data[esc_attr($id) . '-spread-size'] == 0 || empty($data[esc_attr($id) . '-spread-size'])) && ($data[esc_attr($id) . '-horizontal-size'] == 0 || empty($data[esc_attr($id) . '-horizontal-size'])) && ($data[esc_attr($id) . '-vertical-size'] == 0 || empty($data[esc_attr($id) . '-vertical-size'])) ? TRUE : FALSE;
-            $boxshadow = ($true == FALSE ? '-webkit-box-shadow:' . (array_key_exists(esc_attr($id) . '-type', $data) ? $data[esc_attr($id) . '-type'] : '') . ' ' . $data[esc_attr($id) . '-horizontal-size'] . 'px ' . $data[esc_attr($id) . '-vertical-size'] . 'px ' . $data[esc_attr($id) . '-blur-size'] . 'px ' . $data[esc_attr($id) . '-spread-size'] . 'px ' . $data[esc_attr($id) . '-color'] . ';' : '');
-            $boxshadow .= ($true == FALSE ? '-moz-box-shadow:' . (array_key_exists(esc_attr($id) . '-type', $data) ? $data[esc_attr($id) . '-type'] : '') . ' ' . $data[esc_attr($id) . '-horizontal-size'] . 'px ' . $data[esc_attr($id) . '-vertical-size'] . 'px ' . $data[esc_attr($id) . '-blur-size'] . 'px ' . $data[esc_attr($id) . '-spread-size'] . 'px ' . $data[esc_attr($id) . '-color'] . ';' : '');
-            $boxshadow .= ($true == FALSE ? 'box-shadow:' . (array_key_exists(esc_attr($id) . '-type', $data) ? $data[esc_attr($id) . '-type'] : '') . ' ' . $data[esc_attr($id) . '-horizontal-size'] . 'px ' . $data[esc_attr($id) . '-vertical-size'] . 'px ' . $data[esc_attr($id) . '-blur-size'] . 'px ' . $data[esc_attr($id) . '-spread-size'] . 'px ' . $data[esc_attr($id) . '-color'] . ';' : '');
+        if (array_key_exists($id . '-shadow', $data) && $data[$id . '-shadow'] == 'yes' && array_key_exists($id . '-color', $data) && array_key_exists($id . '-blur-size', $data) && array_key_exists($id . '-spread-size', $data) && array_key_exists($id . '-horizontal-size', $data) && array_key_exists($id . '-vertical-size', $data)) :
+            $true = ($data[$id . '-blur-size'] == 0 || empty($data[$id . '-blur-size'])) && ($data[$id . '-spread-size'] == 0 || empty($data[$id . '-spread-size'])) && ($data[$id . '-horizontal-size'] == 0 || empty($data[$id . '-horizontal-size'])) && ($data[$id . '-vertical-size'] == 0 || empty($data[$id . '-vertical-size'])) ? TRUE : FALSE;
+            $boxshadow = ($true == FALSE ? '-webkit-box-shadow:' . (array_key_exists($id . '-type', $data) ? $data[$id . '-type'] : '') . ' ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[$id . '-blur-size'] . 'px ' . $data[$id . '-spread-size'] . 'px ' . $data[$id . '-color'] . ';' : '');
+            $boxshadow .= ($true == FALSE ? '-moz-box-shadow:' . (array_key_exists($id . '-type', $data) ? $data[$id . '-type'] : '') . ' ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[$id . '-blur-size'] . 'px ' . $data[$id . '-spread-size'] . 'px ' . $data[$id . '-color'] . ';' : '');
+            $boxshadow .= ($true == FALSE ? 'box-shadow:' . (array_key_exists($id . '-type', $data) ? $data[$id . '-type'] : '') . ' ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[$id . '-blur-size'] . 'px ' . $data[$id . '-spread-size'] . 'px ' . $data[$id . '-color'] . ';' : '');
         endif;
 
         if (array_key_exists('selector', $arg)) :
@@ -1449,14 +1449,14 @@ trait Sanitization {
             $selector = $arg['selector'];
             $boxshadow = array_key_exists($id . '-shadow', $data) && $data[$id . '-shadow'] == 'yes' ? $boxshadow : '';
             foreach ($arg['selector'] as $key => $val) {
-                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], esc_attr($key)) : esc_attr($key) );
+                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], esc_attr($key)) : esc_attr($key) );
                 $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                 $this->CSSDATA['laptop'][$class][$boxshadow] = $boxshadow;
             }
         endif;
         $this->start_popover_control(
                 $id, [
-            'label' => __('Box Shadow', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Box Shadow', 'vc-tabs'),
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -1465,26 +1465,26 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-shadow', $data, [
-            'label' => __('Shadow', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Shadow', 'vc-tabs'),
             'type' => Controls::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
-            'label_off' => __('None', OXI_TABS_TEXTDOMAIN),
+            'label_on' => esc_html__('Yes', 'vc-tabs'),
+            'label_off' => esc_html__('None', 'vc-tabs'),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 $id . '-type', $data, [
-            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Type', 'vc-tabs'),
             'type' => Controls::CHOOSE,
             'default' => '',
             'options' => [
                 '' => [
-                    'title' => __('Outline', OXI_TABS_TEXTDOMAIN),
+                    'title' => esc_html__('Outline', 'vc-tabs'),
                     'icon' => 'fa fa-align-left',
                 ],
                 'inset' => [
-                    'title' => __('Inset', OXI_TABS_TEXTDOMAIN),
+                    'title' => esc_html__('Inset', 'vc-tabs'),
                     'icon' => 'fa fa-align-center',
                 ],
             ],
@@ -1494,7 +1494,7 @@ trait Sanitization {
 
         $this->add_control(
                 $id . '-horizontal', $data, [
-            'label' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Horizontal', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1516,7 +1516,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-vertical', $data, [
-            'label' => __('Vertical', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Vertical', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1538,7 +1538,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-blur', $data, [
-            'label' => __('Blur', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Blur', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1560,7 +1560,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-spread', $data, [
-            'label' => __('Spread', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Spread', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1582,7 +1582,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Color', 'vc-tabs'),
             'separator' => TRUE,
             'type' => Controls::COLOR,
             'oparetor' => 'RGB',
@@ -1614,23 +1614,23 @@ trait Sanitization {
         endif;
         $true = TRUE;
         $selector_key = $selector = $selectorvalue = $loader = $loadervalue = '';
-        if (array_key_exists($id . '-color', $data) && array_key_exists($id . '-blur-size', $data) && array_key_exists(esc_attr($id) . '-horizontal-size', $data) && array_key_exists(esc_attr($id) . '-vertical-size', $data)) :
-            $true = ($data[$id . '-blur-size'] == 0 || empty($data[$id . '-blur-size'])) && ($data[esc_attr($id) . '-horizontal-size'] == 0 || empty($data[esc_attr($id) . '-horizontal-size'])) && ($data[esc_attr($id) . '-vertical-size'] == 0 || empty($data[esc_attr($id) . '-vertical-size'])) ? TRUE : FALSE;
-            $textshadow = ($true == FALSE ? 'text-shadow: ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[esc_attr($id) . '-blur-size'] . 'px ' . $data[esc_attr($id) . '-color'] . ';' : '');
+        if (array_key_exists($id . '-color', $data) && array_key_exists($id . '-blur-size', $data) && array_key_exists($id . '-horizontal-size', $data) && array_key_exists($id . '-vertical-size', $data)) :
+            $true = ($data[$id . '-blur-size'] == 0 || empty($data[$id . '-blur-size'])) && ($data[$id . '-horizontal-size'] == 0 || empty($data[$id . '-horizontal-size'])) && ($data[$id . '-vertical-size'] == 0 || empty($data[$id . '-vertical-size'])) ? TRUE : FALSE;
+            $textshadow = ($true == FALSE ? 'text-shadow: ' . $data[$id . '-horizontal-size'] . 'px ' . $data[$id . '-vertical-size'] . 'px ' . $data[$id . '-blur-size'] . 'px ' . $data[$id . '-color'] . ';' : '');
         endif;
         if (array_key_exists('selector', $arg)) :
             $selectorvalue = 'selector-value';
             $selector_key = 'selector';
             $selector = $arg['selector'];
             foreach ($arg['selector'] as $key => $val) {
-                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                 $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                 $this->CSSDATA['laptop'][$class][$textshadow] = $textshadow;
             }
         endif;
         $this->start_popover_control(
                 $id, [
-            'label' => __('Text Shadow', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Text Shadow', 'vc-tabs'),
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -1639,7 +1639,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Color', 'vc-tabs'),
             'type' => Controls::COLOR,
             'oparetor' => 'RGB',
             'default' => '#FFF',
@@ -1651,7 +1651,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-blur', $data, [
-            'label' => __('Blur', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Blur', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'separator' => TRUE,
             'custom' => $id . '|||||text-shadow',
@@ -1673,7 +1673,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-horizontal', $data, [
-            'label' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Horizontal', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'custom' => $id . '|||||text-shadow',
             'render' => FALSE,
@@ -1694,7 +1694,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-vertical', $data, [
-            'label' => __('Vertical', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Vertical', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'custom' => $id . '|||||text-shadow',
             'render' => FALSE,
@@ -1735,7 +1735,7 @@ trait Sanitization {
 
         $this->start_popover_control(
                 $id, [
-            'label' => __('Animation', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Animation', 'vc-tabs'),
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -1745,80 +1745,80 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-type', $data, [
-            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Type', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
                 'optgroup0' => [true, 'Attention Seekers'],
-                '' => __('None', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('None', 'vc-tabs'),
                 'optgroup1' => [false],
                 'optgroup2' => [true, 'Attention Seekers'],
-                'bounce' => __('Bounce', OXI_TABS_TEXTDOMAIN),
-                'flash' => __('Flash', OXI_TABS_TEXTDOMAIN),
-                'pulse' => __('Pulse', OXI_TABS_TEXTDOMAIN),
-                'rubberBand' => __('RubberBand', OXI_TABS_TEXTDOMAIN),
-                'shake' => __('Shake', OXI_TABS_TEXTDOMAIN),
-                'swing' => __('Swing', OXI_TABS_TEXTDOMAIN),
-                'tada' => __('Tada', OXI_TABS_TEXTDOMAIN),
-                'wobble' => __('Wobble', OXI_TABS_TEXTDOMAIN),
-                'jello' => __('Jello', OXI_TABS_TEXTDOMAIN),
+                'bounce' => esc_html__('Bounce', 'vc-tabs'),
+                'flash' => esc_html__('Flash', 'vc-tabs'),
+                'pulse' => esc_html__('Pulse', 'vc-tabs'),
+                'rubberBand' => esc_html__('RubberBand', 'vc-tabs'),
+                'shake' => esc_html__('Shake', 'vc-tabs'),
+                'swing' => esc_html__('Swing', 'vc-tabs'),
+                'tada' => esc_html__('Tada', 'vc-tabs'),
+                'wobble' => esc_html__('Wobble', 'vc-tabs'),
+                'jello' => esc_html__('Jello', 'vc-tabs'),
                 'optgroup3' => [false],
                 'optgroup4' => [true, 'Bouncing Entrances'],
-                'bounceIn' => __('BounceIn', OXI_TABS_TEXTDOMAIN),
-                'bounceInDown' => __('BounceInDown', OXI_TABS_TEXTDOMAIN),
-                'bounceInLeft' => __('BounceInLeft', OXI_TABS_TEXTDOMAIN),
-                'bounceInRight' => __('BounceInRight', OXI_TABS_TEXTDOMAIN),
-                'bounceInUp' => __('BounceInUp', OXI_TABS_TEXTDOMAIN),
+                'bounceIn' => esc_html__('BounceIn', 'vc-tabs'),
+                'bounceInDown' => esc_html__('BounceInDown', 'vc-tabs'),
+                'bounceInLeft' => esc_html__('BounceInLeft', 'vc-tabs'),
+                'bounceInRight' => esc_html__('BounceInRight', 'vc-tabs'),
+                'bounceInUp' => esc_html__('BounceInUp', 'vc-tabs'),
                 'optgroup5' => [false],
                 'optgroup6' => [true, 'Fading Entrances'],
-                'fadeIn' => __('FadeIn', OXI_TABS_TEXTDOMAIN),
-                'fadeInDown' => __('FadeInDown', OXI_TABS_TEXTDOMAIN),
-                'fadeInDownBig' => __('FadeInDownBig', OXI_TABS_TEXTDOMAIN),
-                'fadeInLeft' => __('FadeInLeft', OXI_TABS_TEXTDOMAIN),
-                'fadeInLeftBig' => __('FadeInLeftBig', OXI_TABS_TEXTDOMAIN),
-                'fadeInRight' => __('FadeInRight', OXI_TABS_TEXTDOMAIN),
-                'fadeInRightBig' => __('FadeInRightBig', OXI_TABS_TEXTDOMAIN),
-                'fadeInUp' => __('FadeInUp', OXI_TABS_TEXTDOMAIN),
-                'fadeInUpBig' => __('FadeInUpBig', OXI_TABS_TEXTDOMAIN),
+                'fadeIn' => esc_html__('FadeIn', 'vc-tabs'),
+                'fadeInDown' => esc_html__('FadeInDown', 'vc-tabs'),
+                'fadeInDownBig' => esc_html__('FadeInDownBig', 'vc-tabs'),
+                'fadeInLeft' => esc_html__('FadeInLeft', 'vc-tabs'),
+                'fadeInLeftBig' => esc_html__('FadeInLeftBig', 'vc-tabs'),
+                'fadeInRight' => esc_html__('FadeInRight', 'vc-tabs'),
+                'fadeInRightBig' => esc_html__('FadeInRightBig', 'vc-tabs'),
+                'fadeInUp' => esc_html__('FadeInUp', 'vc-tabs'),
+                'fadeInUpBig' => esc_html__('FadeInUpBig', 'vc-tabs'),
                 'optgroup7' => [false],
                 'optgroup8' => [true, 'Flippers'],
-                'flip' => __('Flip', OXI_TABS_TEXTDOMAIN),
-                'flipInX' => __('FlipInX', OXI_TABS_TEXTDOMAIN),
-                'flipInY' => __('FlipInY', OXI_TABS_TEXTDOMAIN),
+                'flip' => esc_html__('Flip', 'vc-tabs'),
+                'flipInX' => esc_html__('FlipInX', 'vc-tabs'),
+                'flipInY' => esc_html__('FlipInY', 'vc-tabs'),
                 'optgroup9' => [false],
                 'optgroup10' => [true, 'Lightspeed'],
-                'lightSpeedIn' => __('LightSpeedIn', OXI_TABS_TEXTDOMAIN),
+                'lightSpeedIn' => esc_html__('LightSpeedIn', 'vc-tabs'),
                 'optgroup11' => [false],
                 'optgroup12' => [true, 'Rotating Entrances'],
-                'rotateIn' => __('RotateIn', OXI_TABS_TEXTDOMAIN),
-                'rotateInDownLeft' => __('RotateInDownLeft', OXI_TABS_TEXTDOMAIN),
-                'rotateInDownRight' => __('RotateInDownRight', OXI_TABS_TEXTDOMAIN),
-                'rotateInUpLeft' => __('RotateInUpLeft', OXI_TABS_TEXTDOMAIN),
-                'rotateInUpRight' => __('RotateInUpRight', OXI_TABS_TEXTDOMAIN),
+                'rotateIn' => esc_html__('RotateIn', 'vc-tabs'),
+                'rotateInDownLeft' => esc_html__('RotateInDownLeft', 'vc-tabs'),
+                'rotateInDownRight' => esc_html__('RotateInDownRight', 'vc-tabs'),
+                'rotateInUpLeft' => esc_html__('RotateInUpLeft', 'vc-tabs'),
+                'rotateInUpRight' => esc_html__('RotateInUpRight', 'vc-tabs'),
                 'optgroup13' => [false],
                 'optgroup14' => [true, 'Sliding Entrances'],
-                'slideInUp' => __('SlideInUp', OXI_TABS_TEXTDOMAIN),
-                'slideInDown' => __('SlideInDown', OXI_TABS_TEXTDOMAIN),
-                'slideInLeft' => __('SlideInLeft', OXI_TABS_TEXTDOMAIN),
-                'slideInRight' => __('SlideInRight', OXI_TABS_TEXTDOMAIN),
+                'slideInUp' => esc_html__('SlideInUp', 'vc-tabs'),
+                'slideInDown' => esc_html__('SlideInDown', 'vc-tabs'),
+                'slideInLeft' => esc_html__('SlideInLeft', 'vc-tabs'),
+                'slideInRight' => esc_html__('SlideInRight', 'vc-tabs'),
                 'optgroup15' => [false],
                 'optgroup16' => [true, 'Zoom Entrances'],
-                'zoomIn' => __('ZoomIn', OXI_TABS_TEXTDOMAIN),
-                'zoomInDown' => __('ZoomInDown', OXI_TABS_TEXTDOMAIN),
-                'zoomInLeft' => __('ZoomInLeft', OXI_TABS_TEXTDOMAIN),
-                'zoomInRight' => __('ZoomInRight', OXI_TABS_TEXTDOMAIN),
-                'zoomInUp' => __('ZoomInUp', OXI_TABS_TEXTDOMAIN),
+                'zoomIn' => esc_html__('ZoomIn', 'vc-tabs'),
+                'zoomInDown' => esc_html__('ZoomInDown', 'vc-tabs'),
+                'zoomInLeft' => esc_html__('ZoomInLeft', 'vc-tabs'),
+                'zoomInRight' => esc_html__('ZoomInRight', 'vc-tabs'),
+                'zoomInUp' => esc_html__('ZoomInUp', 'vc-tabs'),
                 'optgroup17' => [false],
                 'optgroup18' => [true, 'Specials'],
-                'hinge' => __('Hinge', OXI_TABS_TEXTDOMAIN),
-                'rollIn' => __('RollIn', OXI_TABS_TEXTDOMAIN),
+                'hinge' => esc_html__('Hinge', 'vc-tabs'),
+                'rollIn' => esc_html__('RollIn', 'vc-tabs'),
                 'optgroup19' => [false],
             ],
                 ]
         );
         $this->add_control(
                 $id . '-duration', $data, [
-            'label' => __('Duration (ms)', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Duration (ms)', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1838,7 +1838,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-delay', $data, [
-            'label' => __('Delay (ms)', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Delay (ms)', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1858,7 +1858,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-offset', $data, [
-            'label' => __('Offset', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Offset', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1878,12 +1878,12 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-looping', $data, [
-            'label' => __('Looping', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Looping', 'vc-tabs'),
             'type' => Controls::SWITCHER,
             'default' => '',
             'loader' => TRUE,
-            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
-            'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
+            'label_on' => esc_html__('Yes', 'vc-tabs'),
+            'label_off' => esc_html__('No', 'vc-tabs'),
             'return_value' => 'yes',
             'condition' => [
                 $id . '-type' => 'EMPTY',
@@ -1932,7 +1932,7 @@ trait Sanitization {
 
         $this->start_popover_control(
                 $id, [
-            'label' => __('Border', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Border', 'vc-tabs'),
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -1942,20 +1942,20 @@ trait Sanitization {
 
         $this->add_control(
                 $id . '-type', $data, [
-            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Type', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => __('None', OXI_TABS_TEXTDOMAIN),
-                'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
-                'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
-                'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
-                'double' => __('Double', OXI_TABS_TEXTDOMAIN),
-                'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
-                'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
-                'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
-                'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
-                'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('None', 'vc-tabs'),
+                'solid' => esc_html__('Solid', 'vc-tabs'),
+                'dotted' => esc_html__('Dotted', 'vc-tabs'),
+                'dashed' => esc_html__('Dashed', 'vc-tabs'),
+                'double' => esc_html__('Double', 'vc-tabs'),
+                'groove' => esc_html__('Groove', 'vc-tabs'),
+                'ridge' => esc_html__('Ridge', 'vc-tabs'),
+                'inset' => esc_html__('Inset', 'vc-tabs'),
+                'outset' => esc_html__('Outset', 'vc-tabs'),
+                'hidden' => esc_html__('Hidden', 'vc-tabs'),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'border-style: {{VALUE}};',
@@ -1964,7 +1964,7 @@ trait Sanitization {
         );
         $this->add_responsive_control(
                 $id . '-width', $data, [
-            'label' => __('Width', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Width', 'vc-tabs'),
             'type' => Controls::DIMENSIONS,
             $render => FALSE,
             'default' => [
@@ -1992,7 +1992,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Color', 'vc-tabs'),
             'type' => Controls::COLOR,
             $render => FALSE,
             'default' => '#fff',
@@ -2027,7 +2027,7 @@ trait Sanitization {
         if (array_key_exists('selector', $arg)) :
             $selector_key = 'selector';
             foreach ($arg['selector'] as $key => $value) {
-                $v = str_replace('{{SIZE}}', '{{' . esc_attr($id) . '-width.SIZE}}', str_replace('{{TYPE}}', '{{' . esc_attr($id) . '-type.VALUE}}', str_replace('{{COLOR}}', '{{' . esc_attr($id) . '-color.VALUE}}', $value)));
+                $v = str_replace('{{SIZE}}', '{{' . $id . '-width.SIZE}}', str_replace('{{TYPE}}', '{{' . $id . '-type.VALUE}}', str_replace('{{COLOR}}', '{{' . $id . '-color.VALUE}}', esc_html($value))));
                 $selector[$key] = $v;
             }
         endif;
@@ -2036,7 +2036,7 @@ trait Sanitization {
             $loader = 'loader';
             $loadervalue = $arg['loader'];
         endif;
-        if (array_key_exists(esc_attr($id) . '-type', $data) && $data[esc_attr($id) . '-type'] == '') :
+        if (array_key_exists($id . '-type', $data) && $data[$id . '-type'] == '') :
             $render = 'render';
         endif;
 
@@ -2052,20 +2052,20 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-type', $data, [
-            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Type', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => __('None', OXI_TABS_TEXTDOMAIN),
-                'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
-                'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
-                'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
-                'double' => __('Double', OXI_TABS_TEXTDOMAIN),
-                'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
-                'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
-                'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
-                'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
-                'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('None', 'vc-tabs'),
+                'solid' => esc_html__('Solid', 'vc-tabs'),
+                'dotted' => esc_html__('Dotted', 'vc-tabs'),
+                'dashed' => esc_html__('Dashed', 'vc-tabs'),
+                'double' => esc_html__('Double', 'vc-tabs'),
+                'groove' => esc_html__('Groove', 'vc-tabs'),
+                'ridge' => esc_html__('Ridge', 'vc-tabs'),
+                'inset' => esc_html__('Inset', 'vc-tabs'),
+                'outset' => esc_html__('Outset', 'vc-tabs'),
+                'hidden' => esc_html__('Hidden', 'vc-tabs'),
             ],
             $loader => $loadervalue,
             $selector_key => $selector,
@@ -2073,7 +2073,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-width', $data, [
-            'label' => __('Size', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Size', 'vc-tabs'),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -2095,7 +2095,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Color', 'vc-tabs'),
             'type' => Controls::COLOR,
             $render => FALSE,
             'default' => '',
@@ -2121,15 +2121,15 @@ trait Sanitization {
         $backround = '';
         $render = FALSE;
         if (array_key_exists($id . '-color', $data)) :
-            $color = $data[esc_attr($id) . '-color'];
+            $color = $data[$id . '-color'];
             if (array_key_exists($id . '-img', $data) && $data[$id . '-img'] == 'yes') :
                 if (strpos(strtolower($color), 'gradient') === FALSE) :
                     $color = 'linear-gradient(0deg, ' . $color . ' 0%, ' . $color . ' 100%)';
                 endif;
-                if ($data[esc_attr($id) . '-select'] == 'media-library') :
-                    $backround .= 'background: ' . $color . ', url(\'' . $data[esc_attr($id) . '-image'] . '\') ' . $data[esc_attr($id) . '-repeat'] . ' ' . $data[esc_attr($id) . '-position'] . ';';
+                if ($data[$id . '-select'] == 'media-library') :
+                    $backround .= 'background: ' . esc_attr($color) . ', url(\'' . esc_url($data[$id . '-image']) . '\') ' . esc_attr($data[$id . '-repeat']) . ' ' . esc_attr($data[$id . '-position']) . ';';
                 else :
-                    $backround .= 'background: ' . $color . ', url(\'' . $data[esc_attr($id) . '-url'] . '\') ' . $data[esc_attr($id) . '-repeat'] . ' ' . $data[esc_attr($id) . '-position'] . ';';
+                    $backround .= 'background: ' . esc_attr($color) . ', url(\'' . esc_url($data[$id . '-url']) . '\') ' . esc_attr($data[$id . '-repeat']) . ' ' . esc_attr($data[$id . '-position']) . ';';
                 endif;
             else :
                 $backround .= 'background: ' . $color . ';';
@@ -2137,7 +2137,7 @@ trait Sanitization {
         endif;
         if (array_key_exists('selector', $arg)) :
             foreach ($arg['selector'] as $key => $val) {
-                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', esc_attr($id))[1], $key) : $key);
+                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                 $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                 $this->CSSDATA['laptop'][$class][$backround] = $backround;
                 $render = TRUE;
@@ -2157,7 +2157,7 @@ trait Sanitization {
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         $this->start_popover_control(
                 $id, [
-            'label' => __('Background', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Background', 'vc-tabs'),
             'condition' => array_key_exists('condition', $arg) ? $arg['condition'] : '',
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -2167,7 +2167,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Color', 'vc-tabs'),
             'type' => Controls::GRADIENT,
             'gradient' => $id,
             'oparetor' => 'RGB',
@@ -2179,28 +2179,28 @@ trait Sanitization {
 
         $this->add_control(
                 $id . '-img', $data, [
-            'label' => __('Image', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Image', 'vc-tabs'),
             'type' => Controls::SWITCHER,
             'loader' => TRUE,
-            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
-            'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
+            'label_on' => esc_html__('Yes', 'vc-tabs'),
+            'label_off' => esc_html__('No', 'vc-tabs'),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 $id . '-select', $data, [
-            'label' => __('Photo Source', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Photo Source', 'vc-tabs'),
             'separator' => TRUE,
             'loader' => TRUE,
             'type' => Controls::CHOOSE,
             'default' => 'media-library',
             'options' => [
                 'media-library' => [
-                    'title' => __('Media Library', OXI_TABS_TEXTDOMAIN),
+                    'title' => esc_html__('Media Library', 'vc-tabs'),
                     'icon' => 'fa fa-align-left',
                 ],
                 'custom-url' => [
-                    'title' => __('Custom URL', OXI_TABS_TEXTDOMAIN),
+                    'title' => esc_html__('Custom URL', 'vc-tabs'),
                     'icon' => 'fa fa-align-center',
                 ]
             ],
@@ -2211,7 +2211,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-image', $data, [
-            'label' => __('Image', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Image', 'vc-tabs'),
             'type' => Controls::IMAGE,
             'default' => '',
             'loader' => TRUE,
@@ -2223,7 +2223,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-url', $data, [
-            'label' => __('Image URL', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Image URL', 'vc-tabs'),
             'type' => Controls::TEXT,
             'default' => '',
             'loader' => TRUE,
@@ -2236,21 +2236,21 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-position', $data, [
-            'label' => __('Position', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Position', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => 'center center',
             'render' => $render,
             'options' => [
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'top left' => __('Top Left', OXI_TABS_TEXTDOMAIN),
-                'top center' => __('Top Center', OXI_TABS_TEXTDOMAIN),
-                'top right' => __('Top Right', OXI_TABS_TEXTDOMAIN),
-                'center left' => __('Center Left', OXI_TABS_TEXTDOMAIN),
-                'center center' => __('Center Center', OXI_TABS_TEXTDOMAIN),
-                'center right' => __('Center Right', OXI_TABS_TEXTDOMAIN),
-                'bottom left' => __('Bottom Left', OXI_TABS_TEXTDOMAIN),
-                'bottom center' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
-                'bottom right' => __('Bottom Right', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'top left' => esc_html__('Top Left', 'vc-tabs'),
+                'top center' => esc_html__('Top Center', 'vc-tabs'),
+                'top right' => esc_html__('Top Right', 'vc-tabs'),
+                'center left' => esc_html__('Center Left', 'vc-tabs'),
+                'center center' => esc_html__('Center Center', 'vc-tabs'),
+                'center right' => esc_html__('Center Right', 'vc-tabs'),
+                'bottom left' => esc_html__('Bottom Left', 'vc-tabs'),
+                'bottom center' => esc_html__('Bottom Center', 'vc-tabs'),
+                'bottom right' => esc_html__('Bottom Right', 'vc-tabs'),
             ],
             'loader' => TRUE,
             'condition' => [
@@ -2261,14 +2261,14 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-attachment', $data, [
-            'label' => __('Attachment', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Attachment', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => '',
             'render' => $render,
             'options' => [
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'scroll' => __('Scroll', OXI_TABS_TEXTDOMAIN),
-                'fixed' => __('Fixed', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'scroll' => esc_html__('Scroll', 'vc-tabs'),
+                'fixed' => esc_html__('Fixed', 'vc-tabs'),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'background-attachment: {{VALUE}};',
@@ -2281,16 +2281,16 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-repeat', $data, [
-            'label' => __('Repeat', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Repeat', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => 'no-repeat',
             'render' => $render,
             'options' => [
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'no-repeat' => __('No-Repeat', OXI_TABS_TEXTDOMAIN),
-                'repeat' => __('Repeat', OXI_TABS_TEXTDOMAIN),
-                'repeat-x' => __('Repeat-x', OXI_TABS_TEXTDOMAIN),
-                'repeat-y' => __('Repeat-y', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'no-repeat' => esc_html__('No-Repeat', 'vc-tabs'),
+                'repeat' => esc_html__('Repeat', 'vc-tabs'),
+                'repeat-x' => esc_html__('Repeat-x', 'vc-tabs'),
+                'repeat-y' => esc_html__('Repeat-y', 'vc-tabs'),
             ],
             'loader' => TRUE,
             'condition' => [
@@ -2301,15 +2301,15 @@ trait Sanitization {
         );
         $this->add_responsive_control(
                 $id . '-size', $data, [
-            'label' => __('Size', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Size', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => 'cover',
             'render' => $render,
             'options' => [
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'auto' => __('Auto', OXI_TABS_TEXTDOMAIN),
-                'cover' => __('Cover', OXI_TABS_TEXTDOMAIN),
-                'contain' => __('Contain', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'auto' => esc_html__('Auto', 'vc-tabs'),
+                'cover' => esc_html__('Cover', 'vc-tabs'),
+                'contain' => esc_html__('Contain', 'vc-tabs'),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'background-size: {{VALUE}};',
@@ -2341,7 +2341,7 @@ trait Sanitization {
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         $this->add_control(
                 $id . '-url', $data, [
-            'label' => __('Link', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Link', 'vc-tabs'),
             'type' => Controls::TEXT,
             'link' => TRUE,
             'separator' => $separator,
@@ -2354,11 +2354,11 @@ trait Sanitization {
 
         $this->add_control(
                 $id . '-target', $data, [
-            'label' => __('New Window?', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('New Window?', 'vc-tabs'),
             'type' => Controls::SWITCHER,
             'default' => '',
-            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
-            'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
+            'label_on' => esc_html__('Yes', 'vc-tabs'),
+            'label_off' => esc_html__('No', 'vc-tabs'),
             'return_value' => 'yes',
                 ]
         );
@@ -2383,20 +2383,20 @@ trait Sanitization {
         endif;
         $this->add_control(
                 $lap = $id . '-lap', $data, [
-            'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Column Size', 'vc-tabs'),
             'type' => Controls::SELECT,
             'responsive' => 'laptop',
             'description' => $arg['description'],
             'default' => 'oxi-bt-col-lg-12',
             'options' => [
-                'oxi-bt-col-lg-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-lg-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-lg-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-lg-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-lg-5' => __('Col 5', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-lg-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-lg-8' => __('Col 8', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-lg-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-lg-12' => esc_html__('Col 1', 'vc-tabs'),
+                'oxi-bt-col-lg-6' => esc_html__('Col 2', 'vc-tabs'),
+                'oxi-bt-col-lg-4' => esc_html__('Col 3', 'vc-tabs'),
+                'oxi-bt-col-lg-3' => esc_html__('Col 4', 'vc-tabs'),
+                'oxi-bt-col-lg-5' => esc_html__('Col 5', 'vc-tabs'),
+                'oxi-bt-col-lg-2' => esc_html__('Col 6', 'vc-tabs'),
+                'oxi-bt-col-lg-8' => esc_html__('Col 8', 'vc-tabs'),
+                'oxi-bt-col-lg-1' => esc_html__('Col 12', 'vc-tabs'),
             ],
             'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
             $select => $selector,
@@ -2406,19 +2406,19 @@ trait Sanitization {
         );
         $this->add_control(
                 $tab = $id . '-tab', $data, [
-            'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Column Size', 'vc-tabs'),
             'type' => Controls::SELECT,
             'responsive' => 'tab',
             'default' => 'oxi-bt-col-md-12',
             'description' => $arg['description'],
             'options' => [
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-md-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-md-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-md-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-md-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-md-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-md-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'oxi-bt-col-md-12' => esc_html__('Col 1', 'vc-tabs'),
+                'oxi-bt-col-md-6' => esc_html__('Col 2', 'vc-tabs'),
+                'oxi-bt-col-md-4' => esc_html__('Col 3', 'vc-tabs'),
+                'oxi-bt-col-md-3' => esc_html__('Col 4', 'vc-tabs'),
+                'oxi-bt-col-md-2' => esc_html__('Col 6', 'vc-tabs'),
+                'oxi-bt-col-md-1' => esc_html__('Col 12', 'vc-tabs'),
             ],
             'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
             $select => $selector,
@@ -2428,20 +2428,20 @@ trait Sanitization {
         );
         $this->add_control(
                 $mob = $id . '-mob', $data, [
-            'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
+            'label' => esc_html__('Column Size', 'vc-tabs'),
             'type' => Controls::SELECT,
             'default' => 'oxi-bt-col-lg-12',
             'responsive' => 'mobile',
             'description' => $arg['description'],
             'options' => [
-                '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-sm-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-sm-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-sm-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-sm-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-sm-5' => __('Col 5', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-sm-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
-                'oxi-bt-col-sm-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
+                '' => esc_html__('Default', 'vc-tabs'),
+                'oxi-bt-col-sm-12' => esc_html__('Col 1', 'vc-tabs'),
+                'oxi-bt-col-sm-6' => esc_html__('Col 2', 'vc-tabs'),
+                'oxi-bt-col-sm-4' => esc_html__('Col 3', 'vc-tabs'),
+                'oxi-bt-col-sm-3' => esc_html__('Col 4', 'vc-tabs'),
+                'oxi-bt-col-sm-5' => esc_html__('Col 5', 'vc-tabs'),
+                'oxi-bt-col-sm-2' => esc_html__('Col 6', 'vc-tabs'),
+                'oxi-bt-col-sm-1' => esc_html__('Col 12', 'vc-tabs'),
             ],
             'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
             $select => $selector,
@@ -2491,13 +2491,13 @@ trait Sanitization {
          */
         echo ' <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
-                        ' . $arg['title'] . '
+                        ' . esc_html($arg['title']) . '
                          <div class="oxi-head-toggle"></div>
                          </div>
                     <div class="oxi-addons-item-form-item shortcode-addons-templates-right-panel-body" id="oxi-addons-list-data-modal-open">
                         <span>
                             <i class="dashicons dashicons-plus-alt oxi-icons"></i>
-                            ' . $arg['sub-title'] . '
+                            ' . esc_html($arg['sub-title']) . '
                         </span>
                     </div>
                 </div>';
@@ -2517,14 +2517,14 @@ trait Sanitization {
          */
         echo ' <div class="oxi-addons-shortcode  shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
-                    ' . $arg['title'] . '
+                    ' . esc_html($arg['title']) . '
                     <div class="oxi-head-toggle"></div>
                 </div>
                 <div class="oxi-addons-shortcode-body  shortcode-addons-templates-right-panel-body">
                     <form method="post" id="shortcode-addons-name-change-submit">
                         <div class="input-group my-2">
-                            <input type="hidden" class="form-control" name="addonsstylenameid" value="' . $data['id'] . '">
-                            <input type="text" class="form-control" name="addonsstylename" placeholder=" ' . esc_attr($arg['placeholder']) . '" value="' . $data['name'] . '">
+                            <input type="hidden" class="form-control" name="addonsstylenameid" value="' . esc_attr($data['id']) . '">
+                            <input type="text" class="form-control" name="addonsstylename" placeholder=" ' . esc_attr($arg['placeholder']) . '" value="' . esc_attr($data['name']) . '">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-success" id="addonsstylenamechange">Save</button>
                             </div>
@@ -2553,7 +2553,7 @@ trait Sanitization {
          */
         echo ' <div class="oxi-addons-shortcode shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
-                    ' . $arg['title'] . '
+                    ' . esc_html($arg['title']) . '
                     <div class="oxi-head-toggle"></div>
                 </div>
                 <div class="oxi-addons-shortcode-body shortcode-addons-templates-right-panel-body">
@@ -2585,13 +2585,13 @@ trait Sanitization {
          */
         echo '  <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
-                        ' . $arg['title'] . '
+                        ' . esc_html($arg['title']) . '
                         <div class="oxi-head-toggle"></div>
                     </div>
                     <div class="oxi-addons-item-form-item shortcode-addons-templates-right-panel-body" id="oxi-addons-rearrange-data-modal-open">
                         <span>
                         <i class="dashicons dashicons-plus-alt oxi-icons"></i>
-                        ' . $arg['sub-title'] . '
+                        ' . esc_html($arg['sub-title']) . '
                         </span>
                     </div>
                 </div>
@@ -2619,7 +2619,7 @@ trait Sanitization {
                             </div>
                         </form>
                     <div id="modal-rearrange-store-file">
-                        ' . esc_attr($id) . '
+                        ' . esc_html($id) . '
                     </div>
                 </div>
             </div>';
