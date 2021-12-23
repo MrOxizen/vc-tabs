@@ -367,7 +367,7 @@ trait Sanitization {
         endif;
 
         $fun = $arg['type'] . '_admin_control';
-        echo $this->$fun($id, $data, $arg);
+        $this->$fun($id, $data, $arg);
         echo '      </div>';
         echo (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . esc_html($arg['description']) . '</div>' : '');
 
@@ -442,7 +442,7 @@ trait Sanitization {
         ];
         $arg = array_merge($defualt, $arg);
         $fun = $arg['type'] . '_admin_group_control';
-        echo $this->$fun($id, $data, $arg);
+        $this->$fun($id, $data, $arg);
     }
 
     public function add_rearrange_control($id, array $data = [], array $arg = []) {
@@ -607,7 +607,7 @@ trait Sanitization {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         echo ' <div class="shortcode-form-control-input-wrapper"  retundata=\'' . esc_attr($retunvalue) . '\'>';
-        echo wp_editor(
+        wp_editor(
                 $value, $id, $settings = array(
             'textarea_name' => $id,
             'wpautop' => false,
@@ -632,7 +632,7 @@ trait Sanitization {
                     <div class="shortcode-addons-media-control ' . (empty($value) ? 'shortcode-addons-media-control-hidden-button' : '') . '">
                         <div class="shortcode-addons-media-control-pre-load">
                         </div>
-                        <div class="shortcode-addons-media-control-image-load" style="background-image: url(' . $value . ');" ckdflt="background-image: url(' . esc_url($value) . ');">
+                        <div class="shortcode-addons-media-control-image-load" style="background-image: url(' . esc_url($value) . ');" ckdflt="background-image: url(' . esc_url($value) . ');">
                             <div class="shortcode-addons-media-control-image-load-delete-button">
                             </div>
                         </div>
@@ -766,7 +766,7 @@ trait Sanitization {
         foreach ($arg['options'] as $key => $val) {
             if (is_array($val)):
                 if (isset($val[0]) && $val[0] == true):
-                    echo '<optgroup label="' . $val[1] . '">';
+                    echo '<optgroup label="' . esc_html($val[1]) . '">';
                 else:
                     echo '</optgroup>';
                 endif;
@@ -1044,7 +1044,7 @@ trait Sanitization {
                 echo ' <div class="shortcode-form-units-choices">';
                 foreach ($arg['range'] as $key => $val) {
                     $rand = rand(10000, 233333333);
-                    echo '<input id="' . esc_attr($id) . '-choices-' . $rand . '" type="radio" name="' . esc_attr($id) . '-choices"  value="' . esc_attr($key) . '" ' . ($key == $unit ? 'checked' : '') . '  min="' . esc_attr($val['min']) . '" max="' . esc_attr($val['max']) . '" step="' . esc_attr($val['step']) . '">
+                    echo '<input id="' . esc_attr($id) . '-choices-' . esc_attr($rand) . '" type="radio" name="' . esc_attr($id) . '-choices"  value="' . esc_attr($key) . '" ' . ($key == $unit ? 'checked' : '') . '  min="' . esc_attr($val['min']) . '" max="' . esc_attr($val['max']) . '" step="' . esc_attr($val['step']) . '">
                       <label class="shortcode-form-units-choices-label" for="' . esc_attr($id) . '-choices-' . esc_attr($rand) . '">' . esc_html($key) . '</label>';
                 }
                 echo '</div>';
@@ -1355,7 +1355,7 @@ trait Sanitization {
         $value = array_key_exists('default', $arg) ? $arg['default']['link'] : '';
         $level = array_key_exists('label', $arg) ? esc_html($arg['label']) : 'Photo Source';
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
-        echo '<div class="shortcode-form-control" style="padding: 0;" ' . $this->forms_condition($arg) . '>';
+        echo '<div class="shortcode-form-control" style="padding: 0;" ' . esc_attr($this->forms_condition($arg)) . '>';
         $this->add_control(
                 $id . '-select', $data, [
             'label' => esc_html__($level, 'vc-tabs'),
@@ -2362,7 +2362,7 @@ trait Sanitization {
             'return_value' => 'yes',
                 ]
         );
-        echo '</div>' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '') . '</div>';
+        echo '</div>' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . esc_attr($arg['description']) . '</div>' : '') . '</div>';
     }
 
     /*
@@ -2468,7 +2468,7 @@ trait Sanitization {
 
     public function add_substitute_control($id, array $data = [], array $arg = []) {
         $fun = $arg['type'] . '_substitute_control';
-        echo $this->$fun($id, $data, $arg);
+        $this->$fun($id, $data, $arg);
     }
 
     /*

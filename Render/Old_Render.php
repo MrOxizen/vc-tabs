@@ -197,7 +197,7 @@ class Old_Render {
     }
 
     public function Template() {
-        echo '<div class="oxi-addons-container ' . $this->WRAPPER . '">
+        echo '<div class="oxi-addons-container ' . esc_attr($this->WRAPPER) . '">
                  <div class="oxi-addons-row">';
         $this->default_render();
         echo '   </div>
@@ -217,7 +217,7 @@ class Old_Render {
         $data = str_replace('+', ' ', $data);
         $data = explode(':', $data);
         $data = $data[0];
-        $data = '"' . $data . '"';
+        $data = '"' . esc_attr($data) . '"';
         return $data;
     }
 

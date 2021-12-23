@@ -111,8 +111,9 @@ class Old_Admin {
         if (!empty($_REQUEST['_wpnonce'])) {
             $this->nonce = $_REQUEST['_wpnonce'];
         }
-        $this->Database();
         $this->CSS_JS();
+        $this->Database();
+
         $this->Templates();
     }
 
@@ -198,7 +199,9 @@ class Old_Admin {
                 $this->files = $this->admin_special_charecter($child['files']);
                 $this->css = sanitize_post($child['css']);
                 $this->itemid = (int) $child['id'];
-                echo '<script type="text/javascript"> jQuery(document).ready(function () {setTimeout(function() { jQuery("#oxilab-add-new-data").modal("show")  }, 500); });</script>';
+
+                $jquery = 'jQuery(document).ready(function () {setTimeout(function() { jQuery("#oxilab-add-new-data").modal("show")  }, 500); });';
+                wp_add_inline_script('oxi-tabs-old-editor', $jquery);
             }
         }
     }
@@ -326,7 +329,7 @@ class Old_Admin {
                         </div>
                     </div>
                     <div id="modal-rearrange-store-file">
-                        <?php echo $this->admin_child_rearrange(); ?>
+                        <?php echo esc_html($this->admin_child_rearrange()); ?>
                     </div>
                 </form>
 

@@ -71,12 +71,9 @@ class Build_Api {
             return new \WP_REST_Request('Invalid URL', 422);
         endif;
 
-        $rawdata = json_decode($request['rawdata'], true);
-        if (is_array($rawdata)):
-            $this->validate_post($rawdata);
-        else:
-            $this->rawdata = sanitize_text_field($request['rawdata']);
-        endif;
+        //  $rawdata = json_decode($request['rawdata'], true);
+
+        $this->rawdata = sanitize_text_field($request['rawdata']);
 
         $this->styleid = (int) $request['styleid'];
         $this->childid = (int) $request['childid'];
@@ -306,27 +303,6 @@ class Build_Api {
             $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->parent_table} WHERE id = %d", $styleid));
             $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->child_table} WHERE styleid = %d", $styleid));
             return 'done';
-        else:
-            return 'Silence is Golden';
-        endif;
-    }
-
-    public function get_shortcode_export() {
-        $styleid = (int) $this->styleid;
-        if ($styleid):
-            $style = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->parent_table} WHERE id = %d", $styleid), ARRAY_A);
-            $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
-            $filename = 'responsive-tabs-and-accordions-ultimateand' . $style['id'] . '.json';
-            $files = [
-                'style' => $style,
-                'child' => $child,
-            ];
-            $finalfiles = json_encode($files);
-            $this->send_file_headers($filename, strlen($finalfiles));
-            @ob_end_clean();
-            flush();
-            echo $finalfiles;
-            die;
         else:
             return 'Silence is Golden';
         endif;

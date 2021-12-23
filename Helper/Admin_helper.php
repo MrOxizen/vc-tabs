@@ -199,7 +199,7 @@ trait Admin_helper {
         add_menu_page('Content Tabs', 'Content Tabs', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
         add_submenu_page('oxi-tabs-ultimate', 'Content Tabs', 'Shortcode', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
         add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'tabs_create']);
-        add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-settings', [$this, 'tabs_settings']);
+        add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', 'manage_options', 'oxi-tabs-ultimate-settings', [$this, 'tabs_settings']);
         if (is_plugin_active('woocommerce/woocommerce.php')):
             add_submenu_page('oxi-tabs-ultimate', 'Woo Extension', 'Woo Extension', $first_key, 'oxi-tabs-ultimate-woo-extension', [$this, 'woo_extension']);
         endif;

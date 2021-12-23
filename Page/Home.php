@@ -33,7 +33,6 @@ class Home {
     }
 
     public function CSSJS_load() {
-        $this->manual_import_style();
         $this->admin_css_loader();
         $this->admin_home();
         $this->admin_ajax_load();
@@ -56,50 +55,6 @@ class Home {
 
         $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
-    }
-
-    public function manual_import_style() {
-        if (!empty($_REQUEST['_wpnonce'])) {
-            $nonce = $_REQUEST['_wpnonce'];
-        }
-
-        if (!empty($_POST['importdatasubmit']) && $_POST['importdatasubmit'] == 'Save') {
-            if (!wp_verify_nonce($nonce, 'vc-tabs-ultimate-import')) {
-                die('You do not have sufficient permissions to access this page.');
-            } else {
-                if (apply_filters('oxi-tabs-plugin/pro_version', false) == TRUE):
-                    if (isset($_FILES['importtabsfilefile'])) :
-                        if (!current_user_can('upload_files')):
-                            wp_die(esc_html('You do not have permission to upload files.'));
-                        endif;
-
-                        $allowedMimes = array(
-                            'json' => 'text/plain'
-                        );
-
-                        $fileInfo = wp_check_filetype(basename($_FILES['importtabsfilefile']['name']), $allowedMimes);
-                        if (empty($fileInfo['ext'])) {
-                            wp_die(esc_html('You do not have permission to upload files.'));
-                        }
-
-                        $content = json_decode(file_get_contents($_FILES['importtabsfilefile']['tmp_name']), true);
-
-                        if (empty($content)) {
-                            return new \WP_Error('file_error', 'Invalid File');
-                        }
-                        $style = $content['style'];
-
-                        if (!is_array($style)) {
-                            return new \WP_Error('file_error', 'Invalid Content In File');
-                        }
-
-                        $ImportApi = new \OXI_TABS_PLUGINS\Classes\Build_Api;
-                        $new_slug = $ImportApi->post_json_import($content);
-                        wp_safe_redirect($new_slug);
-                    endif;
-                endif;
-            }
-        }
     }
 
     public function Render() {
@@ -174,26 +129,7 @@ class Home {
                 </div>
             </div>
 
-            <div class="modal fade" id="oxi-addons-style-import-modal" >
-                <form method="post" id="oxi-addons-import-modal-form" enctype = "multipart/form-data">
-                    <div class="modal-dialog modal-sm modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Import Form</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                                <input class="form-control" type="file" name="importtabsfilefile" accept=".json,application/json,.zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <input type="submit" class="btn btn-success" name="importdatasubmit" id="importdatasubmit" value="Save">
-                            </div>
-                        </div>
-                    </div>
-                    <?php echo wp_nonce_field("vc-tabs-ultimate-import"); ?>
-                </form>
-            </div><?php
+            <?php
         endif;
     }
 
