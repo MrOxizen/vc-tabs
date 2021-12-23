@@ -9,7 +9,7 @@ class Tabs_Widget extends \WP_Widget {
 
     function __construct() {
         parent::__construct(
-                'responsive_tabs_with_accordions_widget', esc_html__('Responsive Tabs with Accordions', 'responsive_tabs_with_accordions_widget_widget'), array('description' => esc_html__('Responsive Tabs with Accordions Widget', 'responsive_tabs_with_accordions_widget_widget'),)
+                'responsive_tabs_with_accordions_widget', esc_html__('Responsive Tabs with Accordions', 'vc-tabs'), array('description' => esc_html__('Responsive Tabs with Accordions Widget', 'vc-tabs'),)
         );
     }
 
@@ -32,7 +32,7 @@ class Tabs_Widget extends \WP_Widget {
         }
         ?>
         <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html('Style ID:'); ?></label>
+            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html__('Style ID:', 'vc-tabs'); ?></label>
             <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
         </p>
         <?php
