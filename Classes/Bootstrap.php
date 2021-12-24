@@ -46,7 +46,7 @@ class Bootstrap {
             $this->Admin_Filters();
             $this->User_Admin();
             $this->User_Reviews();
-            if (isset($_GET['page']) && 'oxi-tabs-style-view' === $_GET['page']) {
+            if (isset($_GET['page']) && 'oxi-tabs-style-view' === sanitize_text_field($_GET['page'])) {
                 new \OXI_TABS_PLUGINS\Modules\Template();
             }
         }

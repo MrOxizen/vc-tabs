@@ -15,6 +15,7 @@ trait Public_Helper {
         $data = html_entity_decode($data);
         $data = str_replace("\'", "'", $data);
         $data = str_replace('\"', '"', $data);
+        $data = sanitize_text_field($data);
         return $data;
     }
 
