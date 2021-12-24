@@ -329,7 +329,7 @@ class Old_Admin {
                         </div>
                     </div>
                     <div id="modal-rearrange-store-file">
-                        <?php echo esc_html($this->admin_child_rearrange()); ?>
+                        <?php esc_html($this->admin_child_rearrange()); ?>
                     </div>
                 </form>
 
@@ -386,7 +386,7 @@ class Old_Admin {
                                             </li>
                                         </ul>
                                         <div class="oxilab-tabs-content">
-                                            <?php echo $this->admin_field($this->styledata); ?>
+                                            <?php $this->admin_field($this->styledata); ?>
                                         </div>
                                     </div>
                                     <div class="oxi-addons-setting-save">
@@ -400,10 +400,10 @@ class Old_Admin {
                         </div>
                         <div class="oxi-addons-style-right">
                             <?php
-                            echo $this->add_new_form_opener();
-                            echo $this->remane_shortcode();
-                            echo $this->shortcode_info();
-                            echo $this->rearrange_tab_opener();
+                            $this->add_new_form_opener();
+                            $this->remane_shortcode();
+                            $this->shortcode_info();
+                            $this->rearrange_tab_opener();
                             ?>
                         </div>
                     </div>
@@ -441,7 +441,7 @@ class Old_Admin {
                                 </div>
                                 <div class="modal-body">
                                     <?php
-                                    echo $this->admin_child_field();
+                                    $this->admin_child_field();
                                     ?>
                                 </div>
                                 <div class="modal-footer">
