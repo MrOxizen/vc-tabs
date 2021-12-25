@@ -123,7 +123,7 @@ class WooCommerce {
         echo 'save the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field data';
         // save the woo layouts
 
-        $layouts = isset($_POST['_oxilab_tabs_woo_layouts']) ? esc_attr($_POST['_oxilab_tabs_woo_layouts']) : '';
+        $layouts = isset($_POST['_oxilab_tabs_woo_layouts']) ? sanitize_text_field($_POST['_oxilab_tabs_woo_layouts']) : '';
         if ($layouts != ''):
             update_post_meta($post_id, '_oxilab_tabs_woo_layouts', $layouts);
         else:
