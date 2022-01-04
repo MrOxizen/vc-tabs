@@ -610,7 +610,7 @@ class Style11 extends Helper {
         );
 //        $this->add_control(
 //                'oxi-tabs-head-icon-ac-color', $this->style, [
-//            'label' =>  esc_html__('Color', 'vc-tabs'),
+//            'label' => esc_html__('Color', 'vc-tabs'),
 //            'type' => Controls::COLOR,
 //            'selector' => [
 //                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-icons' => 'color: {{VALUE}};',
@@ -884,7 +884,7 @@ class Style11 extends Helper {
         );
 //        $this->add_control(
 //                'oxi-tabs-head-number-ac-color', $this->style, [
-//            'label' =>  esc_html__('Color', 'vc-tabs'),
+//            'label' => esc_html__('Color', 'vc-tabs'),
 //            'type' => Controls::COLOR,
 //            'selector' => [
 //                '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-header-li-number' => 'color: {{VALUE}};',

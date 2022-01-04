@@ -78,6 +78,7 @@ trait Admin_helper {
             }
         </style>
         <?php
+
     }
 
     /**
@@ -99,30 +100,22 @@ trait Admin_helper {
     }
 
     public function SupportAndComments($agr) {
-        ?>
-
-        <div class="oxi-addons-admin-notifications">
-            <h3>
-                <span class="dashicons dashicons-flag"></span>
-                Notifications
-            </h3>
-            <p></p>
-            <div class="oxi-addons-admin-notifications-holder">
-                <div class="oxi-addons-admin-notifications-alert">
-                    <p>Thank you for using my Responsive Tabs with WooCommerce Extension. I Just wanted to see if you have any questions or concerns about my plugins. If you do, Please do not hesitate to <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">file a bug report</a>. </p>
-                    <?php
-                    if (apply_filters('oxi-tabs-plugin/pro_version', false)):
-                        ?>
-                        <p>By the way, did you know we also have a <a href="https://www.oxilabdemos.com/responsive-tabs/pricing">Premium Version</a>? It offers lots of options with automatic update. It also comes with 16/5 personal support.</p>
-                        <p>Thanks Again!</p>
-                        <?php
-                    endif;
-                    ?>
+        echo '  <div class="oxi-addons-admin-notifications">
+                    <h3>
+                        <span class="dashicons dashicons-flag"></span>
+                        Notifications
+                    </h3>
                     <p></p>
-                </div>
-            </div>
-            <p></p>
-        </div><?php
+                    <div class="oxi-addons-admin-notifications-holder">
+                        <div class="oxi-addons-admin-notifications-alert">
+                            <p>Thank you for using my Responsive Tabs with WooCommerce Extension. I Just wanted to see if you have any questions or concerns about my plugins. If you do, Please do not hesitate to <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">file a bug report</a>. </p>
+                            ' . (apply_filters('oxi-tabs-plugin/pro_version', false) ? '' : '<p>By the way, did you know we also have a <a href="https://www.oxilabdemos.com/responsive-tabs/pricing">Premium Version</a>? It offers lots of options with automatic update. It also comes with 16/5 personal support.</p>') . '
+                            <p>Thanks Again!</p>
+                            <p></p>
+                        </div>
+                    </div>
+                    <p></p>
+                </div>';
     }
 
     /**
@@ -148,41 +141,34 @@ trait Admin_helper {
         ];
 
         $bgimage = OXI_TABS_URL . 'assets/image/sa-logo.png';
+
+        $menu = '<div class="oxi-addons-wrapper">
+                    <div class="oxilab-new-admin-menu">
+                        <div class="oxi-site-logo">
+                            <a href="' . esc_url($this->admin_url_convert('oxi-tabs-ultimate')) . '" class="header-logo" style=" background-image: url(' . esc_url($bgimage) . ');">
+                            </a>
+                        </div>
+                        <nav class="oxilab-sa-admin-nav">
+                            <ul class="oxilab-sa-admin-menu">';
+
         $GETPage = sanitize_text_field($_GET['page']);
-        ?>
-        <div class="oxi-addons-wrapper">
-            <div class="oxilab-new-admin-menu">
-                <div class="oxi-site-logo">
-                    <a href="<?php echo esc_url($this->admin_url_convert('oxi-tabs-ultimate')); ?>" class="header-logo" style=" background-image: url(<?php echo esc_url($bgimage); ?>);">
-                    </a>
-                </div>
-                <nav class="oxilab-sa-admin-nav">
-                    <ul class="oxilab-sa-admin-menu">
-                        <?php
-                        foreach ($response as $key => $value) {
-                            $active = ($GETPage == $value['homepage'] ? ' class="active" ' : '');
-                            echo '<li ' . esc_attr($active) . '><a href="' . esc_url($this->admin_url_convert($value['homepage'])) . '">' . esc_html($this->name_converter($value['name'])) . '</a></li>';
-                        }
-                        ?>
-                    </ul>
-                    <ul class="oxilab-sa-admin-menu2">
-                        <?php
-                        if (apply_filters('oxi-tabs-plugin/pro_version', false) == FALSE):
-                            ?>
-                            <li class="fazil-class" ><a target="_blank" href="https://www.oxilabdemos.com/responsive-tabs/pricing">Upgrade</a></li>
-                            <?php
-                        endif;
-                        ?>
 
-                        <li class="saadmin-doc"><a target="_black" href="https://www.oxilabdemos.com/responsive-tabs/docs/">Docs</a></li>
-                        <li class="saadmin-doc"><a target="_black" href="https://wordpress.org/support/plugin/vc-tabs/">Support</a></li>
-                        <li class="saadmin-set"><a href="<?php echo esc_url(admin_url('admin.php?page=oxi-tabs-ultimate-settings')); ?>"><span class="dashicons dashicons-admin-generic"></span></a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        foreach ($response as $key => $value) {
+            $active = ($GETPage == $value['homepage'] ? ' class="active" ' : '');
+            $menu .= '<li ' . $active . '><a href="' . esc_url($this->admin_url_convert($value['homepage'])) . '">' . esc_html($this->name_converter($value['name'])) . '</a></li>';
+        }
 
-        <?php
+        $menu .= '              </ul>
+                            <ul class="oxilab-sa-admin-menu2">
+                               ' . (apply_filters('oxi-tabs-plugin/pro_version', false) == FALSE ? ' <li class="fazil-class" ><a target="_blank" href="https://www.oxilabdemos.com/responsive-tabs/pricing">Upgrade</a></li>' : '') . '
+                               <li class="saadmin-doc"><a target="_black" href="https://www.oxilabdemos.com/responsive-tabs/docs/">Docs</a></li>
+                               <li class="saadmin-doc"><a target="_black" href="https://wordpress.org/support/plugin/vc-tabs/">Support</a></li>
+                               <li class="saadmin-set"><a href="' . admin_url('admin.php?page=oxi-tabs-ultimate-settings') . '"><span class="dashicons dashicons-admin-generic"></span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>';
+        echo $menu;
     }
 
     public function Admin_Menu() {
@@ -201,9 +187,9 @@ trait Admin_helper {
         add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'tabs_create']);
         add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', 'manage_options', 'oxi-tabs-ultimate-settings', [$this, 'tabs_settings']);
         if (is_plugin_active('woocommerce/woocommerce.php')):
-            add_submenu_page('oxi-tabs-ultimate', 'Woo Extension', 'Woo Extension', $first_key, 'oxi-tabs-ultimate-woo-extension', [$this, 'woo_extension']);
+            add_submenu_page('oxi-tabs-ultimate', 'Woo Extension', 'Woo Extension', 'manage_options', 'oxi-tabs-ultimate-woo-extension', [$this, 'woo_extension']);
         endif;
-        add_submenu_page('oxi-tabs-ultimate', 'Oxilab Plugins', 'Oxilab Plugins', $first_key, 'oxi-tabs-ultimate-plugins', [$this, 'oxilab_plugins']);
+        add_submenu_page('oxi-tabs-ultimate', 'Oxilab Plugins', 'Oxilab Plugins', 'manage_options', 'oxi-tabs-ultimate-plugins', [$this, 'oxilab_plugins']);
         add_submenu_page('oxi-tabs-ultimate', 'Welcome To Responsive Tabs with  Accordions', 'Support', $first_key, 'oxi-tabs-ultimate-welcome', [$this, 'oxi_tabs_welcome']);
     }
 
@@ -215,18 +201,26 @@ trait Admin_helper {
         $styleid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
         if (!empty($styleid) && $styleid > 0):
             $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
+
+            if (count($style) < 1):
+                return;
+            endif;
             $template = ucfirst($style['style_name']);
             if (!array_key_exists('rawdata', $style)):
                 $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
                 $Installation->Datatase();
             endif;
+
             $row = json_decode(stripslashes($style['rawdata']), true);
             if (is_array($row)):
                 $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $template;
             else:
                 $cls = '\OXI_TABS_PLUGINS\Render\Old_Admin\\' . $template;
             endif;
-            new $cls();
+            if (class_exists($cls)):
+                new $cls();
+            endif;
+            return;
         else:
             new \OXI_TABS_PLUGINS\Page\Create();
         endif;

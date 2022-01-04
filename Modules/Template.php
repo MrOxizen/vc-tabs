@@ -3,7 +3,7 @@
 namespace OXI_TABS_PLUGINS\Modules;
 
 /**
- * Oxi Tabs Template
+ * Oxi Tabs Template 
  *
  * @since 3.3
  *
@@ -32,6 +32,7 @@ class Template {
      */
     public $database;
 
+
     /**
      * Template constructor.
      */
@@ -49,9 +50,11 @@ class Template {
         add_dashboard_page('', '', 'read', 'oxi-tabs-style-view', '');
     }
 
+   
+
     public function maybe_load_template() {
         $this->oxiid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
-        $page = (isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '');
+        $page = (isset($_GET['page']) ? $_GET['page'] : '');
         if ('oxi-tabs-style-view' !== $page || $this->oxiid < 0) {
             return;
         }

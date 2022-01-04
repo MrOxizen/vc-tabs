@@ -123,7 +123,7 @@ class WooCommerce {
         echo 'save the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field data';
         // save the woo layouts
 
-        $layouts = isset($_POST['_oxilab_tabs_woo_layouts']) ? sanitize_text_field($_POST['_oxilab_tabs_woo_layouts']) : '';
+        $layouts = isset($_POST['_oxilab_tabs_woo_layouts']) ? esc_attr($_POST['_oxilab_tabs_woo_layouts']) : '';
         if ($layouts != ''):
             update_post_meta($post_id, '_oxilab_tabs_woo_layouts', $layouts);
         else:
@@ -132,10 +132,10 @@ class WooCommerce {
 
         // save the woo data
         if (isset($_POST['_oxilab_tabs_woo_layouts_tab_title_'])):
-            $titles = sanitize_text_field($_POST['_oxilab_tabs_woo_layouts_tab_title_']);
-            $prioritys = sanitize_text_field($_POST['_oxilab_tabs_woo_layouts_tab_priority_']);
-            $contents = sanitize_text_field($_POST['_oxilab_tabs_woo_layouts_tab_content_']);
-            $callback = sanitize_text_field($_POST['_oxilab_tabs_woo_layouts_tab_callback_']);
+            $titles = $_POST['_oxilab_tabs_woo_layouts_tab_title_'];
+            $prioritys = $_POST['_oxilab_tabs_woo_layouts_tab_priority_'];
+            $contents = $_POST['_oxilab_tabs_woo_layouts_tab_content_'];
+            $callback = $_POST['_oxilab_tabs_woo_layouts_tab_callback_'];
 
             $tab_data = [];
             foreach ($titles as $key => $value) {
@@ -155,12 +155,170 @@ class WooCommerce {
                 endif;
             }
         endif;
+
         if (count($tab_data) == 0):
             delete_post_meta($post_id, '_oxilab_tabs_woo_data');
         else:
+            if (is_array($tab_data)):
+                $this->validate_post($tab_data);
+            endif;
             $tab_data = array_values($tab_data);
             update_post_meta($post_id, '_oxilab_tabs_woo_data', $tab_data);
         endif;
+    }
+
+    public function allowed_html($rawdata) {
+        $allowed_tags = array(
+            'a' => array(
+                'class' => array(),
+                'href' => array(),
+                'rel' => array(),
+                'title' => array(),
+            ),
+            'abbr' => array(
+                'title' => array(),
+            ),
+            'b' => array(),
+            'blockquote' => array(
+                'cite' => array(),
+            ),
+            'cite' => array(
+                'title' => array(),
+            ),
+            'code' => array(),
+            'del' => array(
+                'datetime' => array(),
+                'title' => array(),
+            ),
+            'dd' => array(),
+            'div' => array(
+                'class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),
+            ),
+            'table' => array(
+                'class' => array(),
+                'id' => array(),
+                'style' => array(),
+            ),
+            'button' => array(
+                'class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),
+                'type' => array(),
+                'value' => array(),
+            ),
+            'thead' => array(
+                'class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),
+            ),
+            'tbody' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'tr' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'td' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'dt' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'em' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'h1' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'h2' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'h3' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'h4' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'h5' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'h6' => array('class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),),
+            'i' => array(
+                'class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),
+            ),
+            'img' => array(
+                'alt' => array(),
+                'class' => array(),
+                'height' => array(),
+                'src' => array(),
+                'width' => array(),
+            ),
+            'li' => array(
+                'class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),
+            ),
+            'ol' => array(
+                'class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),
+            ),
+            'p' => array(
+                'class' => array(),
+                'title' => array(),
+                'style' => array(),
+                'id' => array(),
+            ),
+            'q' => array(
+                'cite' => array(),
+                'title' => array(),
+            ),
+            'span' => array(
+                'class' => array(),
+                'title' => array(),
+                'style' => array(),
+            ),
+            'strike' => array(),
+            'strong' => array(),
+            'ul' => array(
+                'class' => array(),
+            ),
+        );
+        if (is_array($rawdata)):
+            return $rawdata = array_map(array($this, 'allowed_html'), $rawdata);
+        else:
+            return wp_kses($rawdata, $allowed_tags);
+        endif;
+    }
+
+    public function validate_post($tab_data) {
+        if (is_array($tab_data)):
+            $rawdata = array_map(array($this, 'allowed_html'), $tab_data);
+            $rawdata = addslashes(json_encode($rawdata));
+        endif;
+        return $$rawdata;
     }
 
     public function enqueue_scripts_and_styles($hook) {
@@ -221,7 +379,7 @@ class WooCommerce {
     public function product_tabs_content($key, $tab) {
         $content = '';
         $content = apply_filters('oxi_woo_tab_content_filter', $tab['content']);
-        $tab_title_html = '<h2 class="oxi_woo_tab-title oxi_woo_tab-tab-title-' . urldecode(sanitize_title($tab['title'])) . '">' . esc_html($tab['title']) . '</h2>';
+        $tab_title_html = '<h2 class="oxi_woo_tab-title oxi_woo_tab-tab-title-' . urldecode(sanitize_title($tab['title'])) . '">' . $tab['title'] . '</h2>';
         echo apply_filters('oxi_woo_tab_product_tabs_heading', $tab_title_html, $tab);
         echo apply_filters('oxi_woo_tab_product_tabs_content', $content, $tab);
     }

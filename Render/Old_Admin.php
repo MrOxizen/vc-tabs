@@ -111,9 +111,8 @@ class Old_Admin {
         if (!empty($_REQUEST['_wpnonce'])) {
             $this->nonce = $_REQUEST['_wpnonce'];
         }
-        $this->CSS_JS();
         $this->Database();
-
+        $this->CSS_JS();
         $this->Templates();
     }
 
@@ -161,13 +160,13 @@ class Old_Admin {
             if (!wp_verify_nonce($this->nonce, 'oxitabschildnonce')) {
                 die('You do not have sufficient permissions to access this page.');
             } else {
-                $id = (int) $_POST['item-id'];
-                $child = sanitize_post($this->clild());
+                $id = $_POST['item-id'];
+                $child = $this->clild();
                 if ($id == '') {
                     $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (title, files, css, styleid) VALUES ( %s, %s, %s, %d)", array($child['title'], $child['files'], $child['css'], $this->styleid)));
-                } elseif ($id != '' && is_numeric($id)) {
+                } else if ($id != '' && is_numeric($id)) {
                     $item_id = (int) $id;
-                    $this->wpdb->query($this->wpdb->prepare("UPDATE $this->child_table SET title = %s, files = %s, css = $s WHERE id = %d", $child['title'], $child['files'], $child['css'], $item_id));
+                    $this->wpdb->update("$this->child_table", array("title" => $child['title'], "files" => $child['files'], "css" => $child['css']), array('id' => $item_id), array('%s', '%s', '%s'), array('%d'));
                 }
             }
         }
@@ -192,16 +191,14 @@ class Old_Admin {
                 $item_id = (int) $_POST['item-id'];
                 $child = $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM $this->child_table WHERE id = %d ", $item_id), ARRAY_A);
                 $storefile = explode('{}{}{}', $child['title']);
-                $this->title = sanitize_post($this->admin_special_charecter($storefile[0]));
+                $this->title = $this->admin_special_charecter($storefile[0]);
                 if (array_key_exists(1, $storefile)):
-                    $this->link = sanitize_post($this->admin_special_charecter($storefile[1]));
+                    $this->link = $this->admin_special_charecter($storefile[1]);
                 endif;
                 $this->files = $this->admin_special_charecter($child['files']);
-                $this->css = sanitize_post($child['css']);
-                $this->itemid = (int) $child['id'];
-
-                $jquery = 'jQuery(document).ready(function () {setTimeout(function() { jQuery("#oxilab-add-new-data").modal("show")  }, 500); });';
-                wp_add_inline_script('oxi-tabs-old-editor', $jquery);
+                $this->css = $child['css'];
+                $this->itemid = $child['id'];
+                echo '<script type="text/javascript"> jQuery(document).ready(function () {setTimeout(function() { jQuery("#oxilab-add-new-data").modal("show")  }, 500); });</script>';
             }
         }
     }
@@ -227,12 +224,10 @@ class Old_Admin {
         wp_enqueue_script('jquery-ui-slider');
         wp_enqueue_script('jquery-ui-draggable');
         wp_enqueue_script('jquery-ui-sortable');
-        wp_enqueue_style('jquery.minicolors', OXI_TABS_URL . '/assets/backend/css/minicolors.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . '/assets/backend/css/jquery.fontselect.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('jquery.minicolors', OXI_TABS_URL . '/assets/backend/js/minicolors.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('jquery.minicolors', OXI_TABS_URL . '/assets/backend/css/minicolors.css', false, 'vc-tabs');
+        wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . '/assets/backend/css/jquery.fontselect.css', false, 'vc-tabs');
+        wp_enqueue_script('jquery.minicolors', OXI_TABS_URL . '/assets/backend/js/minicolors.js', false, 'vc-tabs');
         wp_enqueue_script('oxi-tabs-old-editor', OXI_TABS_URL . 'assets/backend/custom/old-editor.js', false, OXI_TABS_PLUGIN_VERSION);
-        $template = ucfirst($this->style['style_name']);
-        wp_enqueue_script('oxi-tabs-' . $template, OXI_TABS_URL . 'assets/backend/old_js/' . $template . '.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
     public function admin_database_data_loader() {
@@ -279,13 +274,13 @@ class Old_Admin {
             <div class="oxi-addons-shortcode-body oxi-addons-form-body">
                 <form method="post">
                     <div class="input-group mb-3" style="display: inline-flex;">
-                        <input type="hidden" class="form-control" name="oxi-addons-id" value="<?php echo esc_attr($this->styleid); ?>">
-                        <input type="text" class="form-control" name="oxi-addons-name" value="<?php echo esc_attr($this->style['name']); ?>">
+                        <input type="hidden" class="form-control" name="oxi-addons-id" value="<?php echo $this->styleid; ?>">
+                        <input type="text" class="form-control" name="oxi-addons-name" value="<?php echo $this->style['name']; ?>">
                         <div class="input-group-append" style="margin-left:5px">
                             <input type="submit" class="btn btn-success" name="oxi-addons-name-change" value="Save">
                         </div>
                     </div>
-                    <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
+        <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
                 </form>
             </div>
         </div>
@@ -329,7 +324,7 @@ class Old_Admin {
                         </div>
                     </div>
                     <div id="modal-rearrange-store-file">
-                        <?php esc_html($this->admin_child_rearrange()); ?>
+        <?php echo $this->admin_child_rearrange(); ?>
                     </div>
                 </form>
 
@@ -349,12 +344,12 @@ class Old_Admin {
                 <em>Shortcode for posts/pages/plugins</em>
                 <p>Copy &amp;
                     paste the shortcode directly into any WordPress post, page or Page Builder.</p>
-                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;<?php echo esc_attr($this->styleid); ?>&quot;]">
+                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;<?php echo $this->styleid; ?>&quot;]">
                 <span></span>
                 <em>Shortcode for templates/themes</em>
                 <p>Copy &amp;
                     paste this code into a template file to include the slideshow within your theme.</p>
-                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi id=&quot;<?php echo esc_attr($this->styleid); ?>&quot;]&#039;); ?&gt;">
+                <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi id=&quot;<?php echo $this->styleid; ?>&quot;]&#039;); ?&gt;">
                 <span></span>
             </div>
         </div>
@@ -386,24 +381,23 @@ class Old_Admin {
                                             </li>
                                         </ul>
                                         <div class="oxilab-tabs-content">
-                                            <?php $this->admin_field($this->styledata); ?>
+        <?php echo $this->admin_field($this->styledata); ?>
                                         </div>
                                     </div>
                                     <div class="oxi-addons-setting-save">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         <input type="submit" class="btn btn-primary" name="data-submit" value="Save">
-                                        <input  type="hidden" id="ctu-ultimate-style-styleid"  value="<?php echo esc_attr($this->styleid); ?>">
-                                        <?php wp_nonce_field("oxitabsstylecss") ?>
+        <?php wp_nonce_field("oxitabsstylecss") ?>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="oxi-addons-style-right">
                             <?php
-                            $this->add_new_form_opener();
-                            $this->remane_shortcode();
-                            $this->shortcode_info();
-                            $this->rearrange_tab_opener();
+                            echo $this->add_new_form_opener();
+                            echo $this->remane_shortcode();
+                            echo $this->shortcode_info();
+                            echo $this->rearrange_tab_opener();
                             ?>
                         </div>
                     </div>
@@ -441,23 +435,43 @@ class Old_Admin {
                                 </div>
                                 <div class="modal-body">
                                     <?php
-                                    $this->admin_child_field();
+                                    echo $this->admin_child_field();
                                     ?>
                                 </div>
                                 <div class="modal-footer">
-                                    <input type="hidden" id="item-id" name="item-id" value="<?php echo esc_attr($this->itemid); ?>">
+                                    <input type="hidden" id="item-id" name="item-id" value="<?php echo $this->itemid; ?>">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     <input type="submit" class="btn btn-primary" id="item-submit" name="item-submit" value="Submit">
                                 </div>
                             </div>
-                            <?php wp_nonce_field("oxitabschildnonce") ?>
+        <?php wp_nonce_field("oxitabschildnonce") ?>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            var str = '<script type="text/javascript">';
+            str += 'setTimeout(function () {';
+            str += ' jQuery(".media-button-insert").on("click", function () {';
+            str += ' jQuery("#oxilab-add-new-data").css({"overflow-x": "hidden", "overflow-y": "auto"});jQuery("body").css({ "overflow" : "hidden" });';
+            str += ' });';
+            str += ' jQuery(".media-modal-close").on("click", function () {';
+            str += ' jQuery("#oxilab-add-new-data").css({"overflow-x": "hidden", "overflow-y": "auto"});jQuery("body").css({ "overflow" : "hidden" });';
+            str += '});';
+            str += '}, 1000);';
+            str += '<';
+            str += '/script>';
+            jQuery('#insert-media-button').on('click', function () {
+                jQuery(str).appendTo("#oxi-addons-style-left");
+            });
 
-
+        </script>
+        <style type="text/css">
+            body#tinymce {
+                max-width: 100%!important;
+            }
+        </style>
 
         <?php
         $this->import_font_family();

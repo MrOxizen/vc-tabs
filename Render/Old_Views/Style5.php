@@ -238,7 +238,7 @@ class Style5 extends Old_Render {
         $styledata = $this->style;
         $styleid = $this->ID;
 
-        $content .= '<div class="ctu-ultimate-wrapper-' . $styleid . '">
+        echo '<div class="ctu-ultimate-wrapper-' . $styleid . '">
              <div class="ctu-ulimate-style-' . $styleid . '">';
 
         $jquery = $linkopening = '';
@@ -250,16 +250,16 @@ class Style5 extends Old_Render {
             if (!empty($titlefiles[1]) && $this->user != 'admin') {
                 $jquery .= '$(".vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '").click(function() {window.open("' . $titlefiles[1] . '" ' . $linkopening . ');});';
             }
-            $content .= '<div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '" class="">
+            echo '<div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '" class="">
                                 <span>' . $this->icon_font_selector($value['css']) . '</span>
                                 ' . $this->special_charecter($titlefiles[0]) . '
                                 <div class="ctu-absulote"></div>
                             </div> ';
         }
-        $content .= '  </div>';
+        echo '  </div>';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            $content .= ' <div class="ctu-ultimate-style-' . $styleid . '-content">
+            echo ' <div class="ctu-ultimate-style-' . $styleid . '-content">
                     <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
                         ' . $this->icon_font_selector($value['css']) . '   ' . $this->special_charecter($titlefiles[0]) . '
 
@@ -270,9 +270,7 @@ class Style5 extends Old_Render {
                     </div>
                 </div>';
         }
-        $content .= '</div>';
-
-        echo wp_kses($content, $this->allowed_tags());
+        echo ' </div>';
     }
 
 }

@@ -71,18 +71,20 @@ class Build_Api {
             return new \WP_REST_Request('Invalid URL', 422);
         endif;
 
-        //  $rawdata = json_decode($request['rawdata'], true);
-
-        $this->rawdata = sanitize_text_field($request['rawdata']);
+        $rawdata = json_decode($request['rawdata'], true);
+        if (is_array($rawdata)):
+            $this->validate_post($rawdata);
+        else:
+            $this->rawdata = sanitize_text_field($request['rawdata']);
+        endif;
 
         $this->styleid = (int) $request['styleid'];
         $this->childid = (int) $request['childid'];
         $action_class = strtolower($request->get_method()) . '_' . sanitize_key($request['action']);
         if (method_exists($this, $action_class)):
             return $this->{$action_class}();
-        else:
-            return die(esc_html('Security check', OXI_ACCORDIONS_TEXTDOMAIN));
         endif;
+        return 'Silence is Golden';
     }
 
     public function allowed_html($rawdata) {
@@ -237,30 +239,31 @@ class Build_Api {
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
         else:
-
             $params = json_decode(stripslashes($this->rawdata), true);
             $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
-            $filename = 'responsive-tabs-and-accordions-ultimateand' . sanitize_text_field($params['responsive-tabs-template-id']) . '.json';
-            $name = sanitize_text_field($params['addons-style-name']);
+            $filename = 'responsive-tabs-and-accordions-ultimateand' . $params['responsive-tabs-template-id'] . '.json';
             $data = json_decode(file_get_contents($folder . $filename), true);
 
             if (empty($data)) {
                 return new \WP_Error('file_error', 'Invalid File');
             }
+
             $content = $data['style'];
+
             if (!is_array($content)) {
                 return new \WP_Error('file_error', 'Invalid Content In File');
             }
 
             return $this->post_json_import($data, $name);
+
         endif;
     }
 
     public function post_json_import($params, $name = 'truee') {
+
         if (!is_array($params)) {
             return new \WP_Error('file_error', 'Invalid Content In File');
         }
-        $old = false;
         $style = $params['style'];
         $child = $params['child'];
         if ($name != 'truee'):
@@ -292,7 +295,10 @@ class Build_Api {
                     $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
                 }
             endif;
-            return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
+            if ($name != 'truee'):
+                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
+            endif;
+
         endif;
     }
 
@@ -303,6 +309,29 @@ class Build_Api {
             $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->parent_table} WHERE id = %d", $styleid));
             $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->child_table} WHERE styleid = %d", $styleid));
             return 'done';
+        else:
+            return 'Silence is Golden';
+        endif;
+    }
+
+    public function get_shortcode_export() {
+        $styleid = (int) $this->styleid;
+        if ($styleid):
+            $style = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->parent_table} WHERE id = %d", $styleid), ARRAY_A);
+            $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
+            $filename = 'responsive-tabs-and-accordions-ultimateand' . $style['id'] . '.json';
+
+            $style['data-type'] = 'responsive-tabs';
+            $files = [
+                'style' => $style,
+                'child' => $child,
+            ];
+            $finalfiles = json_encode($files);
+            $this->send_file_headers($filename, strlen($finalfiles));
+            @ob_end_clean();
+            flush();
+            echo $finalfiles;
+            die;
         else:
             return 'Silence is Golden';
         endif;
@@ -549,6 +578,9 @@ class Build_Api {
      * @return void
      */
     public function post_oxi_addons_user_permission() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxi_addons_user_permission', $value);
@@ -560,6 +592,9 @@ class Build_Api {
      * @return void
      */
     public function post_oxi_addons_font_awesome() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxi_addons_font_awesome', $value);
@@ -571,6 +606,9 @@ class Build_Api {
      * @return void
      */
     public function post_oxilab_tabs_woocommerce() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxilab_tabs_woocommerce', $value);
@@ -582,6 +620,9 @@ class Build_Api {
      * @return void
      */
     public function post_oxi_tabs_use_the_content() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxi_tabs_use_the_content', $value);
@@ -593,6 +634,9 @@ class Build_Api {
      * @return void
      */
     public function post_oxilab_tabs_woocommerce_default() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxilab_tabs_woocommerce_default', $value);
@@ -604,6 +648,9 @@ class Build_Api {
      * @return void
      */
     public function post_customize_default_tabs() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         $value = sanitize_text_field($this->rawdata);
         update_option('oxilab_tabs_woocommerce_customize_default_tabs', $value);
         return '<span class="oxi-confirmation-success"></span>';
@@ -614,6 +661,9 @@ class Build_Api {
      * @return void
      */
     public function post_oxi_addons_fixed_header_size() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxi_addons_fixed_header_size', $value);
@@ -625,8 +675,11 @@ class Build_Api {
      * @return void
      */
     public function post_oxi_license() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         $rawdata = json_decode(stripslashes($this->rawdata), true);
-        $new = sanitize_text_field($rawdata['license']);
+        $new = $rawdata['license'];
         $old = get_option('responsive_tabs_with_accordions_license_key');
         $status = get_option('responsive_tabs_with_accordions_license_status');
         if ($new == ''):
@@ -674,7 +727,7 @@ class Build_Api {
                     case 'expired' :
 
                         $message = sprintf(
-                                __('Your license key expired on %s.'), date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
+                                'Your license key expired on %s.', date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
                         );
                         break;
 
@@ -696,7 +749,7 @@ class Build_Api {
 
                     case 'item_name_mismatch' :
 
-                        $message = sprintf(__('This appears to be an invalid license key for %s.'), Responsive_Tabs_with_Accordions);
+                        $message = sprintf('This appears to be an invalid license key for %s.', 'vc-tabs');
                         break;
 
                     case 'no_activations_left':
@@ -777,7 +830,7 @@ class Build_Api {
             $render .= '<div class="oxi-addons-col-1">
                                     <div class="oxi-addons-style-preview">
                                         <div class="oxi-addons-style-preview-top oxi-addons-center">
-                                            <img class="oxi-addons-web-template-image" src="' . esc_url($value['image']) . '">
+                                            <img class="oxi-addons-web-template-image" src="' . $value['image'] . '">
                                         </div>
                                         <div class="oxi-addons-style-preview-bottom">
                                             <div class="oxi-addons-style-preview-bottom-left">

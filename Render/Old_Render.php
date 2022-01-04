@@ -53,8 +53,8 @@ class Old_Render {
 
     public function public_jquery_css() {
         wp_enqueue_script("jquery");
-        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/old.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, 'vc-tabs');
+        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/old.js', false, 'vc-tabs');
     }
 
     public function default_render() {
@@ -65,129 +65,27 @@ class Old_Render {
         $inlinejs = $this->JQUERY;
         $inlinecss = $this->CSS;
         if ($inlinejs != ''):
-            $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
-            wp_add_inline_script('vc-tabs-jquery', $jquery);
+            if ($this->user == 'admin'):
+                echo '<script>
+                        (function ($) {
+                            setTimeout(function () {';
+                echo $inlinejs;
+                echo '    }, 2000);
+                        })(jQuery)</script>';
+            else:
+                $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
+                wp_add_inline_script('vc-tabs-jquery', $jquery);
+            endif;
         endif;
         if ($inlinecss != ''):
-            wp_add_inline_style('vc-tabs-style', $inlinecss);
+            if ($this->user == 'admin'):
+                echo '<style>';
+                echo $inlinecss;
+                echo '</style>';
+            else:
+                wp_add_inline_style('vc-tabs-style', $inlinecss);
+            endif;
         endif;
-    }
-
-    public function allowed_tags() {
-
-        $allowed_tags = array(
-            'a' => array(
-                'class' => array(),
-                'href' => array(),
-                'rel' => array(),
-                'title' => array(),
-            ),
-            'abbr' => array(
-                'title' => array(),
-            ),
-            'b' => array(),
-            'blockquote' => array(
-                'cite' => array(),
-            ),
-            'cite' => array(
-                'title' => array(),
-            ),
-            'code' => array(),
-            'del' => array(
-                'datetime' => array(),
-                'title' => array(),
-            ),
-            'dd' => array(),
-            'div' => array(
-                'class' => array(),
-                'ref' => array(),
-                'style' => array(),
-                'id' => array(),
-                'data-oxi-tabs' => array(),
-                'data-link' => array(),
-            ),
-            'blockquote' => array(
-                'class' => array(),
-                'ref' => array(),
-                'style' => array(),
-                'id' => array(),
-                'data-oxi-tabs' => array(),
-                'data-link' => array(),
-            ),
-            'table' => array(
-                'class' => array(),
-                'id' => array(),
-                'style' => array(),
-            ),
-            'button' => array(
-                'class' => array(),
-                'type' => array(),
-                'value' => array(),
-            ),
-            'input' => array(
-                'onkeyup' => array(),
-                'class' => array(),
-                'id' => array(),
-                'name' => array(),
-                'type' => array(),
-                'value' => array(),
-                'placeholder' => array(),
-                'onclick' => array(),
-            ),
-            'form' => array(
-                'class' => array(),
-                'id' => array(),
-                'method' => array(),
-                'action' => array(),
-            ),
-            'thead' => array(),
-            'tbody' => array(),
-            'tr' => array(),
-            'td' => array(),
-            'dt' => array(),
-            'em' => array(),
-            'h1' => array(),
-            'h2' => array(),
-            'h3' => array(),
-            'h4' => array(),
-            'h5' => array(),
-            'h6' => array(),
-            'i' => array(
-                'class' => array(),
-            ),
-            'img' => array(
-                'alt' => array(),
-                'class' => array(),
-                'height' => array(),
-                'src' => array(),
-                'width' => array(),
-            ),
-            'li' => array(
-                'class' => array(),
-            ),
-            'ol' => array(
-                'class' => array(),
-            ),
-            'p' => array(
-                'class' => array(),
-            ),
-            'q' => array(
-                'cite' => array(),
-                'title' => array(),
-            ),
-            'span' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-            ),
-            'strike' => array(),
-            'strong' => array(),
-            'ul' => array(
-                'class' => array(),
-            ),
-        );
-
-        return $allowed_tags;
     }
 
     public function JS_CSS() {
@@ -197,7 +95,7 @@ class Old_Render {
     }
 
     public function Template() {
-        echo '<div class="oxi-addons-container ' . esc_attr($this->WRAPPER) . '">
+        echo '<div class="oxi-addons-container ' . $this->WRAPPER . '">
                  <div class="oxi-addons-row">';
         $this->default_render();
         echo '   </div>
@@ -217,7 +115,7 @@ class Old_Render {
         $data = str_replace('+', ' ', $data);
         $data = explode(':', $data);
         $data = $data[0];
-        $data = '"' . esc_attr($data) . '"';
+        $data = '"' . $data . '"';
         return $data;
     }
 

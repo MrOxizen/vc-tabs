@@ -51,7 +51,7 @@ trait Sanitization {
     public function start_section_header($id, array $arg = []) {
         echo '<ul class="oxi-addons-tabs-ul">   ';
         foreach ($arg['options'] as $key => $value) {
-            echo '<li ref="#shortcode-addons-section-' . esc_attr($key) . '">' . esc_html($value) . '</li>';
+            echo '<li ref="#shortcode-addons-section-' . $key . '">' . $value . '</li>';
         }
         echo '</ul>';
     }
@@ -66,10 +66,10 @@ trait Sanitization {
         echo '<div class="oxi-addons-tabs-content-tabs" id="shortcode-addons-section-';
         if (array_key_exists('condition', $arg)) :
             foreach ($arg['condition'] as $value) {
-                echo esc_attr($value);
+                echo $value;
             }
         endif;
-        echo '"  ' . (array_key_exists('padding', $arg) ? 'style="padding: ' . esc_attr($arg['padding']) . '"' : '') . '>';
+        echo '"  ' . (array_key_exists('padding', $arg) ? 'style="padding: ' . $arg['padding'] . '"' : '') . '>';
     }
 
     /*
@@ -163,9 +163,9 @@ trait Sanitization {
         $defualt = ['showing' => FALSE];
         $arg = array_merge($defualt, $arg);
         $condition = $this->forms_condition($arg);
-        echo '<div class="oxi-addons-content-div ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '" ' . esc_attr($condition) . '>
+        echo '<div class="oxi-addons-content-div ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '" ' . $condition . '>
                     <div class="oxi-head">
-                    ' . esc_html($arg['label']) . '
+                    ' . $arg['label'] . '
                     <div class="oxi-head-toggle"></div>
                     </div>
                     <div class="oxi-addons-content-div-body">';
@@ -192,13 +192,13 @@ trait Sanitization {
         $defualt = ['options' => ['normal' => 'Normal', 'hover' => 'Hover']];
         $arg = array_merge($defualt, $arg);
         $condition = $this->forms_condition($arg);
-        echo '<div class="shortcode-form-control shortcode-control-type-control-tabs ' . (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '') . '" ' . esc_attr($condition) . ' >
+        echo '<div class="shortcode-form-control shortcode-control-type-control-tabs ' . (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '') . '" ' . $condition . ' >
                 <div class="shortcode-form-control-content shortcode-form-control-content-tabs">
                     <div class="shortcode-form-control-field">';
         foreach ($arg['options'] as $key => $value) {
             echo '  <div class="shortcode-control-type-control-tab-child">
 			<div class="shortcode-control-content">
-				' . esc_html($value) . '
+				' . $value . '
                         </div>
                     </div>';
         }
@@ -252,15 +252,15 @@ trait Sanitization {
 
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
-        echo '  <div class="shortcode-form-control shortcode-control-type-popover ' . esc_attr($separator) . '" ' . esc_attr($condition) . '>
+        echo '  <div class="shortcode-form-control shortcode-control-type-popover ' . $separator . '" ' . $condition . '>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover">
                         <div class="shortcode-form-control-field">
-                            <label for="" class="shortcode-form-control-title">' . esc_html($arg['label']) . '</label>
+                            <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>
                             <div class="shortcode-form-control-input-wrapper">
                                 <span class="dashicons popover-set"></span>
                             </div>
                         </div>
-                        ' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . esc_html($arg['description']) . '</div>' : '') . '
+                        ' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '') . '
 
                     </div>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover-body">
@@ -300,6 +300,18 @@ trait Sanitization {
             elseif ($arg['responsive'] == 'mobile') :
                 $responsiveclass = 'shortcode-addons-form-responsive-mobile';
             endif;
+            $responsive = '<div class="shortcode-form-control-responsive-switchers">
+                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-desktop" data-device="desktop">
+                                    <span class="dashicons dashicons-desktop"></span>
+                                </a>
+                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-tablet" data-device="tablet">
+                                    <span class="dashicons dashicons-tablet"></span>
+                                </a>
+                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-mobile" data-device="mobile">
+                                    <span class="dashicons dashicons-smartphone"></span>
+                                </a>
+                            </div>';
+
         endif;
 
         if (array_key_exists('customresponsive', $arg)):
@@ -348,28 +360,16 @@ trait Sanitization {
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
 
         $loader = (array_key_exists('loader', $arg) ? $arg['loader'] == TRUE ? ' shortcode-addons-control-loader ' : '' : '');
-        echo '<div class="shortcode-form-control shortcode-control-type-' . esc_attr($arg['type']) . ' ' . esc_attr($separator) . ' ' . esc_attr($toggle) . ' ' . esc_attr($responsiveclass) . ' ' . esc_attr($loader) . '" ' . esc_attr($condition) . '>
+        echo '<div class="shortcode-form-control shortcode-control-type-' . $arg['type'] . ' ' . $separator . ' ' . $toggle . ' ' . $responsiveclass . ' ' . $loader . '" ' . $condition . '>
                 <div class="shortcode-form-control-content">
                     <div class="shortcode-form-control-field">';
-        echo '<label for="" class="shortcode-form-control-title">' . esc_html($arg['label']) . '</label>';
-        if (array_key_exists('responsive', $arg)) :
-            echo '<div class="shortcode-form-control-responsive-switchers">
-                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-desktop" data-device="desktop">
-                                    <span class="dashicons dashicons-desktop"></span>
-                                </a>
-                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-tablet" data-device="tablet">
-                                    <span class="dashicons dashicons-tablet"></span>
-                                </a>
-                                <a class="shortcode-form-responsive-switcher shortcode-form-responsive-switcher-mobile" data-device="mobile">
-                                    <span class="dashicons dashicons-smartphone"></span>
-                                </a>
-                            </div>';
-        endif;
+        echo '<label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>';
+        echo $responsive;
 
         $fun = $arg['type'] . '_admin_control';
-        $this->$fun($id, $data, $arg);
+        echo $this->$fun($id, $data, $arg);
         echo '      </div>';
-        echo (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . esc_html($arg['description']) . '</div>' : '');
+        echo (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '');
 
         echo ' </div>
         </div>';
@@ -442,33 +442,33 @@ trait Sanitization {
         ];
         $arg = array_merge($defualt, $arg);
         $fun = $arg['type'] . '_admin_group_control';
-        $this->$fun($id, $data, $arg);
+        echo $this->$fun($id, $data, $arg);
     }
 
     public function add_rearrange_control($id, array $data = [], array $arg = []) {
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
-        echo '<div class="shortcode-form-control shortcode-control-type-' . esc_attr($arg['type']) . ' ' . esc_attr($separator) . '" ' . esc_attr($condition) . '>
+        echo '<div class="shortcode-form-control shortcode-control-type-' . $arg['type'] . ' ' . $separator . '" ' . $condition . '>
                 <div class="shortcode-form-control-content">
                     <div class="shortcode-form-control-field">
-                        <label for="" class="shortcode-form-control-title">' . esc_html($arg['label']) . '</label>
+                        <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>
                     </div>
-                    <div class="shortcode-form-rearrange-fields-wrapper" vlid="#' . esc_attr($id) . '">';
+                    <div class="shortcode-form-rearrange-fields-wrapper" vlid="#' . $id . '">';
         $rearrange = explode(',', $value);
         foreach ($rearrange as $k => $vl) {
             if ($vl != ''):
-                echo '  <div class="shortcode-form-repeater-fields" id="' . esc_attr($vl) . '">
+                echo '  <div class="shortcode-form-repeater-fields" id="' . $vl . '">
                             <div class="shortcode-form-repeater-controls">
                                 <div class="shortcode-form-repeater-controls-title">
-                                    ' . esc_html($arg['fields'][$vl]['label']) . '
+                                    ' . ($arg['fields'][$vl]['label']) . '
                                 </div>
                             </div>
                         </div>';
             endif;
         }
         echo '          <div class="shortcode-form-control-input-wrapper">
-                            <input type="hidden" value="' . esc_attr($value) . '" name="' . esc_attr($id) . '" id="' . esc_attr($id) . '">
+                            <input type="hidden" value="' . $value . '" name="' . $id . '" id="' . $id . '">
                         </div>
                     </div>
                 </div>
@@ -526,8 +526,8 @@ trait Sanitization {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
                     <label class="shortcode-switcher">
-                        <input type="checkbox" ' . ($value == esc_attr($arg['return_value']) ? 'checked ckdflt="true"' : '') . ' value="' . esc_attr($arg['return_value']) . '"  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '"/>
-                        <span data-on="' . esc_attr($arg['label_on']) . '" data-off="' . esc_attr($arg['label_off']) . '"></span>
+                        <input type="checkbox" ' . ($value == $arg['return_value'] ? 'checked ckdflt="true"' : '') . ' value="' . $arg['return_value'] . '"  name="' . $id . '" id="' . $id . '"/>
+                        <span data-on="' . $arg['label_on'] . '" data-off="' . $arg['label_off'] . '"></span>
                     </label>
                 </div>';
     }
@@ -543,11 +543,11 @@ trait Sanitization {
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         if (array_key_exists('link', $arg)) :
             echo '<div class="shortcode-form-control-input-wrapper shortcode-form-control-input-link">
-                     <input type="text"  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '" value="' . esc_attr(htmlspecialchars($value)) . '" placeholder="' . esc_attr($arg['placeholder']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                     <input type="text"  name="' . $id . '" id="' . $id . '" value="' . htmlspecialchars($value) . '" placeholder="' . $arg['placeholder'] . '" retundata=\'' . $retunvalue . '\'>
                      <span class="dashicons dashicons-admin-generic"></span>';
         else :
             echo '<div class="shortcode-form-control-input-wrapper">
-                <input type="text"  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '" value="' . esc_attr(htmlspecialchars($value)) . '" placeholder="' . esc_attr($arg['placeholder']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                <input type="text"  name="' . $id . '" id="' . $id . '" value="' . htmlspecialchars($value) . '" placeholder="' . $arg['placeholder'] . '" retundata=\'' . $retunvalue . '\'>
             </div>';
         endif;
     }
@@ -579,7 +579,7 @@ trait Sanitization {
             endif;
         endif;
         echo ' <div class="shortcode-form-control-input-wrapper">
-                   <input type="hidden" value="' . esc_attr($value) . '" name="' . esc_attr($id) . '" id="' . esc_attr($id) . '">
+                   <input type="hidden" value="' . $value . '" name="' . $id . '" id="' . $id . '">
                </div>';
     }
 
@@ -593,7 +593,7 @@ trait Sanitization {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         echo '<div class="shortcode-form-control-input-wrapper">
-                 <textarea  name="' . esc_attr($id) . '" id="' . esc_attr($id) . '" retundata=\'' . esc_attr($retunvalue) . '\' class="shortcode-form-control-tag-area" rows="' . (int) ((strlen($value) / 50) + 2) . '" placeholder="' . esc_attr($arg['placeholder']) . '">' . esc_textarea($value) . '</textarea>
+                 <textarea  name="' . $id . '" id="' . $id . '" retundata=\'' . $retunvalue . '\' class="shortcode-form-control-tag-area" rows="' . (int) ((strlen($value) / 50) + 2) . '" placeholder="' . $arg['placeholder'] . '">' . str_replace('&nbsp;', '  ', str_replace('<br>', '&#13;&#10;', $value)) . '</textarea>
               </div>';
     }
 
@@ -606,8 +606,8 @@ trait Sanitization {
     public function wysiwyg_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
-        echo ' <div class="shortcode-form-control-input-wrapper"  retundata=\'' . esc_attr($retunvalue) . '\'>';
-        wp_editor(
+        echo ' <div class="shortcode-form-control-input-wrapper"  retundata=\'' . $retunvalue . '\'>';
+        echo wp_editor(
                 $value, $id, $settings = array(
             'textarea_name' => $id,
             'wpautop' => false,
@@ -632,7 +632,7 @@ trait Sanitization {
                     <div class="shortcode-addons-media-control ' . (empty($value) ? 'shortcode-addons-media-control-hidden-button' : '') . '">
                         <div class="shortcode-addons-media-control-pre-load">
                         </div>
-                        <div class="shortcode-addons-media-control-image-load" style="background-image: url(' . esc_url($value) . ');" ckdflt="background-image: url(' . esc_url($value) . ');">
+                        <div class="shortcode-addons-media-control-image-load" style="background-image: url(' . $value . ');" ckdflt="background-image: url(' . $value . ');">
                             <div class="shortcode-addons-media-control-image-load-delete-button">
                             </div>
                         </div>
@@ -640,8 +640,8 @@ trait Sanitization {
                             Choose Image
                         </div>
                     </div>
-                    <input type="hidden" class="shortcode-addons-media-control-link" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_url($value) . '" >
-                    <input type="hidden" class="shortcode-addons-media-control-link-alt" id="' . esc_attr($id) . '-alt" name="' . esc_attr($id) . '-alt" value="' . esc_html($alt) . '" >
+                    <input type="hidden" class="shortcode-addons-media-control-link" id="' . $id . '" name="' . $id . '" value="' . $value . '" >
+                    <input type="hidden" class="shortcode-addons-media-control-link-alt" id="' . $id . '-alt" name="' . $id . '-alt" value="' . $alt . '" >
                 </div>';
     }
 
@@ -674,7 +674,7 @@ trait Sanitization {
         $defualt = ['min' => 0, 'max' => 1000, 'step' => 1,];
         $arg = array_merge($defualt, $arg);
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" type="number" min="' . esc_attr($arg['min']) . '" max="' . esc_attr($arg['max']) . '" step="' . esc_attr($arg['step']) . '" value="' . esc_attr($value) . '"  responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                    <input id="' . $id . '" name="' . $id . '" type="number" min="' . $arg['min'] . '" max="' . $arg['max'] . '" step="' . $arg['step'] . '" value="' . $value . '"  responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
                 </div>';
     }
 
@@ -712,17 +712,17 @@ trait Sanitization {
                 echo ' <div class="shortcode-form-units-choices">';
                 foreach ($arg['range'] as $key => $val) {
                     $rand = rand(10000, 233333333);
-                    echo '<input id="' . esc_attr($id) . '-choices-' . esc_attr($rand) . '" type="radio" name="' . esc_attr($id) . '-choices"  value="' . esc_attr($key) . '" ' . ( esc_attr($key) == $unit ? 'checked' : '') . '  min="' . esc_attr($val['min']) . '" max="' . esc_attr($val['max']) . '" step="' . esc_attr($val['step']) . '">
-                      <label class="shortcode-form-units-choices-label" for="' . esc_attr($id) . '-choices-' . esc_attr($rand) . '">' . esc_html($key) . '</label>';
+                    echo '<input id="' . $id . '-choices-' . $rand . '" type="radio" name="' . $id . '-choices"  value="' . $key . '" ' . ($key == $unit ? 'checked' : '') . '  min="' . $val['min'] . '" max="' . $val['max'] . '" step="' . $val['step'] . '">
+                      <label class="shortcode-form-units-choices-label" for="' . $id . '-choices-' . $rand . '">' . $key . '</label>';
                 }
                 echo '</div>';
             endif;
         endif;
         $unitvalue = array_key_exists($id . '-choices', $data) ? 'unit="' . $data[$id . '-choices'] . '"' : '';
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <div class="shortcode-form-slider" id="' . esc_attr($id) . '-slider' . '"></div>
+                    <div class="shortcode-form-slider" id="' . $id . '-slider' . '"></div>
                     <div class="shortcode-form-slider-input">
-                        <input name="' . esc_attr($id) . '-size" custom="' . (array_key_exists('custom', $arg) ? '' . esc_attr($arg['custom']) . '' : '') . '" id="' . esc_attr($id) . '-size' . '" type="number" min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr($arg['range'][$unit]['step']) . '" value="' . esc_attr($size) . '" default-value="' . esc_attr($size) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                        <input name="' . $id . '-size" custom="' . (array_key_exists('custom', $arg) ? '' . $arg['custom'] . '' : '') . '" id="' . $id . '-size' . '" type="number" min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $size . '" default-value="' . $size . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
                     </div>
                 </div>';
     }
@@ -734,7 +734,7 @@ trait Sanitization {
      */
 
     public function select_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
 
@@ -762,20 +762,20 @@ trait Sanitization {
 
         echo '<div class="shortcode-form-control-input-wrapper">
                 <div class="shortcode-form-control-input-select-wrapper">
-                <select id="' . esc_attr($id) . '" class="shortcode-addons-select-input ' . ($multiple ? 'js-example-basic-multiple' : '' ) . '" ' . ($multiple ? 'multiple' : '' ) . ' name="' . esc_attr($id) . '' . ($multiple ? '[]' : '' ) . '"  responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>';
+                <select id="' . $id . '" class="shortcode-addons-select-input ' . ($multiple ? 'js-example-basic-multiple' : '' ) . '" ' . ($multiple ? 'multiple' : '' ) . ' name="' . $id . '' . ($multiple ? '[]' : '' ) . '"  responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>';
         foreach ($arg['options'] as $key => $val) {
             if (is_array($val)):
                 if (isset($val[0]) && $val[0] == true):
-                    echo '<optgroup label="' . esc_html($val[1]) . '">';
+                    echo '<optgroup label="' . $val[1] . '">';
                 else:
                     echo '</optgroup>';
                 endif;
             else:
                 if (is_array($value)):
                     $new = array_flip($value);
-                    echo ' <option value="' . esc_attr($key) . '" ' . (array_key_exists($key, $new) ? 'selected' : '') . '>' . esc_html($val) . '</option>';
+                    echo ' <option value="' . $key . '" ' . (array_key_exists($key, $new) ? 'selected' : '') . '>' . $val . '</option>';
                 else:
-                    echo ' <option value="' . esc_attr($key) . '" ' . ($value == $key ? 'selected' : '') . '>' . esc_html($val) . '</option>';
+                    echo ' <option value="' . $key . '" ' . ($value == $key ? 'selected' : '') . '>' . $val . '</option>';
                 endif;
             endif;
         }
@@ -816,11 +816,11 @@ trait Sanitization {
         }
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($retun)) : '';
         echo '<div class="shortcode-form-control-input-wrapper">
-                <div class="shortcode-form-choices" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>';
+                <div class="shortcode-form-choices" responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>';
         foreach ($arg['options'] as $key => $val) {
-            echo '  <input id="' . esc_attr($id) . '-' . esc_attr($key) . '" type="radio" name="' . esc_attr($id) . '" value="' . esc_attr($key) . '" ' . ($value == $key ? 'checked  ckdflt="true"' : '') . '>
-                                    <label class="shortcode-form-choices-label" for="' . esc_attr($id) . '-' . esc_attr($key) . '" tooltip="' . esc_html($val['title']) . '">
-                                        ' . (($operator == 'text') ? esc_html($val['title']) : '<i class="' . esc_attr($val['icon']) . '" aria-hidden="true"></i>') . '
+            echo '  <input id="' . $id . '-' . $key . '" type="radio" name="' . $id . '" value="' . $key . '" ' . ($value == $key ? 'checked  ckdflt="true"' : '') . '>
+                                    <label class="shortcode-form-choices-label" for="' . $id . '-' . $key . '" tooltip="' . $val['title'] . '">
+                                        ' . (($operator == 'text') ? $val['title'] : '<i class="' . $val['icon'] . '" aria-hidden="true"></i>') . '
                                     </label>';
         }
         echo '</div>
@@ -874,7 +874,7 @@ trait Sanitization {
     }
 
     public function color_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $arg['render'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
@@ -894,7 +894,7 @@ trait Sanitization {
         }
         $type = array_key_exists('oparetor', $arg) ? 'data-format="rgb" data-opacity="TRUE"' : '';
         echo '<div class="shortcode-form-control-input-wrapper">
-                <input ' . esc_attr($type) . ' type="text"  class="oxi-addons-minicolor" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_attr($value) . '" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\' custom="' . (array_key_exists('custom', $arg) ? '' . esc_attr($arg['custom']) . '' : '') . '">
+                <input ' . $type . ' type="text"  class="oxi-addons-minicolor" id="' . $id . '" name="' . $id . '" value="' . $value . '" responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\' custom="' . (array_key_exists('custom', $arg) ? '' . $arg['custom'] . '' : '') . '">
              </div>';
     }
 
@@ -905,10 +905,10 @@ trait Sanitization {
      */
 
     public function icon_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text"  class="oxi-admin-icon-selector" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_html($value) . '">
+                    <input type="text"  class="oxi-admin-icon-selector" id="' . $id . '" name="' . $id . '" value="' . $value . '">
                     <span class="input-group-addon"></span>
                 </div>';
     }
@@ -920,7 +920,7 @@ trait Sanitization {
      */
 
     public function font_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         if ($value != '' && array_key_exists($value, $this->google_font)) :
             $this->font[$value] = $value;
@@ -932,7 +932,7 @@ trait Sanitization {
                     if ($arg['render'] == TRUE && !empty($val)) :
                         $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                         $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
-                        $file = str_replace('{{VALUE}}', str_replace("+", ' ', esc_html($value)), $val);
+                        $file = str_replace('{{VALUE}}', str_replace("+", ' ', $value), $val);
                         if (strpos($file, '{{') !== FALSE):
                             $file = $this->multiple_selector_handler($data, $file);
                         endif;
@@ -946,7 +946,7 @@ trait Sanitization {
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
 
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text"  class="shortcode-addons-family" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_html($value) . '" responsive="' . esc_attr($arg['responsive']) . '" retundata="' . esc_attr($retunvalue) . '">
+                    <input type="text"  class="shortcode-addons-family" id="' . $id . '" name="' . $id . '" value="' . $value . '" responsive="' . $arg['responsive'] . '" retundata="' . $retunvalue . '">
                 </div>';
     }
 
@@ -957,7 +957,7 @@ trait Sanitization {
      */
 
     public function date_time_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $format = 'date';
         if (array_key_exists('time', $arg)) :
@@ -966,7 +966,7 @@ trait Sanitization {
             endif;
         endif;
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="' . esc_attr($format) . '"  id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_html($value) . '">
+                    <input type="' . $format . '"  id="' . $id . '" name="' . $id . '" value="' . $value . '">
                 </div>';
     }
 
@@ -977,7 +977,7 @@ trait Sanitization {
      */
 
     public function gradient_admin_control($id, array $data = [], array $arg = []) {
-        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id );
+        $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE && $this->render_condition_control($id, $data, $arg)) {
@@ -999,7 +999,7 @@ trait Sanitization {
         }
         $background = (array_key_exists('gradient', $arg) ? $arg['gradient'] : '');
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <input type="text" background="' . esc_attr($background) . '"  class="oxi-addons-gradient-color" id="' . esc_attr($id) . '" name="' . esc_attr($id) . '" value="' . esc_html($value) . '" responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
+                    <input type="text" background="' . $background . '"  class="oxi-addons-gradient-color" id="' . $id . '" name="' . $id . '" value="' . $value . '" responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
                 </div>';
     }
 
@@ -1044,8 +1044,8 @@ trait Sanitization {
                 echo ' <div class="shortcode-form-units-choices">';
                 foreach ($arg['range'] as $key => $val) {
                     $rand = rand(10000, 233333333);
-                    echo '<input id="' . esc_attr($id) . '-choices-' . esc_attr($rand) . '" type="radio" name="' . esc_attr($id) . '-choices"  value="' . esc_attr($key) . '" ' . ($key == $unit ? 'checked' : '') . '  min="' . esc_attr($val['min']) . '" max="' . esc_attr($val['max']) . '" step="' . esc_attr($val['step']) . '">
-                      <label class="shortcode-form-units-choices-label" for="' . esc_attr($id) . '-choices-' . esc_attr($rand) . '">' . esc_html($key) . '</label>';
+                    echo '<input id="' . $id . '-choices-' . $rand . '" type="radio" name="' . $id . '-choices"  value="' . $key . '" ' . ($key == $unit ? 'checked' : '') . '  min="' . $val['min'] . '" max="' . $val['max'] . '" step="' . $val['step'] . '">
+                      <label class="shortcode-form-units-choices-label" for="' . $id . '-choices-' . $rand . '">' . $key . '</label>';
                 }
                 echo '</div>';
             endif;
@@ -1054,23 +1054,23 @@ trait Sanitization {
         echo '<div class="shortcode-form-control-input-wrapper">
                 <ul class="shortcode-form-control-dimensions">
                     <li class="shortcode-form-control-dimension">
-                        <input id="' . esc_attr($id) . '-top" input-id="' . esc_attr($id) . '" name="' . esc_attr($id) . '-top" type="number"  min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr($arg['range'][$unit]['step']) . '" value="' . esc_attr($top) . '" default-value="' . esc_attr($top) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
-                        <label for="' . esc_attr($id) . '-top" class="shortcode-form-control-dimension-label">Top</label>
+                        <input id="' . $id . '-top" input-id="' . $id . '" name="' . $id . '-top" type="number"  min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $top . '" default-value="' . $top . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
+                        <label for="' . $id . '-top" class="shortcode-form-control-dimension-label">Top</label>
                     </li>
                     <li class="shortcode-form-control-dimension">
-                       <input id="' . esc_attr($id) . '-right" input-id="' . esc_attr($id) . '" name="' . esc_attr($id) . '-right" type="number"  min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr($arg['range'][$unit]['step']) . '" value="' . esc_attr($right) . '" default-value="' . esc_attr($right) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
-                         <label for="' . esc_attr($id) . '-right" class="shortcode-form-control-dimension-label">Right</label>
+                       <input id="' . $id . '-right" input-id="' . $id . '" name="' . $id . '-right" type="number"  min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $right . '" default-value="' . $right . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
+                         <label for="' . $id . '-right" class="shortcode-form-control-dimension-label">Right</label>
                     </li>
                     <li class="shortcode-form-control-dimension">
-                       <input id="' . esc_attr($id) . '-bottom" input-id="' . esc_attr($id) . '" name="' . esc_attr($id) . '-bottom" type="number"  min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr($arg['range'][$unit]['step']) . '" value="' . esc_attr($bottom) . '" default-value="' . esc_attr($bottom) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
-                       <label for="' . esc_attr($id) . '-bottom" class="shortcode-form-control-dimension-label">Bottom</label>
+                       <input id="' . $id . '-bottom" input-id="' . $id . '" name="' . $id . '-bottom" type="number"  min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $bottom . '" default-value="' . $bottom . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
+                       <label for="' . $id . '-bottom" class="shortcode-form-control-dimension-label">Bottom</label>
                     </li>
                     <li class="shortcode-form-control-dimension">
-                        <input id="' . esc_attr($id) . '-left" input-id="' . esc_attr($id) . '" name="' . esc_attr($id) . '-left" type="number"  min="' . esc_attr($arg['range'][$unit]['min']) . '" max="' . esc_attr($arg['range'][$unit]['max']) . '" step="' . esc_attr(esc_attr($arg['range'][$unit]['step'])) . '" value="' . esc_attr($left) . '" default-value="' . esc_attr($left) . '" ' . esc_attr($unitvalue) . ' responsive="' . esc_attr($arg['responsive']) . '" retundata=\'' . esc_attr($retunvalue) . '\'>
-                         <label for="' . esc_attr($id) . '-left" class="shortcode-form-control-dimension-label">Left</label>
+                        <input id="' . $id . '-left" input-id="' . $id . '" name="' . $id . '-left" type="number"  min="' . $arg['range'][$unit]['min'] . '" max="' . $arg['range'][$unit]['max'] . '" step="' . $arg['range'][$unit]['step'] . '" value="' . $left . '" default-value="' . $left . '" ' . $unitvalue . ' responsive="' . $arg['responsive'] . '" retundata=\'' . $retunvalue . '\'>
+                         <label for="' . $id . '-left" class="shortcode-form-control-dimension-label">Left</label>
                     </li>
                     <li class="shortcode-form-control-dimension">
-                        <button type="button" class="shortcode-form-link-dimensions ' . esc_attr($unlink) . '"  data-tooltip="Link values together"></button>
+                        <button type="button" class="shortcode-form-link-dimensions ' . $unlink . '"  data-tooltip="Link values together"></button>
                     </li>
                 </ul>
             </div>';
@@ -1104,7 +1104,7 @@ trait Sanitization {
 
         $this->start_popover_control(
                 $id, [
-            'label' => array_key_exists('label', $arg) ? esc_html($arg['label']) : 'Typography',
+            'label' => array_key_exists('label', $arg) ? $arg['label'] : 'Typography',
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'description' => $arg['description'],
@@ -1353,9 +1353,9 @@ trait Sanitization {
     public function media_admin_group_control($id, array $data = [], array $arg = []) {
         $type = array_key_exists('default', $arg) ? $arg['default']['type'] : 'media-library';
         $value = array_key_exists('default', $arg) ? $arg['default']['link'] : '';
-        $level = array_key_exists('label', $arg) ? esc_html($arg['label']) : 'Photo Source';
+        $level = array_key_exists('label', $arg) ? $arg['label'] : 'Photo Source';
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
-        echo '<div class="shortcode-form-control" style="padding: 0;" ' . esc_attr($this->forms_condition($arg)) . '>';
+        echo '<div class="shortcode-form-control" style="padding: 0;" ' . $this->forms_condition($arg) . '>';
         $this->add_control(
                 $id . '-select', $data, [
             'label' => esc_html__($level, 'vc-tabs'),
@@ -1449,7 +1449,7 @@ trait Sanitization {
             $selector = $arg['selector'];
             $boxshadow = array_key_exists($id . '-shadow', $data) && $data[$id . '-shadow'] == 'yes' ? $boxshadow : '';
             foreach ($arg['selector'] as $key => $val) {
-                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], esc_attr($key)) : esc_attr($key) );
+                $key = (strpos($key, '{{KEY}}') ? str_replace('{{KEY}}', explode('saarsa', $id)[1], $key) : $key);
                 $class = str_replace('{{WRAPPER}}', $this->CSSWRAPPER, $key);
                 $this->CSSDATA['laptop'][$class][$boxshadow] = $boxshadow;
             }
@@ -2027,7 +2027,7 @@ trait Sanitization {
         if (array_key_exists('selector', $arg)) :
             $selector_key = 'selector';
             foreach ($arg['selector'] as $key => $value) {
-                $v = str_replace('{{SIZE}}', '{{' . $id . '-width.SIZE}}', str_replace('{{TYPE}}', '{{' . $id . '-type.VALUE}}', str_replace('{{COLOR}}', '{{' . $id . '-color.VALUE}}', esc_html($value))));
+                $v = str_replace('{{SIZE}}', '{{' . $id . '-width.SIZE}}', str_replace('{{TYPE}}', '{{' . $id . '-type.VALUE}}', str_replace('{{COLOR}}', '{{' . $id . '-color.VALUE}}', $value)));
                 $selector[$key] = $v;
             }
         endif;
@@ -2127,9 +2127,9 @@ trait Sanitization {
                     $color = 'linear-gradient(0deg, ' . $color . ' 0%, ' . $color . ' 100%)';
                 endif;
                 if ($data[$id . '-select'] == 'media-library') :
-                    $backround .= 'background: ' . esc_attr($color) . ', url(\'' . esc_url($data[$id . '-image']) . '\') ' . esc_attr($data[$id . '-repeat']) . ' ' . esc_attr($data[$id . '-position']) . ';';
+                    $backround .= 'background: ' . $color . ', url(\'' . $data[$id . '-image'] . '\') ' . $data[$id . '-repeat'] . ' ' . $data[$id . '-position'] . ';';
                 else :
-                    $backround .= 'background: ' . esc_attr($color) . ', url(\'' . esc_url($data[$id . '-url']) . '\') ' . esc_attr($data[$id . '-repeat']) . ' ' . esc_attr($data[$id . '-position']) . ';';
+                    $backround .= 'background: ' . $color . ', url(\'' . $data[$id . '-url'] . '\') ' . $data[$id . '-repeat'] . ' ' . $data[$id . '-position'] . ';';
                 endif;
             else :
                 $backround .= 'background: ' . $color . ';';
@@ -2255,7 +2255,7 @@ trait Sanitization {
             'loader' => TRUE,
             'condition' => [
                 $id . '-img' => 'yes',
-                '((' . esc_attr($id) . '-select === \'media-library\' && ' . esc_attr($id) . '-image !== \'\') || (' . esc_attr($id) . '-select === \'custom-url\' && ' . esc_attr($id) . '-url !== \'\'))' => 'COMPILED',
+                '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
             ],
                 ]
         );
@@ -2275,7 +2275,7 @@ trait Sanitization {
             $selector_key => $selector,
             'condition' => [
                 $id . '-img' => 'yes',
-                '((' . esc_attr($id) . '-select === \'media-library\' && ' . esc_attr($id) . '-image !== \'\') || (' . esc_attr($id) . '-select === \'custom-url\' && ' . esc_attr($id) . '-url !== \'\'))' => 'COMPILED',
+                '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
             ],
                 ]
         );
@@ -2295,7 +2295,7 @@ trait Sanitization {
             'loader' => TRUE,
             'condition' => [
                 $id . '-img' => 'yes',
-                '((' . esc_attr($id) . '-select === \'media-library\' && ' . esc_attr($id) . '-image !== \'\') || (' . esc_attr($id) . '-select === \'custom-url\' && ' . esc_attr($id) . '-url !== \'\'))' => 'COMPILED',
+                '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
             ],
                 ]
         );
@@ -2316,7 +2316,7 @@ trait Sanitization {
             $selector_key => $selector,
             'condition' => [
                 $id . '-img' => 'yes',
-                '((' . esc_attr($id) . '-select === \'media-library\' && ' . esc_attr($id) . '-image !== \'\') || (' . esc_attr($id) . '-select === \'custom-url\' && ' . esc_attr($id) . '-url !== \'\'))' => 'COMPILED',
+                '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
             ],
                 ]
         );
@@ -2362,7 +2362,7 @@ trait Sanitization {
             'return_value' => 'yes',
                 ]
         );
-        echo '</div>' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . esc_attr($arg['description']) . '</div>' : '') . '</div>';
+        echo '</div>' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '') . '</div>';
     }
 
     /*
@@ -2468,7 +2468,7 @@ trait Sanitization {
 
     public function add_substitute_control($id, array $data = [], array $arg = []) {
         $fun = $arg['type'] . '_substitute_control';
-        $this->$fun($id, $data, $arg);
+        echo $this->$fun($id, $data, $arg);
     }
 
     /*
@@ -2491,13 +2491,13 @@ trait Sanitization {
          */
         echo ' <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
-                        ' . esc_html($arg['title']) . '
+                        ' . $arg['title'] . '
                          <div class="oxi-head-toggle"></div>
                          </div>
                     <div class="oxi-addons-item-form-item shortcode-addons-templates-right-panel-body" id="oxi-addons-list-data-modal-open">
                         <span>
                             <i class="dashicons dashicons-plus-alt oxi-icons"></i>
-                            ' . esc_html($arg['sub-title']) . '
+                            ' . $arg['sub-title'] . '
                         </span>
                     </div>
                 </div>';
@@ -2517,14 +2517,14 @@ trait Sanitization {
          */
         echo ' <div class="oxi-addons-shortcode  shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
-                    ' . esc_html($arg['title']) . '
+                    ' . $arg['title'] . '
                     <div class="oxi-head-toggle"></div>
                 </div>
                 <div class="oxi-addons-shortcode-body  shortcode-addons-templates-right-panel-body">
                     <form method="post" id="shortcode-addons-name-change-submit">
                         <div class="input-group my-2">
-                            <input type="hidden" class="form-control" name="addonsstylenameid" value="' . esc_attr($data['id']) . '">
-                            <input type="text" class="form-control" name="addonsstylename" placeholder=" ' . esc_attr($arg['placeholder']) . '" value="' . esc_attr($data['name']) . '">
+                            <input type="hidden" class="form-control" name="addonsstylenameid" value="' . $data['id'] . '">
+                            <input type="text" class="form-control" name="addonsstylename" placeholder=" ' . $arg['placeholder'] . '" value="' . $data['name'] . '">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-success" id="addonsstylenamechange">Save</button>
                             </div>
@@ -2553,19 +2553,19 @@ trait Sanitization {
          */
         echo ' <div class="oxi-addons-shortcode shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
-                    ' . esc_html($arg['title']) . '
+                    ' . $arg['title'] . '
                     <div class="oxi-head-toggle"></div>
                 </div>
                 <div class="oxi-addons-shortcode-body shortcode-addons-templates-right-panel-body">
                     <em>Shortcode for posts/pages/plugins</em>
                     <p>Copy &amp;
                     paste the shortcode directly into any WordPress post, page or Page Builder.</p>
-                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . esc_attr($id) . '&quot;]">
+                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $id . '&quot;]">
                     <span></span>
                     <em>Shortcode for templates/themes</em>
                     <p>Copy &amp;
                     paste this code into a template file to include the slideshow within your theme.</p>
-                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="<?php echo do_shortcode(\'[ctu_ultimate_oxi  id=&quot;' . esc_attr($id) . '&quot;]\'); ?>">
+                    <input type="text" class="form-control" onclick="this.setSelectionRange(0, this.value.length)" value="<?php echo do_shortcode(\'[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]\'); ?>">
                     <span></span>
                 </div>
             </div>';
@@ -2585,13 +2585,13 @@ trait Sanitization {
          */
         echo '  <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
-                        ' . esc_html($arg['title']) . '
+                        ' . $arg['title'] . '
                         <div class="oxi-head-toggle"></div>
                     </div>
                     <div class="oxi-addons-item-form-item shortcode-addons-templates-right-panel-body" id="oxi-addons-rearrange-data-modal-open">
                         <span>
                         <i class="dashicons dashicons-plus-alt oxi-icons"></i>
-                        ' . esc_html($arg['sub-title']) . '
+                        ' . $arg['sub-title'] . '
                         </span>
                     </div>
                 </div>
@@ -2619,7 +2619,7 @@ trait Sanitization {
                             </div>
                         </form>
                     <div id="modal-rearrange-store-file">
-                        ' . esc_html($id) . '
+                        ' . $id . '
                     </div>
                 </div>
             </div>';

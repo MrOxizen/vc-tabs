@@ -206,37 +206,37 @@ class Style16 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="heading-font-size" class="col-sm-6 col-form-label" data-toggle="tooltip" data-placement="top" title="Customize Title Font Size, Based on Pixel">Font Size </label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[1]); ?>" id="heading-font-size" name="heading-font-size">
+                            <input class="form-control" type="number" value="<?php echo $styledata[1]; ?>" id="heading-font-size" name="heading-font-size">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-font-color" class="col-sm-6 control-label" data-toggle="tooltip" data-placement="top" title="Set Your Title Font Color, Based on Color">Color</label>
                         <div class="col-sm-6 ">
-                            <input type="text" class="form-control oxilab-vendor-color" id="heading-font-color" name="heading-font-color" value="<?php echo esc_attr($styledata[3]); ?>">
+                            <input type="text" class="form-control oxilab-vendor-color" id="heading-font-color" name="heading-font-color" value="<?php echo$styledata[3]; ?>">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-background-color" class="col-sm-6 control-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Set Your Title background Color, Based on Color">Background </label>
                         <div class="col-sm-6 ">
-                            <input type="text" class="form-control oxilab-vendor-color" id="heading-background-color" name="heading-background-color" value="<?php echo esc_attr($styledata[5]); ?>">
+                            <input type="text" class="form-control oxilab-vendor-color" id="heading-background-color" name="heading-background-color" value="<?php echo $styledata[5]; ?>">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-font-active-color" class="col-sm-6 control-label"  data-toggle="tooltip" data-placement="top" title="Customize Your Active Title Font Color, Based on Color">Color Active</label>
                         <div class="col-sm-6 ">
-                            <input type="text" class="form-control oxilab-vendor-color" id="heading-font-active-color" name="heading-font-active-color" value="<?php echo esc_attr($styledata[7]); ?>">
+                            <input type="text" class="form-control oxilab-vendor-color" id="heading-font-active-color" name="heading-font-active-color" value="<?php echo $styledata[7]; ?>">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-background-active-color" class="col-sm-6 control-label"  data-toggle="tooltip" data-placement="top" title="Set Your Active Title Background Color, Based on Color">Background Active </label>
                         <div class="col-sm-6 ">
-                            <input type="text" class="form-control oxilab-vendor-color" id="heading-background-active-color" name="heading-background-active-color" value="<?php echo esc_attr($styledata[9]); ?>">
+                            <input type="text" class="form-control oxilab-vendor-color" id="heading-background-active-color" name="heading-background-active-color" value="<?php echo $styledata[9]; ?>">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-font-familly" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Choose Your Title Preferred font, Based on Google Font"> Font Family </label>
                         <div class="col-sm-6 ">
-                            <input class="oxi-admin-font" type="text" name="heading-font-familly" id="heading-font-familly" value="<?php echo esc_attr($styledata[13]); ?>">
+                            <input class="oxi-admin-font" type="text" name="heading-font-familly" id="heading-font-familly" value="<?php echo $styledata[13]; ?>">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
@@ -351,13 +351,13 @@ class Style16 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="heading-icon-size" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Customize Icon Font Size, Based on Pixel">Icon Size </label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[21]); ?>" id="heading-icon-size" name="heading-icon-size">
+                            <input class="form-control" type="number" value="<?php echo $styledata[21]; ?>" id="heading-icon-size" name="heading-icon-size">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-icon-padding-bottom" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Generate Custom Space on Icon to Title, Based on Pixcel">Icon Padding Bottom</label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[23]); ?>" id="heading-icon-padding-bottom" name="heading-icon-padding-bottom">
+                            <input class="form-control" type="number" value="<?php echo $styledata[23]; ?>" id="heading-icon-padding-bottom" name="heading-icon-padding-bottom">
                         </div>
                     </div>
 
@@ -388,19 +388,19 @@ class Style16 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="heading-padding" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Use Padding to generate space around Title, Based on Pixel">Padding </label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[17]); ?>" id="heading-padding" name="heading-padding">
+                            <input class="form-control" type="number" value="<?php echo $styledata[17]; ?>" id="heading-padding" name="heading-padding">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-margin" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Use Margin to generate space between Title, Based on Pixel">Margin </label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[19]); ?>" id="heading-margin" name="heading-margin">
+                            <input class="form-control" type="number" value="<?php echo $styledata[19]; ?>" id="heading-margin" name="heading-margin">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-border-radius" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Add Rounded Corner on Title Box, Based on Pixel">Border Radius</label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[25]); ?>" id="heading-border-radius" name="heading-border-radius">
+                            <input class="form-control" type="number" value="<?php echo $styledata[25]; ?>" id="heading-border-radius" name="heading-border-radius">
                         </div>
                     </div>
 
@@ -412,25 +412,25 @@ class Style16 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="heading-box-shadow-Horizontal" class="col-sm-6 col-form-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Attach Shadow Length to Heading, Based on Pixel">Box Shadow Length</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[69]); ?>" id="heading-box-shadow-Horizontal" name="heading-box-shadow-Horizontal">
+                            <input class="form-control" type="number" value="<?php echo $styledata[69]; ?>" id="heading-box-shadow-Horizontal" name="heading-box-shadow-Horizontal">
                         </div>
                         <div class="col-sm-3">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[71]); ?>" id="heading-box-shadow-Vertical" name="heading-box-shadow-Vertical">
+                            <input class="form-control" type="number" value="<?php echo $styledata[71]; ?>" id="heading-box-shadow-Vertical" name="heading-box-shadow-Vertical">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-box-shadow-Blur" class="col-sm-6 col-form-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Attach Shadow Size to Heading, Based on Pixel">Box Shadow Radius</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[27]); ?>" id="heading-box-shadow-Blur" name="heading-box-shadow-Blur">
+                            <input class="form-control" type="number" value="<?php echo $styledata[27]; ?>" id="heading-box-shadow-Blur" name="heading-box-shadow-Blur">
                         </div>
                         <div class="col-sm-3">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[73]); ?>" id="heading-box-shadow-Spread" name="heading-box-shadow-Spread">
+                            <input class="form-control" type="number" value="<?php echo $styledata[73]; ?>" id="heading-box-shadow-Spread" name="heading-box-shadow-Spread">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="heading-box-shadow-color" class="col-sm-6 control-label"  data-toggle="tooltip" data-placement="top" title="Add custom color to Box Shadow">Box Shadow Color </label>
                         <div class="col-sm-6 ">
-                            <input type="text" data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="heading-box-shadow-color" name="heading-box-shadow-color" value="<?php echo esc_attr($styledata[29]); ?>">
+                            <input type="text" data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="heading-box-shadow-color" name="heading-box-shadow-color" value="<?php echo $styledata[29]; ?>">
                         </div>
                     </div>
                 </div>
@@ -445,25 +445,25 @@ class Style16 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="content-font-size" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title=" Customize Your Content Font Size, Based on Pixel">Font Size </label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[31]); ?>" id="content-font-size" name="content-font-size">
+                            <input class="form-control" type="number" value="<?php echo $styledata[31]; ?>" id="content-font-size" name="content-font-size">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-font-color" class="col-sm-6 control-label"  data-toggle="tooltip" data-placement="top" title=" Set Custom Content Font Color, Based on Color">Color </label>
                         <div class="col-sm-6 ">
-                            <input type="text" class="form-control oxilab-vendor-color" id="content-font-color" name="content-font-color" value="<?php echo esc_attr($styledata[33]); ?>">
+                            <input type="text" class="form-control oxilab-vendor-color" id="content-font-color" name="content-font-color" value="<?php echo $styledata[33]; ?>">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-line-height" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Customize Your Content Font Line Height, Based on Point">Line Height </label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" step="0.1" value="<?php echo esc_attr($styledata[47]); ?>" id="content-line-height" name="content-line-height">
+                            <input class="form-control" type="number" step="0.1" value="<?php echo $styledata[47]; ?>" id="content-line-height" name="content-line-height">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-font-familly" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Choose Your Content Font, Based on Google Font"> Font Family </label>
                         <div class="col-sm-6 ">
-                            <input class="oxi-admin-font" value="<?php echo esc_attr($styledata[49]); ?>" type="text" name="content-font-familly" id="content-font-familly">
+                            <input class="oxi-admin-font" value="<?php echo $styledata[49]; ?>" type="text" name="content-font-familly" id="content-font-familly">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
@@ -548,31 +548,31 @@ class Style16 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="content-background-color" class="col-sm-6 control-label"  data-toggle="tooltip" data-placement="top" title="Set Custom Background Color of Content Box">Background Color </label>
                         <div class="col-sm-6 ">
-                            <input type="text" class="form-control oxilab-vendor-color" id="content-background-color" name="content-background-color" value="<?php echo esc_attr($styledata[35]); ?>">
+                            <input type="text" class="form-control oxilab-vendor-color" id="content-background-color" name="content-background-color" value="<?php echo $styledata[35]; ?>">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-width" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Customize Your Content and title Box width Based on Full width Percentage">Content Width </label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" step="0.1" value="<?php echo esc_attr($styledata[37]); ?>" id="content-width" name="content-width">
+                            <input class="form-control" type="number" step="0.1" value="<?php echo $styledata[37]; ?>" id="content-width" name="content-width">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-padding-top" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Use Padding to Generate Space Around Content as Top, Bottom. Based on Pixel">Padding Top Bottom</label>
                         <div class="col-sm-3 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[39]); ?>" id="content-padding-top" name="content-padding-top">
+                            <input class="form-control" type="number" value="<?php echo $styledata[39]; ?>" id="content-padding-top" name="content-padding-top">
                         </div>
                         <div class="col-sm-3 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[43]); ?>" id="content-padding-bottom" name="content-padding-bottom">
+                            <input class="form-control" type="number" value="<?php echo $styledata[43]; ?>" id="content-padding-bottom" name="content-padding-bottom">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-padding-top" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Use Padding to Generate Space Around Content as Left, Right. Based on Pixel">Padding Left Right</label>
                         <div class="col-sm-3 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[45]); ?>" id="content-padding-left" name="content-padding-left">
+                            <input class="form-control" type="number" value="<?php echo $styledata[45]; ?>" id="content-padding-left" name="content-padding-left">
                         </div>
                         <div class="col-sm-3 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[41]); ?>" id="content-padding-right" name="content-padding-right">
+                            <input class="form-control" type="number" value="<?php echo $styledata[41]; ?>" id="content-padding-right" name="content-padding-right">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
@@ -600,7 +600,7 @@ class Style16 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="content-border-radius" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Add Rounded Corner on tabs, Based on Pixel">Border Radius </label>
                         <div class="col-sm-6 ">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[55]); ?>" id="content-border-radius" name="content-border-radius">
+                            <input class="form-control" type="number" value="<?php echo $styledata[55]; ?>" id="content-border-radius" name="content-border-radius">
                         </div>
                     </div>
                 </div>
@@ -611,25 +611,25 @@ class Style16 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="content-box-shadow-Horizontal" class="col-sm-6 col-form-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Attach Shadow Length to Tabs, Based on Pixel">Box Shadow  Length</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[63]); ?>" id="content-box-shadow-Horizontal" name="content-box-shadow-Horizontal">
+                            <input class="form-control" type="number" value="<?php echo $styledata[63]; ?>" id="content-box-shadow-Horizontal" name="content-box-shadow-Horizontal">
                         </div>
                         <div class="col-sm-3">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[65]); ?>" id="content-box-shadow-Vertical" name="content-box-shadow-Vertical">
+                            <input class="form-control" type="number" value="<?php echo $styledata[65]; ?>" id="content-box-shadow-Vertical" name="content-box-shadow-Vertical">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-box-shadow-Blur" class="col-sm-6 col-form-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Attach Shadow Size to Tabs, Based on Pixel">Box Shadow Radius</label>
                         <div class="col-sm-3">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[57]); ?>" id="content-box-shadow-Blur" name="content-box-shadow-Blur">
+                            <input class="form-control" type="number" value="<?php echo $styledata[57]; ?>" id="content-box-shadow-Blur" name="content-box-shadow-Blur">
                         </div>
                         <div class="col-sm-3">
-                            <input class="form-control" type="number" value="<?php echo esc_attr($styledata[67]); ?>" id="content-box-shadow-Spread" name="content-box-shadow-Spread">
+                            <input class="form-control" type="number" value="<?php echo $styledata[67]; ?>" id="content-box-shadow-Spread" name="content-box-shadow-Spread">
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-box-shadow-color" class="col-sm-6 control-label"  data-toggle="tooltip" data-placement="top" title="Add custom color to Box Shadow">Box Shadow Color </label>
                         <div class="col-sm-6 ">
-                            <input type="text" data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="content-box-shadow-color" name="content-box-shadow-color" value="<?php echo esc_attr($styledata[59]); ?>">
+                            <input type="text" data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="content-box-shadow-color" name="content-box-shadow-color" value="<?php echo $styledata[59]; ?>">
                         </div>
                     </div>
                 </div>
@@ -640,13 +640,148 @@ class Style16 extends Old_Admin {
             <div class="col-xs-12">
                 <div class="form-group">
                     <label for="custom-css">Custom CSS:</label>
-                    <textarea class="form-control" rows="4" id="custom-css" name="custom-css"><?php echo esc_attr($styledata[75]); ?></textarea>
+                    <textarea class="form-control" rows="4" id="custom-css" name="custom-css"><?php echo $styledata[75]; ?></textarea>
                     <small class="form-text text-muted">Add Your Custom CSS Unless make it blank.</small>
                 </div>
             </div>
         </div>
 
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery("#heading-font-size").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li{ font-size:" + jQuery('#heading-font-size').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-font-color").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li{ color:" + jQuery('#heading-font-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-background-color").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li{ background-color:" + jQuery('#heading-background-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-font-active-color").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li.active{ color:" + jQuery('#heading-font-active-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-background-active-color").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li.active{ background-color:" + jQuery('#heading-background-active-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-position").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> { float:" + jQuery('#heading-position').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery('#heading-font-familly').change(function () {
+                    var font = jQuery(this).val().replace(/\+/g, ' ');
+                    font = font.split(':');
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li{ font-family:" + font[0] + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-font-style").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li{ font-style: " + jQuery('#heading-font-style').val() + ";}</style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-font-weight").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li{ font-weight:" + jQuery('#heading-font-weight').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-padding").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li { padding: " + jQuery('#heading-padding').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-margin").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> { padding: " + jQuery('#heading-margin').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li{ margin-bottom: " + jQuery('#heading-margin').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li { padding: " + jQuery('#heading-margin').val() + "px 10px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
 
+                });
+                jQuery("#heading-icon-size").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo $styleid; ?> .vc-tabs-li .oxi-icons{ font-size: " + jQuery('#heading-icon-size').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-icon-padding-bottom").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo $styleid; ?> .vc-tabs-li .oxi-icons{ padding-bottom: " + jQuery('#heading-icon-padding-bottom').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-border-radius").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo $styleid; ?> .vc-tabs-li{ border-radius: " + jQuery('#heading-border-radius').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-box-shadow-Horizontal").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-box-shadow-Vertical").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-box-shadow-Blur").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-box-shadow-Spread").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#heading-box-shadow-color").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?> .vc-tabs-li {box-shadow:" + jQuery('#heading-box-shadow-Horizontal').val() + "px " + jQuery('#heading-box-shadow-Vertical').val() + "px " + jQuery('#heading-box-shadow-Blur').val() + "px " + jQuery('#heading-box-shadow-Spread').val() + "px " + jQuery('#heading-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-font-size").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs p{ font-size:" + jQuery('#content-font-size').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-font-color").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs p{ color:" + jQuery('#content-font-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-background-color").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo $styleid; ?> { background-color:" + jQuery('#content-background-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-width").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-style-<?php echo $styleid; ?>-content{ width:" + jQuery('#content-width').val() + "%;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulimate-style-<?php echo $styleid; ?>{ width:calc(100% - " + jQuery('#content-width').val() + "%);} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-padding-top").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs{padding: " + jQuery("#content-padding-top").val() + "px " + jQuery("#content-padding-right").val() + "px " + jQuery("#content-padding-bottom").val() + "px " + jQuery("#content-padding-left").val() + "px;} </style>").appendTo("#oxi-addons-preview-data");
+                });
+                jQuery("#content-padding-bottom").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs{padding: " + jQuery("#content-padding-top").val() + "px " + jQuery("#content-padding-right").val() + "px " + jQuery("#content-padding-bottom").val() + "px " + jQuery("#content-padding-left").val() + "px;} </style>").appendTo("#oxi-addons-preview-data");
+                });
+                jQuery("#content-padding-right").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs{padding: " + jQuery("#content-padding-top").val() + "px " + jQuery("#content-padding-right").val() + "px " + jQuery("#content-padding-bottom").val() + "px " + jQuery("#content-padding-left").val() + "px;} </style>").appendTo("#oxi-addons-preview-data");
+                });
+                jQuery("#content-padding-left").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs{padding: " + jQuery("#content-padding-top").val() + "px " + jQuery("#content-padding-right").val() + "px " + jQuery("#content-padding-bottom").val() + "px " + jQuery("#content-padding-left").val() + "px;} </style>").appendTo("#oxi-addons-preview-data");
+                });
+                jQuery("#content-line-height").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs p{ line-height:" + jQuery('#content-line-height').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery('#content-font-familly').change(function () {
+                    var font = jQuery(this).val().replace(/\+/g, ' ');
+                    font = font.split(':');
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs p{ font-family:" + font[0] + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-font-weight").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs p{ font-weight:" + jQuery('#content-font-weight').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-font-align").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ulitate-style-<?php echo $styleid; ?>-tabs p{ text-align:" + jQuery('#content-font-align').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-border-radius").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  .ctu-ultimate-wrapper-<?php echo $styleid; ?>{ border-radius:" + jQuery('#content-border-radius').val() + "px;} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data  @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo $styleid; ?>-tabs{ border-radius:" + jQuery('#content-border-radius').val() + "px;}} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+
+                });
+                jQuery("#content-box-shadow-Blur").on("change", function () {
+                    var idvalue = jQuery('#content-box-shadow-Horizontal').val() + 'px ' + jQuery('#content-box-shadow-Vertical').val() + 'px ' + jQuery('#content-box-shadow-Blur').val() + 'px ' + jQuery('#content-box-shadow-Spread').val() + 'px ' + jQuery('#content-box-shadow-color').val();
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data    .ctu-ultimate-wrapper-<?php echo $styleid; ?> {box-shadow :" + idvalue + ";} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo $styleid; ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-box-shadow-Horizontal").on("change", function () {
+                    var idvalue = jQuery('#content-box-shadow-Horizontal').val() + 'px ' + jQuery('#content-box-shadow-Vertical').val() + 'px ' + jQuery('#content-box-shadow-Blur').val() + 'px ' + jQuery('#content-box-shadow-Spread').val() + 'px ' + jQuery('#content-box-shadow-color').val();
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data    .ctu-ultimate-wrapper-<?php echo $styleid; ?> {box-shadow :" + idvalue + ";} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo $styleid; ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-box-shadow-Vertical").on("change", function () {
+                    var idvalue = jQuery('#content-box-shadow-Horizontal').val() + 'px ' + jQuery('#content-box-shadow-Vertical').val() + 'px ' + jQuery('#content-box-shadow-Blur').val() + 'px ' + jQuery('#content-box-shadow-Spread').val() + 'px ' + jQuery('#content-box-shadow-color').val();
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data    .ctu-ultimate-wrapper-<?php echo $styleid; ?> {box-shadow :" + idvalue + ";} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo $styleid; ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-box-shadow-Spread").on("change", function () {
+                    var idvalue = jQuery('#content-box-shadow-Horizontal').val() + 'px ' + jQuery('#content-box-shadow-Vertical').val() + 'px ' + jQuery('#content-box-shadow-Blur').val() + 'px ' + jQuery('#content-box-shadow-Spread').val() + 'px ' + jQuery('#content-box-shadow-color').val();
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data    .ctu-ultimate-wrapper-<?php echo $styleid; ?> {box-shadow :" + idvalue + ";} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo $styleid; ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                });
+                jQuery("#content-box-shadow-color").on("change", function () {
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data   .ctu-ultimate-wrapper-<?php echo $styleid; ?>{box-shadow:" + jQuery('#content-box-shadow-Horizontal').val() + "px " + jQuery('#content-box-shadow-Vertical').val() + "px " + jQuery('#content-box-shadow-Blur').val() + "px " + jQuery('#content-box-shadow-Spread').val() + "px " + jQuery('#content-box-shadow-color').val() + ";} </style>").appendTo(".ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+                    jQuery("<style type='text/css'>#oxi-addons-preview-data   @media only screen and (max-width: 900px) {.ctu-ulitate-style-<?php echo $styleid; ?>-tabs {box-shadow :" + idvalue + ";}} </style>").appendTo(" .ctu-ultimate-wrapper-<?php echo $styleid; ?>");
+
+                });
+
+            });
+        </script>
         <?php
     }
 
@@ -654,17 +789,17 @@ class Style16 extends Old_Admin {
         ?>
         <div class="form-group col-sm-12">
             <label for="ctu-title"  data-toggle="tooltip" data-placement="top">Title</label>
-            <input type="text "class="form-control" id="cau-title" name="ctu-title" value="<?php echo esc_attr($this->title); ?>">
+            <input type="text "class="form-control" id="cau-title" name="ctu-title" value="<?php echo $this->title; ?>">
             <small class="form-text text-muted">Add or Modify Your Tabs Title.</small>
         </div>
         <div class="form-group">
             <label for="ctu-icon">Font Awesome Icon</label>
-            <input type="text "class="form-control" id="ctu-icon" name="ctu-icon" value="<?php echo esc_attr($this->css); ?>">
+            <input type="text "class="form-control" id="ctu-icon" name="ctu-icon" value="<?php echo $this->css; ?>">
             <small class="form-text text-muted">Use Font Awesome icon As icon example fas fa-address-book</small>
         </div>
         <div class="form-group col-sm-12">
             <label for="ctu-link"  data-toggle="tooltip" data-placement="top">Link</label>
-            <input type="text "class="form-control" id="ctu-link" name="ctu-link" value="<?php echo esc_attr($this->link); ?>">
+            <input type="text "class="form-control" id="ctu-link" name="ctu-link" value="<?php echo $this->link; ?>">
             <small class="form-text text-muted">As you want to add link. Unless make it blank. Link will works only at site not edit page</small>
         </div>
 

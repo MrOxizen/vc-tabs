@@ -39,30 +39,6 @@ jQuery.noConflict();
         }
     }
 
-//    $(".oxi-addons-switcher-btn:not(.oxi-addons-switcher-btn-unset)").on("click", delay(function (e) {
-//        var $This = $(this), name = $This.attr('name'), $value = '', $link = $(this).parents('.oxi-sa-cards').children('.responsive_tabs_with_accordions_license_massage');
-//        if ($(this).is(":checked")) {
-//            var $value = 'yes';
-//        }
-//        var rawdata = JSON.stringify({name: name, value: $value});
-//        if (name === 'oxilab_tabs_woocommerce') {
-//            if ($value === 'yes') {
-//                $('.oxilab_tabs_woocommerce_active').slideDown();
-//            } else {
-//                $('.oxilab_tabs_woocommerce_active').slideUp();
-//            }
-//        }
-//        var functionname = "oxi_settings";
-//        $link.html('<span class="spinner sa-spinner-open"></span>');
-//        Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
-//            $link.html(callback);
-//            setTimeout(function () {
-//                $link.html('');
-//            }, 8000);
-//
-//        });
-//    }, 1000));
-
     $("input[name=oxilab_tabs_woocommerce] ").on("change", function (e) {
         var $This = $(this), name = $This.attr('name'), $value = '', $link = $(this).parents('.oxi-sa-cards').children('.responsive_tabs_with_accordions_license_massage');
         if ($(this).is(":checked")) {
@@ -143,7 +119,7 @@ jQuery.noConflict();
     });
 
     $('.oxilab_tabs_woo_layouts_icon_field').iconpicker();
-    
+
     $("#oxi-addons-customize_default_tabs_form").submit(function (e) {
         e.preventDefault();
         $This = $(this);
@@ -159,18 +135,6 @@ jQuery.noConflict();
             }, 3000);
         });
     });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

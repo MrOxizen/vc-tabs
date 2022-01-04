@@ -101,8 +101,8 @@ class Support_Recommended {
                         <p></p>
                         <div class="oxi-addons-admin-notifications-holder">
                             <div class="oxi-addons-admin-notifications-alert">
-                               <p>Thank you for using my Responsive Tabs with Accordions. ' . esc_html($recommend['modules-massage']) . '</p>
-                                <p><a href="' . esc_url($install_url) . '" class="button button-large button-primary">' . esc_html__('Install Now', 'vc-tabs') . '</a> &nbsp;&nbsp;<a href="#" class="button button-large button-secondary oxi-tabs-admin-recommended-dismiss" sup-data="done">No, Thanks</a></p>
+                                <p>Thank you for using my Responsive Tabs with Accordions. ' . esc_html($recommend['modules-massage']) . '</p>
+                                <p>' . sprintf('<a href="%s" class="button button-large button-primary">%s</a>', esc_url($install_url), esc_html__('Install Now', 'vc-tabs')) . ' &nbsp;&nbsp;<a href="#" class="button button-large button-secondary oxi-tabs-admin-recommended-dismiss" sup-data="done">No, Thanks</a></p>
                             </div>
                         </div>
                         <p></p>

@@ -15,7 +15,7 @@ jQuery.noConflict();
         return str;
     }
 
-    async function OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, callback) {
+  async function OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, callback) {
         if (functionname === "") {
             alert('Confirm Function Name');
             return false;
@@ -25,9 +25,9 @@ jQuery.noConflict();
             result = await $.ajax({
                 url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
                 method: 'POST',
-
+                
                 data: {
-                    _wpnonce: oxilabtabsultimate.nonce,
+                       _wpnonce: oxilabtabsultimate.nonce,
                     styleid: styleid,
                     childid: childid,
                     rawdata: rawdata
@@ -151,19 +151,6 @@ jQuery.noConflict();
         e.preventDefault();
         $('#oxi-addons-preview-data').css("background-color", $(this).val());
     });
-    var str = '<script type="text/javascript">';
-    str += 'setTimeout(function () {';
-    str += ' jQuery(".media-button-insert").on("click", function () {';
-    str += ' jQuery("#oxilab-add-new-data").css({"overflow-x": "hidden", "overflow-y": "auto"});jQuery("body").css({ "overflow" : "hidden" });';
-    str += ' });';
-    str += ' jQuery(".media-modal-close").on("click", function () {';
-    str += ' jQuery("#oxilab-add-new-data").css({"overflow-x": "hidden", "overflow-y": "auto"});jQuery("body").css({ "overflow" : "hidden" });';
-    str += '});';
-    str += '}, 1000);';
-    str += '<';
-    str += '/script>';
-    jQuery('#insert-media-button').on('click', function () {
-        jQuery(str).appendTo("#oxi-addons-style-left");
-    });
+
 
 })(jQuery);

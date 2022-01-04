@@ -30,7 +30,7 @@ trait CSS_JS_Loader {
         wp_enqueue_script('oxilab-bootstrap', OXI_TABS_URL . 'assets/backend/js/bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('jquery.serializejson.min', OXI_TABS_URL . 'assets/backend/js/jquery.serializejson.min.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_localize_script('oxilab-bootstrap', 'oxilabtabsultimate', array(
-            'root' => esc_url(rest_url()),
+            'root' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest')
         ));
     }

@@ -180,16 +180,32 @@ class Render {
             $CLASS = new $cls('admin');
             $inlinecss .= $CLASS->inline_template_css_render($this->style);
         } else {
-            $this->font_familly_validation(json_decode(($this->dbdata['font_family'] != '' ? $this->dbdata['font_family'] : "[]"), true));
+            echo $this->font_familly_validation(json_decode(($this->dbdata['font_family'] != '' ? $this->dbdata['font_family'] : "[]"), true));
             $inlinecss .= $this->CSSDATA;
         }
         if ($inlinejs != ''):
-            $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
-            wp_add_inline_script($this->JSHANDLE, $jquery);
+            if ($this->admin == 'admin'):
+                echo'<script>
+                        (function ($) {
+                            setTimeout(function () {';
+                echo $inlinejs;
+                echo '    }, 2000);
+                        })(jQuery)</script>';
+            else:
+                $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
+                wp_add_inline_script($this->JSHANDLE, $jquery);
+            endif;
         endif;
         if ($inlinecss != ''):
             $inlinecss = html_entity_decode($inlinecss);
-            wp_add_inline_style('oxi-tabs-ultimate', $inlinecss);
+            if ($this->admin == 'admin'):
+                //only load while ajax called
+                echo '<style>';
+                echo $inlinecss;
+                echo '</style>';
+            else:
+                wp_add_inline_style('oxi-tabs-ultimate', $inlinecss);
+            endif;
         endif;
     }
 
@@ -443,14 +459,14 @@ class Render {
                 $public .= '<div class="oxi-tabs-comment">';
                 if ($show_avatar) :
                     $public .= ' <div class="oxi-tabs-comment-avatar">
-                                    <a href="' . esc_url(get_comment_link($comment->comment_ID)) . '">
+                                    <a href="' . get_comment_link($comment->comment_ID) . '">
                                         ' . get_avatar($comment->comment_author_email, $avatar_size) . '
                                     </a>
                                 </div>';
                 endif;
                 $public .= '<div class="oxi-tabs-comment-body">
                                 <div class=oxi-tabs-comment-meta">
-                                    <a href="' . esc_url(get_comment_link($comment->comment_ID)) . '">
+                                    <a href="' . get_comment_link($comment->comment_ID) . '">
                                         <span class="oxi-tabs-comment-author">' . get_comment_author($comment->comment_ID) . ' </span> - <span class="oxi-tabs-comment-post">' . get_the_title($comment->comment_post_ID) . '</span>
                                     </a>
                                 </div>
@@ -503,14 +519,14 @@ class Render {
                 if ($show_thumb) {
                     $image = $image_url[0] != '' ? $image_url[0] : '';
                     $public .= '    <div class="oxi-tabs-recent-avatar">
-                                        <a href="' . esc_url(get_permalink($query->post->ID)) . '">
-                                           <img class="oxi-image" src="' . esc_url($image) . '">
+                                        <a href="' . get_permalink($query->post->ID) . '">
+                                           <img class="oxi-image" src="' . $image . '">
                                         </a>
                                     </div>';
                 }
                 $public .= '<div class="oxi-tabs-recent-body">
                                 <div class="oxi-tabs-recent-meta">
-                                    <a href="' . esc_url(get_permalink($query->post->ID)) . '">
+                                    <a href="' . get_permalink($query->post->ID) . '">
                                         ' . get_the_title($query->post->ID) . '
                                     </a>
                                 </div>
@@ -569,14 +585,14 @@ class Render {
                 if ($show_thumb) {
                     $image = $image_url[0] != '' ? $image_url[0] : '';
                     $public .= '    <div class="oxi-tabs-popular-avatar">
-                                        <a href="' . esc_url(get_permalink($query->post->ID)) . '">
+                                        <a href="' . get_permalink($query->post->ID) . '">
                                            <img class="oxi-image" src="' . $image . '">
                                         </a>
                                     </div>';
                 }
                 $public .= '<div class="oxi-tabs-popular-body">
                                 <div class="oxi-tabs-popular-meta">
-                                    <a href="' . esc_url(get_permalink($query->post->ID)) . '">
+                                    <a href="' . get_permalink($query->post->ID) . '">
                                         ' . get_the_title($query->post->ID) . '
                                     </a>
                                 </div>
@@ -614,7 +630,8 @@ class Render {
         elseif ($child['oxi-tabs-modal-components-type'] == 'nested-tabs'):
             return $this->tabs_content_render_nested_tabs($style, $child);
         else:
-            return $this->special_charecter($child['oxi-tabs-modal-desc']);
+            $content = $this->special_charecter($child['oxi-tabs-modal-desc']);
+            return $content;
         endif;
     }
 
@@ -667,6 +684,7 @@ class Render {
         $r .= '</div>';
         if ($t):
             return $r;
+
         endif;
     }
 

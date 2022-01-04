@@ -17,6 +17,9 @@ class Support_Reviews {
      *
      */
     public function __construct() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
         add_action('admin_notices', array($this, 'first_install'));
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
         add_action('wp_ajax_oxilab_tabs_notice_dissmiss', array($this, 'notice_dissmiss'));
