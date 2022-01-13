@@ -114,7 +114,7 @@ class Admin {
 
     public function __construct($type = '') {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
-        $this->oxiid = (!empty($_GET['styleid']) ? sanitize_text_field($_GET['styleid']) : '');
+        $this->oxiid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
         $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
         $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
         if ($type != 'admin') {

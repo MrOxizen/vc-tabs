@@ -32,7 +32,6 @@ class Template {
      */
     public $database;
 
-
     /**
      * Template constructor.
      */
@@ -50,11 +49,9 @@ class Template {
         add_dashboard_page('', '', 'read', 'oxi-tabs-style-view', '');
     }
 
-   
-
     public function maybe_load_template() {
         $this->oxiid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
-        $page = (isset($_GET['page']) ? $_GET['page'] : '');
+        $page = (isset($_GET['page']) ? $this->validate_post($_GET['page']) : '');
         if ('oxi-tabs-style-view' !== $page || $this->oxiid < 0) {
             return;
         }
@@ -92,7 +89,7 @@ class Template {
             <meta name="viewport" content="width=device-width"/>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
             <title><?php esc_html_e('Responsive Tabs &rsaquo; Admin template', 'vc-tabs'); ?></title>
-            <?php wp_head(); ?>
+        <?php wp_head(); ?>
         </head>
         <body class="shortcode-addons-template-body" id="shortcode-addons-template-body">
             <?php
@@ -115,7 +112,8 @@ class Template {
             <?php wp_footer(); ?>
         </body>
         </html>
-        <?php
-    }
+            <?php
+        }
 
-}
+    }
+    

@@ -151,7 +151,7 @@ trait Admin_helper {
                         <nav class="oxilab-sa-admin-nav">
                             <ul class="oxilab-sa-admin-menu">';
 
-        $GETPage = sanitize_text_field($_GET['page']);
+        $GETPage = $this->validate_post($_GET['page']);
 
         foreach ($response as $key => $value) {
             $active = ($GETPage == $value['homepage'] ? ' class="active" ' : '');

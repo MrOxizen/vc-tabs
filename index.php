@@ -6,7 +6,7 @@
   Description: Tabs – Responsive Tabs with WooCommerce Product Tab Extension is essayist way to awesome WordPress Responsive Tabs Plugin with many features.
   Author: Biplob Adhikari
   Author URI: http://www.oxilab.org/
-  Version: 3.8.0
+  Version: 3.8.1
  */
 if (!defined('ABSPATH'))
     exit;
@@ -15,7 +15,7 @@ define('OXI_TABS_FILE', __FILE__);
 define('OXI_TABS_BASENAME', plugin_basename(__FILE__));
 define('OXI_TABS_PATH', plugin_dir_path(__FILE__));
 define('OXI_TABS_URL', plugins_url('/', __FILE__));
-define('OXI_TABS_PLUGIN_VERSION', '3.8.0');
+define('OXI_TABS_PLUGIN_VERSION', '3.8.1');
 define('OXI_TABS_TEXTDOMAIN', 'oxi-tabs-plugin');
 
 /**

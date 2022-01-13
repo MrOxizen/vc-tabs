@@ -40,7 +40,7 @@ class Create {
      */
     public function __construct() {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
-        $this->layouts = (isset($_GET) ? $_GET : '');
+        $this->layouts = (isset($_GET) ? $this->validate_post($_GET) : '');
         $this->CSSJS_load();
         $this->Render();
     }

@@ -3,9 +3,9 @@ Contributors: biplob018
 Donate link: https://www.oxilab.org
 Tags: tab, tabs, responsive tabs, woocommerce tabs, tabs content, product tabs, custom tabs, woocommerce custom tabs
 Requires at least: 3.8
-Stable tag: 3.8.0
+Stable tag: 3.8.1
 Requires PHP: 5.4
-Tested up to: 5.8.2
+Tested up to: 5.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,6 +253,9 @@ On Non Responsive Themes Our Responsive Tabs with WooCommerce Custom Tabs Extens
 
 
 == Changelog ==
+= 3.8.1 =
+*Html tag supported
+
 = 3.8.0 =
 *Update Rest API Hooks
 *Import Export Options
@@ -355,6 +358,9 @@ Fixed Admin Bugs
 
 
 == Upgrade Notice ==
+= 3.8.1 =
+Html tag supported
+
 = 3.8.0 =
 Update Rest API Hooks
 Import Export Options
