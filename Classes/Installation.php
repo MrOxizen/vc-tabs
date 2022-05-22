@@ -90,7 +90,7 @@ class Installation {
      */
     public function plugin_upgrade_hook($upgrader_object, $options) {
         if ($options['action'] == 'update' && $options['type'] == 'plugin') {
-            if (isset($options['plugins']['vc-tabs'])) {
+            if (isset($options['plugins'][OXI_TABS_TEXTDOMAIN])) {
                 $this->Tabs_Datatase();
                 $this->Tabs_Post_Count();
             }

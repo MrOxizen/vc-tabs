@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Old Style
  *
@@ -121,7 +118,7 @@ class Style11 extends Old_Render {
         .ctu-ulimate-style-' . $styleid . ' .vc-tabs-li:last-child{
             margin-right: 0;
         }
-        .ctu-ulimate-style-' . $styleid . ' .vc-tabs-li span .oxi-icons,
+        .ctu-ulimate-style-' . $styleid . ' .vc-tabs-li span .oxi-icons,  
         .ctu-ultimate-style-heading-' . $styleid . ' span i{
             padding-right: 8px !important;
             font-size: ' . $styledata[21] . 'px !important;
@@ -162,8 +159,8 @@ class Style11 extends Old_Render {
         .ctu-ulitate-style-' . $styleid . '-tabs{
             width: 100%;
             float: left;
-            display: none;
-            background-color: ' . $styledata[31] . ';
+            display: none;            
+            background-color: ' . $styledata[31] . ';           
             padding: ' . $styledata[33] . 'px ' . $styledata[35] . 'px ' . $styledata[37] . 'px ' . $styledata[39] . 'px ;
             text-align: ' . $styledata[47] . ';
             box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . ';
@@ -219,9 +216,9 @@ class Style11 extends Old_Render {
                 $this->JQUERY .= '$(".vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '").click(function() {window.open("' . $titlefiles[1] . '" ' . $linkopening . ');});';
             }
             echo ' <div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '" style="color :' . $cssfile[1] . '; border-color: ' . $cssfile[1] . '">
-                                <span>
+                                <span> 
                                     ' . $this->icon_font_selector($cssfile[3]) . '
-                                    ' . $this->special_charecter($titlefiles[0]) . '
+                                    ' . $this->special_charecter($titlefiles[0]) . ' 
                                 </span>
                             </div>';
         }
@@ -231,9 +228,9 @@ class Style11 extends Old_Render {
         foreach ($this->child as $value) {
             $cssfile = explode('|', $value['css']);
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo '  <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '" style="color :' . $cssfile[1] . '">
-                        <span>
-                             ' . $this->special_charecter($titlefiles[0]) . '
+            echo '  <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '" style="color :' . $cssfile[1] . '"> 
+                        <span> 
+                             ' . $this->special_charecter($titlefiles[0]) . ' 
                         </span>
                     </div>
                     <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">

@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Page;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Welcome
  *

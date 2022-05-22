@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  *
  * @author $biplob018
@@ -14,7 +11,7 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 trait Sanitization {
 
     /**
-     * font settings sanitize
+     * font settings sanitize 
      * works at layouts page to adding font Settings sanitize
      */
     public function AdminTextSenitize($data) {
@@ -44,7 +41,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel header
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -58,7 +55,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Body
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -74,7 +71,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel end Body
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -84,7 +81,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Col 6 or Entry devider
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -94,7 +91,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel end Entry Divider
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -103,8 +100,8 @@ trait Sanitization {
     }
 
     /*
-     * Oxi Tabs Style Admin Panel Form Dependency
-     *
+     * Oxi Tabs Style Admin Panel Form Dependency 
+     * 
      * @since 3.3.0
      */
 
@@ -155,7 +152,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Each Tabs
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -173,7 +170,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel end Each Tabs
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -184,7 +181,7 @@ trait Sanitization {
     /*
      * Oxi Tabs Style Admin Panel Section Inner Tabs
      * This Tabs like inner tabs as Normal view and Hover View
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -209,7 +206,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel end Section Inner Tabs
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -219,7 +216,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Section Inner Tabs Child
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -229,7 +226,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel End Section Inner Tabs Child
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -239,7 +236,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel  Section Popover
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -250,27 +247,28 @@ trait Sanitization {
             $this->Popover_Condition = false;
         endif;
 
+
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
         echo '  <div class="shortcode-form-control shortcode-control-type-popover ' . $separator . '" ' . $condition . '>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover">
                         <div class="shortcode-form-control-field">
-                            <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>
+                            <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>  
                             <div class="shortcode-form-control-input-wrapper">
                                 <span class="dashicons popover-set"></span>
                             </div>
                         </div>
                         ' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '') . '
-
+                        
                     </div>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover-body">
-
+                        
                ';
     }
 
     /*
      * Oxi Tabs Style Admin Panel end Popover
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -281,8 +279,8 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Form Add Control.
-     * Call All Input Control from here Based on Control Name.
-     *
+     * Call All Input Control from here Based on Control Name. 
+     * 
      * @since 3.3.0
      */
 
@@ -321,16 +319,16 @@ trait Sanitization {
             'type' => 'text',
             'label' => 'Input Text',
             'default' => '',
-            'label_on' => esc_html__('Yes', 'vc-tabs'),
-            'label_off' => esc_html__('No', 'vc-tabs'),
-            'placeholder' => esc_html__('', 'vc-tabs'),
+            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
+            'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
+            'placeholder' => __('', OXI_TABS_TEXTDOMAIN),
             'selector-data' => TRUE,
             'render' => TRUE,
             'responsive' => 'laptop',
         ];
 
         /*
-         * Data Currection while Its comes from group Control
+         * Data Currection while Its comes from group Control 
          */
         if (array_key_exists('selector-value', $arg)) :
             foreach ($arg['selector'] as $key => $value) {
@@ -342,16 +340,16 @@ trait Sanitization {
         if ($arg['type'] == 'animation'):
             $arg['type'] = 'select';
             $arg['options'] = [
-                '' => esc_html__('None', 'vc-tabs'),
-                'bounce' => esc_html__('Bounce', 'vc-tabs'),
-                'flash' => esc_html__('Flash', 'vc-tabs'),
-                'pulse' => esc_html__('Pulse', 'vc-tabs'),
-                'rubberBand' => esc_html__('RubberBand', 'vc-tabs'),
-                'shake' => esc_html__('Shake', 'vc-tabs'),
-                'swing' => esc_html__('Swing', 'vc-tabs'),
-                'tada' => esc_html__('Tada', 'vc-tabs'),
-                'wobble' => esc_html__('Wobble', 'vc-tabs'),
-                'jello' => esc_html__('Jello', 'vc-tabs'),
+                '' => __('None', OXI_TABS_TEXTDOMAIN),
+                'bounce' => __('Bounce', OXI_TABS_TEXTDOMAIN),
+                'flash' => __('Flash', OXI_TABS_TEXTDOMAIN),
+                'pulse' => __('Pulse', OXI_TABS_TEXTDOMAIN),
+                'rubberBand' => __('RubberBand', OXI_TABS_TEXTDOMAIN),
+                'shake' => __('Shake', OXI_TABS_TEXTDOMAIN),
+                'swing' => __('Swing', OXI_TABS_TEXTDOMAIN),
+                'tada' => __('Tada', OXI_TABS_TEXTDOMAIN),
+                'wobble' => __('Wobble', OXI_TABS_TEXTDOMAIN),
+                'jello' => __('Jello', OXI_TABS_TEXTDOMAIN),
             ];
         endif;
 
@@ -378,7 +376,7 @@ trait Sanitization {
     /*
      * Oxi Tabs Style Admin Panel Responsive Control.
      * Can Possible to modify any Add control to Responsive Control
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -429,7 +427,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Group Control.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -469,7 +467,7 @@ trait Sanitization {
         }
         echo '          <div class="shortcode-form-control-input-wrapper">
                             <input type="hidden" value="' . $value . '" name="' . $id . '" id="' . $id . '">
-                        </div>
+                        </div>      
                     </div>
                 </div>
             </div>';
@@ -477,7 +475,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Heading Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -487,7 +485,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Switcher Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -497,7 +495,7 @@ trait Sanitization {
 
     public function multiple_selector_handler($data, $val) {
 
-        $val = preg_replace_callback('/\{\{\K(.*?)(?=}})/', function ($match)use ($data) {
+        $val = preg_replace_callback('/\{\{\K(.*?)(?=}})/', function($match)use ($data) {
             $ER = explode('.', $match[0]);
             if (strpos($match[0], 'SIZE') !== FALSE):
                 $size = array_key_exists($ER[0] . '-size', $data) ? $data[$ER[0] . '-size'] : '';
@@ -518,14 +516,14 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Switcher Input.
-     *
+     * 
      * @since 3.3.0
      */
 
     public function switcher_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <label class="shortcode-switcher">
+                    <label class="shortcode-switcher">  
                         <input type="checkbox" ' . ($value == $arg['return_value'] ? 'checked ckdflt="true"' : '') . ' value="' . $arg['return_value'] . '"  name="' . $id . '" id="' . $id . '"/>
                         <span data-on="' . $arg['label_on'] . '" data-off="' . $arg['label_off'] . '"></span>
                     </label>
@@ -534,7 +532,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Text Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -554,7 +552,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Hidden Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -585,7 +583,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Textarea Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -599,7 +597,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel WYSIWYG Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -621,7 +619,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Image Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -647,7 +645,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Number Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -680,7 +678,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Slider Input.
-     *
+     * 
      * @since 3.3.0
      * Done With Number Information
      */
@@ -729,7 +727,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Select Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -737,6 +735,7 @@ trait Sanitization {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
+
 
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
@@ -786,13 +785,14 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Choose Input.
-     *
+     * 
      * @since 3.3.0
      */
 
     public function choose_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
+
 
         $operator = array_key_exists('operator', $arg) ? $arg['operator'] : 'text';
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
@@ -829,7 +829,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Color Input.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -900,7 +900,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Icon Selector.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -915,7 +915,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Font Selector.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -952,7 +952,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Date and Time Selector.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -972,7 +972,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Gradient Selector.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -1005,7 +1005,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Dimensions Selector.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -1078,7 +1078,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Typography.
-     *
+     * 
      * @since 3.3.0
      * Simple Interface Enable
      */
@@ -1113,7 +1113,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-font', $data, [
-            'label' => esc_html__('Font Family', 'vc-tabs'),
+            'label' => __('Font Family', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::FONT,
             $selectorvalue => 'font-family:\'{{VALUE}}\';',
             $selector_key => $selector,
@@ -1123,7 +1123,7 @@ trait Sanitization {
         if (!array_key_exists('typo-font-size', $arg) || $arg['typo-font-size'] == true):
             $this->add_responsive_control(
                     $id . '-size', $data, [
-                'label' => esc_html__('Size', 'vc-tabs'),
+                'label' => __('Size', OXI_TABS_TEXTDOMAIN),
                 'type' => Controls::SLIDER,
                 'default' => [
                     'unit' => 'px',
@@ -1158,40 +1158,41 @@ trait Sanitization {
             );
         endif;
 
+
         $this->add_control(
                 $id . '-weight', $data, [
-            'label' => esc_html__('Weight', 'vc-tabs'),
+            'label' => __('Weight', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             $selectorvalue => 'font-weight: {{VALUE}};',
             $loader => $loadervalue,
             $selector_key => $selector,
             'options' => [
-                '100' => esc_html__('100', 'vc-tabs'),
-                '200' => esc_html__('200', 'vc-tabs'),
-                '300' => esc_html__('300', 'vc-tabs'),
-                '400' => esc_html__('400', 'vc-tabs'),
-                '500' => esc_html__('500', 'vc-tabs'),
-                '600' => esc_html__('600', 'vc-tabs'),
-                '700' => esc_html__('700', 'vc-tabs'),
-                '800' => esc_html__('800', 'vc-tabs'),
-                '900' => esc_html__('900', 'vc-tabs'),
-                '' => esc_html__('Default', 'vc-tabs'),
-                'normal' => esc_html__('Normal', 'vc-tabs'),
-                'bold' => esc_html__('Bold', 'vc-tabs')
+                '100' => __('100', OXI_TABS_TEXTDOMAIN),
+                '200' => __('200', OXI_TABS_TEXTDOMAIN),
+                '300' => __('300', OXI_TABS_TEXTDOMAIN),
+                '400' => __('400', OXI_TABS_TEXTDOMAIN),
+                '500' => __('500', OXI_TABS_TEXTDOMAIN),
+                '600' => __('600', OXI_TABS_TEXTDOMAIN),
+                '700' => __('700', OXI_TABS_TEXTDOMAIN),
+                '800' => __('800', OXI_TABS_TEXTDOMAIN),
+                '900' => __('900', OXI_TABS_TEXTDOMAIN),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'normal' => __('Normal', OXI_TABS_TEXTDOMAIN),
+                'bold' => __('Bold', OXI_TABS_TEXTDOMAIN)
             ],
                 ]
         );
         $this->add_control(
                 $id . '-transform', $data, [
-            'label' => esc_html__('Transform', 'vc-tabs'),
+            'label' => __('Transform', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'uppercase' => esc_html__('Uppercase', 'vc-tabs'),
-                'lowercase' => esc_html__('Lowercase', 'vc-tabs'),
-                'capitalize' => esc_html__('Capitalize', 'vc-tabs'),
-                'none' => esc_html__('Normal', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'uppercase' => __('Uppercase', OXI_TABS_TEXTDOMAIN),
+                'lowercase' => __('Lowercase', OXI_TABS_TEXTDOMAIN),
+                'capitalize' => __('Capitalize', OXI_TABS_TEXTDOMAIN),
+                'none' => __('Normal', OXI_TABS_TEXTDOMAIN),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'text-transform: {{VALUE}};',
@@ -1200,14 +1201,14 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-style', $data, [
-            'label' => esc_html__('Style', 'vc-tabs'),
+            'label' => __('Style', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'normal' => esc_html__('normal', 'vc-tabs'),
-                'italic' => esc_html__('Italic', 'vc-tabs'),
-                'oblique' => esc_html__('Oblique', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'normal' => __('normal', OXI_TABS_TEXTDOMAIN),
+                'italic' => __('Italic', OXI_TABS_TEXTDOMAIN),
+                'oblique' => __('Oblique', OXI_TABS_TEXTDOMAIN),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'font-style: {{VALUE}};',
@@ -1216,15 +1217,15 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-decoration', $data, [
-            'label' => esc_html__('Decoration', 'vc-tabs'),
+            'label' => __('Decoration', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'underline' => esc_html__('Underline', 'vc-tabs'),
-                'overline' => esc_html__('Overline', 'vc-tabs'),
-                'line-through' => esc_html__('Line Through', 'vc-tabs'),
-                'none' => esc_html__('None', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'underline' => __('Underline', OXI_TABS_TEXTDOMAIN),
+                'overline' => __('Overline', OXI_TABS_TEXTDOMAIN),
+                'line-through' => __('Line Through', OXI_TABS_TEXTDOMAIN),
+                'none' => __('None', OXI_TABS_TEXTDOMAIN),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'text-decoration: {{VALUE}};',
@@ -1235,14 +1236,14 @@ trait Sanitization {
             if ($arg['include'] == 'align_normal') :
                 $this->add_responsive_control(
                         $id . '-align', $data, [
-                    'label' => esc_html__('Text Align', 'vc-tabs'),
+                    'label' => __('Text Align', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SELECT,
                     'default' => '',
                     'options' => [
-                        '' => esc_html__('Default', 'vc-tabs'),
-                        'left' => esc_html__('Left', 'vc-tabs'),
-                        'center' => esc_html__('Center', 'vc-tabs'),
-                        'right' => esc_html__('Right', 'vc-tabs'),
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'left' => __('Left', OXI_TABS_TEXTDOMAIN),
+                        'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                        'right' => __('Right', OXI_TABS_TEXTDOMAIN),
                     ],
                     $loader => $loadervalue,
                     $selectorvalue => 'text-align: {{VALUE}};',
@@ -1252,16 +1253,16 @@ trait Sanitization {
             else :
                 $this->add_responsive_control(
                         $id . '-justify', $data, [
-                    'label' => esc_html__('Justify Content', 'vc-tabs'),
+                    'label' => __('Justify Content', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SELECT,
                     'default' => '',
                     'options' => [
-                        '' => esc_html__('Default', 'vc-tabs'),
-                        'flex-start' => esc_html__('Flex Start', 'vc-tabs'),
-                        'flex-end' => esc_html__('Flex End', 'vc-tabs'),
-                        'center' => esc_html__('Center', 'vc-tabs'),
-                        'space-around' => esc_html__('Space Around', 'vc-tabs'),
-                        'space-between' => esc_html__('Space Between', 'vc-tabs'),
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'flex-start' => __('Flex Start', OXI_TABS_TEXTDOMAIN),
+                        'flex-end' => __('Flex End', OXI_TABS_TEXTDOMAIN),
+                        'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                        'space-around' => __('Space Around', OXI_TABS_TEXTDOMAIN),
+                        'space-between' => __('Space Between', OXI_TABS_TEXTDOMAIN),
                     ],
                     $loader => $loadervalue,
                     $selectorvalue => 'justify-content: {{VALUE}};',
@@ -1270,16 +1271,16 @@ trait Sanitization {
                 );
                 $this->add_responsive_control(
                         $id . '-align', $data, [
-                    'label' => esc_html__('Align Items', 'vc-tabs'),
+                    'label' => __('Align Items', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SELECT,
                     'default' => '',
                     'options' => [
-                        '' => esc_html__('Default', 'vc-tabs'),
-                        'stretch' => esc_html__('Stretch', 'vc-tabs'),
-                        'baseline' => esc_html__('Baseline', 'vc-tabs'),
-                        'center' => esc_html__('Center', 'vc-tabs'),
-                        'flex-start' => esc_html__('Flex Start', 'vc-tabs'),
-                        'flex-end' => esc_html__('Flex End', 'vc-tabs'),
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'stretch' => __('Stretch', OXI_TABS_TEXTDOMAIN),
+                        'baseline' => __('Baseline', OXI_TABS_TEXTDOMAIN),
+                        'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                        'flex-start' => __('Flex Start', OXI_TABS_TEXTDOMAIN),
+                        'flex-end' => __('Flex End', OXI_TABS_TEXTDOMAIN),
                     ],
                     $loader => $loadervalue,
                     $selectorvalue => 'align-items: {{VALUE}};',
@@ -1291,7 +1292,7 @@ trait Sanitization {
 
         $this->add_responsive_control(
                 $id . '-l-height', $data, [
-            'label' => esc_html__('Line Height', 'vc-tabs'),
+            'label' => __('Line Height', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1316,7 +1317,7 @@ trait Sanitization {
         );
         $this->add_responsive_control(
                 $id . '-l-spacing', $data, [
-            'label' => esc_html__('Letter Spacing', 'vc-tabs'),
+            'label' => __('Letter Spacing', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1344,9 +1345,9 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Media Group Control.
-     *
+     * 
      * @since 3.3.0
-     *
+     * 
      * Works at any version
      */
 
@@ -1358,18 +1359,18 @@ trait Sanitization {
         echo '<div class="shortcode-form-control" style="padding: 0;" ' . $this->forms_condition($arg) . '>';
         $this->add_control(
                 $id . '-select', $data, [
-            'label' => esc_html__($level, 'vc-tabs'),
+            'label' => __($level, OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'loader' => TRUE,
             'default' => $type,
             'separator' => $separator,
             'options' => [
                 'media-library' => [
-                    'title' => esc_html__('Media Library', 'vc-tabs'),
+                    'title' => __('Media Library', OXI_TABS_TEXTDOMAIN),
                     'icon' => 'fa fa-align-left',
                 ],
                 'custom-url' => [
-                    'title' => esc_html__('Custom URL', 'vc-tabs'),
+                    'title' => __('Custom URL', OXI_TABS_TEXTDOMAIN),
                     'icon' => 'fa fa-align-center',
                 ]
             ],
@@ -1377,7 +1378,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-image', $data, [
-            'label' => esc_html__('Image', 'vc-tabs'),
+            'label' => __('Image', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::IMAGE,
             'loader' => TRUE,
             'default' => $value,
@@ -1390,7 +1391,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-url', $data, [
-            'label' => esc_html__('Image URL', 'vc-tabs'),
+            'label' => __('Image URL', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::TEXT,
             'default' => $value,
             'loader' => TRUE,
@@ -1408,7 +1409,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Box Shadow Control.
-     *
+     * 
      * @since 3.3.0
      * Only Works At Customizable Version
      */
@@ -1456,7 +1457,7 @@ trait Sanitization {
         endif;
         $this->start_popover_control(
                 $id, [
-            'label' => esc_html__('Box Shadow', 'vc-tabs'),
+            'label' => __('Box Shadow', OXI_TABS_TEXTDOMAIN),
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -1465,26 +1466,26 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-shadow', $data, [
-            'label' => esc_html__('Shadow', 'vc-tabs'),
+            'label' => __('Shadow', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SWITCHER,
             'default' => '',
-            'label_on' => esc_html__('Yes', 'vc-tabs'),
-            'label_off' => esc_html__('None', 'vc-tabs'),
+            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
+            'label_off' => __('None', OXI_TABS_TEXTDOMAIN),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 $id . '-type', $data, [
-            'label' => esc_html__('Type', 'vc-tabs'),
+            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'default' => '',
             'options' => [
                 '' => [
-                    'title' => esc_html__('Outline', 'vc-tabs'),
+                    'title' => __('Outline', OXI_TABS_TEXTDOMAIN),
                     'icon' => 'fa fa-align-left',
                 ],
                 'inset' => [
-                    'title' => esc_html__('Inset', 'vc-tabs'),
+                    'title' => __('Inset', OXI_TABS_TEXTDOMAIN),
                     'icon' => 'fa fa-align-center',
                 ],
             ],
@@ -1494,7 +1495,7 @@ trait Sanitization {
 
         $this->add_control(
                 $id . '-horizontal', $data, [
-            'label' => esc_html__('Horizontal', 'vc-tabs'),
+            'label' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1516,7 +1517,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-vertical', $data, [
-            'label' => esc_html__('Vertical', 'vc-tabs'),
+            'label' => __('Vertical', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1538,7 +1539,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-blur', $data, [
-            'label' => esc_html__('Blur', 'vc-tabs'),
+            'label' => __('Blur', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1560,7 +1561,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-spread', $data, [
-            'label' => esc_html__('Spread', 'vc-tabs'),
+            'label' => __('Spread', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1582,7 +1583,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => esc_html__('Color', 'vc-tabs'),
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'separator' => TRUE,
             'type' => Controls::COLOR,
             'oparetor' => 'RGB',
@@ -1599,7 +1600,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Text Shadow .
-     *
+     * 
      * @since 3.3.0
      * Only Works at Customizable Options
      */
@@ -1630,7 +1631,7 @@ trait Sanitization {
         endif;
         $this->start_popover_control(
                 $id, [
-            'label' => esc_html__('Text Shadow', 'vc-tabs'),
+            'label' => __('Text Shadow', OXI_TABS_TEXTDOMAIN),
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -1639,7 +1640,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => esc_html__('Color', 'vc-tabs'),
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
             'oparetor' => 'RGB',
             'default' => '#FFF',
@@ -1651,7 +1652,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-blur', $data, [
-            'label' => esc_html__('Blur', 'vc-tabs'),
+            'label' => __('Blur', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'separator' => TRUE,
             'custom' => $id . '|||||text-shadow',
@@ -1673,7 +1674,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-horizontal', $data, [
-            'label' => esc_html__('Horizontal', 'vc-tabs'),
+            'label' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'custom' => $id . '|||||text-shadow',
             'render' => FALSE,
@@ -1694,7 +1695,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-vertical', $data, [
-            'label' => esc_html__('Vertical', 'vc-tabs'),
+            'label' => __('Vertical', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'custom' => $id . '|||||text-shadow',
             'render' => FALSE,
@@ -1719,9 +1720,9 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Text Shadow .
-     *
+     * 
      * @since 3.3.0
-     *
+     * 
      * Simple Interface Enable
      */
 
@@ -1733,9 +1734,10 @@ trait Sanitization {
         endif;
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
 
+
         $this->start_popover_control(
                 $id, [
-            'label' => esc_html__('Animation', 'vc-tabs'),
+            'label' => __('Animation', OXI_TABS_TEXTDOMAIN),
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -1745,80 +1747,80 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-type', $data, [
-            'label' => esc_html__('Type', 'vc-tabs'),
+            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
                 'optgroup0' => [true, 'Attention Seekers'],
-                '' => esc_html__('None', 'vc-tabs'),
+                '' => __('None', OXI_TABS_TEXTDOMAIN),
                 'optgroup1' => [false],
                 'optgroup2' => [true, 'Attention Seekers'],
-                'bounce' => esc_html__('Bounce', 'vc-tabs'),
-                'flash' => esc_html__('Flash', 'vc-tabs'),
-                'pulse' => esc_html__('Pulse', 'vc-tabs'),
-                'rubberBand' => esc_html__('RubberBand', 'vc-tabs'),
-                'shake' => esc_html__('Shake', 'vc-tabs'),
-                'swing' => esc_html__('Swing', 'vc-tabs'),
-                'tada' => esc_html__('Tada', 'vc-tabs'),
-                'wobble' => esc_html__('Wobble', 'vc-tabs'),
-                'jello' => esc_html__('Jello', 'vc-tabs'),
+                'bounce' => __('Bounce', OXI_TABS_TEXTDOMAIN),
+                'flash' => __('Flash', OXI_TABS_TEXTDOMAIN),
+                'pulse' => __('Pulse', OXI_TABS_TEXTDOMAIN),
+                'rubberBand' => __('RubberBand', OXI_TABS_TEXTDOMAIN),
+                'shake' => __('Shake', OXI_TABS_TEXTDOMAIN),
+                'swing' => __('Swing', OXI_TABS_TEXTDOMAIN),
+                'tada' => __('Tada', OXI_TABS_TEXTDOMAIN),
+                'wobble' => __('Wobble', OXI_TABS_TEXTDOMAIN),
+                'jello' => __('Jello', OXI_TABS_TEXTDOMAIN),
                 'optgroup3' => [false],
                 'optgroup4' => [true, 'Bouncing Entrances'],
-                'bounceIn' => esc_html__('BounceIn', 'vc-tabs'),
-                'bounceInDown' => esc_html__('BounceInDown', 'vc-tabs'),
-                'bounceInLeft' => esc_html__('BounceInLeft', 'vc-tabs'),
-                'bounceInRight' => esc_html__('BounceInRight', 'vc-tabs'),
-                'bounceInUp' => esc_html__('BounceInUp', 'vc-tabs'),
+                'bounceIn' => __('BounceIn', OXI_TABS_TEXTDOMAIN),
+                'bounceInDown' => __('BounceInDown', OXI_TABS_TEXTDOMAIN),
+                'bounceInLeft' => __('BounceInLeft', OXI_TABS_TEXTDOMAIN),
+                'bounceInRight' => __('BounceInRight', OXI_TABS_TEXTDOMAIN),
+                'bounceInUp' => __('BounceInUp', OXI_TABS_TEXTDOMAIN),
                 'optgroup5' => [false],
                 'optgroup6' => [true, 'Fading Entrances'],
-                'fadeIn' => esc_html__('FadeIn', 'vc-tabs'),
-                'fadeInDown' => esc_html__('FadeInDown', 'vc-tabs'),
-                'fadeInDownBig' => esc_html__('FadeInDownBig', 'vc-tabs'),
-                'fadeInLeft' => esc_html__('FadeInLeft', 'vc-tabs'),
-                'fadeInLeftBig' => esc_html__('FadeInLeftBig', 'vc-tabs'),
-                'fadeInRight' => esc_html__('FadeInRight', 'vc-tabs'),
-                'fadeInRightBig' => esc_html__('FadeInRightBig', 'vc-tabs'),
-                'fadeInUp' => esc_html__('FadeInUp', 'vc-tabs'),
-                'fadeInUpBig' => esc_html__('FadeInUpBig', 'vc-tabs'),
+                'fadeIn' => __('FadeIn', OXI_TABS_TEXTDOMAIN),
+                'fadeInDown' => __('FadeInDown', OXI_TABS_TEXTDOMAIN),
+                'fadeInDownBig' => __('FadeInDownBig', OXI_TABS_TEXTDOMAIN),
+                'fadeInLeft' => __('FadeInLeft', OXI_TABS_TEXTDOMAIN),
+                'fadeInLeftBig' => __('FadeInLeftBig', OXI_TABS_TEXTDOMAIN),
+                'fadeInRight' => __('FadeInRight', OXI_TABS_TEXTDOMAIN),
+                'fadeInRightBig' => __('FadeInRightBig', OXI_TABS_TEXTDOMAIN),
+                'fadeInUp' => __('FadeInUp', OXI_TABS_TEXTDOMAIN),
+                'fadeInUpBig' => __('FadeInUpBig', OXI_TABS_TEXTDOMAIN),
                 'optgroup7' => [false],
                 'optgroup8' => [true, 'Flippers'],
-                'flip' => esc_html__('Flip', 'vc-tabs'),
-                'flipInX' => esc_html__('FlipInX', 'vc-tabs'),
-                'flipInY' => esc_html__('FlipInY', 'vc-tabs'),
+                'flip' => __('Flip', OXI_TABS_TEXTDOMAIN),
+                'flipInX' => __('FlipInX', OXI_TABS_TEXTDOMAIN),
+                'flipInY' => __('FlipInY', OXI_TABS_TEXTDOMAIN),
                 'optgroup9' => [false],
                 'optgroup10' => [true, 'Lightspeed'],
-                'lightSpeedIn' => esc_html__('LightSpeedIn', 'vc-tabs'),
+                'lightSpeedIn' => __('LightSpeedIn', OXI_TABS_TEXTDOMAIN),
                 'optgroup11' => [false],
                 'optgroup12' => [true, 'Rotating Entrances'],
-                'rotateIn' => esc_html__('RotateIn', 'vc-tabs'),
-                'rotateInDownLeft' => esc_html__('RotateInDownLeft', 'vc-tabs'),
-                'rotateInDownRight' => esc_html__('RotateInDownRight', 'vc-tabs'),
-                'rotateInUpLeft' => esc_html__('RotateInUpLeft', 'vc-tabs'),
-                'rotateInUpRight' => esc_html__('RotateInUpRight', 'vc-tabs'),
+                'rotateIn' => __('RotateIn', OXI_TABS_TEXTDOMAIN),
+                'rotateInDownLeft' => __('RotateInDownLeft', OXI_TABS_TEXTDOMAIN),
+                'rotateInDownRight' => __('RotateInDownRight', OXI_TABS_TEXTDOMAIN),
+                'rotateInUpLeft' => __('RotateInUpLeft', OXI_TABS_TEXTDOMAIN),
+                'rotateInUpRight' => __('RotateInUpRight', OXI_TABS_TEXTDOMAIN),
                 'optgroup13' => [false],
                 'optgroup14' => [true, 'Sliding Entrances'],
-                'slideInUp' => esc_html__('SlideInUp', 'vc-tabs'),
-                'slideInDown' => esc_html__('SlideInDown', 'vc-tabs'),
-                'slideInLeft' => esc_html__('SlideInLeft', 'vc-tabs'),
-                'slideInRight' => esc_html__('SlideInRight', 'vc-tabs'),
+                'slideInUp' => __('SlideInUp', OXI_TABS_TEXTDOMAIN),
+                'slideInDown' => __('SlideInDown', OXI_TABS_TEXTDOMAIN),
+                'slideInLeft' => __('SlideInLeft', OXI_TABS_TEXTDOMAIN),
+                'slideInRight' => __('SlideInRight', OXI_TABS_TEXTDOMAIN),
                 'optgroup15' => [false],
                 'optgroup16' => [true, 'Zoom Entrances'],
-                'zoomIn' => esc_html__('ZoomIn', 'vc-tabs'),
-                'zoomInDown' => esc_html__('ZoomInDown', 'vc-tabs'),
-                'zoomInLeft' => esc_html__('ZoomInLeft', 'vc-tabs'),
-                'zoomInRight' => esc_html__('ZoomInRight', 'vc-tabs'),
-                'zoomInUp' => esc_html__('ZoomInUp', 'vc-tabs'),
+                'zoomIn' => __('ZoomIn', OXI_TABS_TEXTDOMAIN),
+                'zoomInDown' => __('ZoomInDown', OXI_TABS_TEXTDOMAIN),
+                'zoomInLeft' => __('ZoomInLeft', OXI_TABS_TEXTDOMAIN),
+                'zoomInRight' => __('ZoomInRight', OXI_TABS_TEXTDOMAIN),
+                'zoomInUp' => __('ZoomInUp', OXI_TABS_TEXTDOMAIN),
                 'optgroup17' => [false],
                 'optgroup18' => [true, 'Specials'],
-                'hinge' => esc_html__('Hinge', 'vc-tabs'),
-                'rollIn' => esc_html__('RollIn', 'vc-tabs'),
+                'hinge' => __('Hinge', OXI_TABS_TEXTDOMAIN),
+                'rollIn' => __('RollIn', OXI_TABS_TEXTDOMAIN),
                 'optgroup19' => [false],
             ],
                 ]
         );
         $this->add_control(
                 $id . '-duration', $data, [
-            'label' => esc_html__('Duration (ms)', 'vc-tabs'),
+            'label' => __('Duration (ms)', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1838,7 +1840,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-delay', $data, [
-            'label' => esc_html__('Delay (ms)', 'vc-tabs'),
+            'label' => __('Delay (ms)', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1858,7 +1860,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-offset', $data, [
-            'label' => esc_html__('Offset', 'vc-tabs'),
+            'label' => __('Offset', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -1878,12 +1880,12 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-looping', $data, [
-            'label' => esc_html__('Looping', 'vc-tabs'),
+            'label' => __('Looping', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SWITCHER,
             'default' => '',
             'loader' => TRUE,
-            'label_on' => esc_html__('Yes', 'vc-tabs'),
-            'label_off' => esc_html__('No', 'vc-tabs'),
+            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
+            'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
             'return_value' => 'yes',
             'condition' => [
                 $id . '-type' => 'EMPTY',
@@ -1895,7 +1897,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Border .
-     *
+     * 
      * @since 3.3.0
      * Complete Simple Version
      */
@@ -1929,10 +1931,10 @@ trait Sanitization {
         if (array_key_exists($id . '-type', $data) && $data[$id . '-type'] == '') :
             $render = 'render';
         endif;
-
+       
         $this->start_popover_control(
                 $id, [
-            'label' => esc_html__('Border', 'vc-tabs'),
+            'label' => __('Border', OXI_TABS_TEXTDOMAIN),
             $cond => $condition,
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -1942,20 +1944,20 @@ trait Sanitization {
 
         $this->add_control(
                 $id . '-type', $data, [
-            'label' => esc_html__('Type', 'vc-tabs'),
+            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => esc_html__('None', 'vc-tabs'),
-                'solid' => esc_html__('Solid', 'vc-tabs'),
-                'dotted' => esc_html__('Dotted', 'vc-tabs'),
-                'dashed' => esc_html__('Dashed', 'vc-tabs'),
-                'double' => esc_html__('Double', 'vc-tabs'),
-                'groove' => esc_html__('Groove', 'vc-tabs'),
-                'ridge' => esc_html__('Ridge', 'vc-tabs'),
-                'inset' => esc_html__('Inset', 'vc-tabs'),
-                'outset' => esc_html__('Outset', 'vc-tabs'),
-                'hidden' => esc_html__('Hidden', 'vc-tabs'),
+                '' => __('None', OXI_TABS_TEXTDOMAIN),
+                'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
+                'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
+                'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
+                'double' => __('Double', OXI_TABS_TEXTDOMAIN),
+                'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
+                'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
+                'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
+                'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
+                'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'border-style: {{VALUE}};',
@@ -1964,7 +1966,7 @@ trait Sanitization {
         );
         $this->add_responsive_control(
                 $id . '-width', $data, [
-            'label' => esc_html__('Width', 'vc-tabs'),
+            'label' => __('Width', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::DIMENSIONS,
             $render => FALSE,
             'default' => [
@@ -1992,7 +1994,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => esc_html__('Color', 'vc-tabs'),
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
             $render => FALSE,
             'default' => '#fff',
@@ -2009,7 +2011,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Border .
-     *
+     * 
      * @since 3.3.0
      * Complete Simple Version
      */
@@ -2052,20 +2054,20 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-type', $data, [
-            'label' => esc_html__('Type', 'vc-tabs'),
+            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => esc_html__('None', 'vc-tabs'),
-                'solid' => esc_html__('Solid', 'vc-tabs'),
-                'dotted' => esc_html__('Dotted', 'vc-tabs'),
-                'dashed' => esc_html__('Dashed', 'vc-tabs'),
-                'double' => esc_html__('Double', 'vc-tabs'),
-                'groove' => esc_html__('Groove', 'vc-tabs'),
-                'ridge' => esc_html__('Ridge', 'vc-tabs'),
-                'inset' => esc_html__('Inset', 'vc-tabs'),
-                'outset' => esc_html__('Outset', 'vc-tabs'),
-                'hidden' => esc_html__('Hidden', 'vc-tabs'),
+                '' => __('None', OXI_TABS_TEXTDOMAIN),
+                'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
+                'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
+                'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
+                'double' => __('Double', OXI_TABS_TEXTDOMAIN),
+                'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
+                'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
+                'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
+                'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
+                'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
             ],
             $loader => $loadervalue,
             $selector_key => $selector,
@@ -2073,7 +2075,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-width', $data, [
-            'label' => esc_html__('Size', 'vc-tabs'),
+            'label' => __('Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -2095,7 +2097,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => esc_html__('Color', 'vc-tabs'),
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
             $render => FALSE,
             'default' => '',
@@ -2111,7 +2113,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Background .
-     *
+     * 
      * @since 3.3.0
      * Simple Interface Enable
      */
@@ -2157,7 +2159,7 @@ trait Sanitization {
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         $this->start_popover_control(
                 $id, [
-            'label' => esc_html__('Background', 'vc-tabs'),
+            'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'condition' => array_key_exists('condition', $arg) ? $arg['condition'] : '',
             'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
             'separator' => $separator,
@@ -2167,7 +2169,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-color', $data, [
-            'label' => esc_html__('Color', 'vc-tabs'),
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'gradient' => $id,
             'oparetor' => 'RGB',
@@ -2179,28 +2181,28 @@ trait Sanitization {
 
         $this->add_control(
                 $id . '-img', $data, [
-            'label' => esc_html__('Image', 'vc-tabs'),
+            'label' => __('Image', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SWITCHER,
             'loader' => TRUE,
-            'label_on' => esc_html__('Yes', 'vc-tabs'),
-            'label_off' => esc_html__('No', 'vc-tabs'),
+            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
+            'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
             'return_value' => 'yes',
                 ]
         );
         $this->add_control(
                 $id . '-select', $data, [
-            'label' => esc_html__('Photo Source', 'vc-tabs'),
+            'label' => __('Photo Source', OXI_TABS_TEXTDOMAIN),
             'separator' => TRUE,
             'loader' => TRUE,
             'type' => Controls::CHOOSE,
             'default' => 'media-library',
             'options' => [
                 'media-library' => [
-                    'title' => esc_html__('Media Library', 'vc-tabs'),
+                    'title' => __('Media Library', OXI_TABS_TEXTDOMAIN),
                     'icon' => 'fa fa-align-left',
                 ],
                 'custom-url' => [
-                    'title' => esc_html__('Custom URL', 'vc-tabs'),
+                    'title' => __('Custom URL', OXI_TABS_TEXTDOMAIN),
                     'icon' => 'fa fa-align-center',
                 ]
             ],
@@ -2211,7 +2213,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-image', $data, [
-            'label' => esc_html__('Image', 'vc-tabs'),
+            'label' => __('Image', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::IMAGE,
             'default' => '',
             'loader' => TRUE,
@@ -2223,7 +2225,7 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-url', $data, [
-            'label' => esc_html__('Image URL', 'vc-tabs'),
+            'label' => __('Image URL', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::TEXT,
             'default' => '',
             'loader' => TRUE,
@@ -2236,21 +2238,21 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-position', $data, [
-            'label' => esc_html__('Position', 'vc-tabs'),
+            'label' => __('Position', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => 'center center',
             'render' => $render,
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'top left' => esc_html__('Top Left', 'vc-tabs'),
-                'top center' => esc_html__('Top Center', 'vc-tabs'),
-                'top right' => esc_html__('Top Right', 'vc-tabs'),
-                'center left' => esc_html__('Center Left', 'vc-tabs'),
-                'center center' => esc_html__('Center Center', 'vc-tabs'),
-                'center right' => esc_html__('Center Right', 'vc-tabs'),
-                'bottom left' => esc_html__('Bottom Left', 'vc-tabs'),
-                'bottom center' => esc_html__('Bottom Center', 'vc-tabs'),
-                'bottom right' => esc_html__('Bottom Right', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'top left' => __('Top Left', OXI_TABS_TEXTDOMAIN),
+                'top center' => __('Top Center', OXI_TABS_TEXTDOMAIN),
+                'top right' => __('Top Right', OXI_TABS_TEXTDOMAIN),
+                'center left' => __('Center Left', OXI_TABS_TEXTDOMAIN),
+                'center center' => __('Center Center', OXI_TABS_TEXTDOMAIN),
+                'center right' => __('Center Right', OXI_TABS_TEXTDOMAIN),
+                'bottom left' => __('Bottom Left', OXI_TABS_TEXTDOMAIN),
+                'bottom center' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
+                'bottom right' => __('Bottom Right', OXI_TABS_TEXTDOMAIN),
             ],
             'loader' => TRUE,
             'condition' => [
@@ -2261,14 +2263,14 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-attachment', $data, [
-            'label' => esc_html__('Attachment', 'vc-tabs'),
+            'label' => __('Attachment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
             'render' => $render,
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'scroll' => esc_html__('Scroll', 'vc-tabs'),
-                'fixed' => esc_html__('Fixed', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'scroll' => __('Scroll', OXI_TABS_TEXTDOMAIN),
+                'fixed' => __('Fixed', OXI_TABS_TEXTDOMAIN),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'background-attachment: {{VALUE}};',
@@ -2281,16 +2283,16 @@ trait Sanitization {
         );
         $this->add_control(
                 $id . '-repeat', $data, [
-            'label' => esc_html__('Repeat', 'vc-tabs'),
+            'label' => __('Repeat', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => 'no-repeat',
             'render' => $render,
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'no-repeat' => esc_html__('No-Repeat', 'vc-tabs'),
-                'repeat' => esc_html__('Repeat', 'vc-tabs'),
-                'repeat-x' => esc_html__('Repeat-x', 'vc-tabs'),
-                'repeat-y' => esc_html__('Repeat-y', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'no-repeat' => __('No-Repeat', OXI_TABS_TEXTDOMAIN),
+                'repeat' => __('Repeat', OXI_TABS_TEXTDOMAIN),
+                'repeat-x' => __('Repeat-x', OXI_TABS_TEXTDOMAIN),
+                'repeat-y' => __('Repeat-y', OXI_TABS_TEXTDOMAIN),
             ],
             'loader' => TRUE,
             'condition' => [
@@ -2301,15 +2303,15 @@ trait Sanitization {
         );
         $this->add_responsive_control(
                 $id . '-size', $data, [
-            'label' => esc_html__('Size', 'vc-tabs'),
+            'label' => __('Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => 'cover',
             'render' => $render,
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'auto' => esc_html__('Auto', 'vc-tabs'),
-                'cover' => esc_html__('Cover', 'vc-tabs'),
-                'contain' => esc_html__('Contain', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'auto' => __('Auto', OXI_TABS_TEXTDOMAIN),
+                'cover' => __('Cover', OXI_TABS_TEXTDOMAIN),
+                'contain' => __('Contain', OXI_TABS_TEXTDOMAIN),
             ],
             $loader => $loadervalue,
             $selectorvalue => 'background-size: {{VALUE}};',
@@ -2325,7 +2327,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Background .
-     *
+     * 
      * @since 3.3.0
      * Simple Interfaece Enable
      */
@@ -2341,7 +2343,7 @@ trait Sanitization {
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         $this->add_control(
                 $id . '-url', $data, [
-            'label' => esc_html__('Link', 'vc-tabs'),
+            'label' => __('Link', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::TEXT,
             'link' => TRUE,
             'separator' => $separator,
@@ -2354,11 +2356,11 @@ trait Sanitization {
 
         $this->add_control(
                 $id . '-target', $data, [
-            'label' => esc_html__('New Window?', 'vc-tabs'),
+            'label' => __('New Window?', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SWITCHER,
             'default' => '',
-            'label_on' => esc_html__('Yes', 'vc-tabs'),
-            'label_off' => esc_html__('No', 'vc-tabs'),
+            'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
+            'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
             'return_value' => 'yes',
                 ]
         );
@@ -2367,7 +2369,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Column Size.
-     *
+     * 
      * @since 3.3.0
      * Complete Simple Interface
      */
@@ -2383,20 +2385,20 @@ trait Sanitization {
         endif;
         $this->add_control(
                 $lap = $id . '-lap', $data, [
-            'label' => esc_html__('Column Size', 'vc-tabs'),
+            'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'responsive' => 'laptop',
             'description' => $arg['description'],
             'default' => 'oxi-bt-col-lg-12',
             'options' => [
-                'oxi-bt-col-lg-12' => esc_html__('Col 1', 'vc-tabs'),
-                'oxi-bt-col-lg-6' => esc_html__('Col 2', 'vc-tabs'),
-                'oxi-bt-col-lg-4' => esc_html__('Col 3', 'vc-tabs'),
-                'oxi-bt-col-lg-3' => esc_html__('Col 4', 'vc-tabs'),
-                'oxi-bt-col-lg-5' => esc_html__('Col 5', 'vc-tabs'),
-                'oxi-bt-col-lg-2' => esc_html__('Col 6', 'vc-tabs'),
-                'oxi-bt-col-lg-8' => esc_html__('Col 8', 'vc-tabs'),
-                'oxi-bt-col-lg-1' => esc_html__('Col 12', 'vc-tabs'),
+                'oxi-bt-col-lg-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-lg-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-lg-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-lg-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-lg-5' => __('Col 5', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-lg-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-lg-8' => __('Col 8', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-lg-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
             ],
             'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
             $select => $selector,
@@ -2406,19 +2408,19 @@ trait Sanitization {
         );
         $this->add_control(
                 $tab = $id . '-tab', $data, [
-            'label' => esc_html__('Column Size', 'vc-tabs'),
+            'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'responsive' => 'tab',
             'default' => 'oxi-bt-col-md-12',
             'description' => $arg['description'],
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'oxi-bt-col-md-12' => esc_html__('Col 1', 'vc-tabs'),
-                'oxi-bt-col-md-6' => esc_html__('Col 2', 'vc-tabs'),
-                'oxi-bt-col-md-4' => esc_html__('Col 3', 'vc-tabs'),
-                'oxi-bt-col-md-3' => esc_html__('Col 4', 'vc-tabs'),
-                'oxi-bt-col-md-2' => esc_html__('Col 6', 'vc-tabs'),
-                'oxi-bt-col-md-1' => esc_html__('Col 12', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-md-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-md-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-md-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-md-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-md-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-md-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
             ],
             'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
             $select => $selector,
@@ -2428,20 +2430,20 @@ trait Sanitization {
         );
         $this->add_control(
                 $mob = $id . '-mob', $data, [
-            'label' => esc_html__('Column Size', 'vc-tabs'),
+            'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => 'oxi-bt-col-lg-12',
             'responsive' => 'mobile',
             'description' => $arg['description'],
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'oxi-bt-col-sm-12' => esc_html__('Col 1', 'vc-tabs'),
-                'oxi-bt-col-sm-6' => esc_html__('Col 2', 'vc-tabs'),
-                'oxi-bt-col-sm-4' => esc_html__('Col 3', 'vc-tabs'),
-                'oxi-bt-col-sm-3' => esc_html__('Col 4', 'vc-tabs'),
-                'oxi-bt-col-sm-5' => esc_html__('Col 5', 'vc-tabs'),
-                'oxi-bt-col-sm-2' => esc_html__('Col 6', 'vc-tabs'),
-                'oxi-bt-col-sm-1' => esc_html__('Col 12', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-sm-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-sm-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-sm-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-sm-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-sm-5' => __('Col 5', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-sm-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
+                'oxi-bt-col-sm-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
             ],
             'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
             $select => $selector,
@@ -2452,17 +2454,17 @@ trait Sanitization {
     }
 
     /*
-     *
-     *
+     * 
+     * 
      * Templates Substitute Data
-     *
-     *
-     *
-     *
+     * 
+     * 
+     * 
+     * 
      */
     /*
      * Oxi Tabs Style Admin Panel Template Substitute Control.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -2473,7 +2475,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Template Substitute Modal Opener.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -2487,7 +2489,7 @@ trait Sanitization {
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         *
+         * 
          */
         echo ' <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
@@ -2513,7 +2515,7 @@ trait Sanitization {
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         *
+         * 
          */
         echo ' <div class="oxi-addons-shortcode  shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
@@ -2524,7 +2526,7 @@ trait Sanitization {
                     <form method="post" id="shortcode-addons-name-change-submit">
                         <div class="input-group my-2">
                             <input type="hidden" class="form-control" name="addonsstylenameid" value="' . $data['id'] . '">
-                            <input type="text" class="form-control" name="addonsstylename" placeholder=" ' . $arg['placeholder'] . '" value="' . $data['name'] . '">
+                            <input type="text" class="form-control" name="addonsstylename" placeholder=" ' . $arg['placeholder'] . '" value="' . esc_attr($data['name']) . '">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-success" id="addonsstylenamechange">Save</button>
                             </div>
@@ -2536,7 +2538,7 @@ trait Sanitization {
 
     /*
      * Oxi Tabs Style Admin Panel Template Shortcode Info.
-     *
+     * 
      * @since 3.3.0
      */
 
@@ -2549,7 +2551,7 @@ trait Sanitization {
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         *
+         * 
          */
         echo ' <div class="oxi-addons-shortcode shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
@@ -2581,7 +2583,7 @@ trait Sanitization {
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         *
+         * 
          */
         echo '  <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">

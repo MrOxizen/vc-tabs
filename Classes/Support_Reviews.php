@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Classes;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Support_Reviews
  *
@@ -17,9 +14,6 @@ class Support_Reviews {
      *
      */
     public function __construct() {
-        if (!current_user_can('manage_options')) {
-            return;
-        }
         add_action('admin_notices', array($this, 'first_install'));
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
         add_action('wp_ajax_oxilab_tabs_notice_dissmiss', array($this, 'notice_dissmiss'));
@@ -56,9 +50,9 @@ class Support_Reviews {
             return;
         }
         $image = OXI_TABS_URL . 'assets/image/logo.png';
-        echo ' <div class="notice notice-info put-dismiss-noticenotice-has-thumbnail shortcode-addons-review-notice">
+        echo _(' <div class="notice notice-info put-dismiss-noticenotice-has-thumbnail shortcode-addons-review-notice">
                     <div class="shortcode-addons-notice-thumbnail">
-                        <img src="' . esc_url($image) . '" alt=""></div>
+                        <img src="' . $image . '" alt=""></div>
                     <div class="shortcode-addons--notice-message">
                         <p>Hey, You’ve using <strong>Tabs - Responsive Tabs with  Accordions</strong> more than 1 week – that’s awesome! Could you please do me a BIG favor and give it a 5-star rating on WordPress? Just to help us spread the word and boost our motivation.!</p>
                         <ul class="shortcode-addons--notice-link">
@@ -89,7 +83,7 @@ class Support_Reviews {
                             </li>
                         </ul>
                     </div>
-                </div>';
+                </div>');
     }
 
     /**

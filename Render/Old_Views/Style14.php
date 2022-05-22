@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Old Style
  *
@@ -178,7 +175,7 @@ class Style14 extends Old_Render {
             align-items:   center;
             cursor: pointer;
             display: none;
-            line-height: 100%;
+            line-height: 100%;            
             font-size: ' . $styledata[1] . 'px;
             padding:' . $styledata[17] . 'px 10px;
             font-weight: ' . $styledata[11] . ';
@@ -200,15 +197,15 @@ class Style14 extends Old_Render {
         .ctu-ulitate-style-' . $styleid . '-tabs{
             width: 100%;
             float: left;
-            display: none;
+            display: none;  
             background-color: ' . $styledata[33] . ';
-            font-weight: ' . $styledata[47] . ';
+            font-weight: ' . $styledata[47] . ';            
             padding: ' . $styledata[35] . 'px ' . $styledata[37] . 'px ' . $styledata[39] . 'px ' . $styledata[41] . 'px;
-            border-radius: ' . $styledata[51] . 'px;
-            -webkit-box-shadow:  ' . $styledata[59] . 'px ' . $styledata[61] . 'px ' . $styledata[53] . 'px ' . $styledata[63] . 'px ' . $styledata[55] . ';
+            border-radius: ' . $styledata[51] . 'px;    
+            -webkit-box-shadow:  ' . $styledata[59] . 'px ' . $styledata[61] . 'px ' . $styledata[53] . 'px ' . $styledata[63] . 'px ' . $styledata[55] . ';   
             -o-box-shadow:  ' . $styledata[59] . 'px ' . $styledata[61] . 'px ' . $styledata[53] . 'px ' . $styledata[63] . 'px ' . $styledata[55] . ';
             -ms-box-shadow:  ' . $styledata[59] . 'px ' . $styledata[61] . 'px ' . $styledata[53] . 'px ' . $styledata[63] . 'px ' . $styledata[55] . ';
-            -moz-box-shadow:  ' . $styledata[59] . 'px ' . $styledata[61] . 'px ' . $styledata[53] . 'px ' . $styledata[63] . 'px ' . $styledata[55] . ';
+            -moz-box-shadow:  ' . $styledata[59] . 'px ' . $styledata[61] . 'px ' . $styledata[53] . 'px ' . $styledata[63] . 'px ' . $styledata[55] . '; 
             box-shadow: ' . $styledata[59] . 'px ' . $styledata[61] . 'px ' . $styledata[53] . 'px ' . $styledata[63] . 'px ' . $styledata[55] . ';
         }
         .ctu-ulitate-style-' . $styleid . '-tabs p{
@@ -265,7 +262,7 @@ class Style14 extends Old_Render {
         echo '<div class="ctu-ultimate-style-' . $styleid . '-content">';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo ' <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+            echo ' <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
                         ' . $this->icon_font_selector($value['css']) . '
                               ' . $this->special_charecter($titlefiles[0]) . '
                 </div>

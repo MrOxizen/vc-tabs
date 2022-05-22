@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Extension\WooCommerce;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Admin
  *
@@ -79,30 +76,30 @@ class Admin {
         woocommerce_wp_text_input(
                 array(
                     'id' => '_oxilab_tabs_woo_' . $i . '_tab_title_[]',
-                    'label' => esc_html__('Tab Title', 'vc-tabs'),
+                    'label' => __('Tab Title', OXI_TABS_TEXTDOMAIN),
                     'description' => '',
                     'value' => isset($tab['title']) ? $tab['title'] : 'Tabs Title',
-                    'placeholder' => esc_html__('Tab Title', 'vc-tabs'),
+                    'placeholder' => __('Tab Title', OXI_TABS_TEXTDOMAIN),
                     'class' => 'oxilab_tabs_woo_' . $i . '_title_field'
                 )
         );
         woocommerce_wp_text_input(
                 array(
                     'id' => '_oxilab_tabs_woo_' . $i . '_tab_priority_[]',
-                    'label' => esc_html__('Tab Priority', 'vc-tabs'),
+                    'label' => __('Tab Priority', OXI_TABS_TEXTDOMAIN),
                     'description' => '',
                     'value' => isset($tab['priority']) ? $tab['priority'] : 0,
-                    'placeholder' => esc_html__('Tabs Priority', 'vc-tabs'),
+                    'placeholder' => __('Tabs Priority', OXI_TABS_TEXTDOMAIN),
                     'class' => 'oxilab_tabs_woo_' . $i . '_priority_field'
                 )
         );
         woocommerce_wp_text_input(
                 array(
                     'id' => '_oxilab_tabs_woo_' . $i . '_tab_callback_[]',
-                    'label' => esc_html__('Callback Function', 'vc-tabs'),
+                    'label' => __('Callback Function', OXI_TABS_TEXTDOMAIN),
                     'description' => '',
                     'value' => isset($tab['callback']) ? $tab['callback'] : '',
-                    'placeholder' => esc_html__('Add callback function else make it blank', 'vc-tabs'),
+                    'placeholder' => __('Add callback function else make it blank', OXI_TABS_TEXTDOMAIN),
                     'class' => 'oxilab_tabs_woo_' . $i . '_callback_field'
                 )
         );

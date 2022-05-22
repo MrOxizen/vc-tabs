@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Modules;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Visual_Composer
  *
@@ -29,16 +26,16 @@ class Visual_Composer {
 
     public function VC_extension() {
         vc_map(array(
-            "name" => esc_html("Content Tabs"),
+            "name" => __("Content Tabs"),
             "base" => "ctu_ultimate_oxi_VC",
-            "category" => esc_html("Content"),
+            "category" => __("Content"),
             "params" => array(
                 array(
                     "type" => "textfield",
                     "holder" => "div",
-                    "heading" => esc_html("ID"),
+                    "heading" => __("ID"),
                     "param_name" => "id",
-                    "description" => esc_html("Input your Tabs ID in input box")
+                    "description" => __("Input your Tabs ID in input box")
                 ),
             )
         ));

@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Extension\WooCommerce;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of WooCommerce
  *
@@ -40,7 +37,7 @@ class WooCommerce {
         /*
          * Enqueue our JS / CSS files
          */
-        //
+        // 
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts_and_styles'), 10, 1);
         /*
          * Tab content Panels
@@ -107,8 +104,8 @@ class WooCommerce {
             <?php
             woocommerce_wp_select(array(
                 'id' => '_oxilab_tabs_woo_layouts',
-                'label' => esc_html__('Select Tabs Layots', 'my_theme_domain'),
-                'description' => esc_html__('Select Layouts which ', 'vc-tabs'),
+                'label' => __('Select Tabs Layots', 'my_theme_domain'),
+                'description' => __('Select Layouts which ', OXI_TABS_TEXTDOMAIN),
                 'desc_tip' => true,
                 'options' => $get_style,
             ));
@@ -129,7 +126,7 @@ class WooCommerce {
         else:
             delete_post_meta($post_id, '_oxilab_tabs_woo_layouts');
         endif;
-
+        $tab_data = [];
         // save the woo data
         if (isset($_POST['_oxilab_tabs_woo_layouts_tab_title_'])):
             $titles = $_POST['_oxilab_tabs_woo_layouts_tab_title_'];
@@ -137,7 +134,6 @@ class WooCommerce {
             $contents = $_POST['_oxilab_tabs_woo_layouts_tab_content_'];
             $callback = $_POST['_oxilab_tabs_woo_layouts_tab_callback_'];
 
-            $tab_data = [];
             foreach ($titles as $key => $value) {
                 $tab_title = stripslashes($titles[$key]);
                 $tab_priority = stripslashes($prioritys[$key]);
@@ -155,170 +151,12 @@ class WooCommerce {
                 endif;
             }
         endif;
-
         if (count($tab_data) == 0):
             delete_post_meta($post_id, '_oxilab_tabs_woo_data');
         else:
-            if (is_array($tab_data)):
-                $this->validate_post($tab_data);
-            endif;
             $tab_data = array_values($tab_data);
             update_post_meta($post_id, '_oxilab_tabs_woo_data', $tab_data);
         endif;
-    }
-
-    public function allowed_html($rawdata) {
-        $allowed_tags = array(
-            'a' => array(
-                'class' => array(),
-                'href' => array(),
-                'rel' => array(),
-                'title' => array(),
-            ),
-            'abbr' => array(
-                'title' => array(),
-            ),
-            'b' => array(),
-            'blockquote' => array(
-                'cite' => array(),
-            ),
-            'cite' => array(
-                'title' => array(),
-            ),
-            'code' => array(),
-            'del' => array(
-                'datetime' => array(),
-                'title' => array(),
-            ),
-            'dd' => array(),
-            'div' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),
-            ),
-            'table' => array(
-                'class' => array(),
-                'id' => array(),
-                'style' => array(),
-            ),
-            'button' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),
-                'type' => array(),
-                'value' => array(),
-            ),
-            'thead' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),
-            ),
-            'tbody' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'tr' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'td' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'dt' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'em' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'h1' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'h2' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'h3' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'h4' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'h5' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'h6' => array('class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),),
-            'i' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),
-            ),
-            'img' => array(
-                'alt' => array(),
-                'class' => array(),
-                'height' => array(),
-                'src' => array(),
-                'width' => array(),
-            ),
-            'li' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),
-            ),
-            'ol' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),
-            ),
-            'p' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),
-            ),
-            'q' => array(
-                'cite' => array(),
-                'title' => array(),
-            ),
-            'span' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-            ),
-            'strike' => array(),
-            'strong' => array(),
-            'ul' => array(
-                'class' => array(),
-            ),
-        );
-        if (is_array($rawdata)):
-            return $rawdata = array_map(array($this, 'allowed_html'), $rawdata);
-        else:
-            return wp_kses($rawdata, $allowed_tags);
-        endif;
-    }
-
-    public function validate_post($tab_data) {
-        if (is_array($tab_data)):
-            $rawdata = array_map(array($this, 'allowed_html'), $tab_data);
-            $rawdata = addslashes(json_encode($rawdata));
-        endif;
-        return $$rawdata;
     }
 
     public function enqueue_scripts_and_styles($hook) {

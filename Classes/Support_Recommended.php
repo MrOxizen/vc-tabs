@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Classes;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Support_Recommended
  *
@@ -92,6 +89,8 @@ class Support_Recommended {
         if (count($recommend) > 2 && $recommend['modules-path'] != ''):
             $plugin = explode('/', $recommend['modules-path'])[0];
 
+            $massage = '<p>Thank you for using my Responsive Tabs with Accordions. ' . $recommend['modules-massage'] . '</p>';
+
             $install_url = wp_nonce_url(add_query_arg(array('action' => 'install-plugin', 'plugin' => $plugin), admin_url('update.php')), 'install-plugin' . '_' . $plugin);
             echo '<div class="wrap oxi-addons-admin-notifications" style=" width: auto;">
                         <h3>
@@ -101,8 +100,8 @@ class Support_Recommended {
                         <p></p>
                         <div class="oxi-addons-admin-notifications-holder">
                             <div class="oxi-addons-admin-notifications-alert">
-                                <p>Thank you for using my Responsive Tabs with Accordions. ' . esc_html($recommend['modules-massage']) . '</p>
-                                <p>' . sprintf('<a href="%s" class="button button-large button-primary">%s</a>', esc_url($install_url), esc_html__('Install Now', 'vc-tabs')) . ' &nbsp;&nbsp;<a href="#" class="button button-large button-secondary oxi-tabs-admin-recommended-dismiss" sup-data="done">No, Thanks</a></p>
+                                ' . $massage . '
+                                <p>' . sprintf('<a href="%s" class="button button-large button-primary">%s</a>', $install_url, __('Install Now', OXI_TABS_TEXTDOMAIN)) . ' &nbsp;&nbsp;<a href="#" class="button button-large button-secondary oxi-tabs-admin-recommended-dismiss" sup-data="done">No, Thanks</a></p>
                             </div>
                         </div>
                         <p></p>

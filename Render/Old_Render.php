@@ -2,13 +2,10 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Render Core Class
  *
- *
+ * 
  * @author biplob018
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0
@@ -53,8 +50,8 @@ class Old_Render {
 
     public function public_jquery_css() {
         wp_enqueue_script("jquery");
-        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, 'vc-tabs');
-        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/old.js', false, 'vc-tabs');
+        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . '/assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . '/assets/frontend/js/old.js', false, OXI_TABS_TEXTDOMAIN);
     }
 
     public function default_render() {
@@ -66,12 +63,12 @@ class Old_Render {
         $inlinecss = $this->CSS;
         if ($inlinejs != ''):
             if ($this->user == 'admin'):
-                echo '<script>
+                echo _('<script>
                         (function ($) {
-                            setTimeout(function () {';
+                            setTimeout(function () {');
                 echo $inlinejs;
-                echo '    }, 2000);
-                        })(jQuery)</script>';
+                echo _('    }, 2000);
+                        })(jQuery)</script>');
             else:
                 $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
                 wp_add_inline_script('vc-tabs-jquery', $jquery);
@@ -79,9 +76,9 @@ class Old_Render {
         endif;
         if ($inlinecss != ''):
             if ($this->user == 'admin'):
-                echo '<style>';
+                echo _('<style>');
                 echo $inlinecss;
-                echo '</style>';
+                echo _('</style>');
             else:
                 wp_add_inline_style('vc-tabs-style', $inlinecss);
             endif;
@@ -127,7 +124,7 @@ class Old_Render {
         if ($fadata != 'no') {
             wp_enqueue_style('font-awesome-' . $faversion[0], $faversion[1]);
         }
-        $files = '<i class="' . esc_attr($data) . ' oxi-icons"></i>';
+        $files = '<i class="' . $data . ' oxi-icons"></i>';
         return $files;
     }
 
@@ -136,15 +133,15 @@ class Old_Render {
         if ($this->user == 'admin'):
             $data = '<div class="oxi-addons-admin-absulote">
                         <div class="oxi-addons-admin-absulate-edit">
-                            <form method="post">
-                                <input type="hidden" name="item-id" value="' . esc_attr($id) . '">
+                            <form method="post"> 
+                                <input type="hidden" name="item-id" value="' . $id . '">
                                 <button class="btn btn-primary" type="submit" value="edit" name="edit" title="Edit">Edit</button>
                                 ' . wp_nonce_field("oxitabseditdata") . '
                             </form>
                         </div>
                         <div class="oxi-addons-admin-absulate-delete">
                             <form method="post">
-                                <input type="hidden" name="item-id" value="' . esc_attr($id) . '">
+                                <input type="hidden" name="item-id" value="' . $id . '">
                                 <button class="btn btn-danger" type="submit" value="delete" name="delete" title="Delete">Delete</button>
                                 ' . wp_nonce_field("oxitabsdeletedata") . '
                             </form>

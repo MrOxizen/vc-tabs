@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render\Admin;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Effects1
  *
@@ -18,19 +15,19 @@ class Style6 extends Helper {
     public function register_header_general() {
         $this->start_controls_section(
                 'oxi-tabs-head', [
-            'label' => esc_html__('Header General', 'vc-tabs'),
+            'label' => esc_html__('Header General', OXI_TABS_TEXTDOMAIN),
             'showing' => TRUE,
                 ]
         );
         $this->add_control(
                 'oxi-tabs-head-aditional-location', $this->style, [
-            'label' => esc_html__('Title Additional Location', 'vc-tabs'),
+            'label' => __('Title Additional Location', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'options' => [
-                'oxi-tab-header-aditional-left-position' => esc_html__('Left', 'vc-tabs'),
-                'oxi-tab-header-aditional-top-position' => esc_html__('Top', 'vc-tabs'),
-                'oxi-tab-header-aditional-right-position' => esc_html__('Right', 'vc-tabs'),
-                'oxi-tab-header-aditional-bottom-position' => esc_html__('Bottom', 'vc-tabs'),
+                'oxi-tab-header-aditional-left-position' => __('Left', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-aditional-top-position' => __('Top', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-aditional-right-position' => __('Right', OXI_TABS_TEXTDOMAIN),
+                'oxi-tab-header-aditional-bottom-position' => __('Bottom', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
                 '{{WRAPPER}}  > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li' => '',
@@ -40,16 +37,16 @@ class Style6 extends Helper {
         );
         $this->add_responsive_control(
                 'oxi-tabs-head-alignment-left-right', $this->style, [
-            'label' => esc_html__('Title Alignment', 'vc-tabs'),
+            'label' => __('Title Alignment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'condition' => [
                 'oxi-tabs-head-aditional-location' => ['oxi-tab-header-aditional-left-position', 'oxi-tab-header-aditional-right-position'],
             ],
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'flex-start' => esc_html__('Left', 'vc-tabs'),
-                'center' => esc_html__('Center', 'vc-tabs'),
-                'flex-end' => esc_html__('Right', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'flex-start' => __('Left', OXI_TABS_TEXTDOMAIN),
+                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
                 '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-left-position' => 'justify-content:{{VALUE}};',
@@ -60,16 +57,16 @@ class Style6 extends Helper {
         );
         $this->add_responsive_control(
                 'oxi-tabs-head-alignment-top-bottom', $this->style, [
-            'label' => esc_html__('Title Alignment', 'vc-tabs'),
+            'label' => __('Title Alignment', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'condition' => [
                 'oxi-tabs-head-aditional-location' => ['oxi-tab-header-aditional-top-position', 'oxi-tab-header-aditional-bottom-position'],
             ],
             'options' => [
-                '' => esc_html__('Default', 'vc-tabs'),
-                'flex-start' => esc_html__('Left', 'vc-tabs'),
-                'center' => esc_html__('Center', 'vc-tabs'),
-                'flex-end' => esc_html__('Right', 'vc-tabs'),
+                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                'flex-start' => __('Left', OXI_TABS_TEXTDOMAIN),
+                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                'flex-end' => __('Right', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
                 '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.oxi-tab-header-aditional-top-position' => 'align-items:{{VALUE}};',
@@ -79,12 +76,16 @@ class Style6 extends Helper {
                 ]
         );
 
+
+
+
+
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
                 [
                     'options' => [
-                        'normal' => esc_html__('Normal ', 'vc-tabs'),
-                        'active' => esc_html__('Active', 'vc-tabs'),
+                        'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
                     ]
                 ]
         );
@@ -92,7 +93,7 @@ class Style6 extends Helper {
         $this->start_controls_tab();
         $this->add_control(
                 'oxi-tabs-head-bg', $this->style, [
-            'label' => esc_html__('Background', 'vc-tabs'),
+            'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'default' => 'rgba(171, 0, 201, 1)',
             'selector' => [
@@ -102,12 +103,13 @@ class Style6 extends Helper {
                 ]
         );
 
+
         $this->end_controls_tab();
         $this->start_controls_tab();
 
         $this->add_control(
                 'oxi-tabs-head-ac-bg', $this->style, [
-            'label' => esc_html__('Background', 'vc-tabs'),
+            'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'selector' => [
                 '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header .oxi-tabs-header-li.active' => 'background: {{VALUE}};',
@@ -121,7 +123,7 @@ class Style6 extends Helper {
         $this->end_controls_tabs();
         $this->add_responsive_control(
                 'oxi-tabs-head-general-width-extend', $this->style, [
-            'label' => esc_html__('Width or Height Extend', 'vc-tabs'),
+            'label' => __('Width or Height Extend', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -146,6 +148,10 @@ class Style6 extends Helper {
                 ]
         );
 
+
+
+
+
         $this->start_popover_control(
                 'oxi-tabs-head-general-popover', [
             'label' => 'Inner Border',
@@ -155,20 +161,20 @@ class Style6 extends Helper {
         );
         $this->add_control(
                 'oxi-tabs-head-general-inner-border-type', $this->style, [
-            'label' => esc_html__('Type', 'vc-tabs'),
+            'label' => __('Type', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SELECT,
             'default' => '',
             'options' => [
-                '' => esc_html__('None', 'vc-tabs'),
-                'solid' => esc_html__('Solid', 'vc-tabs'),
-                'dotted' => esc_html__('Dotted', 'vc-tabs'),
-                'dashed' => esc_html__('Dashed', 'vc-tabs'),
-                'double' => esc_html__('Double', 'vc-tabs'),
-                'groove' => esc_html__('Groove', 'vc-tabs'),
-                'ridge' => esc_html__('Ridge', 'vc-tabs'),
-                'inset' => esc_html__('Inset', 'vc-tabs'),
-                'outset' => esc_html__('Outset', 'vc-tabs'),
-                'hidden' => esc_html__('Hidden', 'vc-tabs'),
+                '' => __('None', OXI_TABS_TEXTDOMAIN),
+                'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
+                'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
+                'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
+                'double' => __('Double', OXI_TABS_TEXTDOMAIN),
+                'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
+                'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
+                'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
+                'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
+                'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
             ],
             'selector' => [
                 '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li .oxi-tabs-header-shape' => 'border-style:{{VALUE}};',
@@ -177,7 +183,7 @@ class Style6 extends Helper {
         );
         $this->add_responsive_control(
                 'oxi-tabs-head-general-inner-border-size', $this->style, [
-            'label' => esc_html__('Size', 'vc-tabs'),
+            'label' => __('Size', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -206,7 +212,7 @@ class Style6 extends Helper {
 
         $this->add_responsive_control(
                 'oxi-tabs-head-general-inner-border-width', $this->style, [
-            'label' => esc_html__('Width', 'vc-tabs'),
+            'label' => __('Width', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::SLIDER,
             'default' => [
                 'unit' => 'px',
@@ -234,7 +240,7 @@ class Style6 extends Helper {
         );
         $this->add_control(
                 'oxi-tabs-head-general-inner-border-color', $this->style, [
-            'label' => esc_html__('Color', 'vc-tabs'),
+            'label' => __('Color', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::COLOR,
             'condition' => [
                 'oxi-tabs-head-general-inner-border-type' => 'EMPTY',
@@ -247,6 +253,7 @@ class Style6 extends Helper {
 
         $this->end_popover_control();
 
+
         $this->add_group_control(
                 'oxi-tabs-head-boxshadow', $this->style, [
             'type' => Controls::BOXSHADOW,
@@ -258,7 +265,7 @@ class Style6 extends Helper {
         );
         $this->add_responsive_control(
                 'oxi-tabs-head-padding', $this->style, [
-            'label' => esc_html__('Padding', 'vc-tabs'),
+            'label' => __('Padding', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::DIMENSIONS,
             'default' => [
                 'unit' => 'px',
@@ -289,7 +296,7 @@ class Style6 extends Helper {
         );
         $this->add_responsive_control(
                 'oxi-tabs-head-margin', $this->style, [
-            'label' => esc_html__('Margin', 'vc-tabs'),
+            'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::DIMENSIONS,
             'default' => [
                 'unit' => 'px',
@@ -320,35 +327,35 @@ class Style6 extends Helper {
         );
         $this->end_controls_section();
     }
-
-    public function register_desc_general() {
+     public function register_desc_general() {
         $this->start_controls_section(
                 'oxi-tabs-desc-general', [
-            'label' => esc_html__('General Settings', 'vc-tabs'),
+            'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
             'showing' => TRUE,
                 ]
         );
         $this->add_responsive_control(
                 'oxi-tabs-desc-content-height', $this->style, [
-            'label' => esc_html__('Content Height', 'vc-tabs'),
+            'label' => __('Content Height', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::CHOOSE,
             'operator' => Controls::OPERATOR_TEXT,
             'toggle' => true,
             'options' => [
                 'yes' => [
-                    'title' => esc_html__('Equal', 'vc-tabs'),
+                    'title' => __('Equal', OXI_TABS_TEXTDOMAIN),
                 ],
                 'no' => [
-                    'title' => esc_html__('Dynamic', 'vc-tabs'),
+                    'title' => __('Dynamic', OXI_TABS_TEXTDOMAIN),
                 ],
             ],
             'description' => 'Select Content Height as Equal or Dynamic.',
                 ]
         );
 
+
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [
-            'label' => esc_html__('Background', 'vc-tabs'),
+            'label' => __('Background', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::GRADIENT,
             'selector' => [
                 '{{WRAPPER}} > .oxi-tabs-ultimate-style' => 'background: {{VALUE}};',
@@ -379,7 +386,7 @@ class Style6 extends Helper {
         );
         $this->add_responsive_control(
                 'oxi-tabs-desc-general-radius', $this->style, [
-            'label' => esc_html__('Border Radius', 'vc-tabs'),
+            'label' => __('Border Radius', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::DIMENSIONS,
             'default' => [
                 'unit' => 'px',
@@ -410,7 +417,7 @@ class Style6 extends Helper {
         );
         $this->add_responsive_control(
                 'oxi-tabs-desc-general-padding', $this->style, [
-            'label' => esc_html__('Padding', 'vc-tabs'),
+            'label' => __('Padding', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::DIMENSIONS,
             'default' => [
                 'unit' => 'px',
@@ -441,5 +448,4 @@ class Style6 extends Helper {
         );
         $this->end_controls_section();
     }
-
 }

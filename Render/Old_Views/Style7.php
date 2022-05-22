@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Old Style
  *
@@ -93,11 +90,11 @@ class Style7 extends Old_Render {
                 .ctu-ultimate-wrapper-' . $styleid . '{
                     width: 100%;
                     float: left;
-                    -webkit-box-shadow: ' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . ';
-                    -o-box-shadow: ' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . ';
-                    -ms-box-shadow: ' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . ';
-                    -moz-box-shadow:' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . ';
-                    box-shadow: ' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . ';
+                    -webkit-box-shadow: ' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . '; 
+                    -o-box-shadow: ' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . '; 
+                    -ms-box-shadow: ' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . '; 
+                    -moz-box-shadow:' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . '; 
+                    box-shadow: ' . $styledata[51] . 'px ' . $styledata[53] . 'px ' . $styledata[47] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . '; 
                     border: 1px solid ' . $styledata[45] . ';
                     border-radius: ' . $styledata[59] . 'px ' . $styledata[59] . 'px 0 0;
                     overflow: hidden;
@@ -150,8 +147,8 @@ class Style7 extends Old_Render {
                 .ctu-ulitate-style-' . $styleid . '-tabs{
                     width: 100%;
                     float: left;
-                    display: none;
-                    background-color: ' . $styledata[27] . ';
+                    display: none;            
+                    background-color: ' . $styledata[27] . ';           
                     padding: ' . $styledata[29] . 'px ' . $styledata[31] . 'px ' . $styledata[33] . 'px ' . $styledata[35] . 'px;
                 }
                 .ctu-ulitate-style-' . $styleid . '-tabs p{
@@ -211,14 +208,14 @@ class Style7 extends Old_Render {
                 $this->JQUERY .= '$(".vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '").click(function() {window.open("' . $titlefiles[1] . '" ' . $linkopening . ');});';
             }
             echo '<div class="vc-tabs-li vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
-                                ' . $this->special_charecter($titlefiles[0]) . '
+                                ' . $this->special_charecter($titlefiles[0]) . ' 
                             </div>';
         }
         echo '</div>';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
             echo ' <div class="ctu-ultimate-style-' . $styleid . '-content">
-                        <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+                        <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
                             ' . $this->special_charecter($titlefiles[0]) . '
                         </div>
                         <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">

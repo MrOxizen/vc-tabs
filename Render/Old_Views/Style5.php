@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Old Style
  *
@@ -75,11 +72,11 @@ class Style5 extends Old_Render {
         $this->CSS .= '.ctu-ultimate-wrapper-' . $styleid . '{
                     width: 100%;
                     float: left;
-                    -webkit-box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . ';
-                    -o-box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . ';
-                    -ms-box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . ';
-                    -moz-box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . ';
-                    box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . ';
+                    -webkit-box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . '; 
+                    -o-box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . '; 
+                    -ms-box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . '; 
+                    -moz-box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . '; 
+                    box-shadow: ' . $styledata[53] . 'px ' . $styledata[55] . 'px ' . $styledata[49] . 'px ' . $styledata[57] . 'px ' . $styledata[51] . '; 
                     border-radius: ' . $styledata[25] . 'px ' . $styledata[25] . 'px 0 0;
                 }
                 .ctu-ulimate-style-' . $styleid . '{
@@ -111,7 +108,7 @@ class Style5 extends Old_Render {
                     list-style:none;
                     margin-bottom: 0;
                     position: relative;
-                    padding: ' . $styledata[23] . 'px 10px;
+                    padding: ' . $styledata[23] . 'px 10px;        
                     font-size: ' . $styledata[1] . 'px;
                     line-height: 120%;
                     color: ' . $styledata[3] . ';
@@ -260,7 +257,7 @@ class Style5 extends Old_Render {
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
             echo ' <div class="ctu-ultimate-style-' . $styleid . '-content">
-                    <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
+                    <div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
                         ' . $this->icon_font_selector($value['css']) . '   ' . $this->special_charecter($titlefiles[0]) . '
 
                     </div>

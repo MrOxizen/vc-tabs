@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Classes;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Tabs Rest API
  *
@@ -65,130 +62,18 @@ class Build_Api {
 
     public function api_action($request) {
         $this->request = $request;
-
         $wpnonce = $request['_wpnonce'];
         if (!wp_verify_nonce($wpnonce, 'wp_rest')):
             return new \WP_REST_Request('Invalid URL', 422);
         endif;
-
         $this->rawdata = addslashes($request['rawdata']);
-
-        $this->styleid = (int) $request['styleid'];
-        $this->childid = (int) $request['childid'];
+        $this->styleid = $request['styleid'];
+        $this->childid = $request['childid'];
         $action_class = strtolower($request->get_method()) . '_' . sanitize_key($request['action']);
         if (method_exists($this, $action_class)):
             return $this->{$action_class}();
         endif;
         return 'Silence is Golden';
-    }
-
-    public function allowed_html($rawdata) {
-        $allowed_tags = array(
-            'a' => array(
-                'class' => array(),
-                'href' => array(),
-                'rel' => array(),
-                'title' => array(),
-            ),
-            'abbr' => array(
-                'title' => array(),
-            ),
-            'b' => array(),
-            'br' => array(),
-            'blockquote' => array(
-                'cite' => array(),
-            ),
-            'cite' => array(
-                'title' => array(),
-            ),
-            'code' => array(),
-            'del' => array(
-                'datetime' => array(),
-                'title' => array(),
-            ),
-            'dd' => array(),
-            'div' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),
-            ),
-            'table' => array(
-                'class' => array(),
-                'id' => array(),
-                'style' => array(),
-            ),
-            'button' => array(
-                'class' => array(),
-                'type' => array(),
-                'value' => array(),
-            ),
-            'thead' => array(),
-            'tbody' => array(),
-            'tr' => array(),
-            'td' => array(),
-            'dt' => array(),
-            'em' => array(),
-            'h1' => array(),
-            'h2' => array(),
-            'h3' => array(),
-            'h4' => array(),
-            'h5' => array(),
-            'h6' => array(),
-            'i' => array(
-                'class' => array(),
-            ),
-            'img' => array(
-                'alt' => array(),
-                'class' => array(),
-                'height' => array(),
-                'src' => array(),
-                'width' => array(),
-            ),
-            'li' => array(
-                'class' => array(),
-            ),
-            'ol' => array(
-                'class' => array(),
-            ),
-            'p' => array(
-                'class' => array(),
-            ),
-            'q' => array(
-                'cite' => array(),
-                'title' => array(),
-            ),
-            'span' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-            ),
-            'strike' => array(),
-            'strong' => array(),
-            'ul' => array(
-                'class' => array(),
-            ),
-        );
-        if (is_array($rawdata)):
-            return $rawdata = array_map(array($this, 'allowed_html'), $rawdata);
-        else:
-            return wp_kses($rawdata, $allowed_tags);
-        endif;
-    }
-
-    public function validate_post($data = '') {
-        $rawdata = [];
-        if (!empty($data)):
-            $arrfiles = json_decode(stripslashes($data), true);
-        else:
-            $arrfiles = json_decode(stripslashes($this->rawdata), true);
-        endif;
-        if (is_array($arrfiles)):
-            $rawdata = array_map(array($this, 'allowed_html'), $arrfiles);
-        else:
-            $rawdata = $this->allowed_html($data);
-        endif;
-        return $rawdata;
     }
 
     public function array_replace($arr = [], $search = '', $replace = '') {
@@ -211,16 +96,14 @@ class Build_Api {
     public function post_create_new() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         if (!empty($this->styleid)):
-            $rawdata = $this->validate_post();
-
             $styleid = (int) $this->styleid;
             $newdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             $old = false;
             if (array_key_exists('css', $newdata) && $newdata['css'] != ''):
                 $old = true;
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($rawdata, $newdata['style_name'], $newdata['rawdata'], $newdata['css'])));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'], $newdata['css'])));
             else:
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($rawdata, $newdata['style_name'], $newdata['rawdata'])));
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($this->rawdata, $newdata['style_name'], $newdata['rawdata'])));
             endif;
             $redirect_id = $this->database->wpdb->insert_id;
             if ($redirect_id > 0):
@@ -244,51 +127,30 @@ class Build_Api {
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
         else:
-            $params = $this->validate_post();
+
+            $params = json_decode(stripslashes($this->rawdata), true);
             $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
             $filename = 'responsive-tabs-and-accordions-ultimateand' . $params['responsive-tabs-template-id'] . '.json';
-            $data = json_decode(file_get_contents($folder . $filename), true);
-
-            if (empty($data)) {
-                return new \WP_Error('file_error', 'Invalid File');
-            }
-
-            $content = $data['style'];
-
-            if (!is_array($content)) {
-                return new \WP_Error('file_error', 'Invalid Content In File');
-            }
-
-            return $this->post_json_import($data, $name);
+            return $this->post_json_import($folder, $filename, $params['addons-style-name']);
 
         endif;
     }
 
-    public function post_json_import($params, $name = 'truee') {
+    public function post_json_import($folder, $filename, $name = 'truee') {
+        if (is_file($folder . $filename)) {
+            $this->rawdata = file_get_contents($folder . $filename);
+            $params = json_decode($this->rawdata, true);
+            $style = $params['style'];
+            $child = $params['child'];
+            if ($name != 'truee'):
+                $style['name'] = $name;
 
-        if (!is_array($params)) {
-            return new \WP_Error('file_error', 'Invalid Content In File');
-        }
-        $style = $params['style'];
-        $child = $params['child'];
-        if ($name != 'truee'):
-            $style['name'] = $name;
-        endif;
-        if (array_key_exists('css', $style) && $style['css'] != ''):
-            $old = true;
-            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata, css) VALUES (%s, %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'], $style['css'])));
-        else:
+            endif;
+
             $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
-        endif;
+            $redirect_id = $this->database->wpdb->insert_id;
 
-        $redirect_id = $this->database->wpdb->insert_id;
-
-        if ($redirect_id > 0):
-            if ($old == true):
-                foreach ($child as $value) {
-                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata, title, files, css) VALUES (%d, %s, %s, %s, %s)", array($redirect_id, $value['rawdata'], $value['title'], $value['files'], $value['css'])));
-                }
-            else:
+            if ($redirect_id > 0):
                 $raw = json_decode(stripslashes($style['rawdata']), true);
                 $raw['style-id'] = $redirect_id;
                 $style_name = ucfirst($style['style_name']);
@@ -299,12 +161,12 @@ class Build_Api {
                 foreach ($child as $value) {
                     $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
                 }
-            endif;
-            if ($name != 'truee'):
-                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
-            endif;
+                if ($name != 'truee'):
+                    return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
+                endif;
 
-        endif;
+            endif;
+        }
     }
 
     public function post_shortcode_delete() {
@@ -325,8 +187,6 @@ class Build_Api {
             $style = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->parent_table} WHERE id = %d", $styleid), ARRAY_A);
             $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
             $filename = 'responsive-tabs-and-accordions-ultimateand' . $style['id'] . '.json';
-
-            $style['data-type'] = 'responsive-tabs';
             $files = [
                 'style' => $style,
                 'child' => $child,
@@ -359,7 +219,7 @@ class Build_Api {
     }
 
     public function post_shortcode_deactive() {
-        $params = $this->validate_post();
+        $params = json_decode(stripslashes($this->rawdata), true);
         $id = (int) $params['oxideletestyle'];
         $tabs = 'responsive-tabs';
         if ($id > 0):
@@ -371,7 +231,7 @@ class Build_Api {
     }
 
     public function post_shortcode_active() {
-        $params = $this->validate_post();
+        $params = json_decode(stripslashes($this->rawdata), true);
         $id = (int) $params['oxiimportstyle'];
         $tabs = 'responsive-tabs';
         if ($id > 0):
@@ -397,9 +257,7 @@ class Build_Api {
             $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET rawdata = %s, stylesheet = %s WHERE id = %d", $this->rawdata, $stylesheet, $this->styleid));
             $name = ucfirst($StyleName);
             $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
-            if (class_exists($cls)):
-                $CLASS = new $cls('admin');
-            endif;
+            $CLASS = new $cls('admin');
             return $CLASS->template_css_render($settings);
         endif;
     }
@@ -410,7 +268,7 @@ class Build_Api {
      * @since 9.3.0
      */
     public function post_template_change() {
-        $rawdata = $this->validate_post();
+        $rawdata = sanitize_text_field($this->rawdata);
         if ((int) $this->styleid):
             $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
             return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$this->styleid");
@@ -424,7 +282,7 @@ class Build_Api {
      */
     public function post_template_name() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
-        $settings = $this->validate_post();
+        $settings = json_decode(stripslashes($this->rawdata), true);
         $name = sanitize_text_field($settings['addonsstylename']);
         $id = $settings['addonsstylenameid'];
         if ((int) $id):
@@ -458,7 +316,7 @@ class Build_Api {
      * @since 9.3.0
      */
     public function post_elements_older_rearrange_modal_data() {
-        $rawdata = $this->validate_post();
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
         if ((int) $this->styleid && count($rawdata) == 2):
             $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
             $render = [];
@@ -477,7 +335,7 @@ class Build_Api {
      * @since 9.3.0
      */
     public function post_elements_template_rearrange_save_data() {
-        $params = explode(',', $this->validate_post());
+        $params = explode(',', $this->rawdata);
         foreach ($params as $value) {
             if ((int) $value):
                 $data = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE id = %d ", $value), ARRAY_A);
@@ -580,6 +438,8 @@ class Build_Api {
         return $notice;
     }
 
+   
+
     /**
      * Admin Settings
      * @return void
@@ -588,12 +448,12 @@ class Build_Api {
         if (!current_user_can('manage_options')) {
             return;
         }
-        $rawdata = $this->validate_post();
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxi_addons_user_permission', $value);
         return '<span class="oxi-confirmation-success"></span>';
     }
-
+    
     /**
      * Admin Settings
      * @return void
@@ -602,7 +462,7 @@ class Build_Api {
         if (!current_user_can('manage_options')) {
             return;
         }
-        $rawdata = $this->validate_post();
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxi_addons_font_awesome', $value);
         return '<span class="oxi-confirmation-success"></span>';
@@ -616,7 +476,7 @@ class Build_Api {
         if (!current_user_can('manage_options')) {
             return;
         }
-        $rawdata = $this->validate_post();
+         $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxilab_tabs_woocommerce', $value);
         return '<span class="oxi-confirmation-success"></span>';
@@ -630,7 +490,7 @@ class Build_Api {
         if (!current_user_can('manage_options')) {
             return;
         }
-        $rawdata = $this->validate_post();
+       $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxi_tabs_use_the_content', $value);
         return '<span class="oxi-confirmation-success"></span>';
@@ -644,7 +504,7 @@ class Build_Api {
         if (!current_user_can('manage_options')) {
             return;
         }
-        $rawdata = $this->validate_post();
+         $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxilab_tabs_woocommerce_default', $value);
         return '<span class="oxi-confirmation-success"></span>';
@@ -658,10 +518,10 @@ class Build_Api {
         if (!current_user_can('manage_options')) {
             return;
         }
-        $value = $this->validate_post();
-        update_option('oxilab_tabs_woocommerce_customize_default_tabs', $value);
+        update_option('oxilab_tabs_woocommerce_customize_default_tabs', $this->rawdata);
         return '<span class="oxi-confirmation-success"></span>';
     }
+    
 
     /**
      * Admin Settings
@@ -671,21 +531,21 @@ class Build_Api {
         if (!current_user_can('manage_options')) {
             return;
         }
-        $rawdata = $this->validate_post();
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
         $value = sanitize_text_field($rawdata['value']);
         update_option('oxi_addons_fixed_header_size', $value);
         return '<span class="oxi-confirmation-success"></span>';
     }
+
+
+   
 
     /**
      * Admin License
      * @return void
      */
     public function post_oxi_license() {
-        if (!current_user_can('manage_options')) {
-            return;
-        }
-        $rawdata = $this->validate_post();
+        $rawdata = json_decode(stripslashes($this->rawdata), true);
         $new = $rawdata['license'];
         $old = get_option('responsive_tabs_with_accordions_license_key');
         $status = get_option('responsive_tabs_with_accordions_license_status');
@@ -722,7 +582,7 @@ class Build_Api {
             if (is_wp_error($response)) {
                 $message = $response->get_error_message();
             } else {
-                $message = esc_html('An error occurred, please try again.');
+                $message = __('An error occurred, please try again.');
             }
         } else {
             $license_data = json_decode(wp_remote_retrieve_body($response));
@@ -734,39 +594,39 @@ class Build_Api {
                     case 'expired' :
 
                         $message = sprintf(
-                                'Your license key expired on %s.', date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
+                                __('Your license key expired on %s.'), date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
                         );
                         break;
 
                     case 'revoked' :
 
-                        $message = esc_html('Your license key has been disabled.');
+                        $message = __('Your license key has been disabled.');
                         break;
 
                     case 'missing' :
 
-                        $message = esc_html('Invalid license.');
+                        $message = __('Invalid license.');
                         break;
 
                     case 'invalid' :
                     case 'site_inactive' :
 
-                        $message = esc_html('Your license is not active for this URL.');
+                        $message = __('Your license is not active for this URL.');
                         break;
 
                     case 'item_name_mismatch' :
 
-                        $message = sprintf('This appears to be an invalid license key for %s.', 'vc-tabs');
+                        $message = sprintf(__('This appears to be an invalid license key for %s.'), Responsive_Tabs_with_Accordions);
                         break;
 
                     case 'no_activations_left':
 
-                        $message = esc_html('Your license key has reached its activation limit.');
+                        $message = __('Your license key has reached its activation limit.');
                         break;
 
                     default :
 
-                        $message = esc_html('An error occurred, please try again.');
+                        $message = __('An error occurred, please try again.');
                         break;
                 }
             }
@@ -792,7 +652,7 @@ class Build_Api {
             if (is_wp_error($response)) {
                 $message = $response->get_error_message();
             } else {
-                $message = esc_html('An error occurred, please try again.');
+                $message = __('An error occurred, please try again.');
             }
             return $message;
         }

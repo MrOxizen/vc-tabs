@@ -7,9 +7,6 @@
 
 namespace OXI_TABS_PLUGINS\Page;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Addons
  *
@@ -24,7 +21,7 @@ class Plugins {
     const PLUGINS = 'https://www.oxilab.org/wp-json/oxilabplugins/v2/all_plugins';
 
     public $get_plugins = [];
-    public $current_plugins = 'vc-tabs/index.php';
+    public $current_plugins = 'accordions-or-faqs/index.php';
     // instance container
     private static $instance = null;
 
@@ -107,24 +104,24 @@ class Plugins {
                                     $message = '<a href="#" class="btn btn-light">Installed</a>';
                                 else:
                                     $activation_url = wp_nonce_url(admin_url('plugins.php?action=activate&plugin=' . $file_path), 'activate-plugin_' . $file_path);
-                                    $message = sprintf('<a href="%s" class="btn btn-info">%s</a>', esc_url($activation_url), esc_html__('Activate', 'vc-tabs'));
+                                    $message = sprintf('<a href="%s" class="btn btn-info">%s</a>', $activation_url, __('Activate', OXI_ACCORDIONS_TEXTDOMAIN));
                                 endif;
                             else:
                                 if (current_user_can('install_plugins')):
                                     $install_url = wp_nonce_url(add_query_arg(array('action' => 'install-plugin', 'plugin' => $plugin), admin_url('update.php')), 'install-plugin' . '_' . $plugin);
-                                    $message = sprintf('<a href="%s" class="btn btn-success">%s</a>', esc_url($install_url), esc_html__('Install', 'vc-tabs'));
+                                    $message = sprintf('<a href="%s" class="btn btn-success">%s</a>', $install_url, __('Install', OXI_ACCORDIONS_TEXTDOMAIN));
                                 endif;
                             endif;
                             ?>
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="oxi-addons-modules-elements">
-                                    <img class="oxi-addons-modules-banner" src="<?php echo esc_url($value['modules-img']); ?>">
+                                    <img class="oxi-addons-modules-banner" src="<?php echo $value['modules-img']; ?>">
                                     <div class="oxi-addons-modules-action-wrapper">
-                                        <span class="oxi-addons-modules-name"><?php echo esc_html($value['modules-name']); ?></span>
-                                        <span class="oxi-addons-modules-desc"><?php echo esc_html($value['modules-desc']); ?></span>
+                                        <span class="oxi-addons-modules-name"><?php echo $value['modules-name']; ?></span>
+                                        <span class="oxi-addons-modules-desc"><?php echo $value['modules-desc']; ?></span>
                                     </div>
                                     <div class="oxi-addons-modules-action-status">
-                                        <span class="oxi-addons-modules-preview"><a href="<?php echo esc_url($value['plugin-url']); ?>" class="btn btn-dark">Preview</a></span>
+                                        <span class="oxi-addons-modules-preview"><a href="<?php echo $value['plugin-url']; ?>" class="btn btn-dark">Preview</a></span>
                                         <span class="oxi-addons-modules-installing"><?php echo $message; ?></span>
                                     </div>
                                 </div>

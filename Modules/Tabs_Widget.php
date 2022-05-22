@@ -2,14 +2,11 @@
 
 namespace OXI_TABS_PLUGINS\Modules;
 
-if (!defined('ABSPATH'))
-    exit;
-
 class Tabs_Widget extends \WP_Widget {
 
     function __construct() {
         parent::__construct(
-                'responsive_tabs_with_accordions_widget', esc_html__('Responsive Tabs with Accordions', 'vc-tabs'), array('description' => esc_html__('Responsive Tabs with Accordions Widget', 'vc-tabs'),)
+                'responsive_tabs_with_accordions_widget', __('Responsive Tabs with Accordions', 'responsive_tabs_with_accordions_widget_widget'), array('description' => __('Responsive Tabs with Accordions Widget', 'responsive_tabs_with_accordions_widget_widget'),)
         );
     }
 
@@ -28,19 +25,19 @@ class Tabs_Widget extends \WP_Widget {
         if (isset($instance['title'])) {
             $title = $instance['title'];
         } else {
-            $title = esc_html__('1', 'vc-tabs');
+            $title = __('1', 'responsive_tabs_with_accordions_widget_widget');
         }
         ?>
         <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html('Style ID:'); ?></label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr(esc_attr($title)); ?>" />
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Style ID:'); ?></label> 
+            <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
         </p>
         <?php
     }
 
     public function update($new_instance, $old_instance) {
         $instance = array();
-        $instance['title'] = (!empty($new_instance['title']) ) ? sanitize_text_field($new_instance['title']) : '';
+        $instance['title'] = (!empty($new_instance['title']) ) ? strip_tags($new_instance['title']) : '';
         return $instance;
     }
 

@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Admin;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Style1
  *
@@ -65,6 +62,7 @@ class Style9 extends Old_Admin {
                 . ' |';
         return $data;
     }
+
 
     public function admin_field($styledata) {
         $styleid = $this->styleid;
@@ -342,7 +340,7 @@ class Style9 extends Old_Admin {
                                 ?> value="inherit">Inherit</option>
                             </select>
                         </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
             <div class="oxi-addons-col-6">
@@ -400,7 +398,7 @@ class Style9 extends Old_Admin {
                 <div class="oxi-addons-content-div">
                     <div class="oxi-head">
                         Box Shadow
-                    </div>
+                    </div>                                               
                     <div class="form-group row form-group-sm">
                         <label for="heading-box-shadow-Horizontal" class="col-sm-6 col-form-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Attach Shadow Length to Heading, Based on Pixel">Box Shadow Length</label>
                         <div class="col-sm-3">
@@ -542,7 +540,7 @@ class Style9 extends Old_Admin {
                     <div class="form-group row form-group-sm">
                         <label for="content-background-color" class="col-sm-6 control-label content-background-color"  data-toggle="tooltip" data-placement="top" title="Set Custom Background Color of Content Box">Background Color </label>
                         <div class="col-sm-6 ">
-                            <input type="text"  data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="content-background-color" name="content-background-color" value="<?php echo $styledata[33]; ?>" oxivalue="<?php echo $styledata[33]; ?>">
+                            <input type="text"  data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="content-background-color" name="content-background-color" value="<?php echo $styledata[33]; ?>" oxivalue="<?php echo $styledata[33]; ?>"> 
                         </div>
                     </div>
                     <div class="form-group row form-group-sm">
@@ -563,7 +561,7 @@ class Style9 extends Old_Admin {
                         </div>
                         <div class="col-sm-3 ">
                             <input class="form-control" type="number" value="<?php echo $styledata[37]; ?>" id="content-padding-right" name="content-padding-right">
-                        </div>
+                        </div> 
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-font-align" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Set Content Text Position, Based on left or center or Right">Text Align  </label>
@@ -590,7 +588,7 @@ class Style9 extends Old_Admin {
                 </div>
                 <div class="oxi-addons-content-div">
                     <div class="oxi-head">
-                        Box Shadow
+                        Box Shadow                                                
                     </div>
                     <div class="form-group row form-group-sm">
                         <label for="content-box-shadow-Horizontal" class="col-sm-6 col-form-label" data-toggle="tooltip" class="tooltipLink" data-original-title="Attach Shadow Length to Tabs, Based on Pixel">Box Shadow  Length</label>
@@ -615,7 +613,7 @@ class Style9 extends Old_Admin {
                         <div class="col-sm-6 ">
                             <input type="text" data-format="rgb" data-opacity="true" class="form-control oxilab-vendor-color" id="content-box-shadow-color" name="content-box-shadow-color" value="<?php echo $styledata[53]; ?>" oxivalue="<?php echo $styledata[53]; ?>">
                         </div>
-                    </div>
+                    </div>                                                
                 </div>
             </div>
 
@@ -785,5 +783,4 @@ class Style9 extends Old_Admin {
         </div>
         <?php
     }
-
 }

@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Admin;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Style1
  *
@@ -62,6 +59,7 @@ class Style4 extends Old_Admin {
                 . ' tabs-link-options |' . sanitize_text_field($_POST['tabs-link-options']) . '|';
         return $data;
     }
+
 
     public function admin_field($styledata) {
         $styleid = $this->styleid;
@@ -238,7 +236,7 @@ class Style4 extends Old_Admin {
                                 ?> value="inherit">Inherit</option>
                             </select>
                         </div>
-                    </div>
+                    </div> 
                     <div class="form-group row form-group-sm">
                         <label for="heading-font-familly" class="col-sm-6 col-form-label heading-font-familly"  data-toggle="tooltip" data-placement="top" title="Choose Your Title Preferred font, Based on Google Font"> Font Family </label>
                         <div class="col-sm-6">
@@ -489,7 +487,7 @@ class Style4 extends Old_Admin {
                 <div class="oxi-addons-content-div">
                     <div class="oxi-head">
                         Body Settings
-                    </div>
+                    </div>  
                     <div class="form-group row form-group-sm">
                         <label for="content-font-align" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Set Content Text Position, Based on left or center or Right">Text Align  </label>
                         <div class="col-sm-6">
@@ -560,8 +558,8 @@ class Style4 extends Old_Admin {
                         <div class="col-sm-6">
                             <input class="form-control" type="number" value="<?php echo $styledata[55]; ?>" id="content-border-radius" name="content-border-radius">
                         </div>
-                    </div>
-                </div>
+                    </div>                                                
+                </div> 
             </div>
         </div>
         <div class="oxi-addons-tabs-content-tabs" id="oxilab-tabs-id-2">
@@ -732,5 +730,4 @@ class Style4 extends Old_Admin {
         </div>
         <?php
     }
-
 }

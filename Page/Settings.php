@@ -7,9 +7,6 @@
 
 namespace OXI_TABS_PLUGINS\Page;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Settings
  *
@@ -55,10 +52,10 @@ class Settings {
      * @return void
      */
     public function admin_ajax() {
-        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/settings.js', false, 'vc-tabs');
+        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/settings.js', false, OXI_TABS_TEXTDOMAIN);
     }
 
-    public function Render() {
+   public function Render() {
         $this->admin_css_loader();
         ?>
         <div class="wrap">

@@ -2,13 +2,10 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Render Core Class
  *
- *
+ * 
  * @author biplob018
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0
@@ -185,12 +182,12 @@ class Render {
         }
         if ($inlinejs != ''):
             if ($this->admin == 'admin'):
-                echo'<script>
+                echo _('<script>
                         (function ($) {
-                            setTimeout(function () {';
+                            setTimeout(function () {');
                 echo $inlinejs;
-                echo '    }, 2000);
-                        })(jQuery)</script>';
+                echo _('    }, 2000);
+                        })(jQuery)</script>');
             else:
                 $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
                 wp_add_inline_script($this->JSHANDLE, $jquery);
@@ -200,9 +197,9 @@ class Render {
             $inlinecss = html_entity_decode($inlinecss);
             if ($this->admin == 'admin'):
                 //only load while ajax called
-                echo '<style>';
+                echo _('<style>');
                 echo $inlinecss;
-                echo '</style>';
+                echo _('</style>');
             else:
                 wp_add_inline_style('oxi-tabs-ultimate', $inlinecss);
             endif;
@@ -231,10 +228,10 @@ class Render {
 
         $this->public_attribute($this->style);
 
-        echo '<div class="oxi-addons-container ' . esc_attr($this->WRAPPER) . '" id="' . esc_attr($this->WRAPPER) . '">
+        echo '<div class="oxi-addons-container ' . $this->WRAPPER . '" id="' . $this->WRAPPER . '">
                  <div class="oxi-addons-row">';
         if ($this->admin == 'admin'):
-            echo '<input type="hidden" id="oxi-addons-iframe-background-color" name="oxi-addons-iframe-background-color" value="' . (is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? esc_attr($this->style['oxilab-preview-color']) : '#FFF' : '#FFF') . '">';
+            echo '<input type="hidden" id="oxi-addons-iframe-background-color" name="oxi-addons-iframe-background-color" value="' . (is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF') . '">';
         endif;
         $this->default_render($this->style, $this->child, $this->admin);
         echo '   </div>
@@ -630,8 +627,7 @@ class Render {
         elseif ($child['oxi-tabs-modal-components-type'] == 'nested-tabs'):
             return $this->tabs_content_render_nested_tabs($style, $child);
         else:
-            $content = $this->special_charecter($child['oxi-tabs-modal-desc']);
-            return $content;
+            return $this->special_charecter($child['oxi-tabs-modal-desc']);
         endif;
     }
 
@@ -684,7 +680,6 @@ class Render {
         $r .= '</div>';
         if ($t):
             return $r;
-
         endif;
     }
 
@@ -710,7 +705,7 @@ class Render {
         if ($fadata != 'no'):
             wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
         endif;
-        $files = '<i class="' . esc_attr($data) . ' oxi-icons"></i>';
+        $files = '<i class="' . $data . ' oxi-icons"></i>';
         return $files;
     }
 
@@ -726,10 +721,10 @@ class Render {
         if ($this->admin == 'admin'):
             $data = '   <div class="oxi-addons-admin-absulote">
                             <div class="oxi-addons-admin-absulate-edit">
-                                <button class="btn btn-primary shortcode-addons-template-item-edit" type="button" value="' . esc_attr($id) . '">Edit</button>
+                                <button class="btn btn-primary shortcode-addons-template-item-edit" type="button" value="' . $id . '">Edit</button>
                             </div>
                             <div class="oxi-addons-admin-absulate-delete">
-                                <button class="btn btn-danger shortcode-addons-template-item-delete" type="submit" value="' . esc_attr($id) . '">Delete</button>
+                                <button class="btn btn-danger shortcode-addons-template-item-delete" type="submit" value="' . $id . '">Delete</button>
                             </div>
                         </div>';
         endif;

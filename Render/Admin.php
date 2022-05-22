@@ -2,13 +2,10 @@
 
 namespace OXI_TABS_PLUGINS\Render;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Admin Core Class
  *
- *
+ * 
  * @author biplob018
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0
@@ -68,6 +65,7 @@ class Admin {
      * @since 3.3.0
      */
     public $CSSWRAPPER;
+    
 
     /**
      * Define $wpdb
@@ -114,7 +112,7 @@ class Admin {
 
     public function __construct($type = '') {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
-        $this->oxiid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
+        $this->oxiid = (!empty($_GET['styleid']) ? sanitize_text_field($_GET['styleid']) : '');
         $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
         $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
         if ($type != 'admin') {
@@ -137,7 +135,7 @@ class Admin {
                 $this->Get_Nested_Tabs[$value['id']] = !empty($value['name']) ? $value['name'] : 'Tabs id ' . $value['id'];
             endif;
         }
-
+        
         $this->child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->oxiid), ARRAY_A);
         if (!empty($this->dbdata['rawdata'])):
             $s = json_decode(stripslashes($this->dbdata['rawdata']), true);
@@ -160,8 +158,8 @@ class Admin {
     public function modal_opener() {
         $this->add_substitute_control('', [], [
             'type' => Controls::MODALOPENER,
-            'title' => esc_html__('Tabs Data Form', 'vc-tabs'),
-            'sub-title' => esc_html__('Open Form', 'vc-tabs'),
+            'title' => __('Tabs Data Form', OXI_TABS_TEXTDOMAIN),
+            'sub-title' => __('Open Form', OXI_TABS_TEXTDOMAIN),
             'showing' => TRUE,
         ]);
     }
@@ -175,8 +173,8 @@ class Admin {
     public function shortcode_name() {
         $this->add_substitute_control('', $this->dbdata, [
             'type' => Controls::SHORTCODENAME,
-            'title' => esc_html__('Shortcode Name', 'vc-tabs'),
-            'placeholder' => esc_html__('Set Your Shortcode Name', 'vc-tabs'),
+            'title' => __('Shortcode Name', OXI_TABS_TEXTDOMAIN),
+            'placeholder' => __('Set Your Shortcode Name', OXI_TABS_TEXTDOMAIN),
             'showing' => TRUE,
         ]);
     }
@@ -190,7 +188,7 @@ class Admin {
     public function shortcode_info() {
         $this->add_substitute_control($this->oxiid, $this->dbdata, [
             'type' => Controls::SHORTCODEINFO,
-            'title' => esc_html__('Shortcode', 'vc-tabs'),
+            'title' => __('Shortcode', OXI_TABS_TEXTDOMAIN),
             'showing' => TRUE,
         ]);
     }
@@ -348,7 +346,7 @@ class Admin {
      */
     public function render() {
         ?>
-        <div class="wrap">
+        <div class="wrap">  
             <div class="oxi-addons-wrapper">
                 <?php
                 apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
@@ -373,10 +371,10 @@ class Admin {
                                             <input type="hidden"  id="oxilab-preview-color" name="oxilab-preview-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
                                             <input type="hidden"  id="style-id" name="style-id" value="<?php echo $this->dbdata['id']; ?>">
                                             <input type="hidden"  id="style-name" name="style-name" value="<?php echo $this->StyleName; ?>">
-                                            <input type="hidden"  id="style-changing-trigger" name="style-changing-trigger" value="">
+                                            <input type="hidden"  id="style-changing-trigger" name="style-changing-trigger" value=""> 
                                             <button type="button" class="btn btn-success" id="oxi-addons-templates-submit"> Save</button>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </form>
                             </div>
                             <div class="oxi-addons-style-right">
@@ -406,7 +404,7 @@ class Admin {
                                                     <span class="dashicons dashicons-smartphone"></span>
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div> 
                                         <div class="oxi-addons-style-left-preview-heading-right">
                                             <input type="text" data-format="rgb" data-opacity="TRUE" class="oxi-addons-minicolor" id="oxi-addons-2-0-color" name="oxi-addons-2-0-color" value="<?php echo(is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
                                         </div>
@@ -414,8 +412,8 @@ class Admin {
                                     <div class="oxi-addons-preview-wrapper">
                                         <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> > .oxi-addons-row" template-id="#oxi-tabs-wrapper-<?php echo $this->dbdata['id']; ?>">
 
-                                            <iframe  src="<?php echo admin_url('admin.php?page=oxi-tabs-style-view&styleid=' . $this->oxiid); ?>"
-                                                     id="oxi-addons-preview-iframe"
+                                            <iframe  src="<?php echo admin_url('admin.php?page=oxi-tabs-style-view&styleid=' . $this->oxiid); ?>" 
+                                                     id="oxi-addons-preview-iframe" 
                                                      class="oxi-addons-preview-iframe"
                                                      width="100%" scrolling="no"
                                                      frameborder="0"></iframe>
@@ -435,12 +433,12 @@ class Admin {
                                     </div>
                                 </div>
                                 <div class="modal-body text-center">
-                                    <h4></h4>
+                                    <h4></h4>	
                                     <p></p>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>  
 
                 </div>
             </div>
@@ -452,8 +450,8 @@ class Admin {
         $this->start_section_header(
                 'shortcode-addons-start-tabs', [
             'options' => [
-                'button-settings' => esc_html__('General Settings', 'vc-tabs'),
-                'custom' => esc_html__('Custom CSS', 'vc-tabs'),
+                'button-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
+                'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
             ]
                 ]
         );
@@ -484,13 +482,13 @@ class Admin {
 
         $this->start_controls_section(
                 'oxi-tabs-start-tabs-css', [
-            'label' => esc_html__('Custom CSS', 'vc-tabs'),
+            'label' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
             'showing' => TRUE,
                 ]
         );
         $this->add_control(
                 'oxi-tabs-custom-css', $this->style, [
-            'label' => esc_html__('', 'vc-tabs'),
+            'label' => __('', OXI_TABS_TEXTDOMAIN),
             'type' => Controls::TEXTAREA,
             'default' => '',
             'description' => 'Custom CSS Section. You can add custom css into textarea.'

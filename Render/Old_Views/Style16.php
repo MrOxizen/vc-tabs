@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Views;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Old Style
  *
@@ -154,13 +151,13 @@ class Style16 extends Old_Render {
                         background-color: ' . $styledata[5] . ';
                     }
                     .ctu-ultimate-style-heading-' . $styleid . '.active{
-                        color: ' . $styledata[7] . ';
+                        color: ' . $styledata[7] . '; 
                         background-color: ' . $styledata[9] . ';
                     }
                     .ctu-ulitate-style-' . $styleid . '-tabs{
                         display: none;
                         width:100%;
-                        float:left;
+                        float:left;           
                         padding: ' . $styledata[39] . 'px ' . $styledata[41] . 'px ' . $styledata[43] . 'px ' . $styledata[45] . 'px ;
                         text-align: ' . $styledata[53] . '
                     }
@@ -232,12 +229,12 @@ class Style16 extends Old_Render {
         echo '<div class="ctu-ultimate-style-' . $styleid . '-content">';
         foreach ($this->child as $value) {
             $titlefiles = explode('{}{}{}', $value['title']);
-            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
-                    ' . $this->icon_font_selector($value['css']) . '
-                   ' . $this->special_charecter($titlefiles[0]) . '
+            echo '<div class="ctu-ultimate-style-heading-' . $styleid . ' vc-tabs-li-' . $styleid . '-id-' . $value['id'] . '" ref="#ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '"> 
+                    ' .  $this->icon_font_selector($value['css']) . '
+                   ' .  $this->special_charecter($titlefiles[0]) . '
                </div>
                 <div class="ctu-ulitate-style-' . $styleid . '-tabs ' . ($this->user == 'admin' ? 'oxi-addons-admin-edit-list' : '') . '" id="ctu-ulitate-style-' . $styleid . '-id-' . $value['id'] . '">
-                    ' . $this->special_charecter($value['files']) . '
+                    ' .  $this->special_charecter($value['files']) . '
                     ' . $this->admin_edit_panel($value['id']) . '
                 </div> ';
         }

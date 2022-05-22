@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Helper;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  *
  * @author biplo
@@ -65,10 +62,13 @@ trait Public_Helper {
 
     public function shortcode_render($styleid, $user = 'public') {
         if (!empty((int) $styleid) && !empty($user)):
+          
+           
             $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
-            if (!array_key_exists('rawdata', $style)):
+            if (!is_array($style) || (is_array($style) && !array_key_exists('rawdata', $style))):
                 $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
                 $Installation->Datatase();
+                return;
             endif;
             if ($user == 'admin'):
                 $response = get_transient('oxi-responsive-tabs-transient-' . $styleid);
@@ -84,6 +84,9 @@ trait Public_Helper {
             $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
             $template = ucfirst($style['style_name']);
             $row = json_decode(stripslashes($style['rawdata']), true);
+            
+            
+            
             if (is_array($row)):
                 $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $template;
             else:
@@ -93,114 +96,6 @@ trait Public_Helper {
                 new $cls($style, $child, $user);
             endif;
         endif;
-    }
-     public function allowed_html($rawdata) {
-        $allowed_tags = array(
-            'a' => array(
-                'class' => array(),
-                'href' => array(),
-                'rel' => array(),
-                'title' => array(),
-            ),
-            'abbr' => array(
-                'title' => array(),
-            ),
-            'b' => array(),
-            'br' => array(),
-            'blockquote' => array(
-                'cite' => array(),
-            ),
-            'cite' => array(
-                'title' => array(),
-            ),
-            'code' => array(),
-            'del' => array(
-                'datetime' => array(),
-                'title' => array(),
-            ),
-            'dd' => array(),
-            'div' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-                'id' => array(),
-            ),
-            'table' => array(
-                'class' => array(),
-                'id' => array(),
-                'style' => array(),
-            ),
-            'button' => array(
-                'class' => array(),
-                'type' => array(),
-                'value' => array(),
-            ),
-            'thead' => array(),
-            'tbody' => array(),
-            'tr' => array(),
-            'td' => array(),
-            'dt' => array(),
-            'em' => array(),
-            'h1' => array(),
-            'h2' => array(),
-            'h3' => array(),
-            'h4' => array(),
-            'h5' => array(),
-            'h6' => array(),
-            'i' => array(
-                'class' => array(),
-            ),
-            'img' => array(
-                'alt' => array(),
-                'class' => array(),
-                'height' => array(),
-                'src' => array(),
-                'width' => array(),
-            ),
-            'li' => array(
-                'class' => array(),
-            ),
-            'ol' => array(
-                'class' => array(),
-            ),
-            'p' => array(
-                'class' => array(),
-            ),
-            'q' => array(
-                'cite' => array(),
-                'title' => array(),
-            ),
-            'span' => array(
-                'class' => array(),
-                'title' => array(),
-                'style' => array(),
-            ),
-            'strike' => array(),
-            'strong' => array(),
-            'ul' => array(
-                'class' => array(),
-            ),
-        );
-        if (is_array($rawdata)):
-            return $rawdata = array_map(array($this, 'allowed_html'), $rawdata);
-        else:
-            return wp_kses($rawdata, $allowed_tags);
-        endif;
-    }
-
-    public function validate_post($files = '') {
-        
-        $rawdata = [];
-        if (!empty($files) && !is_array($files)):
-            $data = json_decode(stripslashes($files), true);
-        endif;
-        if (is_array($data)):
-            $rawdata = array_map(array($this, 'allowed_html'), $data);
-        else:
-            $rawdata = $this->allowed_html($files);
-        endif;
-       
-        return $rawdata;
     }
 
 }

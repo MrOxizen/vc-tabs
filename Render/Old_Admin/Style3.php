@@ -2,9 +2,6 @@
 
 namespace OXI_TABS_PLUGINS\Render\Old_Admin;
 
-if (!defined('ABSPATH'))
-    exit;
-
 /**
  * Description of Style1
  *
@@ -354,7 +351,7 @@ class Style3 extends Old_Admin {
                                 ?> value="inherit">Inherit</option>
                             </select>
                         </div>
-                    </div>
+                    </div> 
 
                 </div>
 
@@ -403,12 +400,12 @@ class Style3 extends Old_Admin {
                         <div class="col-sm-6 ">
                             <input class="form-control" type="number" value="<?php echo $styledata[55]; ?>" id="heading-margin-right" name="heading-margin-right">
                         </div>
-                    </div>
+                    </div>                                               
                 </div>
                 <div class="oxi-addons-content-div">
                     <div class="oxi-head">
                         Box Shadow
-                    </div>
+                    </div>                                                  
                     <div class="form-group row form-group-sm">
                         <label for="heading-box-shadow-Horizontal" class="col-sm-6 col-form-label" data-toggle="tooltip" data-placement="top" title="Attach Shadow Horizontal Vertical on Title box, Based on Pixel ">Box Shadow Length</label>
                         <div class="col-sm-3">
@@ -453,7 +450,7 @@ class Style3 extends Old_Admin {
                         <div class="col-sm-6 ">
                             <input type="text" class="form-control oxilab-vendor-color" id="content-font-color" name="content-font-color" value="<?php echo $styledata[31]; ?>" oxivalue="<?php echo $styledata[31]; ?>">
                         </div>
-                    </div>
+                    </div>                                                
                     <div class="form-group row form-group-sm">
                         <label for="content-line-height" class="col-sm-6 col-form-label"  data-toggle="tooltip" data-placement="top" title="Customize Your Content Font Line Height, Based on Point">Line Height </label>
                         <div class="col-sm-6 ">
@@ -559,7 +556,7 @@ class Style3 extends Old_Admin {
                                 ?>>Right</option>
                             </select>
                         </div>
-                    </div>
+                    </div>                                               
                 </div>
             </div>
             <div class="oxi-addons-col-6">
@@ -592,7 +589,7 @@ class Style3 extends Old_Admin {
                         <div class="col-sm-3">
                             <input class="form-control" type="number" value="<?php echo $styledata[41]; ?>" id="content-padding-left" name="content-padding-left">
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="oxi-addons-content-div">
                     <div class="oxi-head">
