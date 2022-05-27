@@ -42,24 +42,7 @@ class Create {
         $this->Render();
     }
 
-    public function CSSJS_load() {
-        $this->admin_css_loader();
-        $this->admin_ajax_load();
-        apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
-        $template = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by name ASC", 'responsive-tabs'), ARRAY_A);
-        if (count($template) < 1):
-            for ($i = 1; $i < 5; $i++) {
-                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array('responsive-tabs', $i)));
-                $this->IMPORT[$i] = $i;
-            }
-        else:
-            foreach ($template as $value) {
-                $this->IMPORT[(int) $value['name']] = $value['name'];
-            }
-        endif;
-        ksort($this->IMPORT);
-        $this->get_local_tempalte();
-    }
+   
 
     /**
      * Admin Notice JS file loader
@@ -300,5 +283,22 @@ class Create {
         </div>
         <?php
     }
-
+ public function CSSJS_load() {
+        $this->admin_css_loader();
+        $this->admin_ajax_load();
+        apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
+        $template = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by name ASC", 'responsive-tabs'), ARRAY_A);
+        if (count($template) < 1):
+            for ($i = 1; $i < 5; $i++) {
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array('responsive-tabs', $i)));
+                $this->IMPORT[$i] = $i;
+            }
+        else:
+            foreach ($template as $value) {
+                $this->IMPORT[(int) $value['name']] = $value['name'];
+            }
+        endif;
+        ksort($this->IMPORT);
+        $this->get_local_tempalte();
+    }
 }

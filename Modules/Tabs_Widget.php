@@ -20,7 +20,11 @@ class Tabs_Widget extends \WP_Widget {
         echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($title, 'user');
         echo $args['after_widget'];
     }
-
+  public function update($new_instance, $old_instance) {
+        $instance = array();
+        $instance['title'] = (!empty($new_instance['title']) ) ? strip_tags($new_instance['title']) : '';
+        return $instance;
+    }
     public function form($instance) {
         if (isset($instance['title'])) {
             $title = $instance['title'];
@@ -35,10 +39,6 @@ class Tabs_Widget extends \WP_Widget {
         <?php
     }
 
-    public function update($new_instance, $old_instance) {
-        $instance = array();
-        $instance['title'] = (!empty($new_instance['title']) ) ? strip_tags($new_instance['title']) : '';
-        return $instance;
-    }
+  
 
 }

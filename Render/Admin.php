@@ -120,6 +120,60 @@ class Admin {
             $this->render();
         }
     }
+    
+    public function register_controls() {
+        $this->start_section_header(
+                'shortcode-addons-start-tabs', [
+            'options' => [
+                'button-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
+                'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+            ]
+                ]
+        );
+        $this->start_section_tabs(
+                'oxi-tabs-start-tabs', [
+            'condition' => [
+                'oxi-tabs-start-tabs' => 'button-settings'
+            ]
+                ]
+        );
+        $this->start_section_devider();
+        $this->register_general();
+        $this->end_section_devider();
+
+        $this->start_section_devider();
+        $this->register_heading();
+        $this->end_section_devider();
+        $this->end_section_tabs();
+
+        $this->start_section_tabs(
+                'oxi-tabs-start-tabs', [
+            'condition' => [
+                'oxi-tabs-start-tabs' => 'custom'
+            ],
+            'padding' => '10px'
+                ]
+        );
+
+        $this->start_controls_section(
+                'oxi-tabs-start-tabs-css', [
+            'label' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+            'showing' => TRUE,
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-custom-css', $this->style, [
+            'label' => __('', OXI_TABS_TEXTDOMAIN),
+            'type' => Controls::TEXTAREA,
+            'default' => '',
+            'description' => 'Custom CSS Section. You can add custom css into textarea.'
+                ]
+        );
+        $this->end_controls_section();
+        $this->end_section_tabs();
+    }
+
+  
 
     /**
      * Template hooks
@@ -445,60 +499,7 @@ class Admin {
         </div>
         <?php
     }
-
-    public function register_controls() {
-        $this->start_section_header(
-                'shortcode-addons-start-tabs', [
-            'options' => [
-                'button-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
-                'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
-            ]
-                ]
-        );
-        $this->start_section_tabs(
-                'oxi-tabs-start-tabs', [
-            'condition' => [
-                'oxi-tabs-start-tabs' => 'button-settings'
-            ]
-                ]
-        );
-        $this->start_section_devider();
-        $this->register_general();
-        $this->end_section_devider();
-
-        $this->start_section_devider();
-        $this->register_heading();
-        $this->end_section_devider();
-        $this->end_section_tabs();
-
-        $this->start_section_tabs(
-                'oxi-tabs-start-tabs', [
-            'condition' => [
-                'oxi-tabs-start-tabs' => 'custom'
-            ],
-            'padding' => '10px'
-                ]
-        );
-
-        $this->start_controls_section(
-                'oxi-tabs-start-tabs-css', [
-            'label' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
-            'showing' => TRUE,
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-custom-css', $this->style, [
-            'label' => __('', OXI_TABS_TEXTDOMAIN),
-            'type' => Controls::TEXTAREA,
-            'default' => '',
-            'description' => 'Custom CSS Section. You can add custom css into textarea.'
-                ]
-        );
-        $this->end_controls_section();
-        $this->end_section_tabs();
-    }
-
-    public function str_replace_first($from, $to, $content) {
+  public function str_replace_first($from, $to, $content) {
         $from = '/' . preg_quote($from, '/') . '/';
         return preg_replace($from, $to, $content, 1);
     }

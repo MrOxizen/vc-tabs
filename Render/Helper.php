@@ -19,7 +19,7 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 class Helper extends Admin {
 
     public function get_initial_opening_list() {
-        if(!isset($this->child)):
+        if (!isset($this->child)):
             return [];
         endif;
         $count = count($this->child);
@@ -37,31 +37,6 @@ class Helper extends Admin {
         }
         $r[':eq(100)'] = 'None';
         return $r;
-    }
-
-    public function register_controls() {
-        $this->get_initial_opening_list();
-        $this->start_section_header(
-                'shortcode-addons-start-tabs', [
-            'options' => [
-                'general-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
-                'heading-settings' => esc_html__('Heading Settings', OXI_TABS_TEXTDOMAIN),
-                'description-settings' => esc_html__('Description Settings', OXI_TABS_TEXTDOMAIN),
-                'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
-            ]
-                ]
-        );
-        // General Section
-        $this->register_general_parent();
-
-        // Heading Section
-        $this->register_heading_parent();
-
-        //Description Section
-        $this->register_description_parent();
-
-        //Custom CSS
-        $this->register_custom_parent();
     }
 
     public function register_general_parent() {
@@ -421,7 +396,6 @@ class Helper extends Admin {
                 ]
         );
 
-
         $this->add_control(
                 'oxi-tabs-header-vertical-tabs-alignment', $this->style, [
             'label' => __('Header Alignment', OXI_TABS_TEXTDOMAIN),
@@ -464,7 +438,6 @@ class Helper extends Admin {
             'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-header-tab-vertical-width', $this->style, [
@@ -602,7 +575,6 @@ class Helper extends Admin {
             'description' => 'Show/Hide the header Image on Tabs Mode.',
                 ]
         );
-
 
         $this->end_controls_tab();
         $this->start_controls_tab();
@@ -899,10 +871,6 @@ class Helper extends Admin {
                 ]
         );
 
-
-
-
-
         $this->start_controls_tabs(
                 'oxi-tabs-head-start-tabs',
                 [
@@ -925,7 +893,6 @@ class Helper extends Admin {
             'description' => 'Set the Background of the Header on Normal Mode.',
                 ]
         );
-
 
         $this->end_controls_tab();
         $this->start_controls_tab();
@@ -2032,7 +1999,6 @@ class Helper extends Admin {
             'description' => 'Select Content Height as Equal or Dynamic.',
                 ]
         );
-
 
         $this->add_control(
                 'oxi-tabs-desc-general-bg', $this->style, [
@@ -3258,7 +3224,6 @@ class Helper extends Admin {
                 ]
         );
 
-
         $this->add_control(
                 'oxi-tabs-modal-icon', [], [
             'label' => esc_html__('Icon', OXI_TABS_TEXTDOMAIN),
@@ -3319,7 +3284,7 @@ class Helper extends Admin {
             'description' => 'Add Custom link with opening type.',
                 ]
         );
-        
+
         $this->add_control(
                 'oxi-tabs-modal-desc', [], [
             'label' => __('Description', OXI_TABS_TEXTDOMAIN),
@@ -3344,6 +3309,31 @@ class Helper extends Admin {
                 ]
         );
         echo '</div>';
+    }
+
+    public function register_controls() {
+        $this->get_initial_opening_list();
+        $this->start_section_header(
+                'shortcode-addons-start-tabs', [
+            'options' => [
+                'general-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
+                'heading-settings' => esc_html__('Heading Settings', OXI_TABS_TEXTDOMAIN),
+                'description-settings' => esc_html__('Description Settings', OXI_TABS_TEXTDOMAIN),
+                'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+            ]
+                ]
+        );
+        // General Section
+        $this->register_general_parent();
+
+        // Heading Section
+        $this->register_heading_parent();
+
+        //Description Section
+        $this->register_description_parent();
+
+        //Custom CSS
+        $this->register_custom_parent();
     }
 
 }

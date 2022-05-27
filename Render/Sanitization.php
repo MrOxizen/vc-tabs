@@ -9,36 +9,6 @@ namespace OXI_TABS_PLUGINS\Render;
 use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 trait Sanitization {
-
-    /**
-     * font settings sanitize 
-     * works at layouts page to adding font Settings sanitize
-     */
-    public function AdminTextSenitize($data) {
-        $data = str_replace('\\\\"', '&quot;', $data);
-        $data = str_replace('\\\"', '&quot;', $data);
-        $data = str_replace('\\"', '&quot;', $data);
-        $data = str_replace('\"', '&quot;', $data);
-        $data = str_replace('"', '&quot;', $data);
-        $data = str_replace('\\\\&quot;', '&quot;', $data);
-        $data = str_replace('\\\&quot;', '&quot;', $data);
-        $data = str_replace('\\&quot;', '&quot;', $data);
-        $data = str_replace('\&quot;', '&quot;', $data);
-        $data = str_replace("\\\\'", '&apos;', $data);
-        $data = str_replace("\\\'", '&apos;', $data);
-        $data = str_replace("\\'", '&apos;', $data);
-        $data = str_replace("\'", '&apos;', $data);
-        $data = str_replace("\\\\&apos;", '&apos;', $data);
-        $data = str_replace("\\\&apos;", '&apos;', $data);
-        $data = str_replace("\\&apos;", '&apos;', $data);
-        $data = str_replace("\&apos;", '&apos;', $data);
-        $data = str_replace("'", '&apos;', $data);
-        $data = str_replace('<', '&lt;', $data);
-        $data = str_replace('>', '&gt;', $data);
-        $data = sanitize_text_field($data);
-        return $data;
-    }
-
     /*
      * Oxi Tabs Style Admin Panel header
      * 
@@ -246,7 +216,6 @@ trait Sanitization {
         else:
             $this->Popover_Condition = false;
         endif;
-
 
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
@@ -495,7 +464,7 @@ trait Sanitization {
 
     public function multiple_selector_handler($data, $val) {
 
-        $val = preg_replace_callback('/\{\{\K(.*?)(?=}})/', function($match)use ($data) {
+        $val = preg_replace_callback('/\{\{\K(.*?)(?=}})/', function ($match)use ($data) {
             $ER = explode('.', $match[0]);
             if (strpos($match[0], 'SIZE') !== FALSE):
                 $size = array_key_exists($ER[0] . '-size', $data) ? $data[$ER[0] . '-size'] : '';
@@ -736,7 +705,6 @@ trait Sanitization {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
 
-
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
             if (array_key_exists('selector', $arg)) :
                 foreach ($arg['selector'] as $key => $val) {
@@ -792,7 +760,6 @@ trait Sanitization {
     public function choose_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
-
 
         $operator = array_key_exists('operator', $arg) ? $arg['operator'] : 'text';
         if (array_key_exists('selector-data', $arg) && $arg['selector-data'] == TRUE) {
@@ -1157,7 +1124,6 @@ trait Sanitization {
                     ]
             );
         endif;
-
 
         $this->add_control(
                 $id . '-weight', $data, [
@@ -1734,7 +1700,6 @@ trait Sanitization {
         endif;
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
 
-
         $this->start_popover_control(
                 $id, [
             'label' => __('Animation', OXI_TABS_TEXTDOMAIN),
@@ -1931,7 +1896,7 @@ trait Sanitization {
         if (array_key_exists($id . '-type', $data) && $data[$id . '-type'] == '') :
             $render = 'render';
         endif;
-       
+
         $this->start_popover_control(
                 $id, [
             'label' => __('Border', OXI_TABS_TEXTDOMAIN),
@@ -2625,6 +2590,35 @@ trait Sanitization {
                     </div>
                 </div>
             </div>';
+    }
+
+    /**
+     * font settings sanitize 
+     * works at layouts page to adding font Settings sanitize
+     */
+    public function AdminTextSenitize($data) {
+        $data = str_replace('\\\\"', '&quot;', $data);
+        $data = str_replace('\\\"', '&quot;', $data);
+        $data = str_replace('\\"', '&quot;', $data);
+        $data = str_replace('\"', '&quot;', $data);
+        $data = str_replace('"', '&quot;', $data);
+        $data = str_replace('\\\\&quot;', '&quot;', $data);
+        $data = str_replace('\\\&quot;', '&quot;', $data);
+        $data = str_replace('\\&quot;', '&quot;', $data);
+        $data = str_replace('\&quot;', '&quot;', $data);
+        $data = str_replace("\\\\'", '&apos;', $data);
+        $data = str_replace("\\\'", '&apos;', $data);
+        $data = str_replace("\\'", '&apos;', $data);
+        $data = str_replace("\'", '&apos;', $data);
+        $data = str_replace("\\\\&apos;", '&apos;', $data);
+        $data = str_replace("\\\&apos;", '&apos;', $data);
+        $data = str_replace("\\&apos;", '&apos;', $data);
+        $data = str_replace("\&apos;", '&apos;', $data);
+        $data = str_replace("'", '&apos;', $data);
+        $data = str_replace('<', '&lt;', $data);
+        $data = str_replace('>', '&gt;', $data);
+        $data = sanitize_text_field($data);
+        return $data;
     }
 
 }

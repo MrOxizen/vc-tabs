@@ -32,19 +32,7 @@ trait Admin_helper {
         <?php
     }
 
-    /**
-     * Plugin check Current Tabs
-     *
-     * @since 2.0.0
-     */
-    public function check_current_tabs($agr) {
-        $vs = get_option($this->fixed_data('726573706f6e736976655f746162735f776974685f6163636f7264696f6e735f6c6963656e73655f737461747573'));
-        if ($vs == $this->fixed_data('76616c6964')) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    
 
     public function admin_url_convert($agr) {
         return admin_url(strpos($agr, 'edit') !== false ? $agr : 'admin.php?page=' . $agr);
@@ -256,5 +244,17 @@ trait Admin_helper {
         endif;
         new \OXI_TABS_PLUGINS\Classes\Support_Reviews();
     }
-
+/**
+     * Plugin check Current Tabs
+     *
+     * @since 2.0.0
+     */
+    public function check_current_tabs($agr) {
+        $vs = get_option($this->fixed_data('726573706f6e736976655f746162735f776974685f6163636f7264696f6e735f6c6963656e73655f737461747573'));
+        if ($vs == $this->fixed_data('76616c6964')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

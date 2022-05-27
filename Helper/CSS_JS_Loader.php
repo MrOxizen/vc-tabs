@@ -8,12 +8,6 @@ namespace OXI_TABS_PLUGINS\Helper;
  */
 trait CSS_JS_Loader {
 
-    public function loader_font_familly_validation($data = []) {
-        foreach ($data as $value) {
-            wp_enqueue_style('' . $value . '', 'https://fonts.googleapis.com/css?family=' . $value . '');
-        }
-    }
-
     public function admin_css() {
         $this->loader_font_familly_validation(['Bree+Serif', 'Source+Sans+Pro']);
         wp_enqueue_style('oxilab-tabs-bootstrap', OXI_TABS_URL . 'assets/backend/css/bootstrap.min.css', false, OXI_TABS_PLUGIN_VERSION);
@@ -424,7 +418,6 @@ trait CSS_JS_Loader {
                         })(jQuery);
                         jQuery(\'.shortcode-addons-family\').fontselect();';
 
-
         if (apply_filters('oxi-tabs-plugin/pro_version', false) == false):
             $data .= 'setTimeout(function () {jQuery(".oxi-addons-minicolor").each(function (index, value) {                             
                             jQuery(this).parent().parent().siblings(".shortcode-form-control-title").append(" <span class=\"oxi-pro-only\">Pro Only</span>");
@@ -438,6 +431,12 @@ trait CSS_JS_Loader {
                         }); }, 1000);';
         endif;
         wp_add_inline_script('oxi-tabs-editor', $data);
+    }
+
+    public function loader_font_familly_validation($data = []) {
+        foreach ($data as $value) {
+            wp_enqueue_style('' . $value . '', 'https://fonts.googleapis.com/css?family=' . $value . '');
+        }
     }
 
 }

@@ -88,16 +88,6 @@ class Shortcode {
     /**
      * Template constructor.
      */
-    public function render($styleid, $user = 'public', $arg = [], $keys = []) {
-        if (empty((int) $styleid) || empty($user)):
-            return false;
-        endif;
-        $this->oxiid = $styleid;
-        $this->user = $user;
-        $this->arg = $arg;
-        $this->key = $keys;
-        $this->shortcode();
-    }
 
     public function shortcode() {
         $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $this->oxiid), ARRAY_A);
@@ -149,4 +139,14 @@ class Shortcode {
         endif;
     }
 
+    public function render($styleid, $user = 'public', $arg = [], $keys = []) {
+        if (empty((int) $styleid) || empty($user)):
+            return false;
+        endif;
+        $this->oxiid = $styleid;
+        $this->user = $user;
+        $this->arg = $arg;
+        $this->key = $keys;
+        $this->shortcode();
+    }
 }

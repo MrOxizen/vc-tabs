@@ -70,31 +70,6 @@ class WooExtension {
         wp_enqueue_style('oxilab_tabs_woo-styles', OXI_TABS_URL . 'assets/woocommerce/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
     }
 
-    public function customize_default_tabs() {
-        $this->customize_default_tabs = [
-            'description' => [
-                'unset' => false,
-                'title' => '',
-                'icon' => '',
-                'priority' => '',
-                'callback' => '',
-            ],
-            'reviews' => [
-                'unset' => false,
-                'title' => '',
-                'icon' => '',
-                'priority' => '',
-                'callback' => '',
-            ],
-            'additional_information' => [
-                'unset' => false,
-                'title' => '',
-                'icon' => '',
-                'priority' => '',
-                'callback' => '',
-            ]
-        ];
-    }
 
     public function Render() {
         $this->admin_css_loader();
@@ -234,4 +209,29 @@ class WooExtension {
         <?php
     }
 
+    public function customize_default_tabs() {
+        $this->customize_default_tabs = [
+            'description' => [
+                'unset' => false,
+                'title' => '',
+                'icon' => '',
+                'priority' => '',
+                'callback' => '',
+            ],
+            'reviews' => [
+                'unset' => false,
+                'title' => '',
+                'icon' => '',
+                'priority' => '',
+                'callback' => '',
+            ],
+            'additional_information' => [
+                'unset' => false,
+                'title' => '',
+                'icon' => '',
+                'priority' => '',
+                'callback' => '',
+            ]
+        ];
+    }
 }

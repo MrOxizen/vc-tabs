@@ -8,6 +8,15 @@ namespace OXI_TABS_PLUGINS\Helper;
  */
 trait Public_Helper {
 
+    public function font_familly_charecter($data) {
+        wp_enqueue_style('' . $data . '', 'https://fonts.googleapis.com/css?family=' . $data . '');
+        $data = str_replace('+', ' ', $data);
+        $data = explode(':', $data);
+        $data = $data[0];
+        $data = '"' . $data . '"';
+        return $data;
+    }
+
     public function admin_special_charecter($data) {
         $data = html_entity_decode($data);
         $data = str_replace("\'", "'", $data);
@@ -25,15 +34,6 @@ trait Public_Helper {
         }
         $files = '<i class="' . $data . ' oxi-icons"></i>';
         return $files;
-    }
-
-    public function font_familly_charecter($data) {
-        wp_enqueue_style('' . $data . '', 'https://fonts.googleapis.com/css?family=' . $data . '');
-        $data = str_replace('+', ' ', $data);
-        $data = explode(':', $data);
-        $data = $data[0];
-        $data = '"' . $data . '"';
-        return $data;
     }
 
     public function html_special_charecter($data) {
@@ -62,8 +62,8 @@ trait Public_Helper {
 
     public function shortcode_render($styleid, $user = 'public') {
         if (!empty((int) $styleid) && !empty($user)):
-          
-           
+
+
             $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
             if (!is_array($style) || (is_array($style) && !array_key_exists('rawdata', $style))):
                 $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
@@ -84,9 +84,7 @@ trait Public_Helper {
             $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $styleid), ARRAY_A);
             $template = ucfirst($style['style_name']);
             $row = json_decode(stripslashes($style['rawdata']), true);
-            
-            
-            
+
             if (is_array($row)):
                 $cls = '\OXI_TABS_PLUGINS\Render\Views\\' . $template;
             else:

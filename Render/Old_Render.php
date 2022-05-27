@@ -84,6 +84,28 @@ class Old_Render {
             endif;
         endif;
     }
+      public function admin_edit_panel($id) {
+        $data = '';
+        if ($this->user == 'admin'):
+            $data = '<div class="oxi-addons-admin-absulote">
+                        <div class="oxi-addons-admin-absulate-edit">
+                            <form method="post"> 
+                                <input type="hidden" name="item-id" value="' . $id . '">
+                                <button class="btn btn-primary" type="submit" value="edit" name="edit" title="Edit">Edit</button>
+                                ' . wp_nonce_field("oxitabseditdata") . '
+                            </form>
+                        </div>
+                        <div class="oxi-addons-admin-absulate-delete">
+                            <form method="post">
+                                <input type="hidden" name="item-id" value="' . $id . '">
+                                <button class="btn btn-danger" type="submit" value="delete" name="delete" title="Delete">Delete</button>
+                                ' . wp_nonce_field("oxitabsdeletedata") . '
+                            </form>
+                        </div>
+                    </div>';
+        endif;
+        return $data;
+    }
 
     public function JS_CSS() {
         $this->public_jquery_css();
@@ -128,27 +150,6 @@ class Old_Render {
         return $files;
     }
 
-    public function admin_edit_panel($id) {
-        $data = '';
-        if ($this->user == 'admin'):
-            $data = '<div class="oxi-addons-admin-absulote">
-                        <div class="oxi-addons-admin-absulate-edit">
-                            <form method="post"> 
-                                <input type="hidden" name="item-id" value="' . $id . '">
-                                <button class="btn btn-primary" type="submit" value="edit" name="edit" title="Edit">Edit</button>
-                                ' . wp_nonce_field("oxitabseditdata") . '
-                            </form>
-                        </div>
-                        <div class="oxi-addons-admin-absulate-delete">
-                            <form method="post">
-                                <input type="hidden" name="item-id" value="' . $id . '">
-                                <button class="btn btn-danger" type="submit" value="delete" name="delete" title="Delete">Delete</button>
-                                ' . wp_nonce_field("oxitabsdeletedata") . '
-                            </form>
-                        </div>
-                    </div>';
-        endif;
-        return $data;
-    }
+  
 
 }

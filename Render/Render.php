@@ -147,6 +147,24 @@ class Render {
             $this->loader();
         endif;
     }
+     public function defualt_value($id) {
+        return [
+            'oxi-tabs-modal-title' => 'Lorem Ipsum',
+            'oxi-tabs-modal-sub-title' => '',
+            'oxi-tabs-modal-title-additional' => '',
+            'oxi-tabs-modal-icon' => 'fab fa-facebook-f',
+            'oxi-tabs-modal-number' => 1,
+            'oxi-tabs-modal-image-select' => 'media-library',
+            'oxi-tabs-modal-image-image' => '',
+            'oxi-tabs-modal-image-image-alt' => '',
+            'oxi-tabs-modal-image-url' => '',
+            'oxi-tabs-modal-components-type' => 'wysiwyg',
+            'oxi-tabs-modal-link-url' => '',
+            'oxi-tabs-modal-desc' => '',
+            'shortcodeitemid' => $id,
+            'oxi-tabs-modal-link-target' => 0
+        ];
+    }
 
     /**
      * Current element loader
@@ -731,23 +749,6 @@ class Render {
         return $data;
     }
 
-    public function defualt_value($id) {
-        return [
-            'oxi-tabs-modal-title' => 'Lorem Ipsum',
-            'oxi-tabs-modal-sub-title' => '',
-            'oxi-tabs-modal-title-additional' => '',
-            'oxi-tabs-modal-icon' => 'fab fa-facebook-f',
-            'oxi-tabs-modal-number' => 1,
-            'oxi-tabs-modal-image-select' => 'media-library',
-            'oxi-tabs-modal-image-image' => '',
-            'oxi-tabs-modal-image-image-alt' => '',
-            'oxi-tabs-modal-image-url' => '',
-            'oxi-tabs-modal-components-type' => 'wysiwyg',
-            'oxi-tabs-modal-link-url' => '',
-            'oxi-tabs-modal-desc' => '',
-            'shortcodeitemid' => $id,
-            'oxi-tabs-modal-link-target' => 0
-        ];
-    }
+   
 
 }

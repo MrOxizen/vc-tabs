@@ -47,13 +47,6 @@ class Settings {
         }
     }
 
-    /**
-     * Admin Notice JS file loader
-     * @return void
-     */
-    public function admin_ajax() {
-        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/settings.js', false, OXI_TABS_TEXTDOMAIN);
-    }
 
    public function Render() {
         $this->admin_css_loader();
@@ -163,4 +156,11 @@ class Settings {
         <?php
     }
 
+    /**
+     * Admin Notice JS file loader
+     * @return void
+     */
+    public function admin_ajax() {
+        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/settings.js', false, OXI_TABS_TEXTDOMAIN);
+    }
 }
