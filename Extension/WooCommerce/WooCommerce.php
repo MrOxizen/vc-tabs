@@ -57,7 +57,13 @@ class WooCommerce {
         // Add our custom product tabs section to the product page
         add_filter('woocommerce_product_tabs', array($this, 'add_custom_product_tabs'));
         // Add our custom product tabs layoouts to the product page
-        add_filter('woocommerce_locate_template', [$this, 'woo_template'], 1, 3);
+        
+        $settigs = get_option('oxilab_tabs_woocommerce_default');
+        if($settigs > 0):
+             add_filter('woocommerce_locate_template', [$this, 'woo_template'], 1, 3);
+      
+        endif;
+       
     }
 
     public function content_filter($content) {
@@ -232,6 +238,7 @@ class WooCommerce {
         if (!$template_path):
             $template_path = $woocommerce->template_url;
         endif;
+        
         $plugin_path = untrailingslashit(OXI_TABS_PATH) . '/Extension/WooCommerce/Template/';
         if (file_exists($plugin_path . $template_name)):
             $template = $plugin_path . $template_name;
