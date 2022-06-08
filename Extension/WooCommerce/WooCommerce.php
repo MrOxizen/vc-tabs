@@ -18,6 +18,7 @@ class WooCommerce {
      * @since 3.1.0
      */
     public $database;
+    public $customize;
 
     public static function instance() {
         if (self::$instance == null) {
@@ -57,13 +58,81 @@ class WooCommerce {
         // Add our custom product tabs section to the product page
         add_filter('woocommerce_product_tabs', array($this, 'add_custom_product_tabs'));
         // Add our custom product tabs layoouts to the product page
-        
+        $this->reorder_default_tabs();
         $settigs = get_option('oxilab_tabs_woocommerce_default');
-        if($settigs > 0):
-             add_filter('woocommerce_locate_template', [$this, 'woo_template'], 1, 3);
-      
+        if ($settigs > 0):
+            add_filter('woocommerce_locate_template', [$this, 'woo_template'], 1, 3);
         endif;
-       
+    }
+
+    public function reorder_default_tabs() {
+        $check_customization = json_decode(stripslashes(get_option('oxilab_tabs_woocommerce_customize_default_tabs')), true);
+
+        if (is_array($check_customization) && count($check_customization) > 1):
+            $customize = [];
+            foreach ($check_customization as $key => $value) {
+                if (isset($value['title']) && $value['title'] != ''):
+                    $customize['title'][$key] = $value['title'];
+                endif;
+                if (isset($value['icon']) && $value['icon'] != ''):
+                    $customize['icon'][$key] = $value['icon'];
+                endif;
+                if (isset($value['priority']) && $value['priority'] != ''):
+                    $customize['priority'][$key] = $value['priority'];
+                endif;
+                if (isset($value['callback']) && $value['callback'] != ''):
+                    $customize['callback'][$key] = $value['callback'];
+                endif;
+                if (isset($value['unset']) && $value['unset'] == 'on'):
+                    $customize['unset'][$key] = $value['unset'];
+                endif;
+            }
+            if (count($customize) > 0):
+                $this->customize = $customize;
+                add_filter('woocommerce_product_tabs', [$this, 'oxi_remove_product_tabs'], 10);
+            endif;
+        endif;
+    }
+
+    public function oxi_remove_product_tabs($tabs) {
+        $customize = $this->customize;
+        if (isset($customize['unset'])):
+            foreach ($customize['unset'] as $k => $value) {
+                if (isset($tabs[$k])):
+                    unset($tabs[$k]);
+                endif;
+            }
+        endif;
+        if (isset($customize['title'])):
+            foreach ($customize['title'] as $k => $value) {
+                if (isset($tabs[$k])):
+                    $tabs[$k]['title'] = $value;
+                endif;
+            }
+        endif;
+        if (isset($customize['icon'])):
+            foreach ($customize['icon'] as $k => $value) {
+                if (isset($tabs[$k])):
+                    $tabs[$k]['custom_icon'] = $value;
+                endif;
+            }
+        endif;
+        if (isset($customize['priority'])):
+            foreach ($customize['priority'] as $k => $value) {
+                if (isset($tabs[$k])):
+                    $tabs[$k]['priority'] = $value;
+                endif;
+            }
+        endif;
+        if (isset($customize['callback'])):
+            foreach ($value as $k => $value) {
+                if (isset($tabs[$k])):
+                    $tabs[$k]['callback'] = $value;
+                endif;
+            }
+
+        endif;
+        return $tabs;
     }
 
     public function content_filter($content) {
@@ -238,7 +307,7 @@ class WooCommerce {
         if (!$template_path):
             $template_path = $woocommerce->template_url;
         endif;
-        
+
         $plugin_path = untrailingslashit(OXI_TABS_PATH) . '/Extension/WooCommerce/Template/';
         if (file_exists($plugin_path . $template_name)):
             $template = $plugin_path . $template_name;
