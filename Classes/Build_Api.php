@@ -486,6 +486,19 @@ class Build_Api {
      * Admin Settings
      * @return void
      */
+    public function post_oxi_tabs_woo_sub_title() {
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+       $rawdata = json_decode(stripslashes($this->rawdata), true);
+        $value = sanitize_text_field($rawdata['value']);
+        update_option('oxi_tabs_woo_sub_title', $value);
+        return '<span class="oxi-confirmation-success"></span>';
+    }
+    /**
+     * Admin Settings
+     * @return void
+     */
     public function post_oxi_tabs_use_the_content() {
         if (!current_user_can('manage_options')) {
             return;

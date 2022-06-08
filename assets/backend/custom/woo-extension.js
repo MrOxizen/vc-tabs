@@ -74,6 +74,21 @@ jQuery.noConflict();
             }, 8000);
         });
     });
+    $("input[name=oxi_tabs_woo_sub_title] ").on("change", function (e) {
+        var $This = $(this), name = $This.attr('name'), $value = '', $link = $(this).parents('.oxi-sa-cards').children('.responsive_tabs_with_accordions_license_massage');
+        if ($(this).is(":checked")) {
+            var $value = 'yes';
+        }
+        var rawdata = JSON.stringify({value: $value});
+        var functionname = "oxi_tabs_woo_sub_title";
+        $link.html('<span class="spinner sa-spinner-open"></span>');
+        Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
+            $link.html(callback);
+            setTimeout(function () {
+                $link.html('');
+            }, 8000);
+        });
+    });
     $("#oxilab_tabs_woocommerce_default").on("change", function (e) {
         var $This = $(this), name = $This.attr('name'), $value = $This.val(), $link = $(this).parents('.oxi-sa-cards').children('.responsive_tabs_with_accordions_license_massage');
         var rawdata = JSON.stringify({value: $value});

@@ -128,6 +128,18 @@ class WooExtension {
                                     </div>
                                     <div class="oxi-sa-cards oxilab_tabs_woocommerce_active">
                                         <div class="oxi-sa-cards-h1">
+                                            Subtile at Custom tabs
+                                            <p>Control Custom tabs title at content area. Normally Tabs title will view as subtitle with custom content.</p>
+                                        </div>
+                                        <div class="responsive_tabs_with_accordions_license_massage"></div>
+                                        <div class="oxi-sa-cards-switcher ">
+                                            <input type="checkbox" class="oxi-addons-switcher-btn" id="oxi_tabs_woo_sub_title" name="oxi_tabs_woo_sub_title" <?php echo get_option('oxi_tabs_woo_sub_title') == 'yes' ? 'checked="checked"' : ''; ?>>
+                                            <label for="oxi_tabs_woo_sub_title" class="oxi-addons-switcher-label"></label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="oxi-sa-cards oxilab_tabs_woocommerce_active">
+                                        <div class="oxi-sa-cards-h1">
                                             Default Layouts
                                             <p>Select Default layouts for WooCommerce. Default Layouts will works globally while empty selected from woocommerce product page</p>
                                         </div>
