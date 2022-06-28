@@ -57,7 +57,9 @@ trait Admin_helper
                     <p></p>
                     <div class="oxi-addons-admin-notifications-holder">
                         <div class="oxi-addons-admin-notifications-alert">
-                            <p>Got any Trouble to use our Responsive Tabs or Customization?.You can <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">Ask any question</a> and get reply from our expert members. We will be glad to answer any question you may have about our plugin.</p>
+                            <p>Unable to create your desire design or need any help? .You can <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">Ask any question</a> and get reply from our expert members. We will be glad to answer any question you may have about our plugin.</p>
+                          
+                          ' . (apply_filters('oxi-tabs-plugin/pro_version', false) ? '' : '<p>By the way, did you know we also have a <a href="https://www.oxilabdemos.com/responsive-tabs/pricing">Premium Version</a>? It offers lots of options with automatic update. It also comes with 16/5 personal support.</p> <p>Thanks Again!</p>') . '
                           <p></p>
                         </div>
                     </div>
