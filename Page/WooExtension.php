@@ -12,7 +12,8 @@ namespace OXI_TABS_PLUGINS\Page;
  *
  * @author biplo
  */
-class WooExtension {
+class WooExtension
+{
 
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
@@ -25,18 +26,20 @@ class WooExtension {
     public $default_tabs;
     public $customize_default_tabs;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->admin();
         $this->admin_ajax();
         $this->Render();
     }
 
-    public function admin() {
+    public function admin()
+    {
         $new = new \OXI_TABS_PLUGINS\Modules\Shortcode();
         $this->get_style = $new->get_all_style();
         $this->default_tabs = get_option('oxilab_tabs_woocommerce_default');
         $this->customize_default_tabs = json_decode(stripslashes(get_option('oxilab_tabs_woocommerce_customize_default_tabs')), true);
-        if (!is_array($this->customize_default_tabs)):
+        if (!is_array($this->customize_default_tabs)) :
             $this->customize_default_tabs();
         endif;
     }
@@ -45,7 +48,8 @@ class WooExtension {
      * Admin Notice JS file loader
      * @return void
      */
-    public function admin_ajax() {
+    public function admin_ajax()
+    {
         wp_enqueue_script("jquery");
         wp_enqueue_script('jquery-ui-core');
         wp_enqueue_script('jquery-ui-widget');
@@ -54,7 +58,7 @@ class WooExtension {
         wp_enqueue_script('jquery-ui-autocomplete');
         wp_enqueue_script('jquery-ui-slider');
         wp_enqueue_script('jquery-ui-draggable');
-       
+
         wp_enqueue_script('jquery-ui-sortable');
         wp_enqueue_script("jquery");
 
@@ -71,12 +75,14 @@ class WooExtension {
     }
 
 
-    public function Render() {
+    public function Render()
+    {
         $this->admin_css_loader();
-        ?>
-        <div class="wrap">   
+?>
+        <div class="wrap">
             <?php
             echo apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
+            apply_filters('vc-tabs-support-and-comments', TRUE);
             ?>
             <div class="oxi-addons-row">
 
@@ -100,8 +106,8 @@ class WooExtension {
                                 <div class="sa-el-admin-header">
                                     <div class="sa-el-admin-header-icon">
                                         <span class="dashicons dashicons-format-aside"></span>
-                                    </div>    
-                                    <h4 class="sa-el-admin-header-title">Global Settings</h4>  
+                                    </div>
+                                    <h4 class="sa-el-admin-header-title">Global Settings</h4>
                                 </div>
                                 <div class="sa-el-admin-block-content">
                                     <div class="oxi-sa-cards">
@@ -137,7 +143,7 @@ class WooExtension {
                                             <label for="oxi_tabs_woo_sub_title" class="oxi-addons-switcher-label"></label>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="oxi-sa-cards oxilab_tabs_woocommerce_active">
                                         <div class="oxi-sa-cards-h1">
                                             Default Layouts
@@ -161,12 +167,12 @@ class WooExtension {
                             <div class="woo-oxilab-tabs-admin-container">
                                 <div class="woo-oxilab-tabs-admin-header">
                                     <h3>Default Tabs Customization</h3>
-                                    <p>Customization default tabs globally,  include tabs priority value and custom callback function if you want.</p>
+                                    <p>Customization default tabs globally, include tabs priority value and custom callback function if you want.</p>
                                 </div>
                                 <div class="woo-oxilab-tabs-admin-body">
                                     <?php
                                     foreach ($this->customize_default_tabs as $key => $value) {
-                                        ?>
+                                    ?>
                                         <div class="woo-oxilab-tabs-admin-tabs oxi-hidden">
                                             <div class="oxi-woo-header">
                                                 <div class="oxi-woo-header-text"><?php echo ucfirst($key) ?></div>
@@ -182,7 +188,7 @@ class WooExtension {
                                                 </p>
                                                 <p class="form-field [<?php echo $key; ?>][title]_field ">
                                                     <label for="[<?php echo $key; ?>][title]">Tab Title</label>
-                                                    <input type="text" class="oxilab_tabs_woo_layouts_title_field" name="[<?php echo $key; ?>][title]" id="[<?php echo $key; ?>][title]" value="<?php echo $value['title']; ?>" placeholder="Write New Title else make it Blank"> 
+                                                    <input type="text" class="oxilab_tabs_woo_layouts_title_field" name="[<?php echo $key; ?>][title]" id="[<?php echo $key; ?>][title]" value="<?php echo $value['title']; ?>" placeholder="Write New Title else make it Blank">
                                                 </p>
                                                 <p class="form-field [<?php echo $key; ?>][icon]_field">
                                                     <label for="[<?php echo $key; ?>][icon]">Custom Icon</label>
@@ -195,17 +201,17 @@ class WooExtension {
 
                                                 <p class="form-field [<?php echo $key; ?>][callback]_field ">
                                                     <label for="[<?php echo $key; ?>][callback]">Callback Function</label>
-                                                    <input type="text" class="oxilab_tabs_woo_layouts_callback_field" style="" name="[<?php echo $key; ?>][callback]" id="[<?php echo $key; ?>][callback]" value="<?php echo $value['callback'] ?>" placeholder="Add callback function else make it blank"> 
+                                                    <input type="text" class="oxilab_tabs_woo_layouts_callback_field" style="" name="[<?php echo $key; ?>][callback]" id="[<?php echo $key; ?>][callback]" value="<?php echo $value['callback'] ?>" placeholder="Add callback function else make it blank">
                                                 </p>
                                             </div>
                                         </div>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
 
                                 </div>
                                 <div class="oxi-woo-tabs-add-rows">
-                                    <input type="submit" class="oxi-woo-tabs-add-rows-button"value="Save Tabs">
+                                    <input type="submit" class="oxi-woo-tabs-add-rows-button" value="Save Tabs">
 
 
                                 </div>
@@ -217,11 +223,12 @@ class WooExtension {
                 </div>
 
             </div>
-        </div>  
-        <?php
+        </div>
+<?php
     }
 
-    public function customize_default_tabs() {
+    public function customize_default_tabs()
+    {
         $this->customize_default_tabs = [
             'description' => [
                 'unset' => false,

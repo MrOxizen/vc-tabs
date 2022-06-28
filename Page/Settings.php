@@ -12,7 +12,8 @@ namespace OXI_TABS_PLUGINS\Page;
  *
  * @author biplo
  */
-class Settings {
+class Settings
+{
 
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
@@ -28,13 +29,15 @@ class Settings {
      *
      * @since 2.0.0
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->admin();
         $this->admin_ajax();
         $this->Render();
     }
 
-    public function admin() {
+    public function admin()
+    {
         global $wp_roles;
         $this->roles = $wp_roles->get_names();
         $this->saved_role = get_option('oxi_addons_user_permission');
@@ -48,9 +51,10 @@ class Settings {
     }
 
 
-   public function Render() {
+    public function Render()
+    {
         $this->admin_css_loader();
-        ?>
+?>
         <div class="wrap">
             <?php
             echo apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
@@ -86,7 +90,7 @@ class Settings {
                                         <label for="oxi_addons_font_awesome[yes]">
                                             <input type="radio" class="radio" id="oxi_addons_font_awesome[]" name="oxi_addons_font_awesome" value="" <?php checked('', get_option('oxi_addons_font_awesome'), true); ?>>Yes</label>
                                         <label for="oxi_addons_font_awesome[no]">
-                                            <input type="radio" class="radio" id="oxi_addons_font_awesome[no]" name="oxi_addons_font_awesome" value="no"  <?php checked('no', get_option('oxi_addons_font_awesome'), true); ?>>No
+                                            <input type="radio" class="radio" id="oxi_addons_font_awesome[no]" name="oxi_addons_font_awesome" value="no" <?php checked('no', get_option('oxi_addons_font_awesome'), true); ?>>No
                                         </label>
                                         <span class="oxi-addons-settings-connfirmation oxi_addons_font_awesome"></span>
                                         <br>
@@ -105,6 +109,23 @@ class Settings {
                                     <p class="description">Set Fixed Header Size for Responsive Tabs with Accordions.</p>
                                 </td>
                             </tr>
+                            <tr>
+                                <th scope="row">
+                                    <label for="oxi_tabs_support_massage">Display Support Massage</label>
+                                </th>
+                                <td>
+                                    <fieldset>
+                                        <label for="oxi_tabs_support_massage[yes]">
+                                            <input type="radio" class="radio" id="oxi_tabs_support_massage[yes]" name="oxi_tabs_support_massage" value="" <?php checked('', get_option('oxi_tabs_support_massage'), true); ?>>Yes</label>
+                                        <label for="oxi_tabs_support_massage[no]">
+                                            <input type="radio" class="radio" id="oxi_tabs_support_massage[no]" name="oxi_tabs_support_massage" value="no" <?php checked('no', get_option('oxi_tabs_support_massage'), true); ?>>No
+                                        </label>
+                                        <span class="oxi-addons-settings-connfirmation oxi_tabs_support_massage"></span>
+                                        <br>
+                                        <p class="description">Display support massage at Image Hover admin area. Don't need, kindly select it no</p>
+                                    </fieldset>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <br>
@@ -121,26 +142,26 @@ class Settings {
                                     <input type="text" class="regular-text" id="responsive_tabs_with_accordions_license_key" name="responsive_tabs_with_accordions_license_key" value="<?php echo esc_attr($this->license); ?>">
                                     <span class="oxi-addons-settings-connfirmation responsive_tabs_with_accordions_license_massage">
                                         <?php
-                                        if ($this->status == 'valid' && empty($this->license)):
+                                        if ($this->status == 'valid' && empty($this->license)) :
                                             echo '<span class="oxi-confirmation-success"></span>';
-                                        elseif ($this->status == 'valid' && !empty($this->license)):
+                                        elseif ($this->status == 'valid' && !empty($this->license)) :
                                             echo '<span class="oxi-confirmation-success"></span>';
-                                        elseif (!empty($this->license)):
+                                        elseif (!empty($this->license)) :
                                             echo '<span class="oxi-confirmation-failed"></span>';
-                                        else:
+                                        else :
                                             echo '<span class="oxi-confirmation-blank"></span>';
                                         endif;
                                         ?>
                                     </span>
                                     <span class="oxi-addons-settings-connfirmation responsive_tabs_with_accordions_license_text">
                                         <?php
-                                        if ($this->status == 'valid' && empty($this->license)):
+                                        if ($this->status == 'valid' && empty($this->license)) :
                                             echo '<span class="oxi-addons-settings-massage">Pre Active</span>';
-                                        elseif ($this->status == 'valid' && !empty($this->license)):
+                                        elseif ($this->status == 'valid' && !empty($this->license)) :
                                             echo '<span class="oxi-addons-settings-massage">Active</span>';
-                                        elseif (!empty($this->license)):
+                                        elseif (!empty($this->license)) :
                                             echo '<span class="oxi-addons-settings-massage">' . esc_html__($this->status, 'vc-tabs') . '</span>';
-                                        else:
+                                        else :
                                             echo '<span class="oxi-addons-settings-massage"></span>';
                                         endif;
                                         ?>
@@ -153,14 +174,15 @@ class Settings {
                 </form>
             </div>
         </div>
-        <?php
+<?php
     }
 
     /**
      * Admin Notice JS file loader
      * @return void
      */
-    public function admin_ajax() {
+    public function admin_ajax()
+    {
         wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/settings.js', false, OXI_TABS_TEXTDOMAIN);
     }
 }

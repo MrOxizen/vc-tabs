@@ -104,12 +104,12 @@ class Plugins {
                                     $message = '<a href="#" class="btn btn-light">Installed</a>';
                                 else:
                                     $activation_url = wp_nonce_url(admin_url('plugins.php?action=activate&plugin=' . $file_path), 'activate-plugin_' . $file_path);
-                                    $message = sprintf('<a href="%s" class="btn btn-info">%s</a>', $activation_url, __('Activate', OXI_ACCORDIONS_TEXTDOMAIN));
+                                    $message = sprintf('<a href="%s" class="btn btn-info">%s</a>', $activation_url, __('Activate', OXI_TABS_TEXTDOMAIN));
                                 endif;
                             else:
                                 if (current_user_can('install_plugins')):
                                     $install_url = wp_nonce_url(add_query_arg(array('action' => 'install-plugin', 'plugin' => $plugin), admin_url('update.php')), 'install-plugin' . '_' . $plugin);
-                                    $message = sprintf('<a href="%s" class="btn btn-success">%s</a>', $install_url, __('Install', OXI_ACCORDIONS_TEXTDOMAIN));
+                                    $message = sprintf('<a href="%s" class="btn btn-success">%s</a>', $install_url, __('Install', OXI_TABS_TEXTDOMAIN));
                                 endif;
                             endif;
                             ?>

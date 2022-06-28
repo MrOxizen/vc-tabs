@@ -26,11 +26,11 @@ jQuery.noConflict();
             console.error(error);
         }
     }
-  
+
 
     $("#oxi_addons_user_permission").on("change", function (e) {
         var $This = $(this), name = $This.attr('name'), $value = $This.val();
-        var rawdata = JSON.stringify({name: name, value: $value});
+        var rawdata = JSON.stringify({ name: name, value: $value });
         var functionname = "oxi_addons_user_permission";
         $('.' + name).html('<span class="spinner sa-spinner-open"></span>');
         Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
@@ -42,8 +42,20 @@ jQuery.noConflict();
     });
     $("input[name=oxi_addons_font_awesome] ").on("change", function (e) {
         var $This = $(this), name = $This.attr('name'), $value = $This.val();
-        var rawdata = JSON.stringify({value: $value});
+        var rawdata = JSON.stringify({ value: $value });
         var functionname = "oxi_addons_font_awesome";
+        $('.' + name).html('<span class="spinner sa-spinner-open"></span>');
+        Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
+            $('.' + name).html(callback);
+            setTimeout(function () {
+                $('.' + name).html('');
+            }, 8000);
+        });
+    });
+    $("input[name=oxi_tabs_support_massage] ").on("change", function (e) {
+        var $This = $(this), name = $This.attr('name'), $value = $This.val();
+        var rawdata = JSON.stringify({ value: $value });
+        var functionname = "oxi_tabs_support_massage";
         $('.' + name).html('<span class="spinner sa-spinner-open"></span>');
         Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
             $('.' + name).html(callback);
@@ -54,7 +66,7 @@ jQuery.noConflict();
     });
     $("input[name=oxi_addons_fixed_header_size] ").on("keyup", delay(function (e) {
         var $This = $(this), name = $This.attr('name'), $value = $This.val();
-        var rawdata = JSON.stringify({name: name, value: $value});
+        var rawdata = JSON.stringify({ name: name, value: $value });
         var functionname = "oxi_addons_fixed_header_size";
         $('.' + name).html('<span class="spinner sa-spinner-open"></span>');
         Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {
@@ -83,7 +95,7 @@ jQuery.noConflict();
             $value = $.trim($value);
             $This.val($.trim($value));
         }
-        var rawdata = JSON.stringify({license: $value});
+        var rawdata = JSON.stringify({ license: $value });
         var functionname = "oxi_license";
         $('.responsive_tabs_with_accordions_license_massage').html('<span class="spinner sa-spinner-open"></span>');
         Oxi_Tabs_Admin(functionname, rawdata, styleid, childid, function (callback) {

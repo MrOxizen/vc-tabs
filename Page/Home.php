@@ -7,7 +7,8 @@ namespace OXI_TABS_PLUGINS\Page;
  *
  * @author biplo
  */
-class Home {
+class Home
+{
 
     use \OXI_TABS_PLUGINS\Helper\Public_Helper;
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
@@ -19,17 +20,20 @@ class Home {
      */
     public $database;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->CSSJS_load();
         $this->Render();
     }
 
-    public function database_data() {
+    public function database_data()
+    {
         return $this->database->wpdb->get_results("SELECT * FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
     }
 
-    public function CSSJS_load() {
+    public function CSSJS_load()
+    {
         $this->manual_import_style();
         $this->admin_css_loader();
         $this->admin_home();
@@ -41,7 +45,8 @@ class Home {
      * Admin Notice JS file loader
      * @return void
      */
-    public function admin_ajax_load() {
+    public function admin_ajax_load()
+    {
         wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/assets/backend/custom/home.js', false, OXI_TABS_TEXTDOMAIN);
     }
 
@@ -49,13 +54,15 @@ class Home {
      * Generate safe path
      * @since v1.0.0
      */
-    public function safe_path($path) {
+    public function safe_path($path)
+    {
 
         $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
     }
 
-    public function manual_import_style() {
+    public function manual_import_style()
+    {
         if (!empty($_REQUEST['_wpnonce'])) {
             $nonce = $_REQUEST['_wpnonce'];
         }
@@ -64,21 +71,21 @@ class Home {
             if (!wp_verify_nonce($nonce, 'vc-tabs-ultimate-import')) {
                 die('You do not have sufficient permissions to access this page.');
             } else {
-                if (apply_filters('oxi-tabs-plugin/pro_version', false) == TRUE):
+                if (apply_filters('oxi-tabs-plugin/pro_version', false) == TRUE) :
                     if (isset($_FILES['importtabsfilefile'])) :
                         $filename = $_FILES["importtabsfilefile"]["name"];
                         $folder = $this->safe_path(OXI_TABS_PATH . 'assets/export/');
-                        if (!is_dir($folder)):
+                        if (!is_dir($folder)) :
                             mkdir($folder, 0777);
                         endif;
-                        if (is_file($folder . $filename)):
+                        if (is_file($folder . $filename)) :
                             unlink($folder . $filename); // delete file
                         endif;
 
                         move_uploaded_file($_FILES['importtabsfilefile']['tmp_name'], $folder . $filename);
                         $ImportApi = new \OXI_TABS_PLUGINS\Classes\Build_Api;
                         $ImportApi->post_json_import($folder, $filename);
-                        if (is_file($folder . $filename)):
+                        if (is_file($folder . $filename)) :
                             unlink($folder . $filename); // delete file
                         endif;
                     endif;
@@ -87,8 +94,9 @@ class Home {
         }
     }
 
-    public function Render() {
-        ?>
+    public function Render()
+    {
+?>
         <div class="oxi-addons-row">
             <?php
             $this->Admin_header();
@@ -96,11 +104,13 @@ class Home {
             $this->create_new();
             ?>
         </div>
-        <?php
+    <?php
     }
 
-    public function Admin_header() {
-        ?>
+    public function Admin_header()
+    {
+        apply_filters('vc-tabs-support-and-comments', TRUE);
+    ?>
         <div class="oxi-addons-wrapper">
             <div class="oxi-addons-import-layouts">
                 <h1>Responsive Tabs › Home
@@ -108,10 +118,11 @@ class Home {
                 <p> Collect Responsive Tabs Shortcode, Edit, Delect, Clone or Export it. </p>
             </div>
         </div>
-        <?php
+<?php
     }
 
-    public function create_new() {
+    public function create_new()
+    {
 
 
         echo _('<div class="modal fade" id="oxi-addons-style-create-modal" >
@@ -140,7 +151,7 @@ class Home {
                         </form>
                     </div>
                     ');
-        if (apply_filters('oxi-tabs-plugin/pro_version', false)):
+        if (apply_filters('oxi-tabs-plugin/pro_version', false)) :
 
 
             echo _('<div class="oxi-addons-row">
@@ -183,7 +194,8 @@ class Home {
         endif;
     }
 
-    public function created_shortcode() {
+    public function created_shortcode()
+    {
         $return = _(' <div class="oxi-addons-row"> <div class="oxi-addons-row table-responsive abop" style="margin-bottom: 20px; opacity: 0; height: 0px">
                         <table class="table table-hover widefat oxi_addons_table_data" style="background-color: #fff; border: 1px solid #ccc">
                             <thead>
@@ -203,7 +215,7 @@ class Home {
             $return .= _('<td>' . ucwords($value['name']) . '</td>');
             $return .= _('<td>' . $this->name_converter($value['style_name']) . '</td>');
             $return .= _('<td><span>Shortcode &nbsp;&nbsp;<input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $id . '&quot;]"></span> <br>'
-                    . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
+                . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
             $return .= _('<td> 
                         <button type="button" class="btn btn-success oxi-addons-style-clone"  style="float:left" oxiaddonsdataid="' . $id . '">Clone</button>
                         <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
@@ -222,5 +234,4 @@ class Home {
             <br></div>');
         echo $return;
     }
-
 }
