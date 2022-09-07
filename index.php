@@ -17,6 +17,7 @@ define('OXI_TABS_PATH', plugin_dir_path(__FILE__));
 define('OXI_TABS_URL', plugins_url('/', __FILE__));
 define('OXI_TABS_PLUGIN_VERSION', '3.9.2');
 define('OXI_TABS_TEXTDOMAIN', 'oxi-tabs-plugin');
+define('OXI_TABS_WOOCOMMERCE_POST_TYPE', 'oxi_woo_tabs');
 
 /**
  * Including composer autoloader globally.

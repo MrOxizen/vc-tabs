@@ -148,11 +148,26 @@ trait Admin_helper
         add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'tabs_create']);
         add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-settings', [$this, 'tabs_settings']);
         if (is_plugin_active('woocommerce/woocommerce.php')) :
-            add_submenu_page('oxi-tabs-ultimate', 'Woo Extension', 'Woo Extension', $first_key, 'oxi-tabs-ultimate-woo-extension', [$this, 'woo_extension']);
+
+            $this->active_woocommerce_extension($first_key);
+
         endif;
         add_submenu_page('oxi-tabs-ultimate', 'Oxilab Plugins', 'Oxilab Plugins', $first_key, 'oxi-tabs-ultimate-plugins', [$this, 'oxilab_plugins']);
         add_submenu_page('oxi-tabs-ultimate', 'Welcome To Responsive Tabs with  Accordions', 'Support', $first_key, 'oxi-tabs-ultimate-welcome', [$this, 'oxi_tabs_welcome']);
     }
+
+
+
+    public function active_woocommerce_extension($first_key)
+    {
+
+        add_menu_page('WooCommerce Tabs', 'WooCommerce Tabs', $first_key, 'oxi-tabs-ultimate-woo-tabs', [$this, 'woo_extension']);
+        add_submenu_page('oxi-tabs-ultimate-woo-tabs', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-woo-tabs', [$this, 'woo_extension']);
+        add_submenu_page('oxi-tabs-ultimate-woo-tabs', 'Global Tabs', 'Global Tabs', $first_key, 'edit.php?post_type=' . OXI_TABS_WOOCOMMERCE_POST_TYPE);
+    }
+
+
+
 
     public function tabs_home()
     {

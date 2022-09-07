@@ -7,9 +7,10 @@ namespace OXI_TABS_PLUGINS\Extension\WooCommerce;
  *
  * @author biplo
  */
-class WooCommerce {
+class WooCommerce
+{
 
-// instance container
+    // instance container
     private static $instance = null;
 
     /**
@@ -20,7 +21,8 @@ class WooCommerce {
     public $database;
     public $customize;
 
-    public static function instance() {
+    public static function instance()
+    {
         if (self::$instance == null) {
             self::$instance = new self;
         }
@@ -28,7 +30,8 @@ class WooCommerce {
         return self::$instance;
     }
 
-    public function __construct() {
+    public function __construct()
+    {
 
         /*
          * Add Tabs Panel into WooCommerce Postbox
@@ -41,16 +44,66 @@ class WooCommerce {
         // 
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts_and_styles'), 10, 1);
         /*
-         * Tab content Panels
+         * Product Tab content Panels
          */
         add_action('woocommerce_product_data_panels', [$this, 'add_product_panels']);
         add_action('woocommerce_process_product_meta', [$this, 'product_meta_fields_save']);
         add_action('woocommerce_init', array($this, 'init'));
+
+
+        /*
+         * Global Tab content Panels
+         */
+
+
+        add_filter('init',  array($this, 'custom_post_types'));
     }
 
-    public function init() {
 
-        if ($this->use_the_content_filter()):
+
+    public function custom_post_types()
+    {
+
+        $labels = array(
+            'name'               => _x('Tabs', 'post type general name', OXI_TABS_TEXTDOMAIN),
+            'singular_name'      => _x('Tab', 'post type singular name', OXI_TABS_TEXTDOMAIN),
+            'menu_name'          => _x('WooCommerce Product Tabs', 'admin menu', OXI_TABS_TEXTDOMAIN),
+            'name_admin_bar'     => _x('Tab', 'add new on admin bar', OXI_TABS_TEXTDOMAIN),
+            'add_new'            => _x('Add New', OXI_TABS_WOOCOMMERCE_POST_TYPE, OXI_TABS_TEXTDOMAIN),
+            'add_new_item'       => __('Add New Tab', OXI_TABS_TEXTDOMAIN),
+            'new_item'           => __('New Tab', OXI_TABS_TEXTDOMAIN),
+            'edit_item'          => __('Edit Tab', OXI_TABS_TEXTDOMAIN),
+            'view_item'          => __('View Tab', OXI_TABS_TEXTDOMAIN),
+            'all_items'          => __('Product Tabs', OXI_TABS_TEXTDOMAIN),
+            'search_items'       => __('Search Tabs', OXI_TABS_TEXTDOMAIN),
+            'parent_item_colon'  => __('Parent Tabs:', OXI_TABS_TEXTDOMAIN),
+            'not_found'          => __('No tabs found.', OXI_TABS_TEXTDOMAIN),
+            'not_found_in_trash' => __('No tabs found in Trash.', OXI_TABS_TEXTDOMAIN)
+        );
+
+        $args = array(
+            'labels'             => $labels,
+            'public'             => false,
+            'publicly_queryable' => false,
+            'show_ui'            => true,
+            'show_in_menu' => false,
+            'query_var'          => false,
+            'capability_type'    => 'post',
+            'has_archive'        => false,
+            'hierarchical'       => false,
+            'menu_icon'          => 'dashicons-admin-site-alt3',
+            'menu_position'      => 999,
+            'supports'           => array('title', 'editor')
+        );
+
+        register_post_type(OXI_TABS_WOOCOMMERCE_POST_TYPE, $args);
+    }
+
+
+    public function init()
+    {
+
+        if ($this->use_the_content_filter()) :
             add_filter('oxi_woo_tab_content_filter', array($this, 'content_filter'), 10, 1);
         endif;
         add_filter('oxi_woo_tab_product_tabs_content', 'do_shortcode');
@@ -60,73 +113,75 @@ class WooCommerce {
         // Add our custom product tabs layoouts to the product page
         $this->reorder_default_tabs();
         $settigs = get_option('oxilab_tabs_woocommerce_default');
-        if ($settigs > 0):
+        if ($settigs > 0) :
             add_filter('woocommerce_locate_template', [$this, 'woo_template'], 1, 3);
         endif;
     }
 
-    public function reorder_default_tabs() {
+    public function reorder_default_tabs()
+    {
         $check_customization = json_decode(stripslashes(get_option('oxilab_tabs_woocommerce_customize_default_tabs')), true);
 
-        if (is_array($check_customization) && count($check_customization) > 1):
+        if (is_array($check_customization) && count($check_customization) > 1) :
             $customize = [];
             foreach ($check_customization as $key => $value) {
-                if (isset($value['title']) && $value['title'] != ''):
+                if (isset($value['title']) && $value['title'] != '') :
                     $customize['title'][$key] = $value['title'];
                 endif;
-                if (isset($value['icon']) && $value['icon'] != ''):
+                if (isset($value['icon']) && $value['icon'] != '') :
                     $customize['icon'][$key] = $value['icon'];
                 endif;
-                if (isset($value['priority']) && $value['priority'] != ''):
+                if (isset($value['priority']) && $value['priority'] != '') :
                     $customize['priority'][$key] = $value['priority'];
                 endif;
-                if (isset($value['callback']) && $value['callback'] != ''):
+                if (isset($value['callback']) && $value['callback'] != '') :
                     $customize['callback'][$key] = $value['callback'];
                 endif;
-                if (isset($value['unset']) && $value['unset'] == 'on'):
+                if (isset($value['unset']) && $value['unset'] == 'on') :
                     $customize['unset'][$key] = $value['unset'];
                 endif;
             }
-            if (count($customize) > 0):
+            if (count($customize) > 0) :
                 $this->customize = $customize;
                 add_filter('woocommerce_product_tabs', [$this, 'oxi_remove_product_tabs'], 10);
             endif;
         endif;
     }
 
-    public function oxi_remove_product_tabs($tabs) {
+    public function oxi_remove_product_tabs($tabs)
+    {
         $customize = $this->customize;
-        if (isset($customize['unset'])):
+        if (isset($customize['unset'])) :
             foreach ($customize['unset'] as $k => $value) {
-                if (isset($tabs[$k])):
+                if (isset($tabs[$k])) :
                     unset($tabs[$k]);
                 endif;
             }
         endif;
-        if (isset($customize['title'])):
+        if (isset($customize['title'])) :
             foreach ($customize['title'] as $k => $value) {
-                if (isset($tabs[$k])):
+                if (isset($tabs[$k])) :
                     $tabs[$k]['title'] = $value;
                 endif;
             }
         endif;
-        if (isset($customize['icon'])):
+        if (isset($customize['icon'])) :
             foreach ($customize['icon'] as $k => $value) {
-                if (isset($tabs[$k])):
+                if (isset($tabs[$k])) :
                     $tabs[$k]['custom_icon'] = $value;
                 endif;
             }
         endif;
-        if (isset($customize['priority'])):
+        if (isset($customize['priority'])) :
             foreach ($customize['priority'] as $k => $value) {
-                if (isset($tabs[$k])):
+                if (isset($tabs[$k])) :
                     $tabs[$k]['priority'] = $value;
                 endif;
             }
         endif;
-        if (isset($customize['callback'])):
+        if (isset($customize['callback'])) :
             foreach ($value as $k => $value) {
-                if (isset($tabs[$k])):
+                if (isset($tabs[$k])) :
                     $tabs[$k]['callback'] = $value;
                 endif;
             }
@@ -135,7 +190,8 @@ class WooCommerce {
         return $tabs;
     }
 
-    public function content_filter($content) {
+    public function content_filter($content)
+    {
         $content = function_exists('capital_P_dangit') ? capital_P_dangit($content) : $content;
         $content = function_exists('wptexturize') ? wptexturize($content) : $content;
         $content = function_exists('convert_smilies') ? convert_smilies($content) : $content;
@@ -153,7 +209,8 @@ class WooCommerce {
         return $content;
     }
 
-    public function oxilab_tabs_css_icon() {
+    public function oxilab_tabs_css_icon()
+    {
         echo '<style>
 	#woocommerce-product-data ul.wc-tabs li.oxilab_tabs_options.oxilab_tabs_tab a:before{
 		content: "\f163";
@@ -161,7 +218,8 @@ class WooCommerce {
 	</style>';
     }
 
-    public function add_postbox_tabs($tabs) {
+    public function add_postbox_tabs($tabs)
+    {
         $tabs['oxilab_tabs'] = array(
             'label' => 'Oxilab Tabs',
             'target' => 'oxilab_tabs_product_data',
@@ -169,12 +227,13 @@ class WooCommerce {
         return $tabs;
     }
 
-    public function add_product_panels() {
+    public function add_product_panels()
+    {
         global $post;
         $post_id = $post->ID;
         $new = new \OXI_TABS_PLUGINS\Modules\Shortcode();
         $get_style = $new->get_all_style();
-        ?>
+?>
         <div id="oxilab_tabs_product_data" class="panel woocommerce_options_panel">
             <?php
             woocommerce_wp_select(array(
@@ -188,22 +247,23 @@ class WooCommerce {
             $tabs->render_html();
             ?>
         </div>
-        <?php
+<?php
     }
 
-    public function product_meta_fields_save($post_id) {
+    public function product_meta_fields_save($post_id)
+    {
         echo 'save the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field datasave the text field data';
         // save the woo layouts
 
         $layouts = isset($_POST['_oxilab_tabs_woo_layouts']) ? esc_attr($_POST['_oxilab_tabs_woo_layouts']) : '';
-        if ($layouts != ''):
+        if ($layouts != '') :
             update_post_meta($post_id, '_oxilab_tabs_woo_layouts', $layouts);
-        else:
+        else :
             delete_post_meta($post_id, '_oxilab_tabs_woo_layouts');
         endif;
         $tab_data = [];
         // save the woo data
-        if (isset($_POST['_oxilab_tabs_woo_layouts_tab_title_'])):
+        if (isset($_POST['_oxilab_tabs_woo_layouts_tab_title_'])) :
             $titles = $_POST['_oxilab_tabs_woo_layouts_tab_title_'];
             $prioritys = $_POST['_oxilab_tabs_woo_layouts_tab_priority_'];
             $contents = $_POST['_oxilab_tabs_woo_layouts_tab_content_'];
@@ -214,9 +274,9 @@ class WooCommerce {
                 $tab_priority = stripslashes($prioritys[$key]);
                 $tab_callback = stripslashes($callback[$key]);
                 $tab_content = stripslashes($contents[$key]);
-                if (empty($tab_title) && empty($tab_priority)):
+                if (empty($tab_title) && empty($tab_priority)) :
                     return false;
-                else:
+                else :
                     $tab_data[$key] = [
                         'title' => $tab_title,
                         'priority' => $tab_priority,
@@ -226,15 +286,16 @@ class WooCommerce {
                 endif;
             }
         endif;
-        if (count($tab_data) == 0):
+        if (count($tab_data) == 0) :
             delete_post_meta($post_id, '_oxilab_tabs_woo_data');
-        else:
+        else :
             $tab_data = array_values($tab_data);
             update_post_meta($post_id, '_oxilab_tabs_woo_data', $tab_data);
         endif;
     }
 
-    public function enqueue_scripts_and_styles($hook) {
+    public function enqueue_scripts_and_styles($hook)
+    {
         global $post;
         global $wp_version;
         if ($hook === 'post-new.php' || $hook === 'post.php') {
@@ -248,7 +309,8 @@ class WooCommerce {
         }
     }
 
-    public function add_custom_product_tabs($tabs) {
+    public function add_custom_product_tabs($tabs)
+    {
         global $product;
         $product_id = method_exists($product, 'get_id') === true ? $product->get_id() : $product->ID;
         $product_tabs = maybe_unserialize(get_post_meta($product_id, '_oxilab_tabs_woo_data', true));
@@ -264,17 +326,17 @@ class WooCommerce {
                 ];
                 $tab = array_merge($default, $tab);
                 $keys = urldecode(sanitize_title($tab['title']));
-                if (array_key_exists($keys, $tabs)):
+                if (array_key_exists($keys, $tabs)) :
                     $k = 100;
                     for ($i = 0; $i < $k; $i++) {
                         $new = $keys . '-' . $i;
-                        if (array_key_exists($new, $tabs) == false):
+                        if (array_key_exists($new, $tabs) == false) :
                             $keys = $new;
                             break;
                         endif;
                     }
                 endif;
-                if ($tab['callback'] == ''):
+                if ($tab['callback'] == '') :
                     $tab['callback'] = [$this, 'product_tabs_content'];
                 endif;
 
@@ -289,11 +351,12 @@ class WooCommerce {
         return $tabs;
     }
 
-    public function product_tabs_content($key, $tab) {
+    public function product_tabs_content($key, $tab)
+    {
         $content = '';
         $content = apply_filters('oxi_woo_tab_content_filter', $tab['content']);
         $sub = get_option('oxi_tabs_woo_sub_title');
-        if ($sub):
+        if ($sub) :
             $tab_title_html = '<h2 class="oxi_woo_tab-title oxi_woo_tab-tab-title-' . urldecode(sanitize_title($tab['title'])) . '">' . $tab['title'] . '</h2>';
             echo apply_filters('oxi_woo_tab_product_tabs_heading', $tab_title_html, $tab);
         endif;
@@ -301,28 +364,29 @@ class WooCommerce {
         echo apply_filters('oxi_woo_tab_product_tabs_content', $content, $tab);
     }
 
-    public function woo_template($template, $template_name, $template_path) {
+    public function woo_template($template, $template_name, $template_path)
+    {
         global $woocommerce;
         $_Parent_Template = $template;
-        if (!$template_path):
+        if (!$template_path) :
             $template_path = $woocommerce->template_url;
         endif;
 
         $plugin_path = untrailingslashit(OXI_TABS_PATH) . '/Extension/WooCommerce/Template/';
-        if (file_exists($plugin_path . $template_name)):
+        if (file_exists($plugin_path . $template_name)) :
             $template = $plugin_path . $template_name;
         endif;
 
-        if (!$template):
+        if (!$template) :
             $template = locate_template(
-                    array(
-                        $template_path . $template_name,
-                        $template_name
-                    )
+                array(
+                    $template_path . $template_name,
+                    $template_name
+                )
             );
         endif;
 
-        if (!$template):
+        if (!$template) :
             $template = $_Parent_Template;
         endif;
 
@@ -332,8 +396,8 @@ class WooCommerce {
     /**
      * Check if we should use the filter
      */
-    public function use_the_content_filter() {
+    public function use_the_content_filter()
+    {
         return get_option('oxi_tabs_use_the_content') == 'yes' ? true : false;
     }
-
 }

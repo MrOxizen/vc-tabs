@@ -72,7 +72,7 @@ jQuery.noConflict();
                 $(content + j.initial).addClass("active");
             } else {
                 var header = '.oxi-tabs-header-li-' + p + '-' + c,
-                        contentbody = '#oxi-tabs-body-' + p + '-' + c;
+                    contentbody = '#oxi-tabs-body-' + p + '-' + c;
                 if ($(header).hasClass('active')) {
                     if (j.trigger === '1' && j.type !== 'oxi-tabs-hover-event') {
                         $(header).removeClass("active");
@@ -85,12 +85,12 @@ jQuery.noConflict();
                     $(content).removeClass(j.animation).removeClass("active");
                     $(contentbody).addClass(j.animation).addClass("active");
                 }
-        }
+            }
         }
 
         function OxiTabsEqualHeight(p = '', c = '') {
             var cls = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style", tabs = cls + ' .oxi-tabs-body-tabs', j = $(cls).data('oxi-tabs'), w = $(window).width();
-            $(tabs).css({height: ''});
+            $(tabs).css({ height: '' });
             if (w > 993 && j.lap === 'yes') {
                 var highestBox = 0;
                 $(tabs).each(function () {
@@ -118,7 +118,7 @@ jQuery.noConflict();
                     }
                 });
                 $(tabs).height(highestBox);
-        }
+            }
         }
 
         if ($("#oxi-addons-iframe-background-color").length) {

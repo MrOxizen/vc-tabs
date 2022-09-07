@@ -6,8 +6,8 @@
 
     function i(i, t) {
         var o = $('<div class="minicolors" />'),
-                s = $.minicolors.defaults,
-                a, n, r, c, l;
+            s = $.minicolors.defaults,
+            a, n, r, c, l;
         if (!i.data("minicolors-initialized")) {
             if (t = $.extend(!0, {}, s, t), o.addClass("minicolors-theme-" + t.theme).toggleClass("minicolors-with-opacity", t.opacity).toggleClass("minicolors-no-data-uris", t.dataUris !== !0), void 0 !== t.position && $.each(t.position.split(" "), function () {
                 o.addClass("minicolors-position-" + this)
@@ -32,8 +32,8 @@
 
     function o(i) {
         var t = i.parent(),
-                o = t.find(".minicolors-panel"),
-                a = i.data("minicolors-settings");
+            o = t.find(".minicolors-panel"),
+            a = i.data("minicolors-settings");
         !i.data("minicolors-initialized") || i.prop("disabled") || t.hasClass("minicolors-inline") || t.hasClass("minicolors-focus") || (s(), t.addClass("minicolors-focus"), o.stop(!0, !0).fadeIn(a.showSpeed, function () {
             a.show && a.show.call(i.get(0))
         }))
@@ -42,9 +42,9 @@
     function s() {
         $(".minicolors-focus").each(function () {
             var i = $(this),
-                    t = i.find(".minicolors-input"),
-                    o = i.find(".minicolors-panel"),
-                    s = t.data("minicolors-settings");
+                t = i.find(".minicolors-input"),
+                o = i.find(".minicolors-panel"),
+                s = t.data("minicolors-settings");
             o.fadeOut(s.hideSpeed, function () {
                 s.hide && s.hide.call(t.get(0)), i.removeClass("minicolors-focus")
             })
@@ -53,14 +53,14 @@
 
     function a(i, t, o) {
         var s = i.parents(".minicolors").find(".minicolors-input"),
-                a = s.data("minicolors-settings"),
-                r = i.find("[class$=-picker]"),
-                e = i.offset().left,
-                c = i.offset().top,
-                l = Math.round(t.pageX - e),
-                h = Math.round(t.pageY - c),
-                d = o ? a.animationSpeed : 0,
-                p, u, g, m;
+            a = s.data("minicolors-settings"),
+            r = i.find("[class$=-picker]"),
+            e = i.offset().left,
+            c = i.offset().top,
+            l = Math.round(t.pageX - e),
+            h = Math.round(t.pageY - c),
+            d = o ? a.animationSpeed : 0,
+            p, u, g, m;
         t.originalEvent.changedTouches && (l = t.originalEvent.changedTouches[0].pageX - e, h = t.originalEvent.changedTouches[0].pageY - c), 0 > l && (l = 0), 0 > h && (h = 0), l > i.width() && (l = i.width()), h > i.height() && (h = i.height()), i.parent().is(".minicolors-slider-wheel") && r.parent().is(".minicolors-grid") && (p = 75 - l, u = 75 - h, g = Math.sqrt(p * p + u * u), m = Math.atan2(u, p), 0 > m && (m += 2 * Math.PI), g > 75 && (g = 75, l = 75 - 75 * Math.cos(m), h = 75 - 75 * Math.sin(m)), l = Math.round(l), h = Math.round(h)), i.is(".minicolors-grid") ? r.stop(!0).animate({
             top: h + "px",
             left: l + "px"
@@ -82,19 +82,19 @@
             }) : null
         }
         var s, a, n, e, l, h, d, p = i.val(),
-                u = i.attr("data-opacity"),
-                g = i.parent(),
-                f = i.data("minicolors-settings"),
-                v = g.find(".minicolors-input-swatch"),
-                b = g.find(".minicolors-grid"),
-                w = g.find(".minicolors-slider"),
-                y = g.find(".minicolors-opacity-slider"),
-                k = b.find("[class$=-picker]"),
-                M = w.find("[class$=-picker]"),
-                x = y.find("[class$=-picker]"),
-                I = o(k, b),
-                S = o(M, w),
-                z = o(x, y);
+            u = i.attr("data-opacity"),
+            g = i.parent(),
+            f = i.data("minicolors-settings"),
+            v = g.find(".minicolors-input-swatch"),
+            b = g.find(".minicolors-grid"),
+            w = g.find(".minicolors-slider"),
+            y = g.find(".minicolors-opacity-slider"),
+            k = b.find("[class$=-picker]"),
+            M = w.find("[class$=-picker]"),
+            x = y.find("[class$=-picker]"),
+            I = o(k, b),
+            S = o(M, w),
+            z = o(x, y);
         if (t.is(".minicolors-grid, .minicolors-slider, .minicolors-opacity-slider")) {
             switch (f.control) {
                 case "wheel":
@@ -151,8 +151,8 @@
 
     function r(i, t, o) {
         var s, a = i.parent(),
-                n = i.data("minicolors-settings"),
-                r = a.find(".minicolors-input-swatch");
+            n = i.data("minicolors-settings"),
+            r = a.find(".minicolors-input-swatch");
         n.opacity && i.attr("data-opacity", o), "rgb" === n.format ? (s = f(t) ? u(t, !0) : x(p(t, !0)), o = "" === i.attr("data-opacity") ? 1 : m(parseFloat(i.attr("data-opacity")).toFixed(2), 0, 1), (isNaN(o) || !n.opacity) && (o = 1), t = i.minicolors("rgbObject").a <= 1 && s && n.opacity ? "rgba(" + s.r + ", " + s.g + ", " + s.b + ", " + parseFloat(o) + ")" : "rgb(" + s.r + ", " + s.g + ", " + s.b + ")") : (f(t) && (t = w(t)), t = d(t, n.letterCase)), i.val(t), r.find("span").css({
             backgroundColor: t,
             opacity: o
@@ -161,17 +161,17 @@
 
     function e(i, t) {
         var o, s, a, n, r, e, l, h, b, y, M = i.parent(),
-                x = i.data("minicolors-settings"),
-                I = M.find(".minicolors-input-swatch"),
-                S = M.find(".minicolors-grid"),
-                z = M.find(".minicolors-slider"),
-                F = M.find(".minicolors-opacity-slider"),
-                D = S.find("[class$=-picker]"),
-                T = z.find("[class$=-picker]"),
-                j = F.find("[class$=-picker]");
+            x = i.data("minicolors-settings"),
+            I = M.find(".minicolors-input-swatch"),
+            S = M.find(".minicolors-grid"),
+            z = M.find(".minicolors-slider"),
+            F = M.find(".minicolors-opacity-slider"),
+            D = S.find("[class$=-picker]"),
+            T = z.find("[class$=-picker]"),
+            j = F.find("[class$=-picker]");
         switch (f(i.val()) ? (o = w(i.val()), r = m(parseFloat(v(i.val())).toFixed(2), 0, 1), r && i.attr("data-opacity", r)) : o = d(p(i.val(), !0), x.letterCase), o || (o = d(g(x.defaultValue, !0), x.letterCase)), s = k(o), n = x.keywords ? $.map(x.keywords.split(","), function (i) {
-                return $.trim(i.toLowerCase())
-            }) : [], e = "" !== i.val() && $.inArray(i.val().toLowerCase(), n) > -1 ? d(i.val()) : f(i.val()) ? u(i.val()) : o, t || i.val(e), x.opacity && (a = "" === i.attr("data-opacity") ? 1 : m(parseFloat(i.attr("data-opacity")).toFixed(2), 0, 1), isNaN(a) && (a = 1), i.attr("data-opacity", a), I.find("span").css("opacity", a), h = m(F.height() - F.height() * a, 0, F.height()), j.css("top", h + "px")), "transparent" === i.val().toLowerCase() && I.find("span").css("opacity", 0), I.find("span").css("backgroundColor", o), x.control) {
+            return $.trim(i.toLowerCase())
+        }) : [], e = "" !== i.val() && $.inArray(i.val().toLowerCase(), n) > -1 ? d(i.val()) : f(i.val()) ? u(i.val()) : o, t || i.val(e), x.opacity && (a = "" === i.attr("data-opacity") ? 1 : m(parseFloat(i.attr("data-opacity")).toFixed(2), 0, 1), isNaN(a) && (a = 1), i.attr("data-opacity", a), I.find("span").css("opacity", a), h = m(F.height() - F.height() * a, 0, F.height()), j.css("top", h + "px")), "transparent" === i.val().toLowerCase() && I.find("span").css("opacity", 0), I.find("span").css("backgroundColor", o), x.control) {
             case "wheel":
                 b = m(Math.ceil(.75 * s.s), 0, S.height() / 2), y = s.h * Math.PI / 180, l = m(75 - Math.cos(y) * b, 0, S.width()), h = m(75 - Math.sin(y) * b, 0, S.height()), D.css({
                     top: h + "px",
@@ -217,8 +217,8 @@
 
     function c(i, t, o) {
         var s = i.data("minicolors-settings"),
-                a = i.data("minicolors-lastChange"),
-                n, r, e;
+            a = i.data("minicolors-lastChange"),
+            n, r, e;
         if (!a || a.value !== t || a.opacity !== o) {
             if (i.data("minicolors-lastChange", {
                 value: t,
@@ -239,8 +239,8 @@
 
     function l(i) {
         var t = p($(i).val(), !0),
-                o = x(t),
-                s = $(i).attr("data-opacity");
+            o = x(t),
+            s = $(i).attr("data-opacity");
         return o ? (void 0 !== s && $.extend(o, {
             a: parseFloat(s)
         }), o) : null
@@ -248,8 +248,8 @@
 
     function h(i, t) {
         var o = p($(i).val(), !0),
-                s = x(o),
-                a = $(i).attr("data-opacity");
+            s = x(o),
+            a = $(i).attr("data-opacity");
         return s ? (void 0 === a && (a = 1), t ? "rgba(" + s.r + ", " + s.g + ", " + s.b + ", " + parseFloat(a) + ")" : "rgb(" + s.r + ", " + s.g + ", " + s.b + ")") : null
     }
 
@@ -263,7 +263,7 @@
 
     function u(i, t) {
         var o = i.replace(/[^\d,.]/g, ""),
-                s = o.split(",");
+            s = o.split(",");
         return s[0] = m(parseInt(s[0], 10), 0, 255), s[1] = m(parseInt(s[1], 10), 0, 255), s[2] = m(parseInt(s[2], 10), 0, 255), s[3] && (s[3] = m(parseFloat(s[3], 10), 0, 1)), t ? {
             r: s[0],
             g: s[1],
@@ -291,15 +291,15 @@
 
     function b(i) {
         var t = {},
-                o = Math.round(i.h),
-                s = Math.round(255 * i.s / 100),
-                a = Math.round(255 * i.b / 100);
+            o = Math.round(i.h),
+            s = Math.round(255 * i.s / 100),
+            a = Math.round(255 * i.b / 100);
         if (0 === s)
             t.r = t.g = t.b = a;
         else {
             var n = a,
-                    r = (255 - s) * a / 255,
-                    e = (n - r) * (o % 60) / 60;
+                r = (255 - s) * a / 255,
+                e = (n - r) * (o % 60) / 60;
             360 === o && (o = 0), 60 > o ? (t.r = n, t.b = r, t.g = r + e) : 120 > o ? (t.g = n, t.b = r, t.r = n - e) : 180 > o ? (t.g = n, t.r = r, t.b = r + e) : 240 > o ? (t.b = n, t.r = r, t.g = n - e) : 300 > o ? (t.b = n, t.g = r, t.r = r + e) : 360 > o ? (t.r = n, t.g = r, t.b = n - e) : (t.r = 0, t.g = 0, t.b = 0)
         }
         return {
@@ -335,9 +335,9 @@
             s: 0,
             b: 0
         },
-                o = Math.min(i.r, i.g, i.b),
-                s = Math.max(i.r, i.g, i.b),
-                a = s - o;
+            o = Math.min(i.r, i.g, i.b),
+            s = Math.max(i.r, i.g, i.b),
+            a = s - o;
         return t.b = s, t.s = 0 !== s ? 255 * a / s : 0, 0 !== t.s ? i.r === s ? t.h = (i.g - i.b) / a : i.g === s ? t.h = 2 + (i.b - i.r) / a : t.h = 4 + (i.r - i.g) / a : t.h = -1, t.h *= 60, t.h < 0 && (t.h += 360), t.s *= 100 / 255, t.b *= 100 / 255, t
     }
 
@@ -418,8 +418,8 @@
     }).on("click.minicolors", ".minicolors-swatches li", function (i) {
         i.preventDefault();
         var t = $(this),
-                o = t.parents(".minicolors").find(".minicolors-input"),
-                s = t.data("swatch-color");
+            o = t.parents(".minicolors").find(".minicolors-input"),
+            s = t.data("swatch-color");
         r(o, s, v(s)), e(o)
     }).on("mousedown.minicolors touchstart.minicolors", ".minicolors-input-swatch", function (i) {
         var t = $(this).parent().find(".minicolors-input");
@@ -429,8 +429,8 @@
         i.data("minicolors-initialized") && o(i)
     }).on("blur.minicolors", ".minicolors-input", function () {
         var i = $(this),
-                t = i.data("minicolors-settings"),
-                o, s, a, n, r;
+            t = i.data("minicolors-settings"),
+            o, s, a, n, r;
         i.data("minicolors-initialized") && (o = t.keywords ? $.map(t.keywords.split(","), function (i) {
             return $.trim(i.toLowerCase())
         }) : [], "" !== i.val() && $.inArray(i.val().toLowerCase(), o) > -1 ? r = i.val() : (f(i.val()) ? a = u(i.val(), !0) : (s = p(i.val(), !0), a = s ? x(s) : null), r = null === a ? t.defaultValue : "rgb" === t.format ? u(t.opacity ? "rgba(" + a.r + "," + a.g + "," + a.b + "," + i.attr("data-opacity") + ")" : "rgb(" + a.r + "," + a.g + "," + a.b + ")") : y(a)), n = t.opacity ? i.attr("data-opacity") : 1, "transparent" === r.toLowerCase() && (n = 0), i.closest(".minicolors").find(".minicolors-input-swatch > span").css("opacity", n), i.val(r), "" === i.val() && i.val(g(t.defaultValue, !0)), i.val(d(i.val(), t.letterCase)))
