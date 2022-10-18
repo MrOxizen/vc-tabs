@@ -143,8 +143,7 @@ class Bootstrap {
     }
 
     public function Extension() {
-        $tabs = get_option('oxilab_tabs_woocommerce');
-        if ($tabs == 'yes'):
+        if (is_plugin_active('woocommerce/woocommerce.php')) :
             new \OXI_TABS_PLUGINS\Extension\WooCommerce\WooCommerce();
         endif;
     }

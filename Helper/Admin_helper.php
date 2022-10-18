@@ -2,16 +2,14 @@
 
 namespace OXI_TABS_PLUGINS\Helper;
 
-trait Admin_helper
-{
+trait Admin_helper {
 
     /**
      * Plugin fixed
      *
      * @since 3.1.0
      */
-    public function fixed_data($agr)
-    {
+    public function fixed_data($agr) {
         return hex2bin($agr);
     }
 
@@ -20,31 +18,25 @@ trait Admin_helper
      *
      * @since 3.1.0
      */
-    public function fixed_debug_data($str)
-    {
+    public function fixed_debug_data($str) {
         return bin2hex($str);
     }
 
-    public function Tabs_Icon()
-    {
-?>
+    public function Tabs_Icon() {
+        ?>
         <style type='text/css' media='screen'>
             #adminmenu #toplevel_page_oxi-tabs-ultimate div.wp-menu-image:before {
                 content: "\f163";
             }
         </style>
-    <?php
+        <?php
     }
 
-
-
-    public function admin_url_convert($agr)
-    {
+    public function admin_url_convert($agr) {
         return admin_url(strpos($agr, 'edit') !== false ? $agr : 'admin.php?page=' . $agr);
     }
 
-    public function SupportAndComments($agr)
-    {
+    public function SupportAndComments($agr) {
 
         if (get_option('oxi_tabs_support_massage') == 'no') :
             return;
@@ -72,8 +64,7 @@ trait Admin_helper
      *
      * @since 2.0.0
      */
-    public function oxilab_admin_menu($agr)
-    {
+    public function oxilab_admin_menu($agr) {
 
         $response = [
             'Shortcode' => [
@@ -92,7 +83,7 @@ trait Admin_helper
 
         $bgimage = OXI_TABS_URL . 'assets/image/sa-logo.png';
         $sub = '';
-    ?>
+        ?>
         <div class="oxi-addons-wrapper">
             <div class="oxilab-new-admin-menu">
                 <div class="oxi-site-logo">
@@ -105,15 +96,15 @@ trait Admin_helper
                         $GETPage = sanitize_text_field($_GET['page']);
 
                         foreach ($response as $key => $value) {
-                        ?>
+                            ?>
                             <li <?php
-                                if ($GETPage == $value['homepage']) :
-                                    echo ' class="active" ';
-                                endif;
-                                ?>><a href="<?php echo esc_url($this->admin_url_convert($value['homepage'])) ?>"><?php echo esc_html($this->name_converter($value['name'])) ?></a></li>
-                        <?php
-                        }
-                        ?>
+                            if ($GETPage == $value['homepage']) :
+                                echo ' class="active" ';
+                            endif;
+                            ?>><a href="<?php echo esc_url($this->admin_url_convert($value['homepage'])) ?>"><?php echo esc_html($this->name_converter($value['name'])) ?></a></li>
+                                <?php
+                            }
+                            ?>
 
                     </ul>
                     <ul class="oxilab-sa-admin-menu2">
@@ -124,16 +115,15 @@ trait Admin_helper
                         ?>
                         <li class="saadmin-doc"><a target="_black" href="https://www.oxilabdemos.com/responsive-tabs/docs/">Docs</a></li>
                         <li class="saadmin-doc"><a target="_black" href="https://wordpress.org/support/plugin/vc-tabs/">Support</a></li>
-                        <li class="saadmin-set"><a href="<?php echo  esc_url(admin_url('admin.php?page=oxi-tabs-ultimate-settings')) ?>"><span class="dashicons dashicons-admin-generic"></span></a></li>
+                        <li class="saadmin-set"><a href="<?php echo esc_url(admin_url('admin.php?page=oxi-tabs-ultimate-settings')) ?>"><span class="dashicons dashicons-admin-generic"></span></a></li>
                     </ul>
                 </nav>
             </div>
         </div>
-<?php
+        <?php
     }
 
-    public function Admin_Menu()
-    {
+    public function Admin_Menu() {
         $user_role = get_option('oxi_addons_user_permission');
         $role_object = get_role($user_role);
         $first_key = '';
@@ -147,35 +137,16 @@ trait Admin_helper
         add_submenu_page('oxi-tabs-ultimate', 'Content Tabs', 'Shortcode', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
         add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'tabs_create']);
         add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-settings', [$this, 'tabs_settings']);
-        if (is_plugin_active('woocommerce/woocommerce.php')) :
 
-            $this->active_woocommerce_extension($first_key);
-
-        endif;
         add_submenu_page('oxi-tabs-ultimate', 'Oxilab Plugins', 'Oxilab Plugins', $first_key, 'oxi-tabs-ultimate-plugins', [$this, 'oxilab_plugins']);
         add_submenu_page('oxi-tabs-ultimate', 'Welcome To Responsive Tabs with  Accordions', 'Support', $first_key, 'oxi-tabs-ultimate-welcome', [$this, 'oxi_tabs_welcome']);
     }
 
-
-
-    public function active_woocommerce_extension($first_key)
-    {
-
-        add_menu_page('WooCommerce Tabs', 'WooCommerce Tabs', $first_key, 'oxi-tabs-ultimate-woo-tabs', [$this, 'woo_extension']);
-        add_submenu_page('oxi-tabs-ultimate-woo-tabs', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-woo-tabs', [$this, 'woo_extension']);
-        add_submenu_page('oxi-tabs-ultimate-woo-tabs', 'Global Tabs', 'Global Tabs', $first_key, 'edit.php?post_type=' . OXI_TABS_WOOCOMMERCE_POST_TYPE);
-    }
-
-
-
-
-    public function tabs_home()
-    {
+    public function tabs_home() {
         new \OXI_TABS_PLUGINS\Page\Home();
     }
 
-    public function tabs_create()
-    {
+    public function tabs_create() {
         $styleid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
         if (!empty($styleid) && $styleid > 0) :
             $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
@@ -198,28 +169,19 @@ trait Admin_helper
         endif;
     }
 
-    public function tabs_settings()
-    {
+    public function tabs_settings() {
         new \OXI_TABS_PLUGINS\Page\Settings();
     }
 
-    public function woo_extension()
-    {
-        new \OXI_TABS_PLUGINS\Page\WooExtension();
-    }
-
-    public function oxilab_plugins()
-    {
+    public function oxilab_plugins() {
         new \OXI_TABS_PLUGINS\Page\Plugins();
     }
 
-    public function oxi_tabs_welcome()
-    {
+    public function oxi_tabs_welcome() {
         new \OXI_TABS_PLUGINS\Page\Welcome();
     }
 
-    public function User_Reviews()
-    {
+    public function User_Reviews() {
         $this->admin_recommended();
         $this->admin_notice();
     }
@@ -229,8 +191,7 @@ trait Admin_helper
      *
      * @since 2.0.0
      */
-    public function admin_notice_status()
-    {
+    public function admin_notice_status() {
         $data = get_option('responsive_tabs_with_accordions_no_bug');
         return $data;
     }
@@ -240,8 +201,7 @@ trait Admin_helper
      *
      * @since 2.0.0
      */
-    public function installation_date()
-    {
+    public function installation_date() {
         $data = get_option('responsive_tabs_with_accordions_activation_date');
         if (empty($data)) :
             $data = strtotime("now");
@@ -255,14 +215,12 @@ trait Admin_helper
      *
      * @since 2.0.0
      */
-    public function admin_recommended_status()
-    {
+    public function admin_recommended_status() {
         $data = get_option('responsive_tabs_with_accordions_recommended');
         return $data;
     }
 
-    public function admin_recommended()
-    {
+    public function admin_recommended() {
         if (!empty($this->admin_recommended_status())) :
             return;
         endif;
@@ -273,8 +231,7 @@ trait Admin_helper
         new \OXI_TABS_PLUGINS\Classes\Support_Recommended();
     }
 
-    public function admin_notice()
-    {
+    public function admin_notice() {
         if (!empty($this->admin_notice_status())) :
             return;
         endif;
@@ -283,13 +240,13 @@ trait Admin_helper
         endif;
         new \OXI_TABS_PLUGINS\Classes\Support_Reviews();
     }
+
     /**
      * Plugin check Current Tabs
      *
      * @since 2.0.0
      */
-    public function check_current_tabs($agr)
-    {
+    public function check_current_tabs($agr) {
         $vs = get_option($this->fixed_data('726573706f6e736976655f746162735f776974685f6163636f7264696f6e735f6c6963656e73655f737461747573'));
         if ($vs == $this->fixed_data('76616c6964')) {
             return true;
@@ -297,4 +254,5 @@ trait Admin_helper
             return false;
         }
     }
+
 }

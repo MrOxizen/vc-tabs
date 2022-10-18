@@ -10,8 +10,7 @@ namespace OXI_TABS_PLUGINS\Render;
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0
  */
-class Render
-{
+class Render {
 
     /**
      * Current Elements id
@@ -131,8 +130,7 @@ class Render
      */
     public $childkeys;
 
-    public function __construct(array $dbdata = [], array $child = [], $admin = 'user', array $arg = [], array $keys = [])
-    {
+    public function __construct(array $dbdata = [], array $child = [], $admin = 'user', array $arg = [], array $keys = []) {
         if (count($dbdata) > 0) :
             $this->dbdata = $dbdata;
             $this->child = $child;
@@ -149,8 +147,8 @@ class Render
             $this->loader();
         endif;
     }
-    public function defualt_value($id)
-    {
+
+    public function defualt_value($id) {
         return [
             'oxi-tabs-modal-title' => 'Lorem Ipsum',
             'oxi-tabs-modal-sub-title' => '',
@@ -174,8 +172,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function loader()
-    {
+    public function loader() {
         $this->style = json_decode(stripslashes($this->dbdata['rawdata']), true);
         $this->CSSDATA = $this->dbdata['stylesheet'];
         $this->WRAPPER = 'oxi-tabs-wrapper-' . $this->dbdata['id'];
@@ -187,8 +184,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function hooks()
-    {
+    public function hooks() {
         $this->public_jquery();
         $this->public_css();
         $this->public_frontend_loader();
@@ -220,7 +216,6 @@ class Render
 
             $inlinecss = html_entity_decode(str_replace('<br>', ' ', str_replace('&nbsp;', ' ', $inlinecss)));
 
-
             if ($this->admin == 'admin') :
                 //only load while ajax called
                 echo _('<style>');
@@ -237,8 +232,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function public_frontend_loader()
-    {
+    public function public_frontend_loader() {
         wp_enqueue_script("jquery");
         wp_enqueue_style('oxi-tabs-ultimate', OXI_TABS_URL . 'assets/frontend/css/style.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxi-plugin-animate', OXI_TABS_URL . 'assets/frontend/css/animate.css', false, OXI_TABS_PLUGIN_VERSION);
@@ -251,8 +245,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function render()
-    {
+    public function render() {
 
         $this->public_attribute($this->style);
 
@@ -271,8 +264,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function public_attribute($style)
-    {
+    public function public_attribute($style) {
 
         $this->attribute = [
             'header' => get_option('oxi_addons_fixed_header_size'),
@@ -299,8 +291,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function public_jquery()
-    {
+    public function public_jquery() {
         echo '';
     }
 
@@ -309,8 +300,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function public_css()
-    {
+    public function public_css() {
         echo '';
     }
 
@@ -319,8 +309,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function inline_public_jquery()
-    {
+    public function inline_public_jquery() {
         echo '';
     }
 
@@ -329,8 +318,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function inline_public_css()
-    {
+    public function inline_public_css() {
         echo '';
     }
 
@@ -339,8 +327,7 @@ class Render
      *
      * @since 3.3.0
      */
-    public function default_render($style, $child, $admin)
-    {
+    public function default_render($style, $child, $admin) {
         echo '';
     }
 
@@ -349,13 +336,11 @@ class Render
      *
      * @since 3.3.0
      */
-    public function Json_Decode($rawdata)
-    {
+    public function Json_Decode($rawdata) {
         return $rawdata != '' ? json_decode(stripcslashes($rawdata), true) : [];
     }
 
-    public function font_familly_validation($data = [])
-    {
+    public function font_familly_validation($data = []) {
         $api = get_option('oxi_addons_google_font');
         if ($api == 'no') :
             return;
@@ -365,27 +350,23 @@ class Render
         }
     }
 
-    public function array_render($id, $style)
-    {
+    public function array_render($id, $style) {
         if (array_key_exists($id, $style)) :
             return $style[$id];
         endif;
     }
 
-    public function text_render($data)
-    {
+    public function text_render($data) {
         return do_shortcode(str_replace('spTac', '&nbsp;', str_replace('spBac', '<br>', html_entity_decode($data))), $ignore_html = false);
     }
 
-    public function CatStringToClassReplacce($string, $number = '000')
-    {
+    public function CatStringToClassReplacce($string, $number = '000') {
         $entities = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', "t");
         $replacements = array('!', '*', "'", "(", ")", ";", ":", "@", "&", "=", "+", "$", ",", "/", "?", "%", "#", "[", "]", " ");
         return 'sa_STCR_' . str_replace($replacements, $entities, urlencode($string)) . $number;
     }
 
-    public function url_render($id, $style)
-    {
+    public function url_render($id, $style) {
         $link = [];
         if (array_key_exists($id . '-url', $style) && $style[$id . '-url'] != '') :
             $link['url'] = $style[$id . '-url'];
@@ -398,8 +379,7 @@ class Render
         return $link;
     }
 
-    public function media_render($id, $style)
-    {
+    public function media_render($id, $style) {
         $url = '';
         if (array_key_exists($id . '-select', $style)) :
             if ($style[$id . '-select'] == 'media-library') :
@@ -416,8 +396,7 @@ class Render
         endif;
     }
 
-    public function excerpt($limit = 10)
-    {
+    public function excerpt($limit = 10) {
         $limit++;
         $excerpt = explode(' ', get_the_excerpt(), $limit);
         if (count($excerpt) >= $limit) {
@@ -430,8 +409,7 @@ class Render
         return $excerpt;
     }
 
-    public function post_title($limit = 10)
-    {
+    public function post_title($limit = 10) {
         $limit++;
         $title = explode(' ', get_the_title(), $limit);
         if (count($title) >= $limit) {
@@ -443,8 +421,7 @@ class Render
         return $title;
     }
 
-    public function truncate($str, $length = 24)
-    {
+    public function truncate($str, $length = 24) {
         if (mb_strlen($str) > $length) {
             return mb_substr($str, 0, $length) . '...';
         } else {
@@ -452,9 +429,8 @@ class Render
         }
     }
 
-    public function tabs_url_render($style)
-    {
-        if ($style['oxi-tabs-modal-components-type'] == 'link') :
+    public function tabs_url_render($style) {
+        if ($style['oxi-tabs-modal-components-type'] == 'link' && $this->admin != 'woocommerce') :
             $data = $this->url_render('oxi-tabs-modal-link', $style);
             if (count($data) >= 1) :
                 return ' data-link=\'' . json_encode($data) . '\'';
@@ -462,8 +438,7 @@ class Render
         endif;
     }
 
-    public function tabs_content_render_tag($style, $child)
-    {
+    public function tabs_content_render_tag($style, $child) {
 
         $number = array_key_exists('oxi-tabs-desc-tags-max', $style) ? $style['oxi-tabs-desc-tags-max'] : 10;
         $smallest = array_key_exists('oxi-tabs-desc-tags-small', $style) ? $style['oxi-tabs-desc-tags-small'] : 10;
@@ -486,8 +461,7 @@ class Render
         return wp_generate_tag_cloud($tags, $args);
     }
 
-    public function tabs_content_render_commment($style, $child)
-    {
+    public function tabs_content_render_commment($style, $child) {
         $number = array_key_exists('oxi-tabs-desc-comment-max', $style) ? $style['oxi-tabs-desc-comment-max'] : 5;
         $show_avatar = array_key_exists('oxi-tabs-desc-comment-show-avatar', $style) ? $style['oxi-tabs-desc-comment-show-avatar'] : 1;
         $avatar_size = array_key_exists('oxi-tabs-desc-comment-avatar-size', $style) ? $style['oxi-tabs-desc-comment-avatar-size'] : 65;
@@ -528,8 +502,7 @@ class Render
         return $public;
     }
 
-    public function tabs_content_render_recent($style, $child)
-    {
+    public function tabs_content_render_recent($style, $child) {
         $show_thumb = array_key_exists('oxi-tabs-desc-recent-thumb-condi', $style) ? $style['oxi-tabs-desc-recent-thumb-condi'] : 1;
         $thumb_size = array_key_exists('oxi-tabs-desc-recent-thumb', $style) ? $style['oxi-tabs-desc-recent-thumb'] : 65;
         $date = array_key_exists('oxi-tabs-desc-recent-meta-date', $style) ? $style['oxi-tabs-desc-recent-meta-date'] : 1;
@@ -589,8 +562,7 @@ class Render
         return $public;
     }
 
-    public function tabs_content_render_popular($style, $child)
-    {
+    public function tabs_content_render_popular($style, $child) {
         $show_thumb = array_key_exists('oxi-tabs-desc-popular-thumb-condi', $style) ? $style['oxi-tabs-desc-popular-thumb-condi'] : 1;
         $thumb_size = array_key_exists('oxi-tabs-desc-popular-thumb', $style) ? $style['oxi-tabs-desc-popular-thumb'] : 65;
         $date = array_key_exists('oxi-tabs-desc-popular-meta-date', $style) ? $style['oxi-tabs-desc-popular-meta-date'] : 1;
@@ -600,14 +572,14 @@ class Render
         $public = '';
 
         $query = new \WP_Query(
-            array(
-                'ignore_sticky_posts' => 1,
-                'posts_per_page' => $number,
-                'post_status' => 'publish',
-                'orderby' => 'meta_value_num',
-                'meta_key' => '_oxi_post_view_count',
-                'order' => 'desc'
-            )
+                array(
+            'ignore_sticky_posts' => 1,
+            'posts_per_page' => $number,
+            'post_status' => 'publish',
+            'orderby' => 'meta_value_num',
+            'meta_key' => '_oxi_post_view_count',
+            'order' => 'desc'
+                )
         );
         if ($query->have_posts()) {
             while ($query->have_posts()) {
@@ -658,8 +630,7 @@ class Render
         return $public;
     }
 
-    public function tabs_content_render($style, $child)
-    {
+    public function tabs_content_render($style, $child) {
         if ($this->admin == 'woocommerce') :
             $key = $this->keys[$this->childkeys];
             $tabs = $this->arg[$key];
@@ -683,8 +654,7 @@ class Render
         endif;
     }
 
-    public function tabs_content_render_nested_tabs($style, $child)
-    {
+    public function tabs_content_render_nested_tabs($style, $child) {
         $shortcode = array_key_exists('oxi-tabs-modal-nested-tabs', $child) ? $child['oxi-tabs-modal-nested-tabs'] : '';
         if ($shortcode > 0) :
             ob_start();
@@ -694,8 +664,7 @@ class Render
         return;
     }
 
-    public function special_charecter($data)
-    {
+    public function special_charecter($data) {
         $data = html_entity_decode($data);
         $data = str_replace("\'", "'", $data);
         $data = str_replace('\"', '"', $data);
@@ -703,8 +672,7 @@ class Render
         return $data;
     }
 
-    public function header_responsive_static_render($style = [], $ids = [])
-    {
+    public function header_responsive_static_render($style = [], $ids = []) {
         $render = ' ';
         foreach ($ids as $type) {
             $render .= $style['oxi-tabs-heading-tabs-show-' . $type] . ' ';
@@ -713,8 +681,7 @@ class Render
         return $render;
     }
 
-    public function title_special_charecter($array, $title, $subtitle)
-    {
+    public function title_special_charecter($array, $title, $subtitle) {
         $r = '<div class=\'oxi-tabs-header-li-title\'>';
         $t = false;
         if (!empty($array[$title]) && $array[$title] != '') :
@@ -739,15 +706,13 @@ class Render
         endif;
     }
 
-    public function number_special_charecter($data)
-    {
+    public function number_special_charecter($data) {
         if (!empty($data) && $data != '') :
             return '<div class=\'oxi-tabs-header-li-number\'>' . $this->special_charecter($data) . '</div>';
         endif;
     }
 
-    public function font_awesome_render($data)
-    {
+    public function font_awesome_render($data) {
         if (empty($data) || $data == '') :
             return;
         endif;
@@ -755,6 +720,9 @@ class Render
             $key = $this->keys[$this->childkeys];
             if (isset($this->arg[$key]['custom_icon'])) :
                 $data = $this->arg[$key]['custom_icon'];
+            endif;
+            if (isset($this->arg[$key]['icon'])) :
+                $data = $this->arg[$key]['icon'];
             endif;
 
         endif;
@@ -767,16 +735,14 @@ class Render
         return $files;
     }
 
-    public function image_special_render($id = '', $array = [])
-    {
+    public function image_special_render($id = '', $array = []) {
         $value = $this->media_render($id, $array);
         if (!empty($value)) :
             return ' <img  class=\'oxi-tabs-header-li-image\' ' . $value . '>';
         endif;
     }
 
-    public function admin_edit_panel($id)
-    {
+    public function admin_edit_panel($id) {
         $data = '';
         if ($this->admin == 'admin') :
             $data = '   <div class="oxi-addons-admin-absulote">
@@ -790,4 +756,5 @@ class Render
         endif;
         return $data;
     }
+
 }

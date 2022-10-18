@@ -1,9 +1,9 @@
 
-.shortcode-control-type-icon .iconpicker-container { 
+.shortcode-control-type-icon .iconpicker-container {
     position: relative;
     display: flex;
 }
-.shortcode-control-type-icon .iconpicker-container input{ 
+.shortcode-control-type-icon .iconpicker-container input{
     border-radius:  3px 0 0 3px;
     cursor: pointer;
 }
@@ -11,7 +11,7 @@
     background: #ff6138 !important;
     color: #ffffff !important;
 }
-.input-group-addon{  
+.input-group-addon{
     padding: 4px 12px;
     font-size: 14px;
     font-weight: 400;
@@ -317,7 +317,7 @@
     color: #6d7882;
 }
 .form-control.iconpicker-search{
-    background-color: #fff;   
+    background-color: #fff;
 }
 .iconpicker .iconpicker-item:hover:not(.iconpicker-selected) {
     background-color: #eee;
@@ -331,3 +331,11 @@
     cursor: pointer;
 }
 
+#oxi_woo_tabs_tab_icon .iconpicker-popover.popover {
+    opacity: 1;
+}
+
+#oxi_woo_tabs_tab_icon  .input-group-addon{
+    display: inline-flex;
+    align-items: center;
+}

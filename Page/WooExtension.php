@@ -110,17 +110,21 @@ class WooExtension
                                     <h4 class="sa-el-admin-header-title">Global Settings</h4>
                                 </div>
                                 <div class="sa-el-admin-block-content">
-                                    <div class="oxi-sa-cards">
+                                    <div class="oxi-sa-cards oxilab_tabs_woocommerce_active">
                                         <div class="oxi-sa-cards-h1">
-                                            Active Extension
-                                            <p>Active our Tabs custom layouts..</p>
+                                            Default Tabs Template
+                                            <p>Select Default Template for WooCommerce. Default Template will works globally while empty selected from woocommerce product page</p>
                                         </div>
                                         <div class="responsive_tabs_with_accordions_license_massage"></div>
                                         <div class="oxi-sa-cards-switcher ">
-                                            <input type="checkbox" class="oxi-addons-switcher-btn" id="oxilab_tabs_woocommerce" name="oxilab_tabs_woocommerce" <?php echo  get_option('oxilab_tabs_woocommerce') == 'yes' ? 'checked="checked"' : ''; ?>>
-                                            <label for="oxilab_tabs_woocommerce" class="oxi-addons-switcher-label"></label>
+                                            <select name="oxilab_tabs_woocommerce_default" id="oxilab_tabs_woocommerce_default">
+                                                <?php foreach ($this->get_style as $key => $value) { ?>
+                                                    <option value="<?php echo $key; ?>" <?php selected($this->default_tabs, $key); ?>><?php echo $value; ?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                     </div>
+                                    
                                     <div class="oxi-sa-cards oxilab_tabs_woocommerce_active">
                                         <div class="oxi-sa-cards-h1">
                                             Use a Custom Filter
@@ -144,20 +148,7 @@ class WooExtension
                                         </div>
                                     </div>
 
-                                    <div class="oxi-sa-cards oxilab_tabs_woocommerce_active">
-                                        <div class="oxi-sa-cards-h1">
-                                            Default Layouts
-                                            <p>Select Default layouts for WooCommerce. Default Layouts will works globally while empty selected from woocommerce product page</p>
-                                        </div>
-                                        <div class="responsive_tabs_with_accordions_license_massage"></div>
-                                        <div class="oxi-sa-cards-switcher ">
-                                            <select name="oxilab_tabs_woocommerce_default" id="oxilab_tabs_woocommerce_default">
-                                                <?php foreach ($this->get_style as $key => $value) { ?>
-                                                    <option value="<?php echo $key; ?>" <?php selected($this->default_tabs, $key); ?>><?php echo $value; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>

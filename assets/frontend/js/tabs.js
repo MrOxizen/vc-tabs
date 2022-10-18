@@ -7,6 +7,7 @@ jQuery.noConflict();
             var explode = hash_link.split("-"), parent = explode[3], child = explode[4];
             console.log(parent);
             console.log(child);
+
             OxiTabsEqualHeight(parent, child);
             OxiTabsController(parent, child);
         } else {
@@ -27,6 +28,7 @@ jQuery.noConflict();
         $('a[href*="#oxi-tabs-trigger-"]').click(function (e) {
             e.preventDefault();
             var wrapper = $(this).attr('href'), explode = wrapper.split("-"), parent = explode[3], child = explode[4];
+
             OxiTabsController(parent, child);
         });
 
@@ -46,8 +48,15 @@ jQuery.noConflict();
                 OxiTabsController(parent, child);
             }
         });
+
+
+
+
+
         /* Tabs Header Click Data Confirmation*/
         $(document).on('click', '.oxi-tabs-click-event .oxi-tabs-header-li', function () {
+
+
             var link = $(this).data("link");
             if (typeof link !== typeof undefined && link !== false && $(".shortcode-addons-template-body").length === 0) {
                 var target = '_self';
@@ -58,6 +67,8 @@ jQuery.noConflict();
             } else {
                 var t = $(this).attr('ref'), explode = t.split("-"), parent = explode[3], child = explode[4];
                 OxiTabsController(parent, child);
+
+
             }
         });
         function OxiTabsController(p = '', c = '') {
@@ -65,8 +76,28 @@ jQuery.noConflict();
             var title = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header-" + p + " .oxi-tabs-header-li";
             var mtitle = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-ultimate-header-" + p + " .oxi-tabs-body-header";
             var content = '#oxi-tabs-wrapper-' + p + " .oxi-tabs-ultimate-style .oxi-tabs-body-" + p;
-            var j = $(cls).data('oxi-tabs');
+            var j = $(cls).data('oxi-tabs'), parent = p, child = c;
+
             if (c === '') {
+                if (window.matchMedia('screen and (max-width: 993px)').matches) {
+                    var current = $(title + j.initial).eq(0).nextAll().length;
+                    var t = $(title + j.initial).attr('ref'), explode = t.split("-"), parent = explode[3], child = explode[4];
+
+                    if (current == 0) {
+                        $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent).hide();
+                    } else {
+                        $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent).show();
+                    }
+
+                    $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).nextAll().hide();
+                    $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).show();
+                    $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).prevAll().show();
+                    $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).hide();
+                    $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).prevAll().hide();
+                    $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).nextAll().show();
+                } else {
+                    $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent).hide();
+                }
                 $(title + j.initial).addClass("active");
                 $(mtitle + j.initial).addClass("active");
                 $(content + j.initial).addClass("active");
@@ -75,11 +106,57 @@ jQuery.noConflict();
                     contentbody = '#oxi-tabs-body-' + p + '-' + c;
                 if ($(header).hasClass('active')) {
                     if (j.trigger === '1' && j.type !== 'oxi-tabs-hover-event') {
+
+                        if (window.matchMedia('screen and (max-width: 993px)').matches) {
+
+                            var childid = parseInt(child, 10), current = $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).eq(0).nextAll().length;
+
+
+                            if (current == 0) {
+                                $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent).hide();
+                            } else {
+                                $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent).show();
+                            }
+
+                            $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).nextAll().hide();
+                            $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).show();
+                            $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).prevAll().show();
+                            $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).hide();
+                            $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).prevAll().hide();
+                            $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).nextAll().show();
+
+                        } else {
+                            $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent).hide();
+                        }
+
                         $(header).removeClass("active");
                         $(contentbody).removeClass(j.animation).toggleClass("active");
+
                     }
                     return false;
                 } else {
+
+                    if (window.matchMedia('screen and (max-width: 993px)').matches) {
+
+                        var childid = parseInt(child, 10), current = $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).eq(0).nextAll().length;
+
+
+                        if (current == 0) {
+                            $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent).hide();
+                        } else {
+                            $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent).show();
+                        }
+
+                        $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).nextAll().hide();
+                        $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).show();
+                        $('.oxi-tabs-ultimate-header-desktop.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).prevAll().show();
+                        $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).hide();
+                        $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).prevAll().hide();
+                        $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent + ' .oxi-tabs-header-li-' + parent + '-' + child).nextAll().show();
+
+                    } else {
+                        $('.oxi-tabs-ultimate-header-tab.oxi-tabs-ultimate-header-' + parent).hide();
+                    }
                     $(title).removeClass("active");
                     $(header).addClass("active");
                     $(content).removeClass(j.animation).removeClass("active");
@@ -125,6 +202,9 @@ jQuery.noConflict();
             var value = $('#oxi-addons-iframe-background-color').val();
             $('.shortcode-addons-template-body').css('background', value);
         }
+
+
+
 
 
 

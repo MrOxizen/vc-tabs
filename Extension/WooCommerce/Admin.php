@@ -85,6 +85,16 @@ class Admin {
         );
         woocommerce_wp_text_input(
                 array(
+                    'id' => '_oxilab_tabs_woo_' . $i . '_tab_icon_[]',
+                    'label' => __('Tab Icon', OXI_TABS_TEXTDOMAIN),
+                    'description' => '',
+                    'value' => isset($tab['icon']) ? $tab['icon'] : 'fas fa-table',
+                    'placeholder' => __('Tab Icon', OXI_TABS_TEXTDOMAIN),
+                    'class' => 'oxilab_tabs_woo_' . $i . '_icon_field'
+                )
+        );
+        woocommerce_wp_text_input(
+                array(
                     'id' => '_oxilab_tabs_woo_' . $i . '_tab_priority_[]',
                     'label' => __('Tab Priority', OXI_TABS_TEXTDOMAIN),
                     'description' => '',

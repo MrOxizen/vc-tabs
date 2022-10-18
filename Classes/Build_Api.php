@@ -497,20 +497,7 @@ class Build_Api
         return '<span class="oxi-confirmation-success"></span>';
     }
 
-    /**
-     * Admin Settings
-     * @return void
-     */
-    public function post_oxilab_tabs_woocommerce()
-    {
-        if (!current_user_can('manage_options')) {
-            return;
-        }
-        $rawdata = json_decode(stripslashes($this->rawdata), true);
-        $value = sanitize_text_field($rawdata['value']);
-        update_option('oxilab_tabs_woocommerce', $value);
-        return '<span class="oxi-confirmation-success"></span>';
-    }
+    
 
     /**
      * Admin Settings
@@ -681,7 +668,7 @@ class Build_Api
 
                     case 'item_name_mismatch':
 
-                        $message = sprintf(__('This appears to be an invalid license key for %s.'), Responsive_Tabs_with_Accordions);
+                        $message = sprintf(__('This appears to be an invalid license key for %s.'), OXI_TABS_BASENAME);
                         break;
 
                     case 'no_activations_left':
@@ -811,5 +798,40 @@ class Build_Api
                 return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
             endif;
         endif;
+    }
+
+    public function get_woo_tabs_single_data()
+    {
+
+        return [];
+    }
+    public function get_woo_product_list()
+    {
+        return [];
+        $query_args = [
+            'post_status' => 'publish',
+            'posts_per_page' => 15,
+            'post_type' => 'any'
+        ];
+
+        if (isset($this->request['ids'])) {
+            $ids = explode(',', $this->request['ids']);
+            $query_args['post__in'] = $ids;
+        }
+        if (isset($this->request['qu'])) {
+            $query_args['s'] = $this->request['qu'];
+        }
+
+        $query = new \WP_Query($query_args);
+        $options = [];
+        if ($query->have_posts()) :
+            while ($query->have_posts()) {
+                $query->the_post();
+                $options[] = ['id' => get_the_ID(), 'text' => get_the_title()];
+            }
+        endif;
+
+        return ['results' => $options];
+        wp_reset_postdata();
     }
 }
