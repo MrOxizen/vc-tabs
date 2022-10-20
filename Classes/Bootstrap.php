@@ -143,9 +143,12 @@ class Bootstrap {
     }
 
     public function Extension() {
-        if (is_plugin_active('woocommerce/woocommerce.php')) :
-            new \OXI_TABS_PLUGINS\Extension\WooCommerce\WooCommerce();
-        endif;
+        if (!function_exists('is_plugin_active')) {
+            include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+            if (is_plugin_active('woocommerce/woocommerce.php')) :
+                new \OXI_TABS_PLUGINS\Extension\WooCommerce\WooCommerce();
+            endif;
+        }
     }
 
 }
