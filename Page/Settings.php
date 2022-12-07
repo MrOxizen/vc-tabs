@@ -183,6 +183,6 @@ class Settings
      */
     public function admin_ajax()
     {
-        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/settings.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . 'assets/backend/custom/settings.js', false, OXI_TABS_TEXTDOMAIN);
     }
 }

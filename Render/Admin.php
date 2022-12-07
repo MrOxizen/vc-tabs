@@ -5,16 +5,14 @@ namespace OXI_TABS_PLUGINS\Render;
 /**
  * Admin Core Class
  *
- * 
+ *
  * @author biplob018
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0
  */
-
 use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
-class Admin
-{
+class Admin {
 
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
     use \OXI_TABS_PLUGINS\Render\Sanitization;
@@ -68,7 +66,6 @@ class Admin
      */
     public $CSSWRAPPER;
 
-
     /**
      * Define $wpdb
      *
@@ -112,8 +109,7 @@ class Admin
     public $Popover_Condition = true;
     public $Get_Nested_Tabs = [];
 
-    public function __construct($type = '')
-    {
+    public function __construct($type = '') {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->oxiid = (!empty($_GET['styleid']) ? sanitize_text_field($_GET['styleid']) : '');
         $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
@@ -123,33 +119,32 @@ class Admin
             $this->render();
         }
     }
-    public function register_general()
-    {
-        return;
-    }
-    public function register_heading()
-    {
+
+    public function register_general() {
         return;
     }
 
-    public function register_controls()
-    {
+    public function register_heading() {
+        return;
+    }
+
+    public function register_controls() {
         $this->start_section_header(
-            'shortcode-addons-start-tabs',
-            [
-                'options' => [
-                    'button-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
-                    'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+                'shortcode-addons-start-tabs',
+                [
+                    'options' => [
+                        'button-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
+                        'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+                    ]
                 ]
-            ]
         );
         $this->start_section_tabs(
-            'oxi-tabs-start-tabs',
-            [
-                'condition' => [
-                    'oxi-tabs-start-tabs' => 'button-settings'
+                'oxi-tabs-start-tabs',
+                [
+                    'condition' => [
+                        'oxi-tabs-start-tabs' => 'button-settings'
+                    ]
                 ]
-            ]
         );
         $this->start_section_devider();
         $this->register_general();
@@ -161,45 +156,42 @@ class Admin
         $this->end_section_tabs();
 
         $this->start_section_tabs(
-            'oxi-tabs-start-tabs',
-            [
-                'condition' => [
-                    'oxi-tabs-start-tabs' => 'custom'
-                ],
-                'padding' => '10px'
-            ]
+                'oxi-tabs-start-tabs',
+                [
+                    'condition' => [
+                        'oxi-tabs-start-tabs' => 'custom'
+                    ],
+                    'padding' => '10px'
+                ]
         );
 
         $this->start_controls_section(
-            'oxi-tabs-start-tabs-css',
-            [
-                'label' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
-                'showing' => TRUE,
-            ]
+                'oxi-tabs-start-tabs-css',
+                [
+                    'label' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+                    'showing' => TRUE,
+                ]
         );
         $this->add_control(
-            'oxi-tabs-custom-css',
-            $this->style,
-            [
-                'label' => __('', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::TEXTAREA,
-                'default' => '',
-                'description' => 'Custom CSS Section. You can add custom css into textarea.'
-            ]
+                'oxi-tabs-custom-css',
+                $this->style,
+                [
+                    'label' => __('', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::TEXTAREA,
+                    'default' => '',
+                    'description' => 'Custom CSS Section. You can add custom css into textarea.'
+                ]
         );
         $this->end_controls_section();
         $this->end_section_tabs();
     }
-
-
 
     /**
      * Template hooks
      *
      * @since 3.3.0
      */
-    public function hooks()
-    {
+    public function hooks() {
         $this->admin_elements_frontend_loader();
         $this->dbdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $this->oxiid), ARRAY_A);
         $Get_Nested_Tabs = $this->database->wpdb->get_results("SELECT id, name FROM {$this->database->parent_table} ORDER by id ASC", ARRAY_A);
@@ -228,8 +220,7 @@ class Admin
      *
      * @since 3.3.0
      */
-    public function modal_opener()
-    {
+    public function modal_opener() {
         $this->add_substitute_control('', [], [
             'type' => Controls::MODALOPENER,
             'title' => __('Tabs Data Form', OXI_TABS_TEXTDOMAIN),
@@ -244,8 +235,7 @@ class Admin
      *
      * @since 3.3.0
      */
-    public function shortcode_name()
-    {
+    public function shortcode_name() {
         $this->add_substitute_control('', $this->dbdata, [
             'type' => Controls::SHORTCODENAME,
             'title' => __('Shortcode Name', OXI_TABS_TEXTDOMAIN),
@@ -260,8 +250,7 @@ class Admin
      *
      * @since 3.3.0
      */
-    public function shortcode_info()
-    {
+    public function shortcode_info() {
         $this->add_substitute_control($this->oxiid, $this->dbdata, [
             'type' => Controls::SHORTCODEINFO,
             'title' => __('Shortcode', OXI_TABS_TEXTDOMAIN),
@@ -275,8 +264,7 @@ class Admin
      *
      * @since 3.3.0
      */
-    public function modal_form_data()
-    {
+    public function modal_form_data() {
         $this->form = 'single';
     }
 
@@ -285,8 +273,7 @@ class Admin
      *
      * @since 3.3.0
      */
-    public function modal_form()
-    {
+    public function modal_form() {
 
         echo '<div class="modal fade" id="oxi-addons-list-data-modal" >
                 <div class="modal-dialog modal-lg">
@@ -309,8 +296,7 @@ class Admin
      *
      * @since 2.0.0
      */
-    public function Rearrange()
-    {
+    public function Rearrange() {
         return '<li class="list-group-item" id="{{id}}">{{oxi-tabs-modal-title}}</li>';
     }
 
@@ -319,8 +305,7 @@ class Admin
      *
      * @since 3.3.0
      */
-    public function shortcode_rearrange()
-    {
+    public function shortcode_rearrange() {
         $rearrange = $this->Rearrange();
         if (!empty($rearrange)) :
             $this->add_substitute_control($rearrange, [], [
@@ -335,8 +320,7 @@ class Admin
      *
      * @since 3.3.0
      */
-    public function template_css_render($style)
-    {
+    public function template_css_render($style) {
         $styleid = $style['style-id'];
         $this->oxiid = $styleid;
         $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
@@ -380,8 +364,7 @@ class Admin
      *
      * @since 3.3.0
      */
-    public function inline_template_css_render($style)
-    {
+    public function inline_template_css_render($style) {
         $styleid = $style['style-id'];
         $this->style = $style;
         $this->oxiid = $styleid;
@@ -426,9 +409,8 @@ class Admin
      *
      * @since 3.3.0
      */
-    public function render()
-    {
-?>
+    public function render() {
+        ?>
         <div class="wrap">
             <div class="oxi-addons-wrapper">
                 <?php
@@ -452,8 +434,8 @@ class Admin
                                         <div class="oxi-addons-setting-save">
                                             <button type="button" class="btn btn-danger" id="oxi-addons-setting-reload">Reload</button>
                                             <input type="hidden" id="oxilab-preview-color" name="oxilab-preview-color" value="<?php echo (is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF'); ?>">
-                                            <input type="hidden" id="style-id" name="style-id" value="<?php echo $this->dbdata['id']; ?>">
-                                            <input type="hidden" id="style-name" name="style-name" value="<?php echo $this->StyleName; ?>">
+                                            <input type="hidden" id="style-id" name="style-id" value="<?php echo esc_attr($this->dbdata['id']); ?>">
+                                            <input type="hidden" id="style-name" name="style-name" value="<?php echo esc_attr($this->StyleName); ?>">
                                             <input type="hidden" id="style-changing-trigger" name="style-changing-trigger" value="">
                                             <button type="button" class="btn btn-success" id="oxi-addons-templates-submit"> Save</button>
                                         </div>
@@ -493,7 +475,7 @@ class Admin
                                         </div>
                                     </div>
                                     <div class="oxi-addons-preview-wrapper">
-                                        <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo $this->WRAPPER; ?> > .oxi-addons-row" template-id="#oxi-tabs-wrapper-<?php echo $this->dbdata['id']; ?>">
+                                        <div class="oxi-addons-preview-data" id="oxi-addons-preview-data" template-wrapper="<?php echo esc_attr($this->WRAPPER); ?> > .oxi-addons-row" template-id="#oxi-tabs-wrapper-<?php echo esc_attr($this->dbdata['id']); ?>">
 
                                             <iframe src="<?php echo admin_url('admin.php?page=oxi-tabs-style-view&styleid=' . $this->oxiid); ?>" id="oxi-addons-preview-iframe" class="oxi-addons-preview-iframe" width="100%" scrolling="no" frameborder="0"></iframe>
                                         </div>
@@ -522,16 +504,15 @@ class Admin
                 </div>
             </div>
         </div>
-<?php
+        <?php
     }
-    public function str_replace_first($from, $to, $content)
-    {
+
+    public function str_replace_first($from, $to, $content) {
         $from = '/' . preg_quote($from, '/') . '/';
         return preg_replace($from, $to, $content, 1);
     }
 
-    public function thumbnail_sizes()
-    {
+    public function thumbnail_sizes() {
         $default_image_sizes = get_intermediate_image_sizes();
         $thumbnail_sizes = array();
         foreach ($default_image_sizes as $size) {
@@ -540,4 +521,5 @@ class Admin
         }
         return $thumbnail_sizes;
     }
+
 }

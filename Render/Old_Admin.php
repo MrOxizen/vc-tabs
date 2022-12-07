@@ -221,9 +221,9 @@ class Old_Admin {
         wp_enqueue_script('jquery-ui-slider');
         wp_enqueue_script('jquery-ui-draggable');
         wp_enqueue_script('jquery-ui-sortable');
-        wp_enqueue_style('jquery.minicolors', OXI_TABS_URL . '/assets/backend/css/minicolors.css', false, OXI_TABS_TEXTDOMAIN);
-        wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . '/assets/backend/css/jquery.fontselect.css', false, OXI_TABS_TEXTDOMAIN);
-        wp_enqueue_script('jquery.minicolors', OXI_TABS_URL . '/assets/backend/js/minicolors.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_style('jquery.minicolors', OXI_TABS_URL . 'assets/backend/css/minicolors.css', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_style('jquery.fontselect', OXI_TABS_URL . 'assets/backend/css/jquery.fontselect.css', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('jquery.minicolors', OXI_TABS_URL . 'assets/backend/js/minicolors.js', false, OXI_TABS_TEXTDOMAIN);
         wp_enqueue_script('oxi-tabs-old-editor', OXI_TABS_URL . 'assets/backend/custom/old-editor.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 

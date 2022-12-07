@@ -7,8 +7,7 @@ namespace OXI_TABS_PLUGINS\Page;
  *
  * @author biplo
  */
-class Home
-{
+class Home {
 
     use \OXI_TABS_PLUGINS\Helper\Public_Helper;
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
@@ -20,20 +19,17 @@ class Home
      */
     public $database;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->CSSJS_load();
         $this->Render();
     }
 
-    public function database_data()
-    {
+    public function database_data() {
         return $this->database->wpdb->get_results("SELECT * FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
     }
 
-    public function CSSJS_load()
-    {
+    public function CSSJS_load() {
         $this->manual_import_style();
         $this->admin_css_loader();
         $this->admin_home();
@@ -45,24 +41,21 @@ class Home
      * Admin Notice JS file loader
      * @return void
      */
-    public function admin_ajax_load()
-    {
-        wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . '/assets/backend/custom/home.js', false, OXI_TABS_TEXTDOMAIN);
+    public function admin_ajax_load() {
+        wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . 'assets/backend/custom/home.js', false, OXI_TABS_TEXTDOMAIN);
     }
 
     /**
      * Generate safe path
      * @since v1.0.0
      */
-    public function safe_path($path)
-    {
+    public function safe_path($path) {
 
         $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
     }
 
-    public function manual_import_style()
-    {
+    public function manual_import_style() {
         if (!empty($_REQUEST['_wpnonce'])) {
             $nonce = $_REQUEST['_wpnonce'];
         }
@@ -94,23 +87,21 @@ class Home
         }
     }
 
-    public function Render()
-    {
-?>
+    public function Render() {
+        ?>
         <div class="oxi-addons-row">
-            <?php
-            $this->Admin_header();
-            $this->created_shortcode();
-            $this->create_new();
-            ?>
+        <?php
+        $this->Admin_header();
+        $this->created_shortcode();
+        $this->create_new();
+        ?>
         </div>
-    <?php
+        <?php
     }
 
-    public function Admin_header()
-    {
+    public function Admin_header() {
         apply_filters('vc-tabs-support-and-comments', TRUE);
-    ?>
+        ?>
         <div class="oxi-addons-wrapper">
             <div class="oxi-addons-import-layouts">
                 <h1>Responsive Tabs › Home
@@ -118,18 +109,17 @@ class Home
                 <p> Collect Responsive Tabs Shortcode, Edit, Delect, Clone or Export it. </p>
             </div>
         </div>
-<?php
+        <?php
     }
 
-    public function create_new()
-    {
+    public function create_new() {
 
 
         echo _('<div class="modal fade" id="oxi-addons-style-create-modal" >
                         <form method="post" id="oxi-addons-style-modal-form">
                             <div class="modal-dialog modal-sm modal-dialog-centered">
                                 <div class="modal-content">
-                                    <div class="modal-header">                    
+                                    <div class="modal-header">
                                         <h4 class="modal-title">Tabs Clone</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
@@ -161,7 +151,7 @@ class Home
                                     <a href="#" id="oxilab-tabs-import-json">
                                         <div class="oxilab-admin-add-new-item">
                                             <span>
-                                                <i class="fas fa-plus-circle oxi-icons"></i>  
+                                                <i class="fas fa-plus-circle oxi-icons"></i>
                                                 Import Tabs
                                             </span>
                                         </div>
@@ -175,7 +165,7 @@ class Home
                         <form method="post" id="oxi-addons-import-modal-form" enctype = "multipart/form-data">
                             <div class="modal-dialog modal-sm modal-dialog-centered">
                                 <div class="modal-content">
-                                    <div class="modal-header">                    
+                                    <div class="modal-header">
                                         <h4 class="modal-title">Import Form</h4>
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
@@ -194,8 +184,7 @@ class Home
         endif;
     }
 
-    public function created_shortcode()
-    {
+    public function created_shortcode() {
         $return = _(' <div class="oxi-addons-row"> <div class="oxi-addons-row table-responsive abop" style="margin-bottom: 20px; opacity: 0; height: 0px">
                         <table class="table table-hover widefat oxi_addons_table_data" style="background-color: #fff; border: 1px solid #ccc">
                             <thead>
@@ -212,16 +201,16 @@ class Home
             $id = $value['id'];
             $return .= _('<tr>');
             $return .= _('<td>' . $id . '</td>');
-            $return .= _('<td>' . ucwords($value['name']) . '</td>');
+            $return .= _('<td>' . esc_attr(ucwords($value['name'])) . '</td>');
             $return .= _('<td>' . $this->name_converter($value['style_name']) . '</td>');
             $return .= _('<td><span>Shortcode &nbsp;&nbsp;<input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="[ctu_ultimate_oxi id=&quot;' . $id . '&quot;]"></span> <br>'
-                . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
-            $return .= _('<td> 
+                    . '<span>Php Code &nbsp;&nbsp; <input type="text" onclick="this.setSelectionRange(0, this.value.length)" value="&lt;?php echo do_shortcode(&#039;[ctu_ultimate_oxi  id=&quot;' . $id . '&quot;]&#039;); ?&gt;"></span></td>');
+            $return .= _('<td>
                         <button type="button" class="btn btn-success oxi-addons-style-clone"  style="float:left" oxiaddonsdataid="' . $id . '">Clone</button>
                         <a href="' . admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$id") . '"  title="Edit"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Edit</a>
                        <form method="post" class="oxi-addons-style-delete">
                                <input type="hidden" name="oxideleteid" id="oxideleteid" value="' . $id . '">
-                               <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>  
+                               <button class="btn btn-danger" style="float:left"  title="Delete"  type="submit" value="delete" name="addonsdatadelete">Delete</button>
                        </form>
                       <a href="' . esc_url_raw(rest_url()) . 'oxilabtabsultimate/v1/shortcode_export?styleid=' . $id . '&_wpnonce=' . wp_create_nonce('wp_rest') . '"  title="Export"  class="btn btn-info" style="float:left; margin-right: 5px; margin-left: 5px;">Export</a>
                 </td>');
@@ -234,4 +223,5 @@ class Home
             <br></div>');
         echo $return;
     }
+
 }

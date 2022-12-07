@@ -12,8 +12,7 @@ namespace OXI_TABS_PLUGINS\Page;
  *
  * @author biplo
  */
-class WooExtension
-{
+class WooExtension {
 
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
@@ -26,15 +25,13 @@ class WooExtension
     public $default_tabs;
     public $customize_default_tabs;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->admin();
         $this->admin_ajax();
         $this->Render();
     }
 
-    public function admin()
-    {
+    public function admin() {
         $new = new \OXI_TABS_PLUGINS\Modules\Shortcode();
         $this->get_style = $new->get_all_style();
         $this->default_tabs = get_option('oxilab_tabs_woocommerce_default');
@@ -48,8 +45,7 @@ class WooExtension
      * Admin Notice JS file loader
      * @return void
      */
-    public function admin_ajax()
-    {
+    public function admin_ajax() {
         wp_enqueue_script("jquery");
         wp_enqueue_script('jquery-ui-core');
         wp_enqueue_script('jquery-ui-widget');
@@ -66,7 +62,7 @@ class WooExtension
         wp_enqueue_style('fontawesome-iconpicker', OXI_TABS_URL . 'assets/backend/css/fontawesome-iconpicker.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('fontawesome-iconpicker', OXI_TABS_URL . 'assets/backend/js/fontawesome-iconpicker.js', false, OXI_TABS_PLUGIN_VERSION);
 
-        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . '/assets/backend/custom/woo-extension.js', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . 'assets/backend/custom/woo-extension.js', false, OXI_TABS_TEXTDOMAIN);
         wp_localize_script('oxi-tabs-create', 'oxilabtabsultimate', array(
             'root' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest')
@@ -74,11 +70,9 @@ class WooExtension
         wp_enqueue_style('oxilab_tabs_woo-styles', OXI_TABS_URL . 'assets/woocommerce/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
     }
 
-
-    public function Render()
-    {
+    public function Render() {
         $this->admin_css_loader();
-?>
+        ?>
         <div class="wrap">
             <?php
             echo apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
@@ -119,12 +113,12 @@ class WooExtension
                                         <div class="oxi-sa-cards-switcher ">
                                             <select name="oxilab_tabs_woocommerce_default" id="oxilab_tabs_woocommerce_default">
                                                 <?php foreach ($this->get_style as $key => $value) { ?>
-                                                    <option value="<?php echo $key; ?>" <?php selected($this->default_tabs, $key); ?>><?php echo $value; ?></option>
+                                                    <option value="<?php echo esc_attr($key); ?>" <?php selected($this->default_tabs, esc_attr($key)); ?>><?php echo esc_html($value); ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="oxi-sa-cards oxilab_tabs_woocommerce_active">
                                         <div class="oxi-sa-cards-h1">
                                             Use a Custom Filter
@@ -148,7 +142,7 @@ class WooExtension
                                         </div>
                                     </div>
 
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -163,40 +157,40 @@ class WooExtension
                                 <div class="woo-oxilab-tabs-admin-body">
                                     <?php
                                     foreach ($this->customize_default_tabs as $key => $value) {
-                                    ?>
+                                        ?>
                                         <div class="woo-oxilab-tabs-admin-tabs oxi-hidden">
                                             <div class="oxi-woo-header">
-                                                <div class="oxi-woo-header-text"><?php echo ucfirst($key) ?></div>
+                                                <div class="oxi-woo-header-text"><?php echo esc_html(ucfirst($key)) ?></div>
                                                 <div class="oxi-delete-button"></div>
                                             </div>
                                             <div class="woo-oxi-content">
-                                                <p class="form-field [<?php echo $key; ?>][unset]_field ">
-                                                    <label for="[<?php echo $key; ?>][unset]">Unset This Tabs</label>
+                                                <p class="form-field [<?php echo esc_attr($key); ?>][unset]_field ">
+                                                    <label for="[<?php echo esc_attr($key); ?>][unset]">Unset This Tabs</label>
                                                     <span class="oxi-sa-cards-switcher ">
-                                                        <input type="checkbox" class="oxi-addons-switcher-btn oxi-addons-switcher-btn-unset" id="[<?php echo $key; ?>][unset]" name="[<?php echo $key; ?>][unset]" <?php echo isset($value['unset']) && $value['unset'] == 'on' ? 'checked="checked"' : ''; ?>>
-                                                        <label for="[<?php echo $key; ?>][unset]" class="oxi-addons-switcher-label"></label>
+                                                        <input type="checkbox" class="oxi-addons-switcher-btn oxi-addons-switcher-btn-unset" id="[<?php echo esc_attr($key); ?>][unset]" name="[<?php echo esc_attr($key); ?>][unset]" <?php echo isset($value['unset']) && $value['unset'] == 'on' ? 'checked="checked"' : ''; ?>>
+                                                        <label for="[<?php echo esc_attr($key); ?>][unset]" class="oxi-addons-switcher-label"></label>
                                                     </span>
                                                 </p>
-                                                <p class="form-field [<?php echo $key; ?>][title]_field ">
-                                                    <label for="[<?php echo $key; ?>][title]">Tab Title</label>
-                                                    <input type="text" class="oxilab_tabs_woo_layouts_title_field" name="[<?php echo $key; ?>][title]" id="[<?php echo $key; ?>][title]" value="<?php echo $value['title']; ?>" placeholder="Write New Title else make it Blank">
+                                                <p class="form-field [<?php echo esc_attr($key); ?>][title]_field ">
+                                                    <label for="[<?php echo esc_attr($key); ?>][title]">Tab Title</label>
+                                                    <input type="text" class="oxilab_tabs_woo_layouts_title_field" name="[<?php echo esc_attr($key); ?>][title]" id="[<?php echo esc_attr($key); ?>][title]" value="<?php echo esc_attr($value['title']); ?>" placeholder="Write New Title else make it Blank">
                                                 </p>
-                                                <p class="form-field [<?php echo $key; ?>][icon]_field">
-                                                    <label for="[<?php echo $key; ?>][icon]">Custom Icon</label>
-                                                    <input type="text" class="oxilab_tabs_woo_layouts_icon_field" style="" name="[<?php echo $key; ?>][icon]" id="[<?php echo $key; ?>][icon]" value="<?php echo $value['icon'] ?>" placeholder="Select Icon for <?php echo ucfirst($key); ?>">
+                                                <p class="form-field [<?php echo esc_attr($key); ?>][icon]_field">
+                                                    <label for="[<?php echo esc_attr($key); ?>][icon]">Custom Icon</label>
+                                                    <input type="text" class="oxilab_tabs_woo_layouts_icon_field" style="" name="[<?php echo esc_attr($key); ?>][icon]" id="[<?php echo esc_attr($key); ?>][icon]" value="<?php echo esc_attr($value['icon']) ?>" placeholder="Select Icon for <?php echo ucfirst(esc_attr($key)); ?>">
                                                 </p>
-                                                <p class="form-field [<?php echo $key; ?>][priority]_field">
-                                                    <label for="[<?php echo $key; ?>][priority]">Tab Priority</label>
-                                                    <input type="text" class="oxilab_tabs_woo_layouts_priority_field" style="" name="[<?php echo $key; ?>][priority]" id="[<?php echo $key; ?>][priority]" value="<?php echo $value['priority'] ?>" placeholder="Tabs Priority">
+                                                <p class="form-field [<?php echo esc_attr($key); ?>][priority]_field">
+                                                    <label for="[<?php echo esc_attr($key); ?>][priority]">Tab Priority</label>
+                                                    <input type="text" class="oxilab_tabs_woo_layouts_priority_field" style="" name="[<?php echo esc_attr($key); ?>][priority]" id="[<?php echo esc_attr($key); ?>][priority]" value="<?php echo esc_attr($value['priority']) ?>" placeholder="Tabs Priority">
                                                 </p>
 
-                                                <p class="form-field [<?php echo $key; ?>][callback]_field ">
-                                                    <label for="[<?php echo $key; ?>][callback]">Callback Function</label>
-                                                    <input type="text" class="oxilab_tabs_woo_layouts_callback_field" style="" name="[<?php echo $key; ?>][callback]" id="[<?php echo $key; ?>][callback]" value="<?php echo $value['callback'] ?>" placeholder="Add callback function else make it blank">
+                                                <p class="form-field [<?php echo esc_attr($key); ?>][callback]_field ">
+                                                    <label for="[<?php echo esc_attr($key); ?>][callback]">Callback Function</label>
+                                                    <input type="text" class="oxilab_tabs_woo_layouts_callback_field" style="" name="[<?php echo esc_attr($key); ?>][callback]" id="[<?php echo esc_attr($key); ?>][callback]" value="<?php echo esc_attr($value['callback']) ?>" placeholder="Add callback function else make it blank">
                                                 </p>
                                             </div>
                                         </div>
-                                    <?php
+                                        <?php
                                     }
                                     ?>
 
@@ -215,11 +209,10 @@ class WooExtension
 
             </div>
         </div>
-<?php
+        <?php
     }
 
-    public function customize_default_tabs()
-    {
+    public function customize_default_tabs() {
         $this->customize_default_tabs = [
             'description' => [
                 'unset' => false,
@@ -244,4 +237,5 @@ class WooExtension
             ]
         ];
     }
+
 }

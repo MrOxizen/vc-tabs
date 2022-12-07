@@ -92,7 +92,7 @@ class Support_Reviews {
      */
     public function admin_enqueue_scripts() {
         wp_enqueue_script("jquery");
-        wp_enqueue_style('oxilab_tabs-admin-notice-css', OXI_TABS_URL . '/assets/backend/css/notice.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('oxilab_tabs-admin-notice-css', OXI_TABS_URL . 'assets/backend/css/notice.css', false, OXI_TABS_PLUGIN_VERSION);
         $this->dismiss_button_scripts();
     }
 
@@ -101,7 +101,7 @@ class Support_Reviews {
      * @return void
      */
     public function dismiss_button_scripts() {
-        wp_enqueue_script('oxilab_tabs-admin-notice', OXI_TABS_URL . '/assets/backend/custom/admin-notice.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxilab_tabs-admin-notice', OXI_TABS_URL . 'assets/backend/custom/admin-notice.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_localize_script('oxilab_tabs-admin-notice', 'oxilab_tabs_admin_notice', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxilab_tabs-admin-notice')));
     }
 

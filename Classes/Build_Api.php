@@ -7,8 +7,7 @@ namespace OXI_TABS_PLUGINS\Classes;
  *
  * @author $biplob018
  */
-class Build_Api
-{
+class Build_Api {
 
     /**
      * Define $wpdb
@@ -29,19 +28,16 @@ class Build_Api
      *
      * @since 3.3.0
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
         $this->build_api();
     }
 
-    public function fixed_data($agr)
-    {
+    public function fixed_data($agr) {
         return hex2bin($agr);
     }
 
-    public function build_api()
-    {
+    public function build_api() {
         add_action('rest_api_init', function () {
             register_rest_route(untrailingslashit('oxilabtabsultimate/v1/'), '/(?P<action>\w+)/', array(
                 'methods' => array('GET', 'POST'),
@@ -51,22 +47,7 @@ class Build_Api
         });
     }
 
-    public function get_permissions_check($request)
-    {
-        $user_role = get_option('oxi_addons_user_permission');
-        $role_object = get_role($user_role);
-        $first_key = '';
-        if (isset($role_object->capabilities) && is_array($role_object->capabilities)) {
-            reset($role_object->capabilities);
-            $first_key = key($role_object->capabilities);
-        } else {
-            $first_key = 'manage_options';
-        }
-        return current_user_can($first_key);
-    }
-
-    public function api_action($request)
-    {
+    public function api_action($request) {
         $this->request = $request;
         $wpnonce = $request['_wpnonce'];
         if (!wp_verify_nonce($wpnonce, 'wp_rest')) :
@@ -82,8 +63,7 @@ class Build_Api
         return 'Silence is Golden';
     }
 
-    public function array_replace($arr = [], $search = '', $replace = '')
-    {
+    public function array_replace($arr = [], $search = '', $replace = '') {
         array_walk($arr, function (&$v) use ($search, $replace) {
             $v = str_replace($search, $replace, $v);
         });
@@ -94,15 +74,13 @@ class Build_Api
      * Generate safe path
      * @since v1.0.0
      */
-    public function safe_path($path)
-    {
+    public function safe_path($path) {
 
         $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
     }
 
-    public function post_create_new()
-    {
+    public function post_create_new() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         if (!empty($this->styleid)) :
             $styleid = (int) $this->styleid;
@@ -145,8 +123,7 @@ class Build_Api
         endif;
     }
 
-    public function post_json_import($folder, $filename, $name = 'truee')
-    {
+    public function post_json_import($folder, $filename, $name = 'truee') {
         if (is_file($folder . $filename)) {
             $this->rawdata = file_get_contents($folder . $filename);
             $params = json_decode($this->rawdata, true);
@@ -179,8 +156,7 @@ class Build_Api
         }
     }
 
-    public function post_shortcode_delete()
-    {
+    public function post_shortcode_delete() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         $styleid = (int) $this->styleid;
         if ($styleid) :
@@ -192,8 +168,7 @@ class Build_Api
         endif;
     }
 
-    public function get_shortcode_export()
-    {
+    public function get_shortcode_export() {
         $styleid = (int) $this->styleid;
         if ($styleid) :
             $style = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->parent_table} WHERE id = %d", $styleid), ARRAY_A);
@@ -221,8 +196,7 @@ class Build_Api
      * @param string $file_name File name.
      * @param int    $file_size File size.
      */
-    private function send_file_headers($file_name, $file_size)
-    {
+    private function send_file_headers($file_name, $file_size) {
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename=' . $file_name);
         header('Expires: 0');
@@ -231,8 +205,7 @@ class Build_Api
         header('Content-Length: ' . $file_size);
     }
 
-    public function post_shortcode_deactive()
-    {
+    public function post_shortcode_deactive() {
         $params = json_decode(stripslashes($this->rawdata), true);
         $id = (int) $params['oxideletestyle'];
         $tabs = 'responsive-tabs';
@@ -244,8 +217,7 @@ class Build_Api
         endif;
     }
 
-    public function post_shortcode_active()
-    {
+    public function post_shortcode_active() {
         $params = json_decode(stripslashes($this->rawdata), true);
         $id = (int) $params['oxiimportstyle'];
         $tabs = 'responsive-tabs';
@@ -262,8 +234,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_elements_template_style()
-    {
+    public function post_elements_template_style() {
         $settings = json_decode(stripslashes($this->rawdata), true);
         $StyleName = sanitize_text_field($settings['style-name']);
         $stylesheet = '';
@@ -283,8 +254,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_template_change()
-    {
+    public function post_template_change() {
         $rawdata = sanitize_text_field($this->rawdata);
         if ((int) $this->styleid) :
             $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->parent_table} SET style_name = %s WHERE id = %d", $rawdata, $this->styleid));
@@ -297,8 +267,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_template_name()
-    {
+    public function post_template_name() {
         delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
         $settings = json_decode(stripslashes($this->rawdata), true);
         $name = sanitize_text_field($settings['addonsstylename']);
@@ -315,8 +284,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_elements_rearrange_modal_data()
-    {
+    public function post_elements_rearrange_modal_data() {
         if ((int) $this->styleid) :
             $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
             $render = [];
@@ -334,8 +302,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_elements_older_rearrange_modal_data()
-    {
+    public function post_elements_older_rearrange_modal_data() {
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         if ((int) $this->styleid && count($rawdata) == 2) :
             $child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->styleid), ARRAY_A);
@@ -354,8 +321,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_elements_template_rearrange_save_data()
-    {
+    public function post_elements_template_rearrange_save_data() {
         $params = explode(',', $this->rawdata);
         foreach ($params as $value) {
             if ((int) $value) :
@@ -382,8 +348,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_elements_template_modal_data()
-    {
+    public function post_elements_template_modal_data() {
         if ((int) $this->styleid) :
             if ((int) $this->childid) :
                 $this->database->wpdb->query($this->database->wpdb->prepare("UPDATE {$this->database->child_table} SET rawdata = %s WHERE id = %d", $this->rawdata, $this->childid));
@@ -399,8 +364,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_elements_template_render_data()
-    {
+    public function post_elements_template_render_data() {
         $transient = 'oxi-responsive-tabs-transient-' . $this->styleid;
         set_transient($transient, $this->rawdata, 1 * HOUR_IN_SECONDS);
         return 'Transient Done';
@@ -411,8 +375,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_elements_template_modal_data_edit()
-    {
+    public function post_elements_template_modal_data_edit() {
         if ((int) $this->childid) :
             $listdata = $this->database->wpdb->get_row($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE id = %d ", $this->childid), ARRAY_A);
             $returnfile = json_decode(stripslashes($listdata['rawdata']), true);
@@ -428,8 +391,7 @@ class Build_Api
      *
      * @since 9.3.0
      */
-    public function post_elements_template_modal_data_delete()
-    {
+    public function post_elements_template_modal_data_delete() {
         if ((int) $this->childid) :
             $this->database->wpdb->query($this->database->wpdb->prepare("DELETE FROM {$this->database->child_table} WHERE id = %d ", $this->childid));
             return 'done';
@@ -442,8 +404,7 @@ class Build_Api
      * Admin Notice API  loader
      * @return void
      */
-    public function post_oxi_recommended()
-    {
+    public function post_oxi_recommended() {
         $data = 'done';
         update_option('responsive_tabs_with_accordions_recommended', $data);
         return $data;
@@ -453,8 +414,7 @@ class Build_Api
      * Admin Notice Recommended  loader
      * @return void
      */
-    public function post_notice_dissmiss()
-    {
+    public function post_notice_dissmiss() {
         $notice = $this->request['notice'];
         if ($notice == 'maybe') :
             $data = strtotime("now");
@@ -465,14 +425,11 @@ class Build_Api
         return $notice;
     }
 
-
-
     /**
      * Admin Settings
      * @return void
      */
-    public function post_oxi_addons_user_permission()
-    {
+    public function post_oxi_addons_user_permission() {
         if (!current_user_can('manage_options')) {
             return;
         }
@@ -486,8 +443,7 @@ class Build_Api
      * Admin Settings
      * @return void
      */
-    public function post_oxi_addons_font_awesome()
-    {
+    public function post_oxi_addons_font_awesome() {
         if (!current_user_can('manage_options')) {
             return;
         }
@@ -497,14 +453,11 @@ class Build_Api
         return '<span class="oxi-confirmation-success"></span>';
     }
 
-    
-
     /**
      * Admin Settings
      * @return void
      */
-    public function post_oxi_tabs_woo_sub_title()
-    {
+    public function post_oxi_tabs_woo_sub_title() {
         if (!current_user_can('manage_options')) {
             return;
         }
@@ -513,12 +466,12 @@ class Build_Api
         update_option('oxi_tabs_woo_sub_title', $value);
         return '<span class="oxi-confirmation-success"></span>';
     }
+
     /**
      * Admin Settings
      * @return void
      */
-    public function post_oxi_tabs_use_the_content()
-    {
+    public function post_oxi_tabs_use_the_content() {
         if (!current_user_can('manage_options')) {
             return;
         }
@@ -532,8 +485,7 @@ class Build_Api
      * Admin Settings
      * @return void
      */
-    public function post_oxilab_tabs_woocommerce_default()
-    {
+    public function post_oxilab_tabs_woocommerce_default() {
         if (!current_user_can('manage_options')) {
             return;
         }
@@ -547,8 +499,7 @@ class Build_Api
      * Admin Settings
      * @return void
      */
-    public function post_customize_default_tabs()
-    {
+    public function post_customize_default_tabs() {
         if (!current_user_can('manage_options')) {
             return;
         }
@@ -556,13 +507,11 @@ class Build_Api
         return '<span class="oxi-confirmation-success"></span>';
     }
 
-
     /**
      * Admin Settings
      * @return void
      */
-    public function post_oxi_addons_fixed_header_size()
-    {
+    public function post_oxi_addons_fixed_header_size() {
         if (!current_user_can('manage_options')) {
             return;
         }
@@ -571,12 +520,12 @@ class Build_Api
         update_option('oxi_addons_fixed_header_size', $value);
         return '<span class="oxi-confirmation-success"></span>';
     }
+
     /**
      * Admin Settings
      * @return void
      */
-    public function post_oxi_tabs_support_massage()
-    {
+    public function post_oxi_tabs_support_massage() {
         if (!current_user_can('manage_options')) {
             return;
         }
@@ -586,15 +535,11 @@ class Build_Api
         return '<span class="oxi-confirmation-success"></span>';
     }
 
-
-
-
     /**
      * Admin License
      * @return void
      */
-    public function post_oxi_license()
-    {
+    public function post_oxi_license() {
         $rawdata = json_decode(stripslashes($this->rawdata), true);
         $new = $rawdata['license'];
         $old = get_option('responsive_tabs_with_accordions_license_key');
@@ -618,8 +563,7 @@ class Build_Api
         return $data;
     }
 
-    public function activate_license($key)
-    {
+    public function activate_license($key) {
         $api_params = array(
             'edd_action' => 'activate_license',
             'license' => $key,
@@ -645,8 +589,8 @@ class Build_Api
                     case 'expired':
 
                         $message = sprintf(
-                            __('Your license key expired on %s.'),
-                            date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
+                                __('Your license key expired on %s.'),
+                                date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
                         );
                         break;
 
@@ -691,8 +635,7 @@ class Build_Api
         return 'success';
     }
 
-    public function deactivate_license($key)
-    {
+    public function deactivate_license($key) {
         $api_params = array(
             'edd_action' => 'deactivate_license',
             'license' => $key,
@@ -721,17 +664,44 @@ class Build_Api
     //    Only for Oxilab Development
     //
 
+    public function post_web_import() {
+        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
+        if ((int) $this->styleid) :
+            $URL = self::API . 'files/' . $this->styleid;
+            $request = wp_remote_request($URL);
+            if (!is_wp_error($request)) {
+                $response = json_decode(wp_remote_retrieve_body($request), true);
+            } else {
+                return $request->get_error_message();
+            }
+            $rawdata = json_decode($response, true);
+            $style = $rawdata['style'];
+            $child = $rawdata['child'];
 
+            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
+            $redirect_id = $this->database->wpdb->insert_id;
+            if ($redirect_id > 0) :
+                $raw = json_decode(stripslashes($style['rawdata']), true);
+                $raw['style-id'] = $redirect_id;
+                $name = ucfirst($style['style_name']);
+                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
+                $C = new $CLASS('admin');
+                $f = $C->template_css_render($raw);
+                foreach ($child as $value) {
+                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
+                }
+                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
+            endif;
+        endif;
+    }
 
-    public function post_web_template()
-    {
+    public function post_web_template() {
         $styleid = (int) $this->styleid;
         $template = $this->local_tempalte('style' . $styleid);
         return $template;
     }
 
-    public function local_tempalte($template)
-    {
+    public function local_tempalte($template) {
         $URL = self::API . 'template/' . $this->styleid;
         $request = wp_remote_request($URL);
         if (!is_wp_error($request)) {
@@ -768,70 +738,51 @@ class Build_Api
         return $render;
     }
 
-    public function post_web_import()
-    {
-        delete_transient(self::RESPONSIVE_TABS_ALL_STYLE);
-        if ((int) $this->styleid) :
-            $URL = self::API . 'files/' . $this->styleid;
-            $request = wp_remote_request($URL);
-            if (!is_wp_error($request)) {
-                $response = json_decode(wp_remote_retrieve_body($request), true);
-            } else {
-                return $request->get_error_message();
-            }
-            $rawdata = json_decode($response, true);
-            $style = $rawdata['style'];
-            $child = $rawdata['child'];
-
-            $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->parent_table} (name, style_name, rawdata) VALUES ( %s, %s, %s)", array($style['name'], $style['style_name'], $style['rawdata'])));
-            $redirect_id = $this->database->wpdb->insert_id;
-            if ($redirect_id > 0) :
-                $raw = json_decode(stripslashes($style['rawdata']), true);
-                $raw['style-id'] = $redirect_id;
-                $name = ucfirst($style['style_name']);
-                $CLASS = '\OXI_TABS_PLUGINS\Render\Admin\\' . $name;
-                $C = new $CLASS('admin');
-                $f = $C->template_css_render($raw);
-                foreach ($child as $value) {
-                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->child_table} (styleid, rawdata) VALUES (%d,  %s)", array($redirect_id, $value['rawdata'])));
-                }
-                return admin_url("admin.php?page=oxi-tabs-ultimate-new&styleid=$redirect_id");
-            endif;
-        endif;
-    }
-
-    public function get_woo_tabs_single_data()
-    {
+    public function get_woo_tabs_single_data() {
 
         return [];
     }
-    public function get_woo_product_list()
-    {
-        return [];
-        $query_args = [
-            'post_status' => 'publish',
-            'posts_per_page' => 15,
-            'post_type' => 'any'
-        ];
 
-        if (isset($this->request['ids'])) {
-            $ids = explode(',', $this->request['ids']);
-            $query_args['post__in'] = $ids;
-        }
-        if (isset($this->request['qu'])) {
-            $query_args['s'] = $this->request['qu'];
-        }
+    public function get_woo_product_list() {
 
-        $query = new \WP_Query($query_args);
-        $options = [];
-        if ($query->have_posts()) :
-            while ($query->have_posts()) {
-                $query->the_post();
-                $options[] = ['id' => get_the_ID(), 'text' => get_the_title()];
-            }
-        endif;
-
-        return ['results' => $options];
-        wp_reset_postdata();
+//        $query_args = [
+//            'post_status' => 'publish',
+//            'posts_per_page' => 15,
+//            'post_type' => 'any'
+//        ];
+//
+//        if (isset($this->request['ids'])) {
+//            $ids = explode(',', $this->request['ids']);
+//            $query_args['post__in'] = $ids;
+//        }
+//        if (isset($this->request['qu'])) {
+//            $query_args['s'] = $this->request['qu'];
+//        }
+//
+//        $query = new \WP_Query($query_args);
+//        $options = [];
+//        if ($query->have_posts()) :
+//            while ($query->have_posts()) {
+//                $query->the_post();
+//                $options[] = ['id' => get_the_ID(), 'text' => get_the_title()];
+//            }
+//        endif;
+//
+//        return ['results' => $options];
+//        wp_reset_postdata();
     }
+
+    public function get_permissions_check($request) {
+        $user_role = get_option('oxi_addons_user_permission');
+        $role_object = get_role($user_role);
+        $first_key = '';
+        if (isset($role_object->capabilities) && is_array($role_object->capabilities)) {
+            reset($role_object->capabilities);
+            $first_key = key($role_object->capabilities);
+        } else {
+            $first_key = 'manage_options';
+        }
+        return current_user_can($first_key);
+    }
+
 }

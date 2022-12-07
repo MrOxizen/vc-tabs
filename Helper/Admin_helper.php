@@ -4,38 +4,6 @@ namespace OXI_TABS_PLUGINS\Helper;
 
 trait Admin_helper {
 
-    /**
-     * Plugin fixed
-     *
-     * @since 3.1.0
-     */
-    public function fixed_data($agr) {
-        return hex2bin($agr);
-    }
-
-    /**
-     * Plugin fixed debugging data
-     *
-     * @since 3.1.0
-     */
-    public function fixed_debug_data($str) {
-        return bin2hex($str);
-    }
-
-    public function Tabs_Icon() {
-        ?>
-        <style type='text/css' media='screen'>
-            #adminmenu #toplevel_page_oxi-tabs-ultimate div.wp-menu-image:before {
-                content: "\f163";
-            }
-        </style>
-        <?php
-    }
-
-    public function admin_url_convert($agr) {
-        return admin_url(strpos($agr, 'edit') !== false ? $agr : 'admin.php?page=' . $agr);
-    }
-
     public function SupportAndComments($agr) {
 
         if (get_option('oxi_tabs_support_massage') == 'no') :
@@ -50,7 +18,7 @@ trait Admin_helper {
                     <div class="oxi-addons-admin-notifications-holder">
                         <div class="oxi-addons-admin-notifications-alert">
                             <p>Unable to create your desire design or need any help? .You can <a href="https://wordpress.org/support/plugin/vc-tabs#new-post">Ask any question</a> and get reply from our expert members. We will be glad to answer any question you may have about our plugin.</p>
-                          
+
                           ' . (apply_filters('oxi-tabs-plugin/pro_version', false) ? '' : '<p>By the way, did you know we also have a <a href="https://www.oxilabdemos.com/responsive-tabs/pricing">Premium Version</a>? It offers lots of options with automatic update. It also comes with 16/5 personal support.</p> <p>Thanks Again!</p>') . '
                           <p></p>
                         </div>
@@ -121,6 +89,12 @@ trait Admin_helper {
             </div>
         </div>
         <?php
+    }
+
+    public function Admin_Filters() {
+        add_filter('vc-tabs-support-and-comments', array($this, $this->fixed_data('537570706f7274416e64436f6d6d656e7473')));
+        add_filter('oxi-tabs-plugin/pro_version', array($this, $this->fixed_data('636865636b5f63757272656e745f74616273')));
+        add_filter('oxi-tabs-plugin/admin_menu', array($this, $this->fixed_data('6f78696c61625f61646d696e5f6d656e75')));
     }
 
     public function Admin_Menu() {
@@ -253,6 +227,38 @@ trait Admin_helper {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Plugin fixed
+     *
+     * @since 3.1.0
+     */
+    public function fixed_data($agr) {
+        return hex2bin($agr);
+    }
+
+    /**
+     * Plugin fixed debugging data
+     *
+     * @since 3.1.0
+     */
+    public function fixed_debug_data($str) {
+        return bin2hex($str);
+    }
+
+    public function Tabs_Icon() {
+        ?>
+        <style type='text/css' media='screen'>
+            #adminmenu #toplevel_page_oxi-tabs-ultimate div.wp-menu-image:before {
+                content: "\f163";
+            }
+        </style>
+        <?php
+    }
+
+    public function admin_url_convert($agr) {
+        return admin_url(strpos($agr, 'edit') !== false ? $agr : 'admin.php?page=' . $agr);
     }
 
 }

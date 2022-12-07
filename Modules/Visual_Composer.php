@@ -14,16 +14,6 @@ class Visual_Composer {
         add_shortcode('ctu_ultimate_oxi_VC', [$this, 'VC_Shortcode']);
     }
 
-    public function VC_Shortcode($atts) {
-        extract(shortcode_atts(array(
-            'id' => ''
-                        ), $atts));
-        $styleid = $atts['id'];
-        ob_start();
-        echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($styleid, 'user');
-        return ob_get_clean();
-    }
-
     public function VC_extension() {
         vc_map(array(
             "name" => __("Content Tabs"),
@@ -39,6 +29,16 @@ class Visual_Composer {
                 ),
             )
         ));
+    }
+
+    public function VC_Shortcode($atts) {
+        extract(shortcode_atts(array(
+            'id' => ''
+                        ), $atts));
+        $styleid = $atts['id'];
+        ob_start();
+        echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($styleid, 'user');
+        return ob_get_clean();
     }
 
 }

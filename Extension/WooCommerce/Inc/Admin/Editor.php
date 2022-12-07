@@ -156,12 +156,13 @@ trait Editor {
         <div class="form-group">
             <div class="input-group iconpicker-container">
 
-                <input data-placement="bottomRight" class="form-control icp icp-auto iconpicker-element iconpicker-input oxi-admin-icon-selector" value="<?php echo $meta_box_icon; ?>" type="text" name="oxi-woo-tab-icon">
-                <span class="input-group-addon"><i class="<?php echo $meta_box_icon; ?>"></i></span>
+                <input data-placement="bottomRight" class="form-control icp icp-auto iconpicker-element iconpicker-input oxi-admin-icon-selector" value="<?php echo esc_attr($meta_box_icon); ?>" type="text" name="oxi-woo-tab-icon">
+                <span class="input-group-addon"><i class="<?php echo esc_attr($meta_box_icon); ?>"></i></span>
             </div>
         </div>
         <?php
     }
+
     public function render_meta_box_callback_function($post) {
         $post_id = $post->ID;
         wp_nonce_field('render_meta_box_callback_function', 'render_meta_box_callback_function_nonce');
@@ -172,8 +173,8 @@ trait Editor {
         <br>
         <div class="form-group">
             <div class="input-group">
-                <input  class="form-control" value="<?php echo $callback; ?>" type="text" name="oxi-woo-tab-callback">
-               
+                <input  class="form-control" value="<?php echo esc_attr($callback); ?>" type="text" name="oxi-woo-tab-callback">
+
             </div>
         </div>
         <?php

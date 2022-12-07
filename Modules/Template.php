@@ -3,7 +3,7 @@
 namespace OXI_TABS_PLUGINS\Modules;
 
 /**
- * Oxi Tabs Template 
+ * Oxi Tabs Template
  *
  * @since 3.3
  *
@@ -45,38 +45,6 @@ class Template {
         add_action('network_admin_menu', array($this, 'add_dashboard_page'));
     }
 
-    /**
-     * Register page through WordPress's hooks.
-     */
-    public function add_dashboard_page() {
-        add_dashboard_page('', '', 'read', 'oxi-tabs-style-view', '');
-    }
-
-    public function maybe_load_template() {
-        $this->oxiid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
-        $page = (isset($_GET['page']) ? $_GET['page'] : '');
-        if ('oxi-tabs-style-view' !== $page || $this->oxiid < 0) {
-            return;
-        }
-        // Don't load the interface if doing an ajax call.
-        if (defined('DOING_AJAX') && DOING_AJAX) {
-            return;
-        }
-        set_current_screen();
-        // Remove an action in the Gutenberg plugin ( not core Gutenberg ) which throws an error.
-        remove_action('admin_print_styles', 'gutenberg_block_editor_admin_print_styles');
-        $this->load_template();
-    }
-
-    private function load_template() {
-        $this->enqueue_scripts();
-        $this->template_header();
-        $this->template_content();
-        $this->template_footer();
-
-        exit;
-    }
-
     public function template_header() {
         ?>
         <!DOCTYPE html>
@@ -116,6 +84,38 @@ class Template {
         wp_enqueue_style('oxilab-admin-css', OXI_TABS_URL . 'assets/backend/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_style('oxilab-template-css', OXI_TABS_URL . 'assets/backend/css/template.css', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxilab-template-js', OXI_TABS_URL . 'assets/backend/custom/template.js', false, OXI_TABS_PLUGIN_VERSION);
+    }
+
+    /**
+     * Register page through WordPress's hooks.
+     */
+    public function add_dashboard_page() {
+        add_dashboard_page('', '', 'read', 'oxi-tabs-style-view', '');
+    }
+
+    public function maybe_load_template() {
+        $this->oxiid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
+        $page = (isset($_GET['page']) ? $_GET['page'] : '');
+        if ('oxi-tabs-style-view' !== $page || $this->oxiid < 0) {
+            return;
+        }
+        // Don't load the interface if doing an ajax call.
+        if (defined('DOING_AJAX') && DOING_AJAX) {
+            return;
+        }
+        set_current_screen();
+        // Remove an action in the Gutenberg plugin ( not core Gutenberg ) which throws an error.
+        remove_action('admin_print_styles', 'gutenberg_block_editor_admin_print_styles');
+        $this->load_template();
+    }
+
+    private function load_template() {
+        $this->enqueue_scripts();
+        $this->template_header();
+        $this->template_content();
+        $this->template_footer();
+
+        exit;
     }
 
 }

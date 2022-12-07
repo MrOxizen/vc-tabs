@@ -10,11 +10,9 @@ if (!defined('ABSPATH'))
  *
  * @author biplo
  */
-
 use OXI_TABS_PLUGINS\Classes\Build_Api as Build_Api;
 
-class Bootstrap
-{
+class Bootstrap {
 
     use \OXI_TABS_PLUGINS\Helper\Public_Helper;
     use \OXI_TABS_PLUGINS\Helper\Admin_helper;
@@ -29,8 +27,7 @@ class Bootstrap
      */
     public $database;
 
-    public static function instance()
-    {
+    public static function instance() {
         if (self::$instance == null) {
             self::$instance = new self;
         }
@@ -38,8 +35,7 @@ class Bootstrap
         return self::$instance;
     }
 
-    public function __construct()
-    {
+    public function __construct() {
         do_action('oxi-tabs-plugin/before_init');
         // Load translation
         add_action('init', array($this, 'i18n'));
@@ -62,8 +58,7 @@ class Bootstrap
      * @since 3.1.0
      * @access public
      */
-    public function i18n()
-    {
+    public function i18n() {
         load_plugin_textdomain('oxi-tabs-plugin');
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
     }
@@ -74,8 +69,7 @@ class Bootstrap
      * @since 3.1.0
      * @access public
      */
-    protected function Shortcode_loader()
-    {
+    protected function Shortcode_loader() {
         add_shortcode('ctu_ultimate_oxi', [$this, 'tabs_shortcode']);
         new \OXI_TABS_PLUGINS\Modules\Visual_Composer();
         $Tabs_Widget = new \OXI_TABS_PLUGINS\Modules\Tabs_Widget();
@@ -90,8 +84,7 @@ class Bootstrap
      * @since 3.1.0
      * @access public
      */
-    public function tabs_shortcode($atts)
-    {
+    public function tabs_shortcode($atts) {
         extract(shortcode_atts(array('id' => ' ',), $atts));
         $styleid = $atts['id'];
         ob_start();
@@ -99,22 +92,13 @@ class Bootstrap
         return ob_get_clean();
     }
 
-    public function Admin_Filters()
-    {
-        add_filter('vc-tabs-support-and-comments', array($this, $this->fixed_data('537570706f7274416e64436f6d6d656e7473')));
-        add_filter('oxi-tabs-plugin/pro_version', array($this, $this->fixed_data('636865636b5f63757272656e745f74616273')));
-        add_filter('oxi-tabs-plugin/admin_menu', array($this, $this->fixed_data('6f78696c61625f61646d696e5f6d656e75')));
-    }
-
-    public function User_Admin()
-    {
+    public function User_Admin() {
         add_action('admin_menu', [$this, 'Admin_Menu']);
         add_action('admin_head', [$this, 'Tabs_Icon']);
         add_action('admin_init', array($this, 'redirect_on_activation'));
     }
 
-    public function redirect_on_activation()
-    {
+    public function redirect_on_activation() {
         if (get_transient('oxi_tabs_activation_redirect')) :
             delete_transient('oxi_tabs_activation_redirect');
             if (is_network_admin() || isset($_GET['activate-multi'])) :
@@ -124,8 +108,7 @@ class Bootstrap
         endif;
     }
 
-    public function view_count_jquery($content)
-    {
+    public function view_count_jquery($content) {
         if (!is_single()) :
             return $content; // Only on single posts
         endif;
@@ -153,8 +136,7 @@ class Bootstrap
         return $content;
     }
 
-    public function Extension()
-    {
+    public function Extension() {
         if (!function_exists('is_plugin_active')) {
             include_once(ABSPATH . 'wp-admin/includes/plugin.php');
         }
@@ -162,4 +144,5 @@ class Bootstrap
             new \OXI_TABS_PLUGINS\Extension\WooCommerce\WooCommerce();
         endif;
     }
+
 }

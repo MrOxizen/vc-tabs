@@ -6,84 +6,36 @@ namespace OXI_TABS_PLUGINS\Render;
  *
  * @author $biplob018
  */
-
 use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
-trait Sanitization
-{
-    /*
-     * Oxi Tabs Style Admin Panel header
-     * 
-     * @since 3.3.0
-     */
-
-    public function start_section_header($id, array $arg = [])
-    {
-        echo '<ul class="oxi-addons-tabs-ul">   ';
-        foreach ($arg['options'] as $key => $value) {
-            echo '<li ref="#shortcode-addons-section-' . $key . '">' . $value . '</li>';
-        }
-        echo '</ul>';
-    }
-
-    /*
-     * Oxi Tabs Style Admin Panel Body
-     * 
-     * @since 3.3.0
-     */
-
-    public function start_section_tabs($id, array $arg = [])
-    {
-        echo '<div class="oxi-addons-tabs-content-tabs" id="shortcode-addons-section-';
-        if (array_key_exists('condition', $arg)) :
-            foreach ($arg['condition'] as $value) {
-                echo $value;
-            }
-        endif;
-        echo '"  ' . (array_key_exists('padding', $arg) ? 'style="padding: ' . $arg['padding'] . '"' : '') . '>';
-    }
-
-    /*
-     * Oxi Tabs Style Admin Panel end Body
-     * 
-     * @since 3.3.0
-     */
-
-    public function end_section_tabs()
-    {
-        echo '</div>';
-    }
-
+trait Sanitization {
     /*
      * Oxi Tabs Style Admin Panel Col 6 or Entry devider
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function start_section_devider()
-    {
+    public function start_section_devider() {
         echo '<div class="oxi-addons-col-6">';
     }
 
     /*
      * Oxi Tabs Style Admin Panel end Entry Divider
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function end_section_devider()
-    {
+    public function end_section_devider() {
         echo '</div>';
     }
 
     /*
-     * Oxi Tabs Style Admin Panel Form Dependency 
-     * 
+     * Oxi Tabs Style Admin Panel Form Dependency
+     *
      * @since 3.3.0
      */
 
-    public function forms_condition(array $arg = [])
-    {
+    public function forms_condition(array $arg = []) {
 
         if (array_key_exists('condition', $arg)) :
             $i = $arg['condition'] != '' ? count($arg['condition']) : 0;
@@ -130,12 +82,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Each Tabs
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function start_controls_section($id, array $arg = [])
-    {
+    public function start_controls_section($id, array $arg = []) {
         $defualt = ['showing' => FALSE];
         $arg = array_merge($defualt, $arg);
         $condition = $this->forms_condition($arg);
@@ -149,24 +100,22 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel end Each Tabs
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function end_controls_section()
-    {
+    public function end_controls_section() {
         echo '</div></div>';
     }
 
     /*
      * Oxi Tabs Style Admin Panel Section Inner Tabs
      * This Tabs like inner tabs as Normal view and Hover View
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function start_controls_tabs($id, array $arg = [])
-    {
+    public function start_controls_tabs($id, array $arg = []) {
         $defualt = ['options' => ['normal' => 'Normal', 'hover' => 'Hover']];
         $arg = array_merge($defualt, $arg);
         $condition = $this->forms_condition($arg);
@@ -187,45 +136,41 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel end Section Inner Tabs
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function end_controls_tabs()
-    {
+    public function end_controls_tabs() {
         echo '</div> </div>';
     }
 
     /*
      * Oxi Tabs Style Admin Panel Section Inner Tabs Child
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function start_controls_tab()
-    {
+    public function start_controls_tab() {
         echo '<div class="shortcode-form-control-content shortcode-form-control-tabs-content shortcode-control-tab-close">';
     }
 
     /*
      * Oxi Tabs Style Admin Panel End Section Inner Tabs Child
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function end_controls_tab()
-    {
+    public function end_controls_tab() {
         echo '</div>';
     }
 
     /*
      * Oxi Tabs Style Admin Panel  Section Popover
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function start_popover_control($id, array $arg = [], $data = [])
-    {
+    public function start_popover_control($id, array $arg = [], $data = []) {
         if ($this->render_condition_control($id, $data, $arg)) :
             $this->Popover_Condition = true;
         else :
@@ -237,40 +182,38 @@ trait Sanitization
         echo '  <div class="shortcode-form-control shortcode-control-type-popover ' . $separator . '" ' . $condition . '>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover">
                         <div class="shortcode-form-control-field">
-                            <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>  
+                            <label for="" class="shortcode-form-control-title">' . $arg['label'] . '</label>
                             <div class="shortcode-form-control-input-wrapper">
                                 <span class="dashicons popover-set"></span>
                             </div>
                         </div>
                         ' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '') . '
-                        
+
                     </div>
                     <div class="shortcode-form-control-content shortcode-form-control-content-popover-body">
-                        
+
                ';
     }
 
     /*
      * Oxi Tabs Style Admin Panel end Popover
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function end_popover_control()
-    {
+    public function end_popover_control() {
         $this->Popover_Condition = true;
         echo '</div></div>';
     }
 
     /*
      * Oxi Tabs Style Admin Panel Form Add Control.
-     * Call All Input Control from here Based on Control Name. 
-     * 
+     * Call All Input Control from here Based on Control Name.
+     *
      * @since 3.3.0
      */
 
-    public function add_control($id, array $data = [], array $arg = [])
-    {
+    public function add_control($id, array $data = [], array $arg = []) {
         /*
          * Responsive Control Start
          * @since 3.3.0
@@ -314,7 +257,7 @@ trait Sanitization
         ];
 
         /*
-         * Data Currection while Its comes from group Control 
+         * Data Currection while Its comes from group Control
          */
         if (array_key_exists('selector-value', $arg)) :
             foreach ($arg['selector'] as $key => $value) {
@@ -362,12 +305,11 @@ trait Sanitization
     /*
      * Oxi Tabs Style Admin Panel Responsive Control.
      * Can Possible to modify any Add control to Responsive Control
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function add_responsive_control($id, array $data = [], array $arg = [])
-    {
+    public function add_responsive_control($id, array $data = [], array $arg = []) {
         $lap = $id . '-lap';
         $tab = $id . '-tab';
         $mob = $id . '-mob';
@@ -414,12 +356,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Group Control.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function add_group_control($id, array $data = [], array $arg = [])
-    {
+    public function add_group_control($id, array $data = [], array $arg = []) {
         $defualt = [
             'type' => 'text',
             'label' => 'Input Text',
@@ -431,8 +372,7 @@ trait Sanitization
         echo $this->$fun($id, $data, $arg);
     }
 
-    public function add_rearrange_control($id, array $data = [], array $arg = [])
-    {
+    public function add_rearrange_control($id, array $data = [], array $arg = []) {
         $condition = $this->forms_condition($arg);
         $separator = (array_key_exists('separator', $arg) ? ($arg['separator'] === TRUE ? 'shortcode-form-control-separator-before' : '') : '');
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
@@ -456,7 +396,7 @@ trait Sanitization
         }
         echo '          <div class="shortcode-form-control-input-wrapper">
                             <input type="hidden" value="' . $value . '" name="' . $id . '" id="' . $id . '">
-                        </div>      
+                        </div>
                     </div>
                 </div>
             </div>';
@@ -464,28 +404,25 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Heading Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function heading_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function heading_admin_control($id, array $data = [], array $arg = []) {
         echo ' ';
     }
 
     /*
      * Oxi Tabs Style Admin Panel Switcher Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function separator_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function separator_admin_control($id, array $data = [], array $arg = []) {
         echo '';
     }
 
-    public function multiple_selector_handler($data, $val)
-    {
+    public function multiple_selector_handler($data, $val) {
 
         $val = preg_replace_callback('/\{\{\K(.*?)(?=}})/', function ($match) use ($data) {
             $ER = explode('.', $match[0]);
@@ -508,15 +445,14 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Switcher Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function switcher_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function switcher_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
-                    <label class="shortcode-switcher">  
+                    <label class="shortcode-switcher">
                         <input type="checkbox" ' . ($value == $arg['return_value'] ? 'checked ckdflt="true"' : '') . ' value="' . $arg['return_value'] . '"  name="' . $id . '" id="' . $id . '"/>
                         <span data-on="' . $arg['label_on'] . '" data-off="' . $arg['label_off'] . '"></span>
                     </label>
@@ -525,12 +461,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Text Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function text_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function text_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         if (array_key_exists('link', $arg)) :
@@ -546,12 +481,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Hidden Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function hidden_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function hidden_admin_control($id, array $data = [], array $arg = []) {
 
         $value = array_key_exists($id, $data) ? $data[$id] : '';
 
@@ -578,12 +512,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Textarea Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function textarea_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function textarea_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
 
         if ($id === 'oxi-tabs-custom-css') :
@@ -592,43 +525,41 @@ trait Sanitization
 
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         echo '<div class="shortcode-form-control-input-wrapper">
-                 <textarea  name="' . $id . '" id="' . $id . '" retundata=\'' . $retunvalue . '\' class="shortcode-form-control-tag-area" rows="' . (int) ((strlen($value) / 50) + 2) . '" placeholder="' . $arg['placeholder'] . '">' .  $value . '</textarea>
+                 <textarea  name="' . $id . '" id="' . $id . '" retundata=\'' . $retunvalue . '\' class="shortcode-form-control-tag-area" rows="' . (int) ((strlen($value) / 50) + 2) . '" placeholder="' . $arg['placeholder'] . '">' . $value . '</textarea>
               </div>';
     }
 
     /*
      * Oxi Tabs Style Admin Panel WYSIWYG Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function wysiwyg_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function wysiwyg_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
         echo ' <div class="shortcode-form-control-input-wrapper"  retundata=\'' . $retunvalue . '\'>';
         echo wp_editor(
-            $value,
-            $id,
-            $settings = array(
-                'textarea_name' => $id,
-                'wpautop' => false,
-                'textarea_rows' => 7,
-                'force_br_newlines' => true,
-                'force_p_newlines' => false
-            )
+                $value,
+                $id,
+                $settings = array(
+            'textarea_name' => $id,
+            'wpautop' => false,
+            'textarea_rows' => 7,
+            'force_br_newlines' => true,
+            'force_p_newlines' => false
+                )
         );
         echo ' </div>';
     }
 
     /*
      * Oxi Tabs Style Admin Panel Image Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function image_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function image_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $alt = array_key_exists($id . '-alt', $data) ? $data[$id . '-alt'] : '';
         echo '  <div class="shortcode-form-control-input-wrapper">
@@ -650,12 +581,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Number Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function number_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function number_admin_control($id, array $data = [], array $arg = []) {
 
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
@@ -684,13 +614,12 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Slider Input.
-     * 
+     *
      * @since 3.3.0
      * Done With Number Information
      */
 
-    public function slider_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function slider_admin_control($id, array $data = [], array $arg = []) {
         $unit = array_key_exists($id . '-choices', $data) ? $data[$id . '-choices'] : $arg['default']['unit'];
         $size = array_key_exists($id . '-size', $data) ? $data[$id . '-size'] : $arg['default']['size'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
@@ -734,12 +663,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Select Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function select_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function select_admin_control($id, array $data = [], array $arg = []) {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
@@ -792,12 +720,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Choose Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function choose_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function choose_admin_control($id, array $data = [], array $arg = []) {
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retun = [];
 
@@ -836,12 +763,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Color Input.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function render_condition_control($id, array $data = [], array $arg = [])
-    {
+    public function render_condition_control($id, array $data = [], array $arg = []) {
         if (!$this->Popover_Condition) :
             return false;
         endif;
@@ -881,8 +807,7 @@ trait Sanitization
         return true;
     }
 
-    public function color_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function color_admin_control($id, array $data = [], array $arg = []) {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
@@ -909,12 +834,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Icon Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function icon_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function icon_admin_control($id, array $data = [], array $arg = []) {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         echo '  <div class="shortcode-form-control-input-wrapper">
@@ -925,12 +849,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Font Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function font_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function font_admin_control($id, array $data = [], array $arg = []) {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         if ($value != '' && array_key_exists($value, $this->google_font)) :
@@ -963,12 +886,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Date and Time Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function date_time_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function date_time_admin_control($id, array $data = [], array $arg = []) {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $format = 'date';
@@ -984,12 +906,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Gradient Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function gradient_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function gradient_admin_control($id, array $data = [], array $arg = []) {
         $id = (array_key_exists('repeater', $arg) ? $id . ']' : $id);
         $value = array_key_exists($id, $data) ? $data[$id] : $arg['default'];
         $retunvalue = array_key_exists('selector', $arg) ? htmlspecialchars(json_encode($arg['selector'])) : '';
@@ -1018,12 +939,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Dimensions Selector.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function dimensions_admin_control($id, array $data = [], array $arg = [])
-    {
+    public function dimensions_admin_control($id, array $data = [], array $arg = []) {
         $unit = array_key_exists($id . '-choices', $data) ? $data[$id . '-choices'] : $arg['default']['unit'];
         $top = array_key_exists($id . '-top', $data) ? $data[$id . '-top'] : $arg['default']['size'];
         $bottom = array_key_exists($id . '-bottom', $data) ? $data[$id . '-bottom'] : $top;
@@ -1092,13 +1012,12 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Typography.
-     * 
+     *
      * @since 3.3.0
      * Simple Interface Enable
      */
 
-    public function typography_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function typography_admin_group_control($id, array $data = [], array $arg = []) {
         $cond = $condition = '';
         if (array_key_exists('condition', $arg)) :
             $cond = 'condition';
@@ -1118,40 +1037,221 @@ trait Sanitization
         endif;
 
         $this->start_popover_control(
-            $id,
-            [
-                'label' => array_key_exists('label', $arg) ? $arg['label'] : 'Typography',
-                $cond => $condition,
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                'description' => $arg['description'],
-                'separator' => $separator,
-            ]
+                $id,
+                [
+                    'label' => array_key_exists('label', $arg) ? $arg['label'] : 'Typography',
+                    $cond => $condition,
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    'description' => $arg['description'],
+                    'separator' => $separator,
+                ]
         );
         $this->add_control(
-            $id . '-font',
-            $data,
-            [
-                'label' => __('Font Family', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::FONT,
-                $selectorvalue => 'font-family:\'{{VALUE}}\';',
-                $selector_key => $selector,
-                $loader => $loadervalue
-            ]
+                $id . '-font',
+                $data,
+                [
+                    'label' => __('Font Family', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::FONT,
+                    $selectorvalue => 'font-family:\'{{VALUE}}\';',
+                    $selector_key => $selector,
+                    $loader => $loadervalue
+                ]
         );
         if (!array_key_exists('typo-font-size', $arg) || $arg['typo-font-size'] == true) :
             $this->add_responsive_control(
-                $id . '-size',
+                    $id . '-size',
+                    $data,
+                    [
+                        'label' => __('Size', OXI_TABS_TEXTDOMAIN),
+                        'type' => Controls::SLIDER,
+                        'default' => [
+                            'unit' => 'px',
+                            'size' => '',
+                        ],
+                        $loader => $loadervalue,
+                        $selectorvalue => 'font-size: {{SIZE}}{{UNIT}};',
+                        $selector_key => $selector,
+                        'range' => [
+                            'px' => [
+                                'min' => 0,
+                                'max' => 100,
+                                'step' => 1,
+                            ],
+                            'em' => [
+                                'min' => 0,
+                                'max' => 10,
+                                'step' => 0.1,
+                            ],
+                            'rem' => [
+                                'min' => 0,
+                                'max' => 10,
+                                'step' => 0.1,
+                            ],
+                            'vm' => [
+                                'min' => 0,
+                                'max' => 10,
+                                'step' => 0.1,
+                            ],
+                        ],
+                    ]
+            );
+        endif;
+
+        $this->add_control(
+                $id . '-weight',
                 $data,
                 [
-                    'label' => __('Size', OXI_TABS_TEXTDOMAIN),
+                    'label' => __('Weight', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    $selectorvalue => 'font-weight: {{VALUE}};',
+                    $loader => $loadervalue,
+                    $selector_key => $selector,
+                    'options' => [
+                        '100' => __('100', OXI_TABS_TEXTDOMAIN),
+                        '200' => __('200', OXI_TABS_TEXTDOMAIN),
+                        '300' => __('300', OXI_TABS_TEXTDOMAIN),
+                        '400' => __('400', OXI_TABS_TEXTDOMAIN),
+                        '500' => __('500', OXI_TABS_TEXTDOMAIN),
+                        '600' => __('600', OXI_TABS_TEXTDOMAIN),
+                        '700' => __('700', OXI_TABS_TEXTDOMAIN),
+                        '800' => __('800', OXI_TABS_TEXTDOMAIN),
+                        '900' => __('900', OXI_TABS_TEXTDOMAIN),
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'normal' => __('Normal', OXI_TABS_TEXTDOMAIN),
+                        'bold' => __('Bold', OXI_TABS_TEXTDOMAIN)
+                    ],
+                ]
+        );
+        $this->add_control(
+                $id . '-transform',
+                $data,
+                [
+                    'label' => __('Transform', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => '',
+                    'options' => [
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'uppercase' => __('Uppercase', OXI_TABS_TEXTDOMAIN),
+                        'lowercase' => __('Lowercase', OXI_TABS_TEXTDOMAIN),
+                        'capitalize' => __('Capitalize', OXI_TABS_TEXTDOMAIN),
+                        'none' => __('Normal', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    $loader => $loadervalue,
+                    $selectorvalue => 'text-transform: {{VALUE}};',
+                    $selector_key => $selector,
+                ]
+        );
+        $this->add_control(
+                $id . '-style',
+                $data,
+                [
+                    'label' => __('Style', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => '',
+                    'options' => [
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'normal' => __('normal', OXI_TABS_TEXTDOMAIN),
+                        'italic' => __('Italic', OXI_TABS_TEXTDOMAIN),
+                        'oblique' => __('Oblique', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    $loader => $loadervalue,
+                    $selectorvalue => 'font-style: {{VALUE}};',
+                    $selector_key => $selector,
+                ]
+        );
+        $this->add_control(
+                $id . '-decoration',
+                $data,
+                [
+                    'label' => __('Decoration', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => '',
+                    'options' => [
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'underline' => __('Underline', OXI_TABS_TEXTDOMAIN),
+                        'overline' => __('Overline', OXI_TABS_TEXTDOMAIN),
+                        'line-through' => __('Line Through', OXI_TABS_TEXTDOMAIN),
+                        'none' => __('None', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    $loader => $loadervalue,
+                    $selectorvalue => 'text-decoration: {{VALUE}};',
+                    $selector_key => $selector,
+                ]
+        );
+        if (array_key_exists('include', $arg)) :
+            if ($arg['include'] == 'align_normal') :
+                $this->add_responsive_control(
+                        $id . '-align',
+                        $data,
+                        [
+                            'label' => __('Text Align', OXI_TABS_TEXTDOMAIN),
+                            'type' => Controls::SELECT,
+                            'default' => '',
+                            'options' => [
+                                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                                'left' => __('Left', OXI_TABS_TEXTDOMAIN),
+                                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                                'right' => __('Right', OXI_TABS_TEXTDOMAIN),
+                            ],
+                            $loader => $loadervalue,
+                            $selectorvalue => 'text-align: {{VALUE}};',
+                            $selector_key => $selector,
+                        ]
+                );
+            else :
+                $this->add_responsive_control(
+                        $id . '-justify',
+                        $data,
+                        [
+                            'label' => __('Justify Content', OXI_TABS_TEXTDOMAIN),
+                            'type' => Controls::SELECT,
+                            'default' => '',
+                            'options' => [
+                                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                                'flex-start' => __('Flex Start', OXI_TABS_TEXTDOMAIN),
+                                'flex-end' => __('Flex End', OXI_TABS_TEXTDOMAIN),
+                                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                                'space-around' => __('Space Around', OXI_TABS_TEXTDOMAIN),
+                                'space-between' => __('Space Between', OXI_TABS_TEXTDOMAIN),
+                            ],
+                            $loader => $loadervalue,
+                            $selectorvalue => 'justify-content: {{VALUE}};',
+                            $selector_key => $selector,
+                        ]
+                );
+                $this->add_responsive_control(
+                        $id . '-align',
+                        $data,
+                        [
+                            'label' => __('Align Items', OXI_TABS_TEXTDOMAIN),
+                            'type' => Controls::SELECT,
+                            'default' => '',
+                            'options' => [
+                                '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                                'stretch' => __('Stretch', OXI_TABS_TEXTDOMAIN),
+                                'baseline' => __('Baseline', OXI_TABS_TEXTDOMAIN),
+                                'center' => __('Center', OXI_TABS_TEXTDOMAIN),
+                                'flex-start' => __('Flex Start', OXI_TABS_TEXTDOMAIN),
+                                'flex-end' => __('Flex End', OXI_TABS_TEXTDOMAIN),
+                            ],
+                            $loader => $loadervalue,
+                            $selectorvalue => 'align-items: {{VALUE}};',
+                            $selector_key => $selector,
+                        ]
+                );
+            endif;
+        endif;
+
+        $this->add_responsive_control(
+                $id . '-l-height',
+                $data,
+                [
+                    'label' => __('Line Height', OXI_TABS_TEXTDOMAIN),
                     'type' => Controls::SLIDER,
                     'default' => [
                         'unit' => 'px',
                         'size' => '',
                     ],
-                    $loader => $loadervalue,
-                    $selectorvalue => 'font-size: {{SIZE}}{{UNIT}};',
-                    $selector_key => $selector,
                     'range' => [
                         'px' => [
                             'min' => 0,
@@ -1163,289 +1263,107 @@ trait Sanitization
                             'max' => 10,
                             'step' => 0.1,
                         ],
-                        'rem' => [
-                            'min' => 0,
-                            'max' => 10,
-                            'step' => 0.1,
-                        ],
-                        'vm' => [
-                            'min' => 0,
-                            'max' => 10,
-                            'step' => 0.1,
-                        ],
                     ],
+                    $loader => $loadervalue,
+                    $selectorvalue => 'line-height: {{SIZE}}{{UNIT}};',
+                    $selector_key => $selector,
                 ]
-            );
-        endif;
-
-        $this->add_control(
-            $id . '-weight',
-            $data,
-            [
-                'label' => __('Weight', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                $selectorvalue => 'font-weight: {{VALUE}};',
-                $loader => $loadervalue,
-                $selector_key => $selector,
-                'options' => [
-                    '100' => __('100', OXI_TABS_TEXTDOMAIN),
-                    '200' => __('200', OXI_TABS_TEXTDOMAIN),
-                    '300' => __('300', OXI_TABS_TEXTDOMAIN),
-                    '400' => __('400', OXI_TABS_TEXTDOMAIN),
-                    '500' => __('500', OXI_TABS_TEXTDOMAIN),
-                    '600' => __('600', OXI_TABS_TEXTDOMAIN),
-                    '700' => __('700', OXI_TABS_TEXTDOMAIN),
-                    '800' => __('800', OXI_TABS_TEXTDOMAIN),
-                    '900' => __('900', OXI_TABS_TEXTDOMAIN),
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'normal' => __('Normal', OXI_TABS_TEXTDOMAIN),
-                    'bold' => __('Bold', OXI_TABS_TEXTDOMAIN)
-                ],
-            ]
-        );
-        $this->add_control(
-            $id . '-transform',
-            $data,
-            [
-                'label' => __('Transform', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => '',
-                'options' => [
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'uppercase' => __('Uppercase', OXI_TABS_TEXTDOMAIN),
-                    'lowercase' => __('Lowercase', OXI_TABS_TEXTDOMAIN),
-                    'capitalize' => __('Capitalize', OXI_TABS_TEXTDOMAIN),
-                    'none' => __('Normal', OXI_TABS_TEXTDOMAIN),
-                ],
-                $loader => $loadervalue,
-                $selectorvalue => 'text-transform: {{VALUE}};',
-                $selector_key => $selector,
-            ]
-        );
-        $this->add_control(
-            $id . '-style',
-            $data,
-            [
-                'label' => __('Style', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => '',
-                'options' => [
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'normal' => __('normal', OXI_TABS_TEXTDOMAIN),
-                    'italic' => __('Italic', OXI_TABS_TEXTDOMAIN),
-                    'oblique' => __('Oblique', OXI_TABS_TEXTDOMAIN),
-                ],
-                $loader => $loadervalue,
-                $selectorvalue => 'font-style: {{VALUE}};',
-                $selector_key => $selector,
-            ]
-        );
-        $this->add_control(
-            $id . '-decoration',
-            $data,
-            [
-                'label' => __('Decoration', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => '',
-                'options' => [
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'underline' => __('Underline', OXI_TABS_TEXTDOMAIN),
-                    'overline' => __('Overline', OXI_TABS_TEXTDOMAIN),
-                    'line-through' => __('Line Through', OXI_TABS_TEXTDOMAIN),
-                    'none' => __('None', OXI_TABS_TEXTDOMAIN),
-                ],
-                $loader => $loadervalue,
-                $selectorvalue => 'text-decoration: {{VALUE}};',
-                $selector_key => $selector,
-            ]
-        );
-        if (array_key_exists('include', $arg)) :
-            if ($arg['include'] == 'align_normal') :
-                $this->add_responsive_control(
-                    $id . '-align',
-                    $data,
-                    [
-                        'label' => __('Text Align', OXI_TABS_TEXTDOMAIN),
-                        'type' => Controls::SELECT,
-                        'default' => '',
-                        'options' => [
-                            '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                            'left' => __('Left', OXI_TABS_TEXTDOMAIN),
-                            'center' => __('Center', OXI_TABS_TEXTDOMAIN),
-                            'right' => __('Right', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        $loader => $loadervalue,
-                        $selectorvalue => 'text-align: {{VALUE}};',
-                        $selector_key => $selector,
-                    ]
-                );
-            else :
-                $this->add_responsive_control(
-                    $id . '-justify',
-                    $data,
-                    [
-                        'label' => __('Justify Content', OXI_TABS_TEXTDOMAIN),
-                        'type' => Controls::SELECT,
-                        'default' => '',
-                        'options' => [
-                            '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                            'flex-start' => __('Flex Start', OXI_TABS_TEXTDOMAIN),
-                            'flex-end' => __('Flex End', OXI_TABS_TEXTDOMAIN),
-                            'center' => __('Center', OXI_TABS_TEXTDOMAIN),
-                            'space-around' => __('Space Around', OXI_TABS_TEXTDOMAIN),
-                            'space-between' => __('Space Between', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        $loader => $loadervalue,
-                        $selectorvalue => 'justify-content: {{VALUE}};',
-                        $selector_key => $selector,
-                    ]
-                );
-                $this->add_responsive_control(
-                    $id . '-align',
-                    $data,
-                    [
-                        'label' => __('Align Items', OXI_TABS_TEXTDOMAIN),
-                        'type' => Controls::SELECT,
-                        'default' => '',
-                        'options' => [
-                            '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                            'stretch' => __('Stretch', OXI_TABS_TEXTDOMAIN),
-                            'baseline' => __('Baseline', OXI_TABS_TEXTDOMAIN),
-                            'center' => __('Center', OXI_TABS_TEXTDOMAIN),
-                            'flex-start' => __('Flex Start', OXI_TABS_TEXTDOMAIN),
-                            'flex-end' => __('Flex End', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        $loader => $loadervalue,
-                        $selectorvalue => 'align-items: {{VALUE}};',
-                        $selector_key => $selector,
-                    ]
-                );
-            endif;
-        endif;
-
-        $this->add_responsive_control(
-            $id . '-l-height',
-            $data,
-            [
-                'label' => __('Line Height', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => '',
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                        'step' => 1,
-                    ],
-                    'em' => [
-                        'min' => 0,
-                        'max' => 10,
-                        'step' => 0.1,
-                    ],
-                ],
-                $loader => $loadervalue,
-                $selectorvalue => 'line-height: {{SIZE}}{{UNIT}};',
-                $selector_key => $selector,
-            ]
         );
         $this->add_responsive_control(
-            $id . '-l-spacing',
-            $data,
-            [
-                'label' => __('Letter Spacing', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => '',
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                        'step' => 0.1,
+                $id . '-l-spacing',
+                $data,
+                [
+                    'label' => __('Letter Spacing', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => '',
                     ],
-                    'em' => [
-                        'min' => 0,
-                        'max' => 10,
-                        'step' => 0.01,
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => 0.1,
+                        ],
+                        'em' => [
+                            'min' => 0,
+                            'max' => 10,
+                            'step' => 0.01,
+                        ],
                     ],
-                ],
-                $loader => $loadervalue,
-                $selectorvalue => 'letter-spacing: {{SIZE}}{{UNIT}};',
-                $selector_key => $selector,
-            ]
+                    $loader => $loadervalue,
+                    $selectorvalue => 'letter-spacing: {{SIZE}}{{UNIT}};',
+                    $selector_key => $selector,
+                ]
         );
         $this->end_popover_control();
     }
 
     /*
      * Oxi Tabs Style Admin Panel Media Group Control.
-     * 
+     *
      * @since 3.3.0
-     * 
+     *
      * Works at any version
      */
 
-    public function media_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function media_admin_group_control($id, array $data = [], array $arg = []) {
         $type = array_key_exists('default', $arg) ? $arg['default']['type'] : 'media-library';
         $value = array_key_exists('default', $arg) ? $arg['default']['link'] : '';
         $level = array_key_exists('label', $arg) ? $arg['label'] : 'Photo Source';
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         echo '<div class="shortcode-form-control" style="padding: 0;" ' . $this->forms_condition($arg) . '>';
         $this->add_control(
-            $id . '-select',
-            $data,
-            [
-                'label' => __($level, OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::CHOOSE,
-                'loader' => TRUE,
-                'default' => $type,
-                'separator' => $separator,
-                'options' => [
-                    'media-library' => [
-                        'title' => __('Media Library', OXI_TABS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-left',
+                $id . '-select',
+                $data,
+                [
+                    'label' => __($level, OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'loader' => TRUE,
+                    'default' => $type,
+                    'separator' => $separator,
+                    'options' => [
+                        'media-library' => [
+                            'title' => __('Media Library', OXI_TABS_TEXTDOMAIN),
+                            'icon' => 'fa fa-align-left',
+                        ],
+                        'custom-url' => [
+                            'title' => __('Custom URL', OXI_TABS_TEXTDOMAIN),
+                            'icon' => 'fa fa-align-center',
+                        ]
                     ],
-                    'custom-url' => [
-                        'title' => __('Custom URL', OXI_TABS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-center',
-                    ]
-                ],
-            ]
+                ]
         );
         $this->add_control(
-            $id . '-image',
-            $data,
-            [
-                'label' => __('Image', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::IMAGE,
-                'loader' => TRUE,
-                'default' => $value,
-                'condition' => [
-                    $id . '-select' => 'media-library',
-                ],
-                'simpledescription' => $arg['description'],
-                'description' => $arg['description'],
-            ]
+                $id . '-image',
+                $data,
+                [
+                    'label' => __('Image', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::IMAGE,
+                    'loader' => TRUE,
+                    'default' => $value,
+                    'condition' => [
+                        $id . '-select' => 'media-library',
+                    ],
+                    'simpledescription' => $arg['description'],
+                    'description' => $arg['description'],
+                ]
         );
         $this->add_control(
-            $id . '-url',
-            $data,
-            [
-                'label' => __('Image URL', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::TEXT,
-                'default' => $value,
-                'loader' => TRUE,
-                'placeholder' => 'www.example.com/image.jpg',
-                'condition' => [
-                    $id . '-select' => 'custom-url',
-                ],
-                'simpledescription' => $arg['description'],
-                'description' => $arg['description'],
-            ]
+                $id . '-url',
+                $data,
+                [
+                    'label' => __('Image URL', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::TEXT,
+                    'default' => $value,
+                    'loader' => TRUE,
+                    'placeholder' => 'www.example.com/image.jpg',
+                    'condition' => [
+                        $id . '-select' => 'custom-url',
+                    ],
+                    'simpledescription' => $arg['description'],
+                    'description' => $arg['description'],
+                ]
         );
 
         echo '</div>';
@@ -1453,13 +1371,12 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Box Shadow Control.
-     * 
+     *
      * @since 3.3.0
      * Only Works At Customizable Version
      */
 
-    public function boxshadow_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function boxshadow_admin_group_control($id, array $data = [], array $arg = []) {
 
         $cond = $condition = $boxshadow = '';
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
@@ -1501,172 +1418,171 @@ trait Sanitization
             }
         endif;
         $this->start_popover_control(
-            $id,
-            [
-                'label' => __('Box Shadow', OXI_TABS_TEXTDOMAIN),
-                $cond => $condition,
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                'separator' => $separator,
-                'description' => $arg['description'],
-            ]
+                $id,
+                [
+                    'label' => __('Box Shadow', OXI_TABS_TEXTDOMAIN),
+                    $cond => $condition,
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    'separator' => $separator,
+                    'description' => $arg['description'],
+                ]
         );
         $this->add_control(
-            $id . '-shadow',
-            $data,
-            [
-                'label' => __('Shadow', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SWITCHER,
-                'default' => '',
-                'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
-                'label_off' => __('None', OXI_TABS_TEXTDOMAIN),
-                'return_value' => 'yes',
-            ]
+                $id . '-shadow',
+                $data,
+                [
+                    'label' => __('Shadow', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SWITCHER,
+                    'default' => '',
+                    'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
+                    'label_off' => __('None', OXI_TABS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                ]
         );
         $this->add_control(
-            $id . '-type',
-            $data,
-            [
-                'label' => __('Type', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::CHOOSE,
-                'default' => '',
-                'options' => [
-                    '' => [
-                        'title' => __('Outline', OXI_TABS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-left',
+                $id . '-type',
+                $data,
+                [
+                    'label' => __('Type', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'default' => '',
+                    'options' => [
+                        '' => [
+                            'title' => __('Outline', OXI_TABS_TEXTDOMAIN),
+                            'icon' => 'fa fa-align-left',
+                        ],
+                        'inset' => [
+                            'title' => __('Inset', OXI_TABS_TEXTDOMAIN),
+                            'icon' => 'fa fa-align-center',
+                        ],
                     ],
-                    'inset' => [
-                        'title' => __('Inset', OXI_TABS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-center',
-                    ],
-                ],
-                'condition' => [$id . '-shadow' => 'yes']
-            ]
+                    'condition' => [$id . '-shadow' => 'yes']
+                ]
         );
 
         $this->add_control(
-            $id . '-horizontal',
-            $data,
-            [
-                'label' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 0,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => -50,
-                        'max' => 100,
-                        'step' => 1,
+                $id . '-horizontal',
+                $data,
+                [
+                    'label' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
                     ],
-                ],
-                'custom' => $id . '|||||box-shadow',
-                $selectorvalue => '{{VALUE}}',
-                $selector_key => $selector,
-                'render' => FALSE,
-                'condition' => [$id . '-shadow' => 'yes']
-            ]
+                    'range' => [
+                        'px' => [
+                            'min' => -50,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    'custom' => $id . '|||||box-shadow',
+                    $selectorvalue => '{{VALUE}}',
+                    $selector_key => $selector,
+                    'render' => FALSE,
+                    'condition' => [$id . '-shadow' => 'yes']
+                ]
         );
         $this->add_control(
-            $id . '-vertical',
-            $data,
-            [
-                'label' => __('Vertical', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 0,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => -50,
-                        'max' => 100,
-                        'step' => 1,
+                $id . '-vertical',
+                $data,
+                [
+                    'label' => __('Vertical', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
                     ],
-                ],
-                'custom' => $id . '|||||box-shadow',
-                $selectorvalue => '{{VALUE}}',
-                $selector_key => $selector,
-                'render' => FALSE,
-                'condition' => [$id . '-shadow' => 'yes']
-            ]
+                    'range' => [
+                        'px' => [
+                            'min' => -50,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    'custom' => $id . '|||||box-shadow',
+                    $selectorvalue => '{{VALUE}}',
+                    $selector_key => $selector,
+                    'render' => FALSE,
+                    'condition' => [$id . '-shadow' => 'yes']
+                ]
         );
         $this->add_control(
-            $id . '-blur',
-            $data,
-            [
-                'label' => __('Blur', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 0,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                        'step' => 1,
+                $id . '-blur',
+                $data,
+                [
+                    'label' => __('Blur', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
                     ],
-                ],
-                'custom' => $id . '|||||box-shadow',
-                $selectorvalue => '{{VALUE}}',
-                $selector_key => $selector,
-                'render' => FALSE,
-                'condition' => [$id . '-shadow' => 'yes']
-            ]
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    'custom' => $id . '|||||box-shadow',
+                    $selectorvalue => '{{VALUE}}',
+                    $selector_key => $selector,
+                    'render' => FALSE,
+                    'condition' => [$id . '-shadow' => 'yes']
+                ]
         );
         $this->add_control(
-            $id . '-spread',
-            $data,
-            [
-                'label' => __('Spread', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 0,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => -50,
-                        'max' => 100,
-                        'step' => 1,
+                $id . '-spread',
+                $data,
+                [
+                    'label' => __('Spread', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
                     ],
-                ],
-                'custom' => $id . '|||||box-shadow',
-                $selectorvalue => '{{VALUE}}',
-                $selector_key => $selector,
-                'render' => FALSE,
-                'condition' => [$id . '-shadow' => 'yes']
-            ]
+                    'range' => [
+                        'px' => [
+                            'min' => -50,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    'custom' => $id . '|||||box-shadow',
+                    $selectorvalue => '{{VALUE}}',
+                    $selector_key => $selector,
+                    'render' => FALSE,
+                    'condition' => [$id . '-shadow' => 'yes']
+                ]
         );
         $this->add_control(
-            $id . '-color',
-            $data,
-            [
-                'label' => __('Color', OXI_TABS_TEXTDOMAIN),
-                'separator' => TRUE,
-                'type' => Controls::COLOR,
-                'oparetor' => 'RGB',
-                'default' => '#CCC',
-                'custom' => $id . '|||||box-shadow',
-                $selectorvalue => '{{VALUE}}',
-                $selector_key => $selector,
-                'render' => FALSE,
-                'condition' => [$id . '-shadow' => 'yes']
-            ]
+                $id . '-color',
+                $data,
+                [
+                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+                    'separator' => TRUE,
+                    'type' => Controls::COLOR,
+                    'oparetor' => 'RGB',
+                    'default' => '#CCC',
+                    'custom' => $id . '|||||box-shadow',
+                    $selectorvalue => '{{VALUE}}',
+                    $selector_key => $selector,
+                    'render' => FALSE,
+                    'condition' => [$id . '-shadow' => 'yes']
+                ]
         );
         $this->end_popover_control();
     }
 
     /*
      * Oxi Tabs Style Admin Panel Text Shadow .
-     * 
+     *
      * @since 3.3.0
      * Only Works at Customizable Options
      */
 
-    public function textshadow_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function textshadow_admin_group_control($id, array $data = [], array $arg = []) {
 
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         $cond = $condition = $textshadow = '';
@@ -1691,98 +1607,98 @@ trait Sanitization
             }
         endif;
         $this->start_popover_control(
-            $id,
-            [
-                'label' => __('Text Shadow', OXI_TABS_TEXTDOMAIN),
-                $cond => $condition,
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                'separator' => $separator,
-                'description' => $arg['description'],
-            ]
+                $id,
+                [
+                    'label' => __('Text Shadow', OXI_TABS_TEXTDOMAIN),
+                    $cond => $condition,
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    'separator' => $separator,
+                    'description' => $arg['description'],
+                ]
         );
         $this->add_control(
-            $id . '-color',
-            $data,
-            [
-                'label' => __('Color', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::COLOR,
-                'oparetor' => 'RGB',
-                'default' => '#FFF',
-                'custom' => $id . '|||||text-shadow',
-                $selectorvalue => '{{VALUE}}',
-                $selector_key => $selector,
-                'render' => FALSE,
-            ]
+                $id . '-color',
+                $data,
+                [
+                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::COLOR,
+                    'oparetor' => 'RGB',
+                    'default' => '#FFF',
+                    'custom' => $id . '|||||text-shadow',
+                    $selectorvalue => '{{VALUE}}',
+                    $selector_key => $selector,
+                    'render' => FALSE,
+                ]
         );
         $this->add_control(
-            $id . '-blur',
-            $data,
-            [
-                'label' => __('Blur', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'separator' => TRUE,
-                'custom' => $id . '|||||text-shadow',
-                'render' => FALSE,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 0,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => -50,
-                        'max' => 100,
-                        'step' => 1,
+                $id . '-blur',
+                $data,
+                [
+                    'label' => __('Blur', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'separator' => TRUE,
+                    'custom' => $id . '|||||text-shadow',
+                    'render' => FALSE,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
                     ],
-                ],
-                $selectorvalue => '{{VALUE}}',
-                $selector_key => $selector
-            ]
+                    'range' => [
+                        'px' => [
+                            'min' => -50,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    $selectorvalue => '{{VALUE}}',
+                    $selector_key => $selector
+                ]
         );
         $this->add_control(
-            $id . '-horizontal',
-            $data,
-            [
-                'label' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'custom' => $id . '|||||text-shadow',
-                'render' => FALSE,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 0,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => -50,
-                        'max' => 100,
-                        'step' => 1,
+                $id . '-horizontal',
+                $data,
+                [
+                    'label' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'custom' => $id . '|||||text-shadow',
+                    'render' => FALSE,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
                     ],
-                ],
-                $selectorvalue => '{{VALUE}}',
-                $selector_key => $selector
-            ]
+                    'range' => [
+                        'px' => [
+                            'min' => -50,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    $selectorvalue => '{{VALUE}}',
+                    $selector_key => $selector
+                ]
         );
         $this->add_control(
-            $id . '-vertical',
-            $data,
-            [
-                'label' => __('Vertical', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'custom' => $id . '|||||text-shadow',
-                'render' => FALSE,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 0,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => -50,
-                        'max' => 100,
-                        'step' => 1,
+                $id . '-vertical',
+                $data,
+                [
+                    'label' => __('Vertical', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'custom' => $id . '|||||text-shadow',
+                    'render' => FALSE,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
                     ],
-                ],
-                $selectorvalue => '{{VALUE}}',
-                $selector_key => $selector
-            ]
+                    'range' => [
+                        'px' => [
+                            'min' => -50,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    $selectorvalue => '{{VALUE}}',
+                    $selector_key => $selector
+                ]
         );
 
         $this->end_popover_control();
@@ -1790,14 +1706,13 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Text Shadow .
-     * 
+     *
      * @since 3.3.0
-     * 
+     *
      * Simple Interface Enable
      */
 
-    public function animation_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function animation_admin_group_control($id, array $data = [], array $arg = []) {
         $cond = $condition = '';
         if (array_key_exists('condition', $arg)) :
             $cond = 'condition';
@@ -1806,185 +1721,184 @@ trait Sanitization
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
 
         $this->start_popover_control(
-            $id,
-            [
-                'label' => __('Animation', OXI_TABS_TEXTDOMAIN),
-                $cond => $condition,
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                'separator' => $separator,
-                'simpledescription' => 'Customize how long your animation will works',
-                'description' => 'Customize animation with animation type, Animation Duration with Delay and Looping Options',
-            ]
+                $id,
+                [
+                    'label' => __('Animation', OXI_TABS_TEXTDOMAIN),
+                    $cond => $condition,
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    'separator' => $separator,
+                    'simpledescription' => 'Customize how long your animation will works',
+                    'description' => 'Customize animation with animation type, Animation Duration with Delay and Looping Options',
+                ]
         );
         $this->add_control(
-            $id . '-type',
-            $data,
-            [
-                'label' => __('Type', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => '',
-                'options' => [
-                    'optgroup0' => [true, 'Attention Seekers'],
-                    '' => __('None', OXI_TABS_TEXTDOMAIN),
-                    'optgroup1' => [false],
-                    'optgroup2' => [true, 'Attention Seekers'],
-                    'bounce' => __('Bounce', OXI_TABS_TEXTDOMAIN),
-                    'flash' => __('Flash', OXI_TABS_TEXTDOMAIN),
-                    'pulse' => __('Pulse', OXI_TABS_TEXTDOMAIN),
-                    'rubberBand' => __('RubberBand', OXI_TABS_TEXTDOMAIN),
-                    'shake' => __('Shake', OXI_TABS_TEXTDOMAIN),
-                    'swing' => __('Swing', OXI_TABS_TEXTDOMAIN),
-                    'tada' => __('Tada', OXI_TABS_TEXTDOMAIN),
-                    'wobble' => __('Wobble', OXI_TABS_TEXTDOMAIN),
-                    'jello' => __('Jello', OXI_TABS_TEXTDOMAIN),
-                    'optgroup3' => [false],
-                    'optgroup4' => [true, 'Bouncing Entrances'],
-                    'bounceIn' => __('BounceIn', OXI_TABS_TEXTDOMAIN),
-                    'bounceInDown' => __('BounceInDown', OXI_TABS_TEXTDOMAIN),
-                    'bounceInLeft' => __('BounceInLeft', OXI_TABS_TEXTDOMAIN),
-                    'bounceInRight' => __('BounceInRight', OXI_TABS_TEXTDOMAIN),
-                    'bounceInUp' => __('BounceInUp', OXI_TABS_TEXTDOMAIN),
-                    'optgroup5' => [false],
-                    'optgroup6' => [true, 'Fading Entrances'],
-                    'fadeIn' => __('FadeIn', OXI_TABS_TEXTDOMAIN),
-                    'fadeInDown' => __('FadeInDown', OXI_TABS_TEXTDOMAIN),
-                    'fadeInDownBig' => __('FadeInDownBig', OXI_TABS_TEXTDOMAIN),
-                    'fadeInLeft' => __('FadeInLeft', OXI_TABS_TEXTDOMAIN),
-                    'fadeInLeftBig' => __('FadeInLeftBig', OXI_TABS_TEXTDOMAIN),
-                    'fadeInRight' => __('FadeInRight', OXI_TABS_TEXTDOMAIN),
-                    'fadeInRightBig' => __('FadeInRightBig', OXI_TABS_TEXTDOMAIN),
-                    'fadeInUp' => __('FadeInUp', OXI_TABS_TEXTDOMAIN),
-                    'fadeInUpBig' => __('FadeInUpBig', OXI_TABS_TEXTDOMAIN),
-                    'optgroup7' => [false],
-                    'optgroup8' => [true, 'Flippers'],
-                    'flip' => __('Flip', OXI_TABS_TEXTDOMAIN),
-                    'flipInX' => __('FlipInX', OXI_TABS_TEXTDOMAIN),
-                    'flipInY' => __('FlipInY', OXI_TABS_TEXTDOMAIN),
-                    'optgroup9' => [false],
-                    'optgroup10' => [true, 'Lightspeed'],
-                    'lightSpeedIn' => __('LightSpeedIn', OXI_TABS_TEXTDOMAIN),
-                    'optgroup11' => [false],
-                    'optgroup12' => [true, 'Rotating Entrances'],
-                    'rotateIn' => __('RotateIn', OXI_TABS_TEXTDOMAIN),
-                    'rotateInDownLeft' => __('RotateInDownLeft', OXI_TABS_TEXTDOMAIN),
-                    'rotateInDownRight' => __('RotateInDownRight', OXI_TABS_TEXTDOMAIN),
-                    'rotateInUpLeft' => __('RotateInUpLeft', OXI_TABS_TEXTDOMAIN),
-                    'rotateInUpRight' => __('RotateInUpRight', OXI_TABS_TEXTDOMAIN),
-                    'optgroup13' => [false],
-                    'optgroup14' => [true, 'Sliding Entrances'],
-                    'slideInUp' => __('SlideInUp', OXI_TABS_TEXTDOMAIN),
-                    'slideInDown' => __('SlideInDown', OXI_TABS_TEXTDOMAIN),
-                    'slideInLeft' => __('SlideInLeft', OXI_TABS_TEXTDOMAIN),
-                    'slideInRight' => __('SlideInRight', OXI_TABS_TEXTDOMAIN),
-                    'optgroup15' => [false],
-                    'optgroup16' => [true, 'Zoom Entrances'],
-                    'zoomIn' => __('ZoomIn', OXI_TABS_TEXTDOMAIN),
-                    'zoomInDown' => __('ZoomInDown', OXI_TABS_TEXTDOMAIN),
-                    'zoomInLeft' => __('ZoomInLeft', OXI_TABS_TEXTDOMAIN),
-                    'zoomInRight' => __('ZoomInRight', OXI_TABS_TEXTDOMAIN),
-                    'zoomInUp' => __('ZoomInUp', OXI_TABS_TEXTDOMAIN),
-                    'optgroup17' => [false],
-                    'optgroup18' => [true, 'Specials'],
-                    'hinge' => __('Hinge', OXI_TABS_TEXTDOMAIN),
-                    'rollIn' => __('RollIn', OXI_TABS_TEXTDOMAIN),
-                    'optgroup19' => [false],
-                ],
-            ]
-        );
-        $this->add_control(
-            $id . '-duration',
-            $data,
-            [
-                'label' => __('Duration (ms)', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 1000,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => 00,
-                        'max' => 10000,
-                        'step' => 100,
+                $id . '-type',
+                $data,
+                [
+                    'label' => __('Type', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => '',
+                    'options' => [
+                        'optgroup0' => [true, 'Attention Seekers'],
+                        '' => __('None', OXI_TABS_TEXTDOMAIN),
+                        'optgroup1' => [false],
+                        'optgroup2' => [true, 'Attention Seekers'],
+                        'bounce' => __('Bounce', OXI_TABS_TEXTDOMAIN),
+                        'flash' => __('Flash', OXI_TABS_TEXTDOMAIN),
+                        'pulse' => __('Pulse', OXI_TABS_TEXTDOMAIN),
+                        'rubberBand' => __('RubberBand', OXI_TABS_TEXTDOMAIN),
+                        'shake' => __('Shake', OXI_TABS_TEXTDOMAIN),
+                        'swing' => __('Swing', OXI_TABS_TEXTDOMAIN),
+                        'tada' => __('Tada', OXI_TABS_TEXTDOMAIN),
+                        'wobble' => __('Wobble', OXI_TABS_TEXTDOMAIN),
+                        'jello' => __('Jello', OXI_TABS_TEXTDOMAIN),
+                        'optgroup3' => [false],
+                        'optgroup4' => [true, 'Bouncing Entrances'],
+                        'bounceIn' => __('BounceIn', OXI_TABS_TEXTDOMAIN),
+                        'bounceInDown' => __('BounceInDown', OXI_TABS_TEXTDOMAIN),
+                        'bounceInLeft' => __('BounceInLeft', OXI_TABS_TEXTDOMAIN),
+                        'bounceInRight' => __('BounceInRight', OXI_TABS_TEXTDOMAIN),
+                        'bounceInUp' => __('BounceInUp', OXI_TABS_TEXTDOMAIN),
+                        'optgroup5' => [false],
+                        'optgroup6' => [true, 'Fading Entrances'],
+                        'fadeIn' => __('FadeIn', OXI_TABS_TEXTDOMAIN),
+                        'fadeInDown' => __('FadeInDown', OXI_TABS_TEXTDOMAIN),
+                        'fadeInDownBig' => __('FadeInDownBig', OXI_TABS_TEXTDOMAIN),
+                        'fadeInLeft' => __('FadeInLeft', OXI_TABS_TEXTDOMAIN),
+                        'fadeInLeftBig' => __('FadeInLeftBig', OXI_TABS_TEXTDOMAIN),
+                        'fadeInRight' => __('FadeInRight', OXI_TABS_TEXTDOMAIN),
+                        'fadeInRightBig' => __('FadeInRightBig', OXI_TABS_TEXTDOMAIN),
+                        'fadeInUp' => __('FadeInUp', OXI_TABS_TEXTDOMAIN),
+                        'fadeInUpBig' => __('FadeInUpBig', OXI_TABS_TEXTDOMAIN),
+                        'optgroup7' => [false],
+                        'optgroup8' => [true, 'Flippers'],
+                        'flip' => __('Flip', OXI_TABS_TEXTDOMAIN),
+                        'flipInX' => __('FlipInX', OXI_TABS_TEXTDOMAIN),
+                        'flipInY' => __('FlipInY', OXI_TABS_TEXTDOMAIN),
+                        'optgroup9' => [false],
+                        'optgroup10' => [true, 'Lightspeed'],
+                        'lightSpeedIn' => __('LightSpeedIn', OXI_TABS_TEXTDOMAIN),
+                        'optgroup11' => [false],
+                        'optgroup12' => [true, 'Rotating Entrances'],
+                        'rotateIn' => __('RotateIn', OXI_TABS_TEXTDOMAIN),
+                        'rotateInDownLeft' => __('RotateInDownLeft', OXI_TABS_TEXTDOMAIN),
+                        'rotateInDownRight' => __('RotateInDownRight', OXI_TABS_TEXTDOMAIN),
+                        'rotateInUpLeft' => __('RotateInUpLeft', OXI_TABS_TEXTDOMAIN),
+                        'rotateInUpRight' => __('RotateInUpRight', OXI_TABS_TEXTDOMAIN),
+                        'optgroup13' => [false],
+                        'optgroup14' => [true, 'Sliding Entrances'],
+                        'slideInUp' => __('SlideInUp', OXI_TABS_TEXTDOMAIN),
+                        'slideInDown' => __('SlideInDown', OXI_TABS_TEXTDOMAIN),
+                        'slideInLeft' => __('SlideInLeft', OXI_TABS_TEXTDOMAIN),
+                        'slideInRight' => __('SlideInRight', OXI_TABS_TEXTDOMAIN),
+                        'optgroup15' => [false],
+                        'optgroup16' => [true, 'Zoom Entrances'],
+                        'zoomIn' => __('ZoomIn', OXI_TABS_TEXTDOMAIN),
+                        'zoomInDown' => __('ZoomInDown', OXI_TABS_TEXTDOMAIN),
+                        'zoomInLeft' => __('ZoomInLeft', OXI_TABS_TEXTDOMAIN),
+                        'zoomInRight' => __('ZoomInRight', OXI_TABS_TEXTDOMAIN),
+                        'zoomInUp' => __('ZoomInUp', OXI_TABS_TEXTDOMAIN),
+                        'optgroup17' => [false],
+                        'optgroup18' => [true, 'Specials'],
+                        'hinge' => __('Hinge', OXI_TABS_TEXTDOMAIN),
+                        'rollIn' => __('RollIn', OXI_TABS_TEXTDOMAIN),
+                        'optgroup19' => [false],
                     ],
-                ],
-                'condition' => [
-                    $id . '-type' => 'EMPTY',
-                ],
-            ]
+                ]
         );
         $this->add_control(
-            $id . '-delay',
-            $data,
-            [
-                'label' => __('Delay (ms)', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 0,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => 00,
-                        'max' => 10000,
-                        'step' => 100,
+                $id . '-duration',
+                $data,
+                [
+                    'label' => __('Duration (ms)', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 1000,
                     ],
-                ],
-                'condition' => [
-                    $id . '-type' => 'EMPTY',
-                ],
-            ]
-        );
-        $this->add_control(
-            $id . '-offset',
-            $data,
-            [
-                'label' => __('Offset', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 100,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                        'step' => 1,
+                    'range' => [
+                        'px' => [
+                            'min' => 00,
+                            'max' => 10000,
+                            'step' => 100,
+                        ],
                     ],
-                ],
-                'condition' => [
-                    $id . '-type' => 'EMPTY',
-                ],
-            ]
+                    'condition' => [
+                        $id . '-type' => 'EMPTY',
+                    ],
+                ]
         );
         $this->add_control(
-            $id . '-looping',
-            $data,
-            [
-                'label' => __('Looping', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SWITCHER,
-                'default' => '',
-                'loader' => TRUE,
-                'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
-                'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
-                'return_value' => 'yes',
-                'condition' => [
-                    $id . '-type' => 'EMPTY',
-                ],
-            ]
+                $id . '-delay',
+                $data,
+                [
+                    'label' => __('Delay (ms)', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 0,
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 00,
+                            'max' => 10000,
+                            'step' => 100,
+                        ],
+                    ],
+                    'condition' => [
+                        $id . '-type' => 'EMPTY',
+                    ],
+                ]
+        );
+        $this->add_control(
+                $id . '-offset',
+                $data,
+                [
+                    'label' => __('Offset', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 100,
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                    ],
+                    'condition' => [
+                        $id . '-type' => 'EMPTY',
+                    ],
+                ]
+        );
+        $this->add_control(
+                $id . '-looping',
+                $data,
+                [
+                    'label' => __('Looping', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SWITCHER,
+                    'default' => '',
+                    'loader' => TRUE,
+                    'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
+                    'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                    'condition' => [
+                        $id . '-type' => 'EMPTY',
+                    ],
+                ]
         );
         $this->end_popover_control();
     }
 
     /*
      * Oxi Tabs Style Admin Panel Border .
-     * 
+     *
      * @since 3.3.0
      * Complete Simple Version
      */
 
-    public function border_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function border_admin_group_control($id, array $data = [], array $arg = []) {
         $cond = $condition = '';
         if (array_key_exists('condition', $arg)) :
             $cond = 'condition';
@@ -2015,98 +1929,97 @@ trait Sanitization
         endif;
 
         $this->start_popover_control(
-            $id,
-            [
-                'label' => __('Border', OXI_TABS_TEXTDOMAIN),
-                $cond => $condition,
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                'separator' => $separator,
-                'description' => $arg['description'],
-            ]
+                $id,
+                [
+                    'label' => __('Border', OXI_TABS_TEXTDOMAIN),
+                    $cond => $condition,
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    'separator' => $separator,
+                    'description' => $arg['description'],
+                ]
         );
 
         $this->add_control(
-            $id . '-type',
-            $data,
-            [
-                'label' => __('Type', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => '',
-                'options' => [
-                    '' => __('None', OXI_TABS_TEXTDOMAIN),
-                    'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
-                    'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
-                    'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
-                    'double' => __('Double', OXI_TABS_TEXTDOMAIN),
-                    'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
-                    'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
-                    'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
-                    'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
-                    'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
-                ],
-                $loader => $loadervalue,
-                $selectorvalue => 'border-style: {{VALUE}};',
-                $selector_key => $selector,
-            ]
+                $id . '-type',
+                $data,
+                [
+                    'label' => __('Type', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => '',
+                    'options' => [
+                        '' => __('None', OXI_TABS_TEXTDOMAIN),
+                        'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
+                        'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
+                        'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
+                        'double' => __('Double', OXI_TABS_TEXTDOMAIN),
+                        'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
+                        'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
+                        'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
+                        'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
+                        'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    $loader => $loadervalue,
+                    $selectorvalue => 'border-style: {{VALUE}};',
+                    $selector_key => $selector,
+                ]
         );
         $this->add_responsive_control(
-            $id . '-width',
-            $data,
-            [
-                'label' => __('Width', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::DIMENSIONS,
-                $render => FALSE,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => '',
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 100,
-                        'step' => 1,
+                $id . '-width',
+                $data,
+                [
+                    'label' => __('Width', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::DIMENSIONS,
+                    $render => FALSE,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => '',
                     ],
-                    'em' => [
-                        'min' => 0,
-                        'max' => 10,
-                        'step' => 0.01,
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        'em' => [
+                            'min' => 0,
+                            'max' => 10,
+                            'step' => 0.01,
+                        ],
                     ],
-                ],
-                'condition' => [
-                    $id . '-type' => 'EMPTY',
-                ],
-                $loader => $loadervalue,
-                'selector' => $rn
-            ]
+                    'condition' => [
+                        $id . '-type' => 'EMPTY',
+                    ],
+                    $loader => $loadervalue,
+                    'selector' => $rn
+                ]
         );
         $this->add_control(
-            $id . '-color',
-            $data,
-            [
-                'label' => __('Color', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::COLOR,
-                $render => FALSE,
-                'default' => '#fff',
-                $loader => $loadervalue,
-                $selectorvalue => 'border-color: {{VALUE}};',
-                $selector_key => $selector,
-                'condition' => [
-                    $id . '-type' => 'EMPTY'
-                ],
-            ]
+                $id . '-color',
+                $data,
+                [
+                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::COLOR,
+                    $render => FALSE,
+                    'default' => '#fff',
+                    $loader => $loadervalue,
+                    $selectorvalue => 'border-color: {{VALUE}};',
+                    $selector_key => $selector,
+                    'condition' => [
+                        $id . '-type' => 'EMPTY'
+                    ],
+                ]
         );
         $this->end_popover_control();
     }
 
     /*
      * Oxi Tabs Style Admin Panel Border .
-     * 
+     *
      * @since 3.3.0
      * Complete Simple Version
      */
 
-    public function singleborder_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function singleborder_admin_group_control($id, array $data = [], array $arg = []) {
         //Render Value is {{SIZE}}, {{TYPE}}, {{COLOR}}
         $cond = $condition = '';
         if (array_key_exists('condition', $arg)) :
@@ -2133,90 +2046,89 @@ trait Sanitization
         endif;
 
         $this->start_popover_control(
-            $id,
-            [
-                'label' => $arg['label'],
-                $cond => $condition,
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                'separator' => $separator,
-                'description' => $arg['description'],
-            ],
-            $data
+                $id,
+                [
+                    'label' => $arg['label'],
+                    $cond => $condition,
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    'separator' => $separator,
+                    'description' => $arg['description'],
+                ],
+                $data
         );
         $this->add_control(
-            $id . '-type',
-            $data,
-            [
-                'label' => __('Type', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => '',
-                'options' => [
-                    '' => __('None', OXI_TABS_TEXTDOMAIN),
-                    'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
-                    'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
-                    'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
-                    'double' => __('Double', OXI_TABS_TEXTDOMAIN),
-                    'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
-                    'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
-                    'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
-                    'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
-                    'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
-                ],
-                $loader => $loadervalue,
-                $selector_key => $selector,
-            ]
-        );
-        $this->add_control(
-            $id . '-width',
-            $data,
-            [
-                'label' => __('Size', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SLIDER,
-                'default' => [
-                    'unit' => 'px',
-                    'size' => 1,
-                ],
-                'range' => [
-                    'px' => [
-                        'min' => 0,
-                        'max' => 30,
-                        'step' => 1,
+                $id . '-type',
+                $data,
+                [
+                    'label' => __('Type', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => '',
+                    'options' => [
+                        '' => __('None', OXI_TABS_TEXTDOMAIN),
+                        'solid' => __('Solid', OXI_TABS_TEXTDOMAIN),
+                        'dotted' => __('Dotted', OXI_TABS_TEXTDOMAIN),
+                        'dashed' => __('Dashed', OXI_TABS_TEXTDOMAIN),
+                        'double' => __('Double', OXI_TABS_TEXTDOMAIN),
+                        'groove' => __('Groove', OXI_TABS_TEXTDOMAIN),
+                        'ridge' => __('Ridge', OXI_TABS_TEXTDOMAIN),
+                        'inset' => __('Inset', OXI_TABS_TEXTDOMAIN),
+                        'outset' => __('Outset', OXI_TABS_TEXTDOMAIN),
+                        'hidden' => __('Hidden', OXI_TABS_TEXTDOMAIN),
                     ],
-                ],
-                $loader => $loadervalue,
-                $selector_key => $selector,
-                'condition' => [
-                    $id . '-type' => 'EMPTY',
-                ],
-            ]
+                    $loader => $loadervalue,
+                    $selector_key => $selector,
+                ]
         );
         $this->add_control(
-            $id . '-color',
-            $data,
-            [
-                'label' => __('Color', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::COLOR,
-                $render => FALSE,
-                'default' => '',
-                $loader => $loadervalue,
-                $selector_key => $selector,
-                'condition' => [
-                    $id . '-type' => 'EMPTY',
-                ],
-            ]
+                $id . '-width',
+                $data,
+                [
+                    'label' => __('Size', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => 1,
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 30,
+                            'step' => 1,
+                        ],
+                    ],
+                    $loader => $loadervalue,
+                    $selector_key => $selector,
+                    'condition' => [
+                        $id . '-type' => 'EMPTY',
+                    ],
+                ]
+        );
+        $this->add_control(
+                $id . '-color',
+                $data,
+                [
+                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::COLOR,
+                    $render => FALSE,
+                    'default' => '',
+                    $loader => $loadervalue,
+                    $selector_key => $selector,
+                    'condition' => [
+                        $id . '-type' => 'EMPTY',
+                    ],
+                ]
         );
         $this->end_popover_control();
     }
 
     /*
      * Oxi Tabs Style Admin Panel Background .
-     * 
+     *
      * @since 3.3.0
      * Simple Interface Enable
      */
 
-    public function background_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function background_admin_group_control($id, array $data = [], array $arg = []) {
 
         $backround = '';
         $render = FALSE;
@@ -2256,201 +2168,200 @@ trait Sanitization
         endif;
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         $this->start_popover_control(
-            $id,
-            [
-                'label' => __('Background', OXI_TABS_TEXTDOMAIN),
-                'condition' => array_key_exists('condition', $arg) ? $arg['condition'] : '',
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                'separator' => $separator,
-                'simpledescription' => $arg['simpledescription'],
-                'description' => $arg['description'],
-            ]
+                $id,
+                [
+                    'label' => __('Background', OXI_TABS_TEXTDOMAIN),
+                    'condition' => array_key_exists('condition', $arg) ? $arg['condition'] : '',
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    'separator' => $separator,
+                    'simpledescription' => $arg['simpledescription'],
+                    'description' => $arg['description'],
+                ]
         );
         $this->add_control(
-            $id . '-color',
-            $data,
-            [
-                'label' => __('Color', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::GRADIENT,
-                'gradient' => $id,
-                'oparetor' => 'RGB',
-                'render' => FALSE,
-                $selectorvalue => '',
-                $selector_key => $selector,
-            ]
+                $id . '-color',
+                $data,
+                [
+                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::GRADIENT,
+                    'gradient' => $id,
+                    'oparetor' => 'RGB',
+                    'render' => FALSE,
+                    $selectorvalue => '',
+                    $selector_key => $selector,
+                ]
         );
 
         $this->add_control(
-            $id . '-img',
-            $data,
-            [
-                'label' => __('Image', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SWITCHER,
-                'loader' => TRUE,
-                'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
-                'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
-                'return_value' => 'yes',
-            ]
+                $id . '-img',
+                $data,
+                [
+                    'label' => __('Image', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SWITCHER,
+                    'loader' => TRUE,
+                    'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
+                    'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                ]
         );
         $this->add_control(
-            $id . '-select',
-            $data,
-            [
-                'label' => __('Photo Source', OXI_TABS_TEXTDOMAIN),
-                'separator' => TRUE,
-                'loader' => TRUE,
-                'type' => Controls::CHOOSE,
-                'default' => 'media-library',
-                'options' => [
-                    'media-library' => [
-                        'title' => __('Media Library', OXI_TABS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-left',
+                $id . '-select',
+                $data,
+                [
+                    'label' => __('Photo Source', OXI_TABS_TEXTDOMAIN),
+                    'separator' => TRUE,
+                    'loader' => TRUE,
+                    'type' => Controls::CHOOSE,
+                    'default' => 'media-library',
+                    'options' => [
+                        'media-library' => [
+                            'title' => __('Media Library', OXI_TABS_TEXTDOMAIN),
+                            'icon' => 'fa fa-align-left',
+                        ],
+                        'custom-url' => [
+                            'title' => __('Custom URL', OXI_TABS_TEXTDOMAIN),
+                            'icon' => 'fa fa-align-center',
+                        ]
                     ],
-                    'custom-url' => [
-                        'title' => __('Custom URL', OXI_TABS_TEXTDOMAIN),
-                        'icon' => 'fa fa-align-center',
-                    ]
-                ],
-                'condition' => [
-                    $id . '-img' => 'yes',
-                ],
-            ]
+                    'condition' => [
+                        $id . '-img' => 'yes',
+                    ],
+                ]
         );
         $this->add_control(
-            $id . '-image',
-            $data,
-            [
-                'label' => __('Image', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::IMAGE,
-                'default' => '',
-                'loader' => TRUE,
-                'condition' => [
-                    $id . '-select' => 'media-library',
-                    $id . '-img' => 'yes',
-                ],
-            ]
+                $id . '-image',
+                $data,
+                [
+                    'label' => __('Image', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::IMAGE,
+                    'default' => '',
+                    'loader' => TRUE,
+                    'condition' => [
+                        $id . '-select' => 'media-library',
+                        $id . '-img' => 'yes',
+                    ],
+                ]
         );
         $this->add_control(
-            $id . '-url',
-            $data,
-            [
-                'label' => __('Image URL', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::TEXT,
-                'default' => '',
-                'loader' => TRUE,
-                'placeholder' => 'www.example.com/image.jpg',
-                'condition' => [
-                    $id . '-select' => 'custom-url',
-                    $id . '-img' => 'yes',
-                ],
-            ]
+                $id . '-url',
+                $data,
+                [
+                    'label' => __('Image URL', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::TEXT,
+                    'default' => '',
+                    'loader' => TRUE,
+                    'placeholder' => 'www.example.com/image.jpg',
+                    'condition' => [
+                        $id . '-select' => 'custom-url',
+                        $id . '-img' => 'yes',
+                    ],
+                ]
         );
         $this->add_control(
-            $id . '-position',
-            $data,
-            [
-                'label' => __('Position', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => 'center center',
-                'render' => $render,
-                'options' => [
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'top left' => __('Top Left', OXI_TABS_TEXTDOMAIN),
-                    'top center' => __('Top Center', OXI_TABS_TEXTDOMAIN),
-                    'top right' => __('Top Right', OXI_TABS_TEXTDOMAIN),
-                    'center left' => __('Center Left', OXI_TABS_TEXTDOMAIN),
-                    'center center' => __('Center Center', OXI_TABS_TEXTDOMAIN),
-                    'center right' => __('Center Right', OXI_TABS_TEXTDOMAIN),
-                    'bottom left' => __('Bottom Left', OXI_TABS_TEXTDOMAIN),
-                    'bottom center' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
-                    'bottom right' => __('Bottom Right', OXI_TABS_TEXTDOMAIN),
-                ],
-                'loader' => TRUE,
-                'condition' => [
-                    $id . '-img' => 'yes',
-                    '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
-                ],
-            ]
+                $id . '-position',
+                $data,
+                [
+                    'label' => __('Position', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => 'center center',
+                    'render' => $render,
+                    'options' => [
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'top left' => __('Top Left', OXI_TABS_TEXTDOMAIN),
+                        'top center' => __('Top Center', OXI_TABS_TEXTDOMAIN),
+                        'top right' => __('Top Right', OXI_TABS_TEXTDOMAIN),
+                        'center left' => __('Center Left', OXI_TABS_TEXTDOMAIN),
+                        'center center' => __('Center Center', OXI_TABS_TEXTDOMAIN),
+                        'center right' => __('Center Right', OXI_TABS_TEXTDOMAIN),
+                        'bottom left' => __('Bottom Left', OXI_TABS_TEXTDOMAIN),
+                        'bottom center' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
+                        'bottom right' => __('Bottom Right', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'loader' => TRUE,
+                    'condition' => [
+                        $id . '-img' => 'yes',
+                        '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
+                    ],
+                ]
         );
         $this->add_control(
-            $id . '-attachment',
-            $data,
-            [
-                'label' => __('Attachment', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => '',
-                'render' => $render,
-                'options' => [
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'scroll' => __('Scroll', OXI_TABS_TEXTDOMAIN),
-                    'fixed' => __('Fixed', OXI_TABS_TEXTDOMAIN),
-                ],
-                $loader => $loadervalue,
-                $selectorvalue => 'background-attachment: {{VALUE}};',
-                $selector_key => $selector,
-                'condition' => [
-                    $id . '-img' => 'yes',
-                    '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
-                ],
-            ]
+                $id . '-attachment',
+                $data,
+                [
+                    'label' => __('Attachment', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => '',
+                    'render' => $render,
+                    'options' => [
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'scroll' => __('Scroll', OXI_TABS_TEXTDOMAIN),
+                        'fixed' => __('Fixed', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    $loader => $loadervalue,
+                    $selectorvalue => 'background-attachment: {{VALUE}};',
+                    $selector_key => $selector,
+                    'condition' => [
+                        $id . '-img' => 'yes',
+                        '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
+                    ],
+                ]
         );
         $this->add_control(
-            $id . '-repeat',
-            $data,
-            [
-                'label' => __('Repeat', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => 'no-repeat',
-                'render' => $render,
-                'options' => [
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'no-repeat' => __('No-Repeat', OXI_TABS_TEXTDOMAIN),
-                    'repeat' => __('Repeat', OXI_TABS_TEXTDOMAIN),
-                    'repeat-x' => __('Repeat-x', OXI_TABS_TEXTDOMAIN),
-                    'repeat-y' => __('Repeat-y', OXI_TABS_TEXTDOMAIN),
-                ],
-                'loader' => TRUE,
-                'condition' => [
-                    $id . '-img' => 'yes',
-                    '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
-                ],
-            ]
+                $id . '-repeat',
+                $data,
+                [
+                    'label' => __('Repeat', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => 'no-repeat',
+                    'render' => $render,
+                    'options' => [
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'no-repeat' => __('No-Repeat', OXI_TABS_TEXTDOMAIN),
+                        'repeat' => __('Repeat', OXI_TABS_TEXTDOMAIN),
+                        'repeat-x' => __('Repeat-x', OXI_TABS_TEXTDOMAIN),
+                        'repeat-y' => __('Repeat-y', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'loader' => TRUE,
+                    'condition' => [
+                        $id . '-img' => 'yes',
+                        '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
+                    ],
+                ]
         );
         $this->add_responsive_control(
-            $id . '-size',
-            $data,
-            [
-                'label' => __('Size', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => 'cover',
-                'render' => $render,
-                'options' => [
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'auto' => __('Auto', OXI_TABS_TEXTDOMAIN),
-                    'cover' => __('Cover', OXI_TABS_TEXTDOMAIN),
-                    'contain' => __('Contain', OXI_TABS_TEXTDOMAIN),
-                ],
-                $loader => $loadervalue,
-                $selectorvalue => 'background-size: {{VALUE}};',
-                $selector_key => $selector,
-                'condition' => [
-                    $id . '-img' => 'yes',
-                    '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
-                ],
-            ]
+                $id . '-size',
+                $data,
+                [
+                    'label' => __('Size', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => 'cover',
+                    'render' => $render,
+                    'options' => [
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'auto' => __('Auto', OXI_TABS_TEXTDOMAIN),
+                        'cover' => __('Cover', OXI_TABS_TEXTDOMAIN),
+                        'contain' => __('Contain', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    $loader => $loadervalue,
+                    $selectorvalue => 'background-size: {{VALUE}};',
+                    $selector_key => $selector,
+                    'condition' => [
+                        $id . '-img' => 'yes',
+                        '((' . $id . '-select === \'media-library\' && ' . $id . '-image !== \'\') || (' . $id . '-select === \'custom-url\' && ' . $id . '-url !== \'\'))' => 'COMPILED',
+                    ],
+                ]
         );
         $this->end_popover_control();
     }
 
     /*
      * Oxi Tabs Style Admin Panel Background .
-     * 
+     *
      * @since 3.3.0
      * Simple Interfaece Enable
      */
 
-    public function url_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function url_admin_group_control($id, array $data = [], array $arg = []) {
         if (array_key_exists('condition', $arg)) :
             $cond = 'condition';
             $condition = $arg['condition'];
@@ -2460,44 +2371,43 @@ trait Sanitization
         $form_condition = array_key_exists('form_condition', $arg) ? $arg['form_condition'] : '';
         $separator = array_key_exists('separator', $arg) ? $arg['separator'] : FALSE;
         $this->add_control(
-            $id . '-url',
-            $data,
-            [
-                'label' => __('Link', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::TEXT,
-                'link' => TRUE,
-                'separator' => $separator,
-                'placeholder' => 'http://www.example.com/',
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                $cond => $condition
-            ]
+                $id . '-url',
+                $data,
+                [
+                    'label' => __('Link', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::TEXT,
+                    'link' => TRUE,
+                    'separator' => $separator,
+                    'placeholder' => 'http://www.example.com/',
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    $cond => $condition
+                ]
         );
         echo '<div class="shortcode-form-control-content shortcode-form-control-content-popover-body">';
 
         $this->add_control(
-            $id . '-target',
-            $data,
-            [
-                'label' => __('New Window?', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SWITCHER,
-                'default' => '',
-                'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
-                'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
-                'return_value' => 'yes',
-            ]
+                $id . '-target',
+                $data,
+                [
+                    'label' => __('New Window?', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SWITCHER,
+                    'default' => '',
+                    'label_on' => __('Yes', OXI_TABS_TEXTDOMAIN),
+                    'label_off' => __('No', OXI_TABS_TEXTDOMAIN),
+                    'return_value' => 'yes',
+                ]
         );
         echo '</div>' . (array_key_exists('description', $arg) ? '<div class="shortcode-form-control-description">' . $arg['description'] . '</div>' : '') . '</div>';
     }
 
     /*
      * Oxi Tabs Style Admin Panel Column Size.
-     * 
+     *
      * @since 3.3.0
      * Complete Simple Interface
      */
 
-    public function column_admin_group_control($id, array $data = [], array $arg = [])
-    {
+    public function column_admin_group_control($id, array $data = [], array $arg = []) {
 
         $selector = array_key_exists('selector', $arg) ? $arg['selector'] : '';
         $select = array_key_exists('selector', $arg) ? 'selector' : '';
@@ -2507,110 +2417,108 @@ trait Sanitization
             $condition = $arg['condition'];
         endif;
         $this->add_control(
-            $lap = $id . '-lap',
-            $data,
-            [
-                'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'responsive' => 'laptop',
-                'description' => $arg['description'],
-                'default' => 'oxi-bt-col-lg-12',
-                'options' => [
-                    'oxi-bt-col-lg-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-lg-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-lg-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-lg-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-lg-5' => __('Col 5', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-lg-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-lg-8' => __('Col 8', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-lg-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
-                ],
-                'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
-                $select => $selector,
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                $cond => $condition
-            ]
+                $lap = $id . '-lap',
+                $data,
+                [
+                    'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'responsive' => 'laptop',
+                    'description' => $arg['description'],
+                    'default' => 'oxi-bt-col-lg-12',
+                    'options' => [
+                        'oxi-bt-col-lg-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-lg-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-lg-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-lg-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-lg-5' => __('Col 5', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-lg-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-lg-8' => __('Col 8', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-lg-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
+                    $select => $selector,
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    $cond => $condition
+                ]
         );
         $this->add_control(
-            $tab = $id . '-tab',
-            $data,
-            [
-                'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'responsive' => 'tab',
-                'default' => 'oxi-bt-col-md-12',
-                'description' => $arg['description'],
-                'options' => [
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-md-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-md-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-md-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-md-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-md-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-md-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
-                ],
-                'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
-                $select => $selector,
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                $cond => $condition
-            ]
+                $tab = $id . '-tab',
+                $data,
+                [
+                    'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'responsive' => 'tab',
+                    'default' => 'oxi-bt-col-md-12',
+                    'description' => $arg['description'],
+                    'options' => [
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-md-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-md-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-md-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-md-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-md-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-md-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
+                    $select => $selector,
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    $cond => $condition
+                ]
         );
         $this->add_control(
-            $mob = $id . '-mob',
-            $data,
-            [
-                'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
-                'type' => Controls::SELECT,
-                'default' => 'oxi-bt-col-lg-12',
-                'responsive' => 'mobile',
-                'description' => $arg['description'],
-                'options' => [
-                    '' => __('Default', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-sm-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-sm-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-sm-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-sm-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-sm-5' => __('Col 5', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-sm-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
-                    'oxi-bt-col-sm-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
-                ],
-                'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
-                $select => $selector,
-                'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
-                $cond => $condition
-            ]
+                $mob = $id . '-mob',
+                $data,
+                [
+                    'label' => __('Column Size', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => 'oxi-bt-col-lg-12',
+                    'responsive' => 'mobile',
+                    'description' => $arg['description'],
+                    'options' => [
+                        '' => __('Default', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-sm-12' => __('Col 1', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-sm-6' => __('Col 2', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-sm-4' => __('Col 3', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-sm-3' => __('Col 4', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-sm-5' => __('Col 5', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-sm-2' => __('Col 6', OXI_TABS_TEXTDOMAIN),
+                        'oxi-bt-col-sm-1' => __('Col 12', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'description' => 'Define how much column you want to show into single rows. Customize possible with desktop or tab or mobile Settings.',
+                    $select => $selector,
+                    'form_condition' => (array_key_exists('form_condition', $arg) ? $arg['form_condition'] : ''),
+                    $cond => $condition
+                ]
         );
     }
 
     /*
-     * 
-     * 
+     *
+     *
      * Templates Substitute Data
-     * 
-     * 
-     * 
-     * 
+     *
+     *
+     *
+     *
      */
     /*
      * Oxi Tabs Style Admin Panel Template Substitute Control.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function add_substitute_control($id, array $data = [], array $arg = [])
-    {
+    public function add_substitute_control($id, array $data = [], array $arg = []) {
         $fun = $arg['type'] . '_substitute_control';
         echo $this->$fun($id, $data, $arg);
     }
 
     /*
      * Oxi Tabs Style Admin Panel Template Substitute Modal Opener.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function modalopener_substitute_control($id, array $data = [], array $arg = [])
-    {
+    public function modalopener_substitute_control($id, array $data = [], array $arg = []) {
         $default = [
             'showing' => FALSE,
             'title' => 'Add New Items',
@@ -2620,7 +2528,7 @@ trait Sanitization
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         * 
+         *
          */
         echo ' <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
@@ -2636,8 +2544,7 @@ trait Sanitization
                 </div>';
     }
 
-    public function shortcodename_substitute_control($id, array $data = [], array $arg = [])
-    {
+    public function shortcodename_substitute_control($id, array $data = [], array $arg = []) {
         $default = [
             'showing' => FALSE,
             'title' => 'Shortcode Name',
@@ -2647,7 +2554,7 @@ trait Sanitization
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         * 
+         *
          */
         echo ' <div class="oxi-addons-shortcode  shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
@@ -2670,12 +2577,11 @@ trait Sanitization
 
     /*
      * Oxi Tabs Style Admin Panel Template Shortcode Info.
-     * 
+     *
      * @since 3.3.0
      */
 
-    public function shortcodeinfo_substitute_control($id, array $data = [], array $arg = [])
-    {
+    public function shortcodeinfo_substitute_control($id, array $data = [], array $arg = []) {
         $default = [
             'showing' => FALSE,
             'title' => 'Shortcode',
@@ -2684,7 +2590,7 @@ trait Sanitization
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         * 
+         *
          */
         echo ' <div class="oxi-addons-shortcode shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                 <div class="oxi-addons-shortcode-heading  shortcode-addons-templates-right-panel-heading">
@@ -2706,8 +2612,7 @@ trait Sanitization
             </div>';
     }
 
-    public function rearrange_substitute_control($id, array $data = [], array $arg = [])
-    {
+    public function rearrange_substitute_control($id, array $data = [], array $arg = []) {
         $default = [
             'showing' => FALSE,
             'title' => 'Tabs Rearrange',
@@ -2717,7 +2622,7 @@ trait Sanitization
         /*
          * $arg['title'] = 'Add New Items';
          * $arg['sub-title'] = 'Add New Items 02';
-         * 
+         *
          */
         echo '  <div class="oxi-addons-item-form shortcode-addons-templates-right-panel ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '">
                     <div class="oxi-addons-item-form-heading shortcode-addons-templates-right-panel-heading">
@@ -2762,11 +2667,10 @@ trait Sanitization
     }
 
     /**
-     * font settings sanitize 
+     * font settings sanitize
      * works at layouts page to adding font Settings sanitize
      */
-    public function AdminTextSenitize($data)
-    {
+    public function AdminTextSenitize($data) {
         $data = str_replace('\\\\"', '&quot;', $data);
         $data = str_replace('\\\"', '&quot;', $data);
         $data = str_replace('\\"', '&quot;', $data);
@@ -2790,4 +2694,45 @@ trait Sanitization
         $data = sanitize_text_field($data);
         return $data;
     }
+
+    /*
+     * Oxi Tabs Style Admin Panel header
+     *
+     * @since 3.3.0
+     */
+
+    public function start_section_header($id, array $arg = []) {
+        echo '<ul class="oxi-addons-tabs-ul">   ';
+        foreach ($arg['options'] as $key => $value) {
+            echo '<li ref="#shortcode-addons-section-' . $key . '">' . $value . '</li>';
+        }
+        echo '</ul>';
+    }
+
+    /*
+     * Oxi Tabs Style Admin Panel Body
+     *
+     * @since 3.3.0
+     */
+
+    public function start_section_tabs($id, array $arg = []) {
+        echo '<div class="oxi-addons-tabs-content-tabs" id="shortcode-addons-section-';
+        if (array_key_exists('condition', $arg)) :
+            foreach ($arg['condition'] as $value) {
+                echo $value;
+            }
+        endif;
+        echo '"  ' . (array_key_exists('padding', $arg) ? 'style="padding: ' . $arg['padding'] . '"' : '') . '>';
+    }
+
+    /*
+     * Oxi Tabs Style Admin Panel end Body
+     *
+     * @since 3.3.0
+     */
+
+    public function end_section_tabs() {
+        echo '</div>';
+    }
+
 }

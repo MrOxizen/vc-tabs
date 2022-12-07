@@ -5,7 +5,7 @@ namespace OXI_TABS_PLUGINS\Render;
 /**
  * Render Core Class
  *
- * 
+ *
  * @author biplob018
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0
@@ -196,7 +196,7 @@ class Render {
             $CLASS = new $cls('admin');
             $inlinecss .= $CLASS->inline_template_css_render($this->style);
         } else {
-            echo $this->font_familly_validation(json_decode(($this->dbdata['font_family'] != '' ? $this->dbdata['font_family'] : "[]"), true));
+            $this->font_familly_validation(json_decode(($this->dbdata['font_family'] != '' ? $this->dbdata['font_family'] : "[]"), true));
             $inlinecss .= $this->CSSDATA;
         }
         if ($inlinejs != '') :
@@ -388,9 +388,9 @@ class Render {
                 $url = $style[$id . '-url'];
             endif;
             if (array_key_exists($id . '-image-alt', $style) && $style[$id . '-image-alt'] != '') :
-                $r = 'src="' . $url . '" alt="' . $style[$id . '-image-alt'] . '" ';
+                $r = 'src="' . esc_url($url) . '" alt="' . esc_attr($style[$id . '-image-alt']) . '" ';
             else :
-                $r = 'src="' . $url . '" ';
+                $r = 'src="' . esc_url($url) . '" ';
             endif;
             return $r;
         endif;
@@ -669,7 +669,7 @@ class Render {
         $data = str_replace("\'", "'", $data);
         $data = str_replace('\"', '"', $data);
         $data = do_shortcode($data, $ignore_html = false);
-        return $data;
+        return wp_kses_post($data);
     }
 
     public function header_responsive_static_render($style = [], $ids = []) {
@@ -731,7 +731,7 @@ class Render {
         if ($fadata != 'no') :
             wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
         endif;
-        $files = '<i class="' . $data . ' oxi-icons"></i>';
+        $files = '<i class="' . esc_attr($data) . ' oxi-icons"></i>';
         return $files;
     }
 

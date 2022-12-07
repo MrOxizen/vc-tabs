@@ -8,37 +8,6 @@ namespace OXI_TABS_PLUGINS\Helper;
  */
 trait CSS_JS_Loader {
 
-    public function admin_css() {
-        $this->loader_font_familly_validation(['Bree+Serif', 'Source+Sans+Pro']);
-        wp_enqueue_style('oxilab-tabs-bootstrap', OXI_TABS_URL . 'assets/backend/css/bootstrap.min.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_style('oxilab-admin-css', OXI_TABS_URL . 'assets/backend/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
-    }
-
-    public function admin_js() {
-        wp_enqueue_script("jquery");
-        wp_enqueue_script('oxilab-popper', OXI_TABS_URL . 'assets/backend/js/popper.min.js', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('oxilab-bootstrap', OXI_TABS_URL . 'assets/backend/js/bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('jquery.serializejson.min', OXI_TABS_URL . 'assets/backend/js/jquery.serializejson.min.js', false, OXI_TABS_PLUGIN_VERSION);
-        wp_localize_script('oxilab-bootstrap', 'oxilabtabsultimate', array(
-            'root' => esc_url_raw(rest_url()),
-            'nonce' => wp_create_nonce('wp_rest')
-        ));
-    }
-
-    public function admin_home() {
-        wp_enqueue_script("jquery");
-        wp_enqueue_script('jquery-ui-core');
-        wp_enqueue_script('jquery-ui-widget');
-        wp_enqueue_script('jquery-ui-mouse');
-        wp_enqueue_script('jquery-ui-accordion');
-        wp_enqueue_script('jquery-ui-autocomplete');
-        wp_enqueue_script('jquery-ui-slider');
-        wp_enqueue_script('jquery-ui-draggable');
-        wp_enqueue_script('jquery.dataTables.min', OXI_TABS_URL . 'assets/backend/js/jquery.dataTables.min.js', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('dataTables.bootstrap.min', OXI_TABS_URL . 'assets/backend/js/dataTables.bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
-    }
-
     public function admin_elements_frontend_loader() {
         $this->admin_css_loader();
         wp_enqueue_script("jquery");
@@ -71,12 +40,12 @@ trait CSS_JS_Loader {
     /**
      * Admin Media Scripts.
      * Most of time using into Style Editing Page
-     * 
+     *
      * @since 9.3.0
      */
     public function admin_media_scripts() {
         wp_enqueue_media();
-        wp_register_script('oxi-tabs_media_scripts', OXI_TABS_URL . '/assets/backend/custom/media-uploader.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_register_script('oxi-tabs_media_scripts', OXI_TABS_URL . 'assets/backend/custom/media-uploader.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_enqueue_script('oxi-tabs_media_scripts');
     }
 
@@ -419,7 +388,7 @@ trait CSS_JS_Loader {
                         jQuery(\'.shortcode-addons-family\').fontselect();';
 
         if (apply_filters('oxi-tabs-plugin/pro_version', false) == false):
-            $data .= 'setTimeout(function () {jQuery(".oxi-addons-minicolor").each(function (index, value) {                             
+            $data .= 'setTimeout(function () {jQuery(".oxi-addons-minicolor").each(function (index, value) {
                             jQuery(this).parent().parent().siblings(".shortcode-form-control-title").append(" <span class=\"oxi-pro-only\">Pro Only</span>");
                             var datavalue = jQuery(this).val();
                             jQuery(this).attr("oxilabvalue", datavalue);
@@ -437,6 +406,37 @@ trait CSS_JS_Loader {
         foreach ($data as $value) {
             wp_enqueue_style('' . $value . '', 'https://fonts.googleapis.com/css?family=' . $value . '');
         }
+    }
+
+    public function admin_css() {
+        $this->loader_font_familly_validation(['Bree+Serif', 'Source+Sans+Pro']);
+        wp_enqueue_style('oxilab-tabs-bootstrap', OXI_TABS_URL . 'assets/backend/css/bootstrap.min.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('oxilab-admin-css', OXI_TABS_URL . 'assets/backend/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
+    }
+
+    public function admin_js() {
+        wp_enqueue_script("jquery");
+        wp_enqueue_script('oxilab-popper', OXI_TABS_URL . 'assets/backend/js/popper.min.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxilab-bootstrap', OXI_TABS_URL . 'assets/backend/js/bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('jquery.serializejson.min', OXI_TABS_URL . 'assets/backend/js/jquery.serializejson.min.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_localize_script('oxilab-bootstrap', 'oxilabtabsultimate', array(
+            'root' => esc_url_raw(rest_url()),
+            'nonce' => wp_create_nonce('wp_rest')
+        ));
+    }
+
+    public function admin_home() {
+        wp_enqueue_script("jquery");
+        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui-widget');
+        wp_enqueue_script('jquery-ui-mouse');
+        wp_enqueue_script('jquery-ui-accordion');
+        wp_enqueue_script('jquery-ui-autocomplete');
+        wp_enqueue_script('jquery-ui-slider');
+        wp_enqueue_script('jquery-ui-draggable');
+        wp_enqueue_script('jquery.dataTables.min', OXI_TABS_URL . 'assets/backend/js/jquery.dataTables.min.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('dataTables.bootstrap.min', OXI_TABS_URL . 'assets/backend/js/dataTables.bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
     }
 
 }

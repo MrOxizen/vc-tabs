@@ -8,34 +8,6 @@ namespace OXI_TABS_PLUGINS\Helper;
  */
 trait Public_Helper {
 
-    public function font_familly_charecter($data) {
-        wp_enqueue_style('' . $data . '', 'https://fonts.googleapis.com/css?family=' . $data . '');
-        $data = str_replace('+', ' ', $data);
-        $data = explode(':', $data);
-        $data = $data[0];
-        $data = '"' . $data . '"';
-        return $data;
-    }
-
-    public function admin_special_charecter($data) {
-        $data = html_entity_decode($data);
-        $data = str_replace("\'", "'", $data);
-        $data = str_replace('\"', '"', $data);
-        return $data;
-    }
-
-    public function icon_font_selector($data) {
-        $icon = explode(' ', $data);
-        $fadata = get_option('oxi_addons_font_awesome');
-        $faversion = get_option('oxi_addons_font_awesome_version');
-        $faversion = explode('||', $faversion);
-        if ($fadata != 'no') {
-            wp_enqueue_style('font-awesome-' . $faversion[0], $faversion[1]);
-        }
-        $files = '<i class="' . $data . ' oxi-icons"></i>';
-        return $files;
-    }
-
     public function html_special_charecter($data) {
         $data = html_entity_decode($data);
         $data = str_replace("\'", "'", $data);
@@ -94,6 +66,34 @@ trait Public_Helper {
                 new $cls($style, $child, $user);
             endif;
         endif;
+    }
+
+    public function font_familly_charecter($data) {
+        wp_enqueue_style('' . $data . '', 'https://fonts.googleapis.com/css?family=' . $data . '');
+        $data = str_replace('+', ' ', $data);
+        $data = explode(':', $data);
+        $data = $data[0];
+        $data = '"' . $data . '"';
+        return $data;
+    }
+
+    public function admin_special_charecter($data) {
+        $data = html_entity_decode($data);
+        $data = str_replace("\'", "'", $data);
+        $data = str_replace('\"', '"', $data);
+        return $data;
+    }
+
+    public function icon_font_selector($data) {
+        $icon = explode(' ', $data);
+        $fadata = get_option('oxi_addons_font_awesome');
+        $faversion = get_option('oxi_addons_font_awesome_version');
+        $faversion = explode('||', $faversion);
+        if ($fadata != 'no') {
+            wp_enqueue_style('font-awesome-' . $faversion[0], $faversion[1]);
+        }
+        $files = '<i class="' . $data . ' oxi-icons"></i>';
+        return $files;
     }
 
 }
