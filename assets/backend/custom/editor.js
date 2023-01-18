@@ -9,6 +9,7 @@ jQuery.noConflict();
     var IFRAME = $("#oxi-addons-preview-iframe");
     var IFRAMEBODYCLASS = '.shortcode-addons-template-body';
     var IFRAMETABSWRAPPER = '#oxi-tabs-wrapper-' + styleid;
+
     function NEWRegExp(par = '') {
         return new RegExp(par, "g");
     }
@@ -28,23 +29,32 @@ jQuery.noConflict();
         let result;
         try {
             result = await $.ajax({
-                url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
+                url: oxi_vc_tabs_settings.ajaxurl,
                 method: 'POST',
-
                 data: {
-                    _wpnonce: oxilabtabsultimate.nonce,
+                    action: 'oxi_vc_tabs_settings',
+                    _wpnonce: oxi_vc_tabs_settings.nonce,
+                    functionname: functionname,
                     styleid: styleid,
                     childid: childid,
                     rawdata: rawdata
                 }
             });
-            console.log(result);
-            return callback(result);
+            if (result) {
+                try {
+                    console.log(JSON.parse(result));
+                    return callback(JSON.parse(result));
+                } catch (e) {
+                    console.log(result);
+                    return callback(result)
+                }
+            }
 
         } catch (error) {
             console.error(error);
         }
     }
+
     var WRAPPER = $('#oxi-addons-preview-data').attr('template-wrapper');
     $(".oxi-addons-tabs-ul li:first").addClass("active");
     $(".oxi-addons-tabs-content-tabs:first").addClass("active");
@@ -149,11 +159,13 @@ jQuery.noConflict();
         return $root;
     };
     $('.shortcode-addons-form-toggle [type=radio]').uncheckableRadio();
+
     function PopoverActiveDeactive($_This) {
         $(".shortcode-form-control").not($_This.parents()).removeClass('popover-active');
         $_This.closest(".shortcode-form-control").toggleClass('popover-active');
         event.stopPropagation();
     }
+
     $(document.body).on("click", ".shortcode-form-control-content-popover .shortcode-form-control-input-wrapper", function (event) {
         PopoverActiveDeactive($(this));
     });
@@ -251,6 +263,7 @@ jQuery.noConflict();
         });
         group.height(tallest);
     }
+
     setTimeout(function () {
         oxiequalHeight($(".oxiequalHeight"));
     }, 500);
@@ -270,20 +283,14 @@ jQuery.noConflict();
     }, 500);
 
 
-
-
-
-
-
-
     function OxiAddonsPreviewDataLoader() {
         OxiAddonsTemplateSettings(
-                'elements_template_render_data',
-                JSON.stringify($("#oxi-addons-form-submit").serializeJSON({checkboxUncheckedValue: "0"})),
-                styleid, childid,
-                function (callback) {
-                    document.getElementById('oxi-addons-preview-iframe').src += '';
-                });
+            'elements_template_render_data',
+            JSON.stringify($("#oxi-addons-form-submit").serializeJSON({checkboxUncheckedValue: "0"})),
+            styleid, childid,
+            function (callback) {
+                document.getElementById('oxi-addons-preview-iframe').src += '';
+            });
     }
 
     function OxiAddonsModalConfirm(id, data) {
@@ -294,11 +301,6 @@ jQuery.noConflict();
             $(id).html(data);
         }
     }
-
-
-
-
-
 
 
     $("#addonsstylenamechange").on("click", function (e) {
@@ -457,7 +459,7 @@ jQuery.noConflict();
         setInterval(function () {
             var frame = 'oxi-addons-preview-iframe';
             var actual = document.getElementById(frame).contentWindow.document.body.scrollHeight + 100,
-                    current = $('#' + frame).outerHeight();
+                current = $('#' + frame).outerHeight();
             if ((current < actual)) {
                 $('#' + frame).css('height', actual + 'px');
             }
@@ -550,6 +552,7 @@ jQuery.noConflict();
         // console.log($(id).attr('step'));
 
     });
+
     function ShortCodeMultipleSelector_Handler($value) {
         return $value.replace(/{{[0-9a-zA-Z.?:_-]+}}/g, function (match, contents, offset, input_string) {
             var m = match.replace(/{{/g, "").replace(/}}/g, "");
@@ -567,6 +570,7 @@ jQuery.noConflict();
             return m;
         });
     }
+
     $(document.body).on("keyup", ".shortcode-control-type-text input", function (e) {
         $input = $(this);
         if ($input.attr("retundata") !== '') {
@@ -908,6 +912,7 @@ jQuery.noConflict();
             }
         });
     }
+
     ShortCodeFormSliderINT();
     $(".shortcode-form-slider-input input").on("keyup", function () {
         $input = $(this);

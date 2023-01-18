@@ -13,23 +13,32 @@ jQuery.noConflict();
             let result;
             try {
                 result = await $.ajax({
-                    url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
+                    url: oxi_vc_tabs_settings.ajaxurl,
                     method: 'POST',
-
                     data: {
-                        _wpnonce: oxilabtabsultimate.nonce,
+                        action: 'oxi_vc_tabs_settings',
+                        _wpnonce: oxi_vc_tabs_settings.nonce,
+                        functionname: functionname,
                         styleid: styleid,
                         childid: childid,
                         rawdata: rawdata
                     }
                 });
-                console.log(result);
-                return callback(result);
+                if (result) {
+                    try {
+                        console.log(JSON.parse(result));
+                        return callback(JSON.parse(result));
+                    } catch (e) {
+                        console.log(result);
+                        return callback(result)
+                    }
+                }
 
             } catch (error) {
                 console.error(error);
             }
         }
+
         $(".oxi-addons-addons-js-create").on("click", function (e) {
             e.preventDefault();
             $('#addons-style-name').val('');
@@ -109,8 +118,6 @@ jQuery.noConflict();
             });
 
         });
-
-
 
 
     });

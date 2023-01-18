@@ -4,6 +4,7 @@ jQuery.noConflict();
     var urlParams = new URLSearchParams(window.location.search);
     var styleid = urlParams.get("styleid");
     var childid = "";
+
     function NEWRegExp(par = '') {
         return new RegExp(par, "g");
     }
@@ -15,7 +16,7 @@ jQuery.noConflict();
         return str;
     }
 
-  async function OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, callback) {
+    async function OxiAddonsTemplateSettings(functionname, rawdata, styleid, childid, callback) {
         if (functionname === "") {
             alert('Confirm Function Name');
             return false;
@@ -23,23 +24,32 @@ jQuery.noConflict();
         let result;
         try {
             result = await $.ajax({
-                url: oxilabtabsultimate.root + 'oxilabtabsultimate/v1/' + functionname,
+                url: oxi_vc_tabs_settings.ajaxurl,
                 method: 'POST',
-                
                 data: {
-                       _wpnonce: oxilabtabsultimate.nonce,
+                    action: 'oxi_vc_tabs_settings',
+                    _wpnonce: oxi_vc_tabs_settings.nonce,
+                    functionname: functionname,
                     styleid: styleid,
                     childid: childid,
                     rawdata: rawdata
                 }
             });
-            console.log(result);
-            return callback(result);
+            if (result) {
+                try {
+                    console.log(JSON.parse(result));
+                    return callback(JSON.parse(result));
+                } catch (e) {
+                    console.log(result);
+                    return callback(result)
+                }
+            }
 
         } catch (error) {
             console.error(error);
         }
     }
+
     $("#oxi-addons-rearrange-data-modal-open").on("click", function () {
         var functionname = "elements_older_rearrange_modal_data";
         $("#modal-rearrange-store-file").hide();
