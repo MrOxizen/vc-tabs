@@ -669,7 +669,7 @@ class Render {
         $data = str_replace("\'", "'", $data);
         $data = str_replace('\"', '"', $data);
         $data = do_shortcode($data, $ignore_html = false);
-        return wp_kses_post($data);
+        return $data;
     }
 
     public function header_responsive_static_render($style = [], $ids = []) {
@@ -693,12 +693,12 @@ class Render {
                 $r .= wp_kses_post(apply_filters('woocommerce_product_' . $key . '_tab_title', $tabs['title'], $key));
                 $r .= '</div>';
             else :
-                $r .= '<div class=\'oxi-tabs-main-title\'>' . $this->special_charecter($array[$title]) . '</div>';
+                $r .= '<div class=\'oxi-tabs-main-title\'>' . wp_kses_post($array[$title]) . '</div>';
             endif;
         endif;
         if (!empty($array[$subtitle]) && $array[$subtitle] != '') :
             $t = true;
-            $r .= '<div class=\'oxi-tabs-sub-title\'>' . $this->special_charecter($array[$subtitle]) . '</div>';
+            $r .= '<div class=\'oxi-tabs-sub-title\'>' . wp_kses_post($array[$subtitle]) . '</div>';
         endif;
         $r .= '</div>';
         if ($t) :
