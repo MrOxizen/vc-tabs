@@ -18,7 +18,7 @@ jQuery.noConflict();
             });
         }
         /* Check any btn click for confirm event for tabs*/
-        $(document).on('click', '[id^="oxi-tabs-trigger-"]', function (e) {
+        $(document).on('click tap touchstart', '[id^="oxi-tabs-trigger-"]', function (e) {
             e.preventDefault();
             var wrapper = $(this).attr('id'), explode = wrapper.split("-"), parent = explode[3], child = explode[4];
             OxiTabsController(parent, child);
@@ -54,7 +54,7 @@ jQuery.noConflict();
 
 
         /* Tabs Header Click Data Confirmation*/
-        $(document).on('click', '.oxi-tabs-click-event .oxi-tabs-header-li', function () {
+        $(document).on('click tap touchstart', '.oxi-tabs-click-event .oxi-tabs-header-li', function () {
 
 
             var link = $(this).data("link");
