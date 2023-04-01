@@ -16,41 +16,6 @@ class Support_Recommended {
     public $current_plugins = 'vc-tabs/index.php';
 
     /**
-     * Revoke this function when the object is created.
-     *
-     */
-    public function __construct() {
-        require_once(ABSPATH . 'wp-admin/includes/screen.php');
-        if (!current_user_can('install_plugins')):
-            return;
-        endif;
-        $screen = get_current_screen();
-        if (isset($screen->parent_file) && 'plugins.php' === $screen->parent_file && 'update' === $screen->id) {
-            return;
-        }
-        $this->extension();
-        add_action('admin_notices', array($this, 'first_install'));
-        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
-        add_action('wp_ajax_oxi_tabs_admin_recommended', array($this, 'notice_dissmiss'));
-        add_action('admin_notices', array($this, 'dismiss_button_scripts'));
-    }
-
-    public function extension() {
-        $response = get_transient(self::GET_LOCAL_PLUGINS);
-        if (!$response || !is_array($response)) {
-            $URL = self::PLUGINS;
-            $request = wp_remote_request($URL);
-            if (!is_wp_error($request)) {
-                $response = json_decode(wp_remote_retrieve_body($request), true);
-                set_transient(self::GET_LOCAL_PLUGINS, $response, 10 * DAY_IN_SECONDS);
-            } else {
-                $response = $request->get_error_message();
-            }
-        }
-        $this->get_plugins = $response;
-    }
-
-    /**
      * First Installation Track
      * @return void
      */
@@ -126,6 +91,41 @@ class Support_Recommended {
     public function dismiss_button_scripts() {
         wp_enqueue_script('oxi_tabs-admin-recommended', OXI_TABS_URL . 'assets/backend/custom/admin-recommended.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_localize_script('oxi_tabs-admin-recommended', 'oxi_tabs_admin_recommended', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxi_tabs_admin_recommended')));
+    }
+
+    /**
+     * Revoke this function when the object is created.
+     *
+     */
+    public function __construct() {
+        require_once(ABSPATH . 'wp-admin/includes/screen.php');
+        if (!current_user_can('install_plugins')):
+            return;
+        endif;
+        $screen = get_current_screen();
+        if (isset($screen->parent_file) && 'plugins.php' === $screen->parent_file && 'update' === $screen->id) {
+            return;
+        }
+        $this->extension();
+        add_action('admin_notices', array($this, 'first_install'));
+        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
+        add_action('wp_ajax_oxi_tabs_admin_recommended', array($this, 'notice_dissmiss'));
+        add_action('admin_notices', array($this, 'dismiss_button_scripts'));
+    }
+
+    public function extension() {
+        $response = get_transient(self::GET_LOCAL_PLUGINS);
+        if (!$response || !is_array($response)) {
+            $URL = self::PLUGINS;
+            $request = wp_remote_request($URL);
+            if (!is_wp_error($request)) {
+                $response = json_decode(wp_remote_retrieve_body($request), true);
+                set_transient(self::GET_LOCAL_PLUGINS, $response, 10 * DAY_IN_SECONDS);
+            } else {
+                $response = $request->get_error_message();
+            }
+        }
+        $this->get_plugins = $response;
     }
 
     /**

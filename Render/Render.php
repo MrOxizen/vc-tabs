@@ -130,103 +130,6 @@ class Render {
      */
     public $childkeys;
 
-    public function __construct(array $dbdata = [], array $child = [], $admin = 'user', array $arg = [], array $keys = []) {
-        if (count($dbdata) > 0) :
-            $this->dbdata = $dbdata;
-            $this->child = $child;
-            $this->admin = $admin;
-            $this->arg = $arg;
-            $this->keys = $keys;
-            $this->style_name = ucfirst($dbdata['style_name']);
-            $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
-            if (array_key_exists('id', $this->dbdata)) :
-                $this->oxiid = $this->dbdata['id'];
-            else :
-                $this->oxiid = rand(100000, 200000);
-            endif;
-            $this->loader();
-        endif;
-    }
-
-    public function defualt_value($id) {
-        return [
-            'oxi-tabs-modal-title' => 'Lorem Ipsum',
-            'oxi-tabs-modal-sub-title' => '',
-            'oxi-tabs-modal-title-additional' => '',
-            'oxi-tabs-modal-icon' => 'fab fa-facebook-f',
-            'oxi-tabs-modal-number' => 1,
-            'oxi-tabs-modal-image-select' => 'media-library',
-            'oxi-tabs-modal-image-image' => '',
-            'oxi-tabs-modal-image-image-alt' => '',
-            'oxi-tabs-modal-image-url' => '',
-            'oxi-tabs-modal-components-type' => 'wysiwyg',
-            'oxi-tabs-modal-link-url' => '',
-            'oxi-tabs-modal-desc' => '',
-            'shortcodeitemid' => $id,
-            'oxi-tabs-modal-link-target' => 0
-        ];
-    }
-
-    /**
-     * Current element loader
-     *
-     * @since 3.3.0
-     */
-    public function loader() {
-        $this->style = json_decode(stripslashes($this->dbdata['rawdata']), true);
-        $this->CSSDATA = $this->dbdata['stylesheet'];
-        $this->WRAPPER = 'oxi-tabs-wrapper-' . $this->dbdata['id'];
-        $this->hooks();
-    }
-
-    /**
-     * load css and js hooks
-     *
-     * @since 3.3.0
-     */
-    public function hooks() {
-        $this->public_jquery();
-        $this->public_css();
-        $this->public_frontend_loader();
-        $this->render();
-        $inlinecss = $this->inline_public_css() . $this->inline_css . (array_key_exists('oxi-tabs-custom-css', $this->style) ? $this->style['oxi-tabs-custom-css'] : '');
-        $inlinejs = $this->inline_public_jquery();
-        if ($this->CSSDATA == '' && $this->admin == 'admin') {
-            $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $this->style_name;
-            $CLASS = new $cls('admin');
-            $inlinecss .= $CLASS->inline_template_css_render($this->style);
-        } else {
-            $this->font_familly_validation(json_decode(($this->dbdata['font_family'] != '' ? $this->dbdata['font_family'] : "[]"), true));
-            $inlinecss .= $this->CSSDATA;
-        }
-        if ($inlinejs != '') :
-            if ($this->admin == 'admin') :
-                echo _('<script>
-                        (function ($) {
-                            setTimeout(function () {');
-                echo $inlinejs;
-                echo _('    }, 2000);
-                        })(jQuery)</script>');
-            else :
-                $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
-                wp_add_inline_script($this->JSHANDLE, $jquery);
-            endif;
-        endif;
-        if ($inlinecss != '') :
-
-            $inlinecss = html_entity_decode(str_replace('<br>', ' ', str_replace('&nbsp;', ' ', $inlinecss)));
-
-            if ($this->admin == 'admin') :
-                //only load while ajax called
-                echo _('<style>');
-                echo $inlinecss;
-                echo _('</style>');
-            else :
-                wp_add_inline_style('oxi-tabs-ultimate', $inlinecss);
-            endif;
-        endif;
-    }
-
     /**
      * front end loader css and js
      *
@@ -755,6 +658,103 @@ class Render {
                         </div>';
         endif;
         return $data;
+    }
+
+    public function __construct(array $dbdata = [], array $child = [], $admin = 'user', array $arg = [], array $keys = []) {
+        if (count($dbdata) > 0) :
+            $this->dbdata = $dbdata;
+            $this->child = $child;
+            $this->admin = $admin;
+            $this->arg = $arg;
+            $this->keys = $keys;
+            $this->style_name = ucfirst($dbdata['style_name']);
+            $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
+            if (array_key_exists('id', $this->dbdata)) :
+                $this->oxiid = $this->dbdata['id'];
+            else :
+                $this->oxiid = rand(100000, 200000);
+            endif;
+            $this->loader();
+        endif;
+    }
+
+    public function defualt_value($id) {
+        return [
+            'oxi-tabs-modal-title' => 'Lorem Ipsum',
+            'oxi-tabs-modal-sub-title' => '',
+            'oxi-tabs-modal-title-additional' => '',
+            'oxi-tabs-modal-icon' => 'fab fa-facebook-f',
+            'oxi-tabs-modal-number' => 1,
+            'oxi-tabs-modal-image-select' => 'media-library',
+            'oxi-tabs-modal-image-image' => '',
+            'oxi-tabs-modal-image-image-alt' => '',
+            'oxi-tabs-modal-image-url' => '',
+            'oxi-tabs-modal-components-type' => 'wysiwyg',
+            'oxi-tabs-modal-link-url' => '',
+            'oxi-tabs-modal-desc' => '',
+            'shortcodeitemid' => $id,
+            'oxi-tabs-modal-link-target' => 0
+        ];
+    }
+
+    /**
+     * Current element loader
+     *
+     * @since 3.3.0
+     */
+    public function loader() {
+        $this->style = json_decode(stripslashes($this->dbdata['rawdata']), true);
+        $this->CSSDATA = $this->dbdata['stylesheet'];
+        $this->WRAPPER = 'oxi-tabs-wrapper-' . $this->dbdata['id'];
+        $this->hooks();
+    }
+
+    /**
+     * load css and js hooks
+     *
+     * @since 3.3.0
+     */
+    public function hooks() {
+        $this->public_jquery();
+        $this->public_css();
+        $this->public_frontend_loader();
+        $this->render();
+        $inlinecss = $this->inline_public_css() . $this->inline_css . (array_key_exists('oxi-tabs-custom-css', $this->style) ? $this->style['oxi-tabs-custom-css'] : '');
+        $inlinejs = $this->inline_public_jquery();
+        if ($this->CSSDATA == '' && $this->admin == 'admin') {
+            $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $this->style_name;
+            $CLASS = new $cls('admin');
+            $inlinecss .= $CLASS->inline_template_css_render($this->style);
+        } else {
+            $this->font_familly_validation(json_decode(($this->dbdata['font_family'] != '' ? $this->dbdata['font_family'] : "[]"), true));
+            $inlinecss .= $this->CSSDATA;
+        }
+        if ($inlinejs != '') :
+            if ($this->admin == 'admin') :
+                echo _('<script>
+                        (function ($) {
+                            setTimeout(function () {');
+                echo $inlinejs;
+                echo _('    }, 2000);
+                        })(jQuery)</script>');
+            else :
+                $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
+                wp_add_inline_script($this->JSHANDLE, $jquery);
+            endif;
+        endif;
+        if ($inlinecss != '') :
+
+            $inlinecss = html_entity_decode(str_replace('<br>', ' ', str_replace('&nbsp;', ' ', $inlinecss)));
+
+            if ($this->admin == 'admin') :
+                //only load while ajax called
+                echo _('<style>');
+                echo $inlinecss;
+                echo _('</style>');
+            else :
+                wp_add_inline_style('oxi-tabs-ultimate', $inlinecss);
+            endif;
+        endif;
     }
 
 }

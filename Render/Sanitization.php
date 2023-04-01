@@ -10,105 +10,6 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 trait Sanitization {
     /*
-     * Oxi Tabs Style Admin Panel Col 6 or Entry devider
-     *
-     * @since 3.3.0
-     */
-
-    public function start_section_devider() {
-        echo '<div class="oxi-addons-col-6">';
-    }
-
-    /*
-     * Oxi Tabs Style Admin Panel end Entry Divider
-     *
-     * @since 3.3.0
-     */
-
-    public function end_section_devider() {
-        echo '</div>';
-    }
-
-    /*
-     * Oxi Tabs Style Admin Panel Form Dependency
-     *
-     * @since 3.3.0
-     */
-
-    public function forms_condition(array $arg = []) {
-
-        if (array_key_exists('condition', $arg)) :
-            $i = $arg['condition'] != '' ? count($arg['condition']) : 0;
-            // echo $i;
-            $data = '';
-            $s = 1;
-            $form_condition = array_key_exists('form_condition', $arg) ? $arg['form_condition'] : '';
-            foreach ($arg['condition'] != '' ? $arg['condition'] : [] as $key => $value) {
-                if (is_array($value)) :
-                    $c = count($value);
-                    $crow = 1;
-                    if ($c > 1 && $i > 1) :
-                        $data .= '(';
-                    endif;
-                    foreach ($value as $item) {
-                        $data .= $form_condition . $key . ' === \'' . $item . '\'';
-                        if ($crow < $c) :
-                            $data .= ' || ';
-                            $crow++;
-                        endif;
-                    }
-                    if ($c > 1 && $i > 1) :
-                        $data .= ')';
-                    endif;
-                elseif ($value == 'COMPILED') :
-                    $data .= $form_condition . $key;
-                elseif ($value == 'EMPTY') :
-                    $data .= $form_condition . $key . ' !== \'\'';
-                elseif (empty($value)) :
-                    $data .= $form_condition . $key;
-                else :
-                    $data .= $form_condition . $key . ' === \'' . $value . '\'';
-                endif;
-                if ($s < $i) :
-                    $data .= ' && ';
-                    $s++;
-                endif;
-            }
-            if (!empty($data)) :
-                return 'data-condition="' . $data . '"';
-            endif;
-        endif;
-    }
-
-    /*
-     * Oxi Tabs Style Admin Panel Each Tabs
-     *
-     * @since 3.3.0
-     */
-
-    public function start_controls_section($id, array $arg = []) {
-        $defualt = ['showing' => FALSE];
-        $arg = array_merge($defualt, $arg);
-        $condition = $this->forms_condition($arg);
-        echo '<div class="oxi-addons-content-div ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '" ' . $condition . '>
-                    <div class="oxi-head">
-                    ' . $arg['label'] . '
-                    <div class="oxi-head-toggle"></div>
-                    </div>
-                    <div class="oxi-addons-content-div-body">';
-    }
-
-    /*
-     * Oxi Tabs Style Admin Panel end Each Tabs
-     *
-     * @since 3.3.0
-     */
-
-    public function end_controls_section() {
-        echo '</div></div>';
-    }
-
-    /*
      * Oxi Tabs Style Admin Panel Section Inner Tabs
      * This Tabs like inner tabs as Normal view and Hover View
      *
@@ -2723,6 +2624,105 @@ trait Sanitization {
             }
         endif;
         echo '"  ' . (array_key_exists('padding', $arg) ? 'style="padding: ' . $arg['padding'] . '"' : '') . '>';
+    }
+
+    /*
+     * Oxi Tabs Style Admin Panel Col 6 or Entry devider
+     *
+     * @since 3.3.0
+     */
+
+    public function start_section_devider() {
+        echo '<div class="oxi-addons-col-6">';
+    }
+
+    /*
+     * Oxi Tabs Style Admin Panel end Entry Divider
+     *
+     * @since 3.3.0
+     */
+
+    public function end_section_devider() {
+        echo '</div>';
+    }
+
+    /*
+     * Oxi Tabs Style Admin Panel Form Dependency
+     *
+     * @since 3.3.0
+     */
+
+    public function forms_condition(array $arg = []) {
+
+        if (array_key_exists('condition', $arg)) :
+            $i = $arg['condition'] != '' ? count($arg['condition']) : 0;
+            // echo $i;
+            $data = '';
+            $s = 1;
+            $form_condition = array_key_exists('form_condition', $arg) ? $arg['form_condition'] : '';
+            foreach ($arg['condition'] != '' ? $arg['condition'] : [] as $key => $value) {
+                if (is_array($value)) :
+                    $c = count($value);
+                    $crow = 1;
+                    if ($c > 1 && $i > 1) :
+                        $data .= '(';
+                    endif;
+                    foreach ($value as $item) {
+                        $data .= $form_condition . $key . ' === \'' . $item . '\'';
+                        if ($crow < $c) :
+                            $data .= ' || ';
+                            $crow++;
+                        endif;
+                    }
+                    if ($c > 1 && $i > 1) :
+                        $data .= ')';
+                    endif;
+                elseif ($value == 'COMPILED') :
+                    $data .= $form_condition . $key;
+                elseif ($value == 'EMPTY') :
+                    $data .= $form_condition . $key . ' !== \'\'';
+                elseif (empty($value)) :
+                    $data .= $form_condition . $key;
+                else :
+                    $data .= $form_condition . $key . ' === \'' . $value . '\'';
+                endif;
+                if ($s < $i) :
+                    $data .= ' && ';
+                    $s++;
+                endif;
+            }
+            if (!empty($data)) :
+                return 'data-condition="' . $data . '"';
+            endif;
+        endif;
+    }
+
+    /*
+     * Oxi Tabs Style Admin Panel Each Tabs
+     *
+     * @since 3.3.0
+     */
+
+    public function start_controls_section($id, array $arg = []) {
+        $defualt = ['showing' => FALSE];
+        $arg = array_merge($defualt, $arg);
+        $condition = $this->forms_condition($arg);
+        echo '<div class="oxi-addons-content-div ' . (($arg['showing']) ? '' : 'oxi-admin-head-d-none') . '" ' . $condition . '>
+                    <div class="oxi-head">
+                    ' . $arg['label'] . '
+                    <div class="oxi-head-toggle"></div>
+                    </div>
+                    <div class="oxi-addons-content-div-body">';
+    }
+
+    /*
+     * Oxi Tabs Style Admin Panel end Each Tabs
+     *
+     * @since 3.3.0
+     */
+
+    public function end_controls_section() {
+        echo '</div></div>';
     }
 
     /*

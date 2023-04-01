@@ -109,83 +109,6 @@ class Admin {
     public $Popover_Condition = true;
     public $Get_Nested_Tabs = [];
 
-    public function __construct($type = '') {
-        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
-        $this->oxiid = (!empty($_GET['styleid']) ? sanitize_text_field($_GET['styleid']) : '');
-        $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
-        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
-        if ($type != 'admin') {
-            $this->hooks();
-            $this->render();
-        }
-    }
-
-    public function register_general() {
-        return;
-    }
-
-    public function register_heading() {
-        return;
-    }
-
-    public function register_controls() {
-        $this->start_section_header(
-                'shortcode-addons-start-tabs',
-                [
-                    'options' => [
-                        'button-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
-                        'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
-                    ]
-                ]
-        );
-        $this->start_section_tabs(
-                'oxi-tabs-start-tabs',
-                [
-                    'condition' => [
-                        'oxi-tabs-start-tabs' => 'button-settings'
-                    ]
-                ]
-        );
-        $this->start_section_devider();
-        $this->register_general();
-        $this->end_section_devider();
-
-        $this->start_section_devider();
-        $this->register_heading();
-        $this->end_section_devider();
-        $this->end_section_tabs();
-
-        $this->start_section_tabs(
-                'oxi-tabs-start-tabs',
-                [
-                    'condition' => [
-                        'oxi-tabs-start-tabs' => 'custom'
-                    ],
-                    'padding' => '10px'
-                ]
-        );
-
-        $this->start_controls_section(
-                'oxi-tabs-start-tabs-css',
-                [
-                    'label' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
-                    'showing' => TRUE,
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-custom-css',
-                $this->style,
-                [
-                    'label' => __('', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::TEXTAREA,
-                    'default' => '',
-                    'description' => 'Custom CSS Section. You can add custom css into textarea.'
-                ]
-        );
-        $this->end_controls_section();
-        $this->end_section_tabs();
-    }
-
     /**
      * Template hooks
      *
@@ -520,6 +443,83 @@ class Admin {
             $thumbnail_sizes[$size] = str_replace('_', ' ', ucfirst($image_sizes[$size]));
         }
         return $thumbnail_sizes;
+    }
+
+    public function __construct($type = '') {
+        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
+        $this->oxiid = (!empty($_GET['styleid']) ? sanitize_text_field($_GET['styleid']) : '');
+        $this->WRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid;
+        $this->CSSWRAPPER = '.oxi-tabs-wrapper-' . $this->oxiid . ' > .oxi-addons-row';
+        if ($type != 'admin') {
+            $this->hooks();
+            $this->render();
+        }
+    }
+
+    public function register_general() {
+        return;
+    }
+
+    public function register_heading() {
+        return;
+    }
+
+    public function register_controls() {
+        $this->start_section_header(
+                'shortcode-addons-start-tabs',
+                [
+                    'options' => [
+                        'button-settings' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
+                        'custom' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+                    ]
+                ]
+        );
+        $this->start_section_tabs(
+                'oxi-tabs-start-tabs',
+                [
+                    'condition' => [
+                        'oxi-tabs-start-tabs' => 'button-settings'
+                    ]
+                ]
+        );
+        $this->start_section_devider();
+        $this->register_general();
+        $this->end_section_devider();
+
+        $this->start_section_devider();
+        $this->register_heading();
+        $this->end_section_devider();
+        $this->end_section_tabs();
+
+        $this->start_section_tabs(
+                'oxi-tabs-start-tabs',
+                [
+                    'condition' => [
+                        'oxi-tabs-start-tabs' => 'custom'
+                    ],
+                    'padding' => '10px'
+                ]
+        );
+
+        $this->start_controls_section(
+                'oxi-tabs-start-tabs-css',
+                [
+                    'label' => esc_html__('Custom CSS', OXI_TABS_TEXTDOMAIN),
+                    'showing' => TRUE,
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-custom-css',
+                $this->style,
+                [
+                    'label' => __('', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::TEXTAREA,
+                    'default' => '',
+                    'description' => 'Custom CSS Section. You can add custom css into textarea.'
+                ]
+        );
+        $this->end_controls_section();
+        $this->end_section_tabs();
     }
 
 }

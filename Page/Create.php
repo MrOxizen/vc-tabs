@@ -30,40 +30,6 @@ class Create {
     public $IMPORT = [];
     public $TEMPLATE;
 
-    /**
-     * Constructor of Oxilab tabs Home Page
-     *
-     * @since 2.0.0
-     */
-    public function __construct() {
-        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
-        $this->layouts = (isset($_GET) ? $_GET : '');
-        $this->CSSJS_load();
-        $this->Render();
-    }
-
-    public function get_local_tempalte() {
-        $basename = array_map('basename', glob(OXI_TABS_PATH . 'Render/Json/' . '*.json', GLOB_BRACE));
-        foreach ($basename as $key => $value) {
-            $onlyname = explode('ultimateand', str_replace('.json', '', $value))[1];
-            if ((int) $onlyname) :
-                $this->local_template[$onlyname] = $value;
-            endif;
-        }
-        ksort($this->local_template);
-        return;
-    }
-
-    /**
-     * Generate safe path
-     * @since v1.0.0
-     */
-    public function safe_path($path) {
-
-        $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
-        return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
-    }
-
     public function Render() {
         ?>
         <div class="oxi-addons-row">
@@ -265,6 +231,40 @@ class Create {
         ?>
         </div>
             <?php
+        }
+
+        /**
+         * Constructor of Oxilab tabs Home Page
+         *
+         * @since 2.0.0
+         */
+        public function __construct() {
+            $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
+            $this->layouts = (isset($_GET) ? $_GET : '');
+            $this->CSSJS_load();
+            $this->Render();
+        }
+
+        public function get_local_tempalte() {
+            $basename = array_map('basename', glob(OXI_TABS_PATH . 'Render/Json/' . '*.json', GLOB_BRACE));
+            foreach ($basename as $key => $value) {
+                $onlyname = explode('ultimateand', str_replace('.json', '', $value))[1];
+                if ((int) $onlyname) :
+                    $this->local_template[$onlyname] = $value;
+                endif;
+            }
+            ksort($this->local_template);
+            return;
+        }
+
+        /**
+         * Generate safe path
+         * @since v1.0.0
+         */
+        public function safe_path($path) {
+
+            $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
+            return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
         }
 
         public function CSSJS_load() {

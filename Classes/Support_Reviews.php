@@ -21,27 +21,6 @@ class Support_Reviews {
     }
 
     /**
-     * Admin Notice Ajax  loader
-     * @return void
-     */
-    public function notice_dissmiss() {
-        if (isset($_POST['_wpnonce']) || wp_verify_nonce(sanitize_key(wp_unslash($_POST['_wpnonce'])), 'oxilab_tabs-admin-notice')):
-            $notice = isset($_POST['notice']) ? sanitize_text_field($_POST['notice']) : '';
-            if ($notice == 'maybe'):
-                $data = strtotime("now");
-                update_option('responsive_tabs_with_accordions_activation_date', $data);
-            else:
-                update_option('responsive_tabs_with_accordions_no_bug', $notice);
-            endif;
-            echo 'Its Complete';
-        else:
-            return;
-        endif;
-
-        die();
-    }
-
-    /**
      * First Installation Track
      * @return void
      */
@@ -103,6 +82,27 @@ class Support_Reviews {
     public function dismiss_button_scripts() {
         wp_enqueue_script('oxilab_tabs-admin-notice', OXI_TABS_URL . 'assets/backend/custom/admin-notice.js', false, OXI_TABS_PLUGIN_VERSION);
         wp_localize_script('oxilab_tabs-admin-notice', 'oxilab_tabs_admin_notice', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('oxilab_tabs-admin-notice')));
+    }
+
+    /**
+     * Admin Notice Ajax  loader
+     * @return void
+     */
+    public function notice_dissmiss() {
+        if (isset($_POST['_wpnonce']) || wp_verify_nonce(sanitize_key(wp_unslash($_POST['_wpnonce'])), 'oxilab_tabs-admin-notice')):
+            $notice = isset($_POST['notice']) ? sanitize_text_field($_POST['notice']) : '';
+            if ($notice == 'maybe'):
+                $data = strtotime("now");
+                update_option('responsive_tabs_with_accordions_activation_date', $data);
+            else:
+                update_option('responsive_tabs_with_accordions_no_bug', $notice);
+            endif;
+            echo 'Its Complete';
+        else:
+            return;
+        endif;
+
+        die();
     }
 
 }

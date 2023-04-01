@@ -35,34 +35,6 @@ class Bootstrap {
         return self::$instance;
     }
 
-    public function __construct() {
-        do_action('oxi-tabs-plugin/before_init');
-        // Load translation
-        add_action('init', array($this, 'i18n'));
-        $this->Shortcode_loader();
-        $this->Extension();
-        new Build_Api();
-        if (is_admin()) {
-            $this->Admin_Filters();
-            $this->User_Admin();
-            $this->User_Reviews();
-            if (isset($_GET['page']) && 'oxi-tabs-style-view' === $_GET['page']) {
-                new \OXI_TABS_PLUGINS\Modules\Template();
-            }
-        }
-    }
-
-    /**
-     * Load Textdomain
-     *
-     * @since 3.1.0
-     * @access public
-     */
-    public function i18n() {
-        load_plugin_textdomain('oxi-tabs-plugin');
-        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
-    }
-
     /**
      * Shortcode loader
      *
@@ -143,6 +115,34 @@ class Bootstrap {
         if (is_plugin_active('woocommerce/woocommerce.php')) :
             new \OXI_TABS_PLUGINS\Extension\WooCommerce\WooCommerce();
         endif;
+    }
+
+    public function __construct() {
+        do_action('oxi-tabs-plugin/before_init');
+        // Load translation
+        add_action('init', array($this, 'i18n'));
+        $this->Shortcode_loader();
+        $this->Extension();
+        new Build_Api();
+        if (is_admin()) {
+            $this->Admin_Filters();
+            $this->User_Admin();
+            $this->User_Reviews();
+            if (isset($_GET['page']) && 'oxi-tabs-style-view' === $_GET['page']) {
+                new \OXI_TABS_PLUGINS\Modules\Template();
+            }
+        }
+    }
+
+    /**
+     * Load Textdomain
+     *
+     * @since 3.1.0
+     * @access public
+     */
+    public function i18n() {
+        load_plugin_textdomain('oxi-tabs-plugin');
+        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
     }
 
 }

@@ -18,784 +18,6 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 class Helper extends Admin {
 
-    public function register_gen_general() {
-        $this->start_controls_section(
-                'oxi-tabs-gen',
-                [
-                    'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
-                    'showing' => TRUE,
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-gen-trigger',
-                $this->style,
-                [
-                    'label' => __('Trigger', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'loader' => TRUE,
-                    'default' => '0',
-                    'options' => [
-                        '1' => [
-                            'title' => __('True', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        '0' => [
-                            'title' => __('False', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'description' => 'Enable Trigger to close the tab’s content with a Second click into the Same Tabs.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-gen-event',
-                $this->style,
-                [
-                    'label' => __('Activator Event', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'default' => 'oxi-tabs-click-event',
-                    'loader' => TRUE,
-                    'options' => [
-                        'oxi-tabs-click-event' => [
-                            'title' => __('Click', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-hover-event' => [
-                            'title' => __('Hover', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'description' => 'Select either your Tabs will open on Click or Hover.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-gen-opening',
-                $this->style,
-                [
-                    'label' => __('Initial Opening', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SELECT,
-                    'default' => ':eq(0)',
-                    'loader' => TRUE,
-                    'options' => $this->get_initial_opening_list(),
-                    'description' => 'Select which Tab will Open at Page Load.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-gen-animation',
-                $this->style,
-                [
-                    'label' => __('Animation', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SELECT,
-                    'default' => '',
-                    'loader' => TRUE,
-                    'options' => [
-                        'optgroup0' => [true, 'Attention Seekers'],
-                        '' => __('No Animation', OXI_TABS_TEXTDOMAIN),
-                        'animate__bounce' => __('Bounce', OXI_TABS_TEXTDOMAIN),
-                        'animate__flash' => __('Flash', OXI_TABS_TEXTDOMAIN),
-                        'animate__pulse' => __('Pulse', OXI_TABS_TEXTDOMAIN),
-                        'animate__rubberBand' => __('Rubber Band', OXI_TABS_TEXTDOMAIN),
-                        'animate__shakeX' => __('ShakeX', OXI_TABS_TEXTDOMAIN),
-                        'animate__headShake' => __('Head Shake', OXI_TABS_TEXTDOMAIN),
-                        'animate__swing' => __('Swing', OXI_TABS_TEXTDOMAIN),
-                        'animate__tada' => __('Tada', OXI_TABS_TEXTDOMAIN),
-                        'animate__wobble' => __('Wobble', OXI_TABS_TEXTDOMAIN),
-                        'animate__jello' => __('Jello', OXI_TABS_TEXTDOMAIN),
-                        'animate__heartBeat' => __('Heart Beat', OXI_TABS_TEXTDOMAIN),
-                        'optgroup1' => [false],
-                        'optgroup2' => [true, 'Back Entrances'],
-                        'animate__backInDown' => __('Back In Down', OXI_TABS_TEXTDOMAIN),
-                        'animate__backInLeft' => __('Back In Left', OXI_TABS_TEXTDOMAIN),
-                        'animate__backInRight' => __('Back In Right', OXI_TABS_TEXTDOMAIN),
-                        'animate__backInUp' => __('Back In Up', OXI_TABS_TEXTDOMAIN),
-                        'optgroup3' => [false],
-                        'optgroup4' => [true, 'Bouncing Entrances'],
-                        'animate__bounceIn' => __('Bounce In', OXI_TABS_TEXTDOMAIN),
-                        'animate__bounceInDown' => __('Bounce In Down', OXI_TABS_TEXTDOMAIN),
-                        'animate__bounceInLeft' => __('Bounce In Left', OXI_TABS_TEXTDOMAIN),
-                        'animate__bounceInRight' => __('Bounce In Right', OXI_TABS_TEXTDOMAIN),
-                        'animate__bounceInUp' => __('Bounce In Up', OXI_TABS_TEXTDOMAIN),
-                        'optgroup5' => [false],
-                        'optgroup6' => [true, 'Fading Entrances'],
-                        'animate__fadeIn' => __('Fade In', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInDown' => __('Fade In Down', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInDownBig' => __('Fade In Down Big', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInLeft' => __('Fade In Left', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInLeftBig' => __('Fade In Left Big', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInRight' => __('Fade In Right', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInRightBig' => __('Fade In Right Big', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInUp' => __('Fade In Up', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInUpBig' => __('Fade In Up Big', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInTopLeft' => __('Fade In Top Left', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInTopRight' => __('Fade In Top Right', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInBottomLeft' => __('Fade In Bottom Left', OXI_TABS_TEXTDOMAIN),
-                        'animate__fadeInBottomRight' => __('Fade In Bottom Right', OXI_TABS_TEXTDOMAIN),
-                        'optgroup7' => [false],
-                        'optgroup8' => [true, 'Flippers'],
-                        'animate__flip' => __('Flip', OXI_TABS_TEXTDOMAIN),
-                        'animate__flipInX' => __('Flip In X', OXI_TABS_TEXTDOMAIN),
-                        'animate__flipInY' => __('Flip In Y', OXI_TABS_TEXTDOMAIN),
-                        'optgroup9' => [false],
-                        'optgroup10' => [true, 'Lightspeed'],
-                        'animate__lightSpeedInRight' => __('Light Speed In Right', OXI_TABS_TEXTDOMAIN),
-                        'animate__lightSpeedInLeft' => __('Light Speed In Left', OXI_TABS_TEXTDOMAIN),
-                        'optgroup11' => [false],
-                        'optgroup12' => [true, 'Rotating Entrances'],
-                        'animate__rotateIn' => __('Rotate In', OXI_TABS_TEXTDOMAIN),
-                        'animate__rotateInDownLeft' => __('Rotate In Down Left', OXI_TABS_TEXTDOMAIN),
-                        'animate__rotateInDownRight' => __('Rotate In Down Right', OXI_TABS_TEXTDOMAIN),
-                        'animate__rotateInUpLeft' => __('Rotate In Up Left', OXI_TABS_TEXTDOMAIN),
-                        'animate__rotateInUpRight' => __('Rotate In Up Right', OXI_TABS_TEXTDOMAIN),
-                        'optgroup13' => [false],
-                        'optgroup14' => [true, 'Specials'],
-                        'animate__hinge' => __('Hinge', OXI_TABS_TEXTDOMAIN),
-                        'animate__jackInTheBox' => __('Jack In The Box', OXI_TABS_TEXTDOMAIN),
-                        'animate__rollIn' => __('Roll In', OXI_TABS_TEXTDOMAIN),
-                        'optgroup15' => [false],
-                        'optgroup16' => [true, 'Zooming Entrances'],
-                        'animate__zoomIn' => __('Zoom In', OXI_TABS_TEXTDOMAIN),
-                        'animate__zoomInDown' => __('Zoom In Down', OXI_TABS_TEXTDOMAIN),
-                        'animate__zoomInLeft' => __('Zoom In Left', OXI_TABS_TEXTDOMAIN),
-                        'animate__zoomInRight' => __('Zoom In Right', OXI_TABS_TEXTDOMAIN),
-                        'animate__zoomInUp' => __('Zoom In Up', OXI_TABS_TEXTDOMAIN),
-                        'optgroup17' => [false],
-                        'optgroup18' => [true, 'Sliding Entrances'],
-                        'animate__slideInDown' => __('Slide In Down', OXI_TABS_TEXTDOMAIN),
-                        'animate__slideInLeft' => __('Slide In Left', OXI_TABS_TEXTDOMAIN),
-                        'animate__slideInUp' => __('Slide In Up', OXI_TABS_TEXTDOMAIN),
-                        'optgroup19' => [false],
-                    ],
-                    'description' => 'Add Animation Effect on Tabs opening.',
-                ]
-        );
-
-        $this->add_responsive_control(
-                'oxi-tabs-general-margin',
-                $this->style,
-                [
-                    'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::DIMENSIONS,
-                    'default' => [
-                        'unit' => 'px',
-                        'size' => '',
-                    ],
-                    'range' => [
-                        'px' => [
-                            'min' => 0,
-                            'max' => 500,
-                            'step' => 1,
-                        ],
-                        '%' => [
-                            'min' => 0,
-                            'max' => 100,
-                            'step' => 1,
-                        ],
-                        'em' => [
-                            'min' => 0,
-                            'max' => 100,
-                            'step' => .1,
-                        ],
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                    ],
-                    'description' => 'Create some Space outside of the Tabs Body.',
-                ]
-        );
-        $this->end_controls_section();
-    }
-
-    public function register_gen_heading() {
-        $this->start_controls_section(
-                'oxi-tabs-heading',
-                [
-                    'label' => esc_html__('Header Settings', OXI_TABS_TEXTDOMAIN),
-                    'showing' => TRUE,
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-alignment',
-                $this->style,
-                [
-                    'label' => __('Tabs Alignment', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        'oxi-tab-header-horizontal' => [
-                            'title' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tab-header-vertical' => [
-                            'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set the Tabs Alignment type.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-horizontal-position',
-                $this->style,
-                [
-                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SELECT,
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal'
-                    ],
-                    'options' => [
-                        'oxi-tab-header-top-left-position' => __('Top Left', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-top-right-position' => __('Top Right', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-top-center-position' => __('Top Center', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-top-compact-position' => __('Top Compact', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-bottom-left-position' => __('Bottom Left', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-bottom-right-position' => __('Bottom Right', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-bottom-center-position' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-bottom-compact-position' => __('Bottom Compact', OXI_TABS_TEXTDOMAIN),
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set the Horizontal Position of Tab’s header.',
-                ]
-        );
-
-        $this->add_control(
-                'oxi-tabs-heading-vertical-position',
-                $this->style,
-                [
-                    'label' => __('Vertical Position', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SELECT,
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
-                    ],
-                    'options' => [
-                        'oxi-tab-header-left-top-position' => __('Left Top', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-left-center-position' => __('Left Center', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-left-bottom-position' => __('Left Bottom', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-right-top-position' => __('Right Top', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-right-center-position' => __('Right Center', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tab-header-right-bottom-position' => __('Right Bottom', OXI_TABS_TEXTDOMAIN),
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set the Vertical Position of Tab’s header.',
-                ]
-        );
-
-        $this->add_control(
-                'oxi-tabs-gen-vertical-width',
-                $this->style,
-                [
-                    'label' => __('Header Width', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SLIDER,
-                    'default' => [
-                        'unit' => '%',
-                        'size' => 100,
-                    ],
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
-                    ],
-                    'range' => [
-                        'px' => [
-                            'min' => 1,
-                            'max' => 1900,
-                            'step' => 1,
-                        ],
-                        '%' => [
-                            'min' => 1,
-                            'max' => 100,
-                            'step' => 1,
-                        ],
-                        'em' => [
-                            'min' => 1,
-                            'max' => 200,
-                            'step' => 0.1,
-                        ],
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tab-header-vertical > .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
-                    ],
-                    'description' => 'Customize the Header Width (Pixel, Percent or EM).',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-responsive-mode',
-                $this->style,
-                [
-                    'label' => __('Responsive Behavior', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        'oxi-tabs-heading-responsive-dynamic' => [
-                            'title' => __('Dynamic', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-responsive-static' => [
-                            'title' => __('Static', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => 'oxi-tabs-heading-responsive-dynamic',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set the Responsive Behavior of the Tab’s Header while Static will give you to set your custom settings.',
-                ]
-        );
-        $this->start_controls_tabs(
-                'oxi-tabs-heading-renponsive-tabs',
-                [
-                    'options' => [
-                        'tabs-settings' => esc_html__('Tabs Settings ', OXI_TABS_TEXTDOMAIN),
-                        'mobile-settings' => esc_html__('Mobile Settings', OXI_TABS_TEXTDOMAIN),
-                    ],
-                    'condition' => [
-                        'oxi-tabs-heading-responsive-mode' => 'oxi-tabs-heading-responsive-static'
-                    ],
-                ]
-        );
-
-        $this->start_controls_tab();
-
-        $this->add_control(
-                'oxi-tabs-header-horizontal-tabs-alignment-horizontal',
-                $this->style,
-                [
-                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SELECT,
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
-                    ],
-                    'options' => [
-                        'oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set Horizontal Position of the Header either Column, Row, or Compact.',
-                ]
-        );
-
-        $this->add_control(
-                'oxi-tabs-header-vertical-tabs-alignment',
-                $this->style,
-                [
-                    'label' => __('Header Alignment', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
-                    ],
-                    'options' => [
-                        'oxi-tabs-header-vertical-tabs-alignment-horizontal' => [
-                            'title' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-header-vertical-tabs-alignment-vertical' => [
-                            'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set the Tabs Alignment type for Medium Device.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-header-vertical-tabs-alignment-horizontal',
-                $this->style,
-                [
-                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SELECT,
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
-                        'oxi-tabs-header-vertical-tabs-alignment' => 'oxi-tabs-header-vertical-tabs-alignment-horizontal'
-                    ],
-                    'options' => [
-                        'oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tabs-header-vertical-tabs-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
-                ]
-        );
-
-        $this->add_control(
-                'oxi-tabs-header-tab-vertical-width',
-                $this->style,
-                [
-                    'label' => __('Header Width', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SLIDER,
-                    'customresponsive' => 'tab',
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
-                        'oxi-tabs-header-vertical-tabs-alignment' => 'oxi-tabs-header-vertical-tabs-alignment-vertical'
-                    ],
-                    'default' => [
-                        'unit' => '%',
-                        'size' => 25,
-                    ],
-                    'range' => [
-                        'px' => [
-                            'min' => 1,
-                            'max' => 1900,
-                            'step' => 1,
-                        ],
-                        '%' => [
-                            'min' => 1,
-                            'max' => 100,
-                            'step' => 1,
-                        ],
-                        'em' => [
-                            'min' => 1,
-                            'max' => 200,
-                            'step' => 0.1,
-                        ],
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical > .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
-                    ],
-                    'description' => 'Customize the Header Width (Pixel, Percent or EM).',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-tabs-show-title',
-                $this->style,
-                [
-                    'label' => __('Title', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-tabs-show-title-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the Title on Tabs Mode.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-tabs-show-subtitle',
-                $this->style,
-                [
-                    'label' => __('Sub Title', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-tabs-show-subtitle-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the Sub Title on Tabs Mode.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-tabs-show-icon',
-                $this->style,
-                [
-                    'label' => __('Icon', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-tabs-show-icon-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the header Icon on Tabs Mode.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-tabs-show-number',
-                $this->style,
-                [
-                    'label' => __('Number', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-tabs-show-number-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the header Number on Tabs Mode.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-tabs-show-image',
-                $this->style,
-                [
-                    'label' => __('Image', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-tabs-show-image-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the header Image on Tabs Mode.',
-                ]
-        );
-
-        $this->end_controls_tab();
-        $this->start_controls_tab();
-        $this->add_control(
-                'oxi-tabs-header-horizontal-mobile-alignment-horizontal',
-                $this->style,
-                [
-                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SELECT,
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
-                    ],
-                    'options' => [
-                        'oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set Horizontal Position of the Header either Column, Row, or Compact..',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-header-vertical-mobile-alignment',
-                $this->style,
-                [
-                    'label' => __('Header Alignment', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
-                    ],
-                    'options' => [
-                        'oxi-tabs-header-vertical-mobile-alignment-horizontal' => [
-                            'title' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-header-vertical-mobile-alignment-vertical' => [
-                            'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set the Tabs Alignment type for Small Device.',
-                ]
-        );
-
-        $this->add_control(
-                'oxi-tabs-header-vertical-mobile-alignment-horizontal',
-                $this->style,
-                [
-                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SELECT,
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
-                        'oxi-tabs-header-vertical-mobile-alignment' => 'oxi-tabs-header-vertical-mobile-alignment-horizontal'
-                    ],
-                    'options' => [
-                        'oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
-                        'oxi-tabs-header-vertical-mobile-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
-                    ],
-                    'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-header-mobile-vertical-width',
-                $this->style,
-                [
-                    'label' => __('Header Width', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::SLIDER,
-                    'customresponsive' => 'mobile',
-                    'condition' => [
-                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
-                        'oxi-tabs-header-vertical-mobile-alignment' => 'oxi-tabs-header-vertical-mobile-alignment-vertical'
-                    ],
-                    'default' => [
-                        'unit' => '%',
-                        'size' => 25,
-                    ],
-                    'range' => [
-                        'px' => [
-                            'min' => 1,
-                            'max' => 1900,
-                            'step' => 1,
-                        ],
-                        '%' => [
-                            'min' => 1,
-                            'max' => 100,
-                            'step' => 1,
-                        ],
-                        'em' => [
-                            'min' => 1,
-                            'max' => 200,
-                            'step' => 0.1,
-                        ],
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical > .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
-                    ],
-                    'description' => 'Customize the Header Width (Pixel, Percent or EM) for Small Device.',
-                ]
-        );
-
-        $this->add_control(
-                'oxi-tabs-heading-mobile-show-title',
-                $this->style,
-                [
-                    'label' => __('Title', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-mobile-show-title-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the Title on Mobile Mode.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-mobile-show-subtitle',
-                $this->style,
-                [
-                    'label' => __('Title', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-mobile-show-subtitle-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the Sub Title on Mobile Mode.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-mobile-show-icon',
-                $this->style,
-                [
-                    'label' => __('Icon', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-mobile-show-icon-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the header Icon on Mobile Mode.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-mobile-show-number',
-                $this->style,
-                [
-                    'label' => __('Number', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-mobile-show-number-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the header Number on Mobile Mode.',
-                ]
-        );
-        $this->add_control(
-                'oxi-tabs-heading-mobile-show-image',
-                $this->style,
-                [
-                    'label' => __('Image', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::CHOOSE,
-                    'operator' => Controls::OPERATOR_TEXT,
-                    'options' => [
-                        '' => [
-                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
-                        ],
-                        'oxi-tabs-heading-mobile-show-image-false' => [
-                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
-                        ],
-                    ],
-                    'default' => '',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
-                    ],
-                    'description' => 'Show/Hide the header Image on Mobile Mode.',
-                ]
-        );
-        $this->end_controls_tab();
-        $this->end_controls_tabs();
-
-        $this->end_controls_section();
-    }
-
     public function register_heading_parent() {
         //Heading Section
         $this->start_section_tabs(
@@ -3655,6 +2877,784 @@ class Helper extends Admin {
         $this->end_section_tabs();
         //General Section End
         //
+    }
+
+    public function register_gen_general() {
+        $this->start_controls_section(
+                'oxi-tabs-gen',
+                [
+                    'label' => esc_html__('General Settings', OXI_TABS_TEXTDOMAIN),
+                    'showing' => TRUE,
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-gen-trigger',
+                $this->style,
+                [
+                    'label' => __('Trigger', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'loader' => TRUE,
+                    'default' => '0',
+                    'options' => [
+                        '1' => [
+                            'title' => __('True', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        '0' => [
+                            'title' => __('False', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'description' => 'Enable Trigger to close the tab’s content with a Second click into the Same Tabs.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-gen-event',
+                $this->style,
+                [
+                    'label' => __('Activator Event', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'default' => 'oxi-tabs-click-event',
+                    'loader' => TRUE,
+                    'options' => [
+                        'oxi-tabs-click-event' => [
+                            'title' => __('Click', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-hover-event' => [
+                            'title' => __('Hover', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'description' => 'Select either your Tabs will open on Click or Hover.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-gen-opening',
+                $this->style,
+                [
+                    'label' => __('Initial Opening', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => ':eq(0)',
+                    'loader' => TRUE,
+                    'options' => $this->get_initial_opening_list(),
+                    'description' => 'Select which Tab will Open at Page Load.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-gen-animation',
+                $this->style,
+                [
+                    'label' => __('Animation', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'default' => '',
+                    'loader' => TRUE,
+                    'options' => [
+                        'optgroup0' => [true, 'Attention Seekers'],
+                        '' => __('No Animation', OXI_TABS_TEXTDOMAIN),
+                        'animate__bounce' => __('Bounce', OXI_TABS_TEXTDOMAIN),
+                        'animate__flash' => __('Flash', OXI_TABS_TEXTDOMAIN),
+                        'animate__pulse' => __('Pulse', OXI_TABS_TEXTDOMAIN),
+                        'animate__rubberBand' => __('Rubber Band', OXI_TABS_TEXTDOMAIN),
+                        'animate__shakeX' => __('ShakeX', OXI_TABS_TEXTDOMAIN),
+                        'animate__headShake' => __('Head Shake', OXI_TABS_TEXTDOMAIN),
+                        'animate__swing' => __('Swing', OXI_TABS_TEXTDOMAIN),
+                        'animate__tada' => __('Tada', OXI_TABS_TEXTDOMAIN),
+                        'animate__wobble' => __('Wobble', OXI_TABS_TEXTDOMAIN),
+                        'animate__jello' => __('Jello', OXI_TABS_TEXTDOMAIN),
+                        'animate__heartBeat' => __('Heart Beat', OXI_TABS_TEXTDOMAIN),
+                        'optgroup1' => [false],
+                        'optgroup2' => [true, 'Back Entrances'],
+                        'animate__backInDown' => __('Back In Down', OXI_TABS_TEXTDOMAIN),
+                        'animate__backInLeft' => __('Back In Left', OXI_TABS_TEXTDOMAIN),
+                        'animate__backInRight' => __('Back In Right', OXI_TABS_TEXTDOMAIN),
+                        'animate__backInUp' => __('Back In Up', OXI_TABS_TEXTDOMAIN),
+                        'optgroup3' => [false],
+                        'optgroup4' => [true, 'Bouncing Entrances'],
+                        'animate__bounceIn' => __('Bounce In', OXI_TABS_TEXTDOMAIN),
+                        'animate__bounceInDown' => __('Bounce In Down', OXI_TABS_TEXTDOMAIN),
+                        'animate__bounceInLeft' => __('Bounce In Left', OXI_TABS_TEXTDOMAIN),
+                        'animate__bounceInRight' => __('Bounce In Right', OXI_TABS_TEXTDOMAIN),
+                        'animate__bounceInUp' => __('Bounce In Up', OXI_TABS_TEXTDOMAIN),
+                        'optgroup5' => [false],
+                        'optgroup6' => [true, 'Fading Entrances'],
+                        'animate__fadeIn' => __('Fade In', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInDown' => __('Fade In Down', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInDownBig' => __('Fade In Down Big', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInLeft' => __('Fade In Left', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInLeftBig' => __('Fade In Left Big', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInRight' => __('Fade In Right', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInRightBig' => __('Fade In Right Big', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInUp' => __('Fade In Up', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInUpBig' => __('Fade In Up Big', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInTopLeft' => __('Fade In Top Left', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInTopRight' => __('Fade In Top Right', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInBottomLeft' => __('Fade In Bottom Left', OXI_TABS_TEXTDOMAIN),
+                        'animate__fadeInBottomRight' => __('Fade In Bottom Right', OXI_TABS_TEXTDOMAIN),
+                        'optgroup7' => [false],
+                        'optgroup8' => [true, 'Flippers'],
+                        'animate__flip' => __('Flip', OXI_TABS_TEXTDOMAIN),
+                        'animate__flipInX' => __('Flip In X', OXI_TABS_TEXTDOMAIN),
+                        'animate__flipInY' => __('Flip In Y', OXI_TABS_TEXTDOMAIN),
+                        'optgroup9' => [false],
+                        'optgroup10' => [true, 'Lightspeed'],
+                        'animate__lightSpeedInRight' => __('Light Speed In Right', OXI_TABS_TEXTDOMAIN),
+                        'animate__lightSpeedInLeft' => __('Light Speed In Left', OXI_TABS_TEXTDOMAIN),
+                        'optgroup11' => [false],
+                        'optgroup12' => [true, 'Rotating Entrances'],
+                        'animate__rotateIn' => __('Rotate In', OXI_TABS_TEXTDOMAIN),
+                        'animate__rotateInDownLeft' => __('Rotate In Down Left', OXI_TABS_TEXTDOMAIN),
+                        'animate__rotateInDownRight' => __('Rotate In Down Right', OXI_TABS_TEXTDOMAIN),
+                        'animate__rotateInUpLeft' => __('Rotate In Up Left', OXI_TABS_TEXTDOMAIN),
+                        'animate__rotateInUpRight' => __('Rotate In Up Right', OXI_TABS_TEXTDOMAIN),
+                        'optgroup13' => [false],
+                        'optgroup14' => [true, 'Specials'],
+                        'animate__hinge' => __('Hinge', OXI_TABS_TEXTDOMAIN),
+                        'animate__jackInTheBox' => __('Jack In The Box', OXI_TABS_TEXTDOMAIN),
+                        'animate__rollIn' => __('Roll In', OXI_TABS_TEXTDOMAIN),
+                        'optgroup15' => [false],
+                        'optgroup16' => [true, 'Zooming Entrances'],
+                        'animate__zoomIn' => __('Zoom In', OXI_TABS_TEXTDOMAIN),
+                        'animate__zoomInDown' => __('Zoom In Down', OXI_TABS_TEXTDOMAIN),
+                        'animate__zoomInLeft' => __('Zoom In Left', OXI_TABS_TEXTDOMAIN),
+                        'animate__zoomInRight' => __('Zoom In Right', OXI_TABS_TEXTDOMAIN),
+                        'animate__zoomInUp' => __('Zoom In Up', OXI_TABS_TEXTDOMAIN),
+                        'optgroup17' => [false],
+                        'optgroup18' => [true, 'Sliding Entrances'],
+                        'animate__slideInDown' => __('Slide In Down', OXI_TABS_TEXTDOMAIN),
+                        'animate__slideInLeft' => __('Slide In Left', OXI_TABS_TEXTDOMAIN),
+                        'animate__slideInUp' => __('Slide In Up', OXI_TABS_TEXTDOMAIN),
+                        'optgroup19' => [false],
+                    ],
+                    'description' => 'Add Animation Effect on Tabs opening.',
+                ]
+        );
+
+        $this->add_responsive_control(
+                'oxi-tabs-general-margin',
+                $this->style,
+                [
+                    'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::DIMENSIONS,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => '',
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 500,
+                            'step' => 1,
+                        ],
+                        '%' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        'em' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => .1,
+                        ],
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                    'description' => 'Create some Space outside of the Tabs Body.',
+                ]
+        );
+        $this->end_controls_section();
+    }
+
+    public function register_gen_heading() {
+        $this->start_controls_section(
+                'oxi-tabs-heading',
+                [
+                    'label' => esc_html__('Header Settings', OXI_TABS_TEXTDOMAIN),
+                    'showing' => TRUE,
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-alignment',
+                $this->style,
+                [
+                    'label' => __('Tabs Alignment', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        'oxi-tab-header-horizontal' => [
+                            'title' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tab-header-vertical' => [
+                            'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set the Tabs Alignment type.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-horizontal-position',
+                $this->style,
+                [
+                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal'
+                    ],
+                    'options' => [
+                        'oxi-tab-header-top-left-position' => __('Top Left', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-top-right-position' => __('Top Right', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-top-center-position' => __('Top Center', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-top-compact-position' => __('Top Compact', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-bottom-left-position' => __('Bottom Left', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-bottom-right-position' => __('Bottom Right', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-bottom-center-position' => __('Bottom Center', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-bottom-compact-position' => __('Bottom Compact', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set the Horizontal Position of Tab’s header.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-heading-vertical-position',
+                $this->style,
+                [
+                    'label' => __('Vertical Position', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
+                    ],
+                    'options' => [
+                        'oxi-tab-header-left-top-position' => __('Left Top', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-left-center-position' => __('Left Center', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-left-bottom-position' => __('Left Bottom', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-right-top-position' => __('Right Top', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-right-center-position' => __('Right Center', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tab-header-right-bottom-position' => __('Right Bottom', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set the Vertical Position of Tab’s header.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-gen-vertical-width',
+                $this->style,
+                [
+                    'label' => __('Header Width', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'default' => [
+                        'unit' => '%',
+                        'size' => 100,
+                    ],
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 1,
+                            'max' => 1900,
+                            'step' => 1,
+                        ],
+                        '%' => [
+                            'min' => 1,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        'em' => [
+                            'min' => 1,
+                            'max' => 200,
+                            'step' => 0.1,
+                        ],
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tab-header-vertical > .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
+                    ],
+                    'description' => 'Customize the Header Width (Pixel, Percent or EM).',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-responsive-mode',
+                $this->style,
+                [
+                    'label' => __('Responsive Behavior', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        'oxi-tabs-heading-responsive-dynamic' => [
+                            'title' => __('Dynamic', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-responsive-static' => [
+                            'title' => __('Static', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => 'oxi-tabs-heading-responsive-dynamic',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set the Responsive Behavior of the Tab’s Header while Static will give you to set your custom settings.',
+                ]
+        );
+        $this->start_controls_tabs(
+                'oxi-tabs-heading-renponsive-tabs',
+                [
+                    'options' => [
+                        'tabs-settings' => esc_html__('Tabs Settings ', OXI_TABS_TEXTDOMAIN),
+                        'mobile-settings' => esc_html__('Mobile Settings', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'condition' => [
+                        'oxi-tabs-heading-responsive-mode' => 'oxi-tabs-heading-responsive-static'
+                    ],
+                ]
+        );
+
+        $this->start_controls_tab();
+
+        $this->add_control(
+                'oxi-tabs-header-horizontal-tabs-alignment-horizontal',
+                $this->style,
+                [
+                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
+                    ],
+                    'options' => [
+                        'oxi-tabs-header-horizontal-tabs-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tabs-header-horizontal-tabs-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tabs-header-horizontal-tabs-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set Horizontal Position of the Header either Column, Row, or Compact.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-header-vertical-tabs-alignment',
+                $this->style,
+                [
+                    'label' => __('Header Alignment', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
+                    ],
+                    'options' => [
+                        'oxi-tabs-header-vertical-tabs-alignment-horizontal' => [
+                            'title' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-header-vertical-tabs-alignment-vertical' => [
+                            'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set the Tabs Alignment type for Medium Device.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-header-vertical-tabs-alignment-horizontal',
+                $this->style,
+                [
+                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
+                        'oxi-tabs-header-vertical-tabs-alignment' => 'oxi-tabs-header-vertical-tabs-alignment-horizontal'
+                    ],
+                    'options' => [
+                        'oxi-tabs-header-vertical-tabs-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tabs-header-vertical-tabs-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tabs-header-vertical-tabs-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-header-tab-vertical-width',
+                $this->style,
+                [
+                    'label' => __('Header Width', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'customresponsive' => 'tab',
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
+                        'oxi-tabs-header-vertical-tabs-alignment' => 'oxi-tabs-header-vertical-tabs-alignment-vertical'
+                    ],
+                    'default' => [
+                        'unit' => '%',
+                        'size' => 25,
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 1,
+                            'max' => 1900,
+                            'step' => 1,
+                        ],
+                        '%' => [
+                            'min' => 1,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        'em' => [
+                            'min' => 1,
+                            'max' => 200,
+                            'step' => 0.1,
+                        ],
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-tabs-alignment-vertical > .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
+                    ],
+                    'description' => 'Customize the Header Width (Pixel, Percent or EM).',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-title',
+                $this->style,
+                [
+                    'label' => __('Title', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-tabs-show-title-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the Title on Tabs Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-subtitle',
+                $this->style,
+                [
+                    'label' => __('Sub Title', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-tabs-show-subtitle-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the Sub Title on Tabs Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-icon',
+                $this->style,
+                [
+                    'label' => __('Icon', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-tabs-show-icon-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the header Icon on Tabs Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-number',
+                $this->style,
+                [
+                    'label' => __('Number', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-tabs-show-number-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the header Number on Tabs Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-tabs-show-image',
+                $this->style,
+                [
+                    'label' => __('Image', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-tabs-show-image-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the header Image on Tabs Mode.',
+                ]
+        );
+
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-header-horizontal-mobile-alignment-horizontal',
+                $this->style,
+                [
+                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-horizontal',
+                    ],
+                    'options' => [
+                        'oxi-tabs-header-horizontal-mobile-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tabs-header-horizontal-mobile-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tabs-header-horizontal-mobile-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set Horizontal Position of the Header either Column, Row, or Compact..',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-header-vertical-mobile-alignment',
+                $this->style,
+                [
+                    'label' => __('Header Alignment', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical'
+                    ],
+                    'options' => [
+                        'oxi-tabs-header-vertical-mobile-alignment-horizontal' => [
+                            'title' => __('Horizontal', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-header-vertical-mobile-alignment-vertical' => [
+                            'title' => __('Vertical', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set the Tabs Alignment type for Small Device.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-header-vertical-mobile-alignment-horizontal',
+                $this->style,
+                [
+                    'label' => __('Horizontal Position', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SELECT,
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
+                        'oxi-tabs-header-vertical-mobile-alignment' => 'oxi-tabs-header-vertical-mobile-alignment-horizontal'
+                    ],
+                    'options' => [
+                        'oxi-tabs-header-vertical-mobile-alignment-horizontal-horizontal' => __('Column', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tabs-header-vertical-mobile-alignment-horizontal-vertical' => __('Row', OXI_TABS_TEXTDOMAIN),
+                        'oxi-tabs-header-vertical-mobile-alignment-horizontal-compact' => __('Compact', OXI_TABS_TEXTDOMAIN),
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style' => '',
+                    ],
+                    'description' => 'Set Header Alignment Horizontal Position as Colum row or Compact.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-header-mobile-vertical-width',
+                $this->style,
+                [
+                    'label' => __('Header Width', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::SLIDER,
+                    'customresponsive' => 'mobile',
+                    'condition' => [
+                        'oxi-tabs-heading-alignment' => 'oxi-tab-header-vertical',
+                        'oxi-tabs-header-vertical-mobile-alignment' => 'oxi-tabs-header-vertical-mobile-alignment-vertical'
+                    ],
+                    'default' => [
+                        'unit' => '%',
+                        'size' => 25,
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 1,
+                            'max' => 1900,
+                            'step' => 1,
+                        ],
+                        '%' => [
+                            'min' => 1,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        'em' => [
+                            'min' => 1,
+                            'max' => 200,
+                            'step' => 0.1,
+                        ],
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tab-header-vertical.oxi-tabs-heading-responsive-static.oxi-tabs-header-vertical-mobile-alignment-vertical > .oxi-tabs-ultimate-header-wrap' => 'width:{{SIZE}}{{UNIT}};',
+                    ],
+                    'description' => 'Customize the Header Width (Pixel, Percent or EM) for Small Device.',
+                ]
+        );
+
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-title',
+                $this->style,
+                [
+                    'label' => __('Title', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-mobile-show-title-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the Title on Mobile Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-subtitle',
+                $this->style,
+                [
+                    'label' => __('Title', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-mobile-show-subtitle-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the Sub Title on Mobile Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-icon',
+                $this->style,
+                [
+                    'label' => __('Icon', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-mobile-show-icon-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the header Icon on Mobile Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-number',
+                $this->style,
+                [
+                    'label' => __('Number', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-mobile-show-number-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the header Number on Mobile Mode.',
+                ]
+        );
+        $this->add_control(
+                'oxi-tabs-heading-mobile-show-image',
+                $this->style,
+                [
+                    'label' => __('Image', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::CHOOSE,
+                    'operator' => Controls::OPERATOR_TEXT,
+                    'options' => [
+                        '' => [
+                            'title' => __('Show', OXI_TABS_TEXTDOMAIN),
+                        ],
+                        'oxi-tabs-heading-mobile-show-image-false' => [
+                            'title' => __('Hide', OXI_TABS_TEXTDOMAIN),
+                        ],
+                    ],
+                    'default' => '',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap' => '',
+                    ],
+                    'description' => 'Show/Hide the header Image on Mobile Mode.',
+                ]
+        );
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+
+        $this->end_controls_section();
     }
 
 }

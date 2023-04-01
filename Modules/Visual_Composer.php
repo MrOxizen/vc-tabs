@@ -9,11 +9,6 @@ namespace OXI_TABS_PLUGINS\Modules;
  */
 class Visual_Composer {
 
-    public function __construct() {
-        add_action('vc_before_init', [$this, 'VC_extension']);
-        add_shortcode('ctu_ultimate_oxi_VC', [$this, 'VC_Shortcode']);
-    }
-
     public function VC_extension() {
         vc_map(array(
             "name" => __("Content Tabs"),
@@ -29,6 +24,11 @@ class Visual_Composer {
                 ),
             )
         ));
+    }
+
+    public function __construct() {
+        add_action('vc_before_init', [$this, 'VC_extension']);
+        add_shortcode('ctu_ultimate_oxi_VC', [$this, 'VC_Shortcode']);
     }
 
     public function VC_Shortcode($atts) {

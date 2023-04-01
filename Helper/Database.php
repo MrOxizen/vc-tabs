@@ -37,16 +37,6 @@ Class Database {
     public $child_table;
     protected static $lfe_instance = NULL;
 
-    /**
-     * Access plugin instance. You can create further instances by calling
-     */
-    public static function get_instance() {
-        if (NULL === self::$lfe_instance)
-            self::$lfe_instance = new self;
-
-        return self::$lfe_instance;
-    }
-
     public function __construct() {
         global $wpdb;
         $this->wpdb = $wpdb;
@@ -73,8 +63,8 @@ Class Database {
 		rawdata longtext,
 		PRIMARY KEY  (id)
 	)$charset_collate;";
-        
-          $sql3 = "CREATE TABLE $this->import_table (
+
+        $sql3 = "CREATE TABLE $this->import_table (
 		id mediumint(5) NOT NULL AUTO_INCREMENT,
                 type varchar(50) NULL,
                 name varchar(100) NULL,
@@ -85,6 +75,16 @@ Class Database {
         dbDelta($sql1);
         dbDelta($sql2);
         dbDelta($sql3);
+    }
+
+    /**
+     * Access plugin instance. You can create further instances by calling
+     */
+    public static function get_instance() {
+        if (NULL === self::$lfe_instance)
+            self::$lfe_instance = new self;
+
+        return self::$lfe_instance;
     }
 
 }

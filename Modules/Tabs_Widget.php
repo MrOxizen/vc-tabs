@@ -10,17 +10,6 @@ class Tabs_Widget extends \WP_Widget {
         );
     }
 
-    public function tabs_register_tabswidget() {
-        register_widget($this);
-    }
-
-    public function widget($args, $instance) {
-        $title = apply_filters('widget_title', $instance['title']);
-        echo $args['before_widget'];
-        echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($title, 'user');
-        echo $args['after_widget'];
-    }
-
     public function update($new_instance, $old_instance) {
         $instance = array();
         $instance['title'] = (!empty($new_instance['title']) ) ? strip_tags($new_instance['title']) : '';
@@ -39,6 +28,17 @@ class Tabs_Widget extends \WP_Widget {
             <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
         </p>
         <?php
+    }
+
+    public function tabs_register_tabswidget() {
+        register_widget($this);
+    }
+
+    public function widget($args, $instance) {
+        $title = apply_filters('widget_title', $instance['title']);
+        echo $args['before_widget'];
+        echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($title, 'user');
+        echo $args['after_widget'];
     }
 
 }

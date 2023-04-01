@@ -5,13 +5,12 @@ namespace OXI_TABS_PLUGINS\Render;
 /**
  * Render Core Class
  *
- * 
+ *
  * @author biplob018
  * @package Oxilab Tabs Ultimate
  * @since 3.3.0
  */
-class Old_Render
-{
+class Old_Render {
 
     public $style;
     public $child;
@@ -26,8 +25,7 @@ class Old_Render
      *
      * @since 2.0.0
      */
-    public function __construct($style = [], $child = [], $user = '')
-    {
+    public function __construct($style = [], $child = [], $user = '') {
         if (array_key_exists('id', $style)) :
             $this->ID = $style['id'];
             $this->WRAPPER = 'oxi-addons-container-' . $style['id'];
@@ -42,42 +40,11 @@ class Old_Render
         $this->inline_load();
     }
 
-    public function inline_public_jquery()
-    {
+    public function default_render() {
         echo '';
     }
 
-    public function inline_public_css()
-    {
-        echo '';
-    }
-    public function icon_font_selector($data)
-    {
-        $icon = explode(' ', $data);
-        $fadata = get_option('oxi_addons_font_awesome');
-        $faversion = get_option('oxi_addons_font_awesome_version');
-        $faversion = explode('||', $faversion);
-        if ($fadata != 'no') {
-            wp_enqueue_style('font-awesome-' . $faversion[0], $faversion[1]);
-        }
-        $files = '<i class="' . $data . ' oxi-icons"></i>';
-        return $files;
-    }
-
-    public function public_jquery_css()
-    {
-        wp_enqueue_script("jquery");
-        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . 'assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
-        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . 'assets/frontend/js/old.js', false, OXI_TABS_TEXTDOMAIN);
-    }
-
-    public function default_render()
-    {
-        echo '';
-    }
-
-    public function inline_load()
-    {
+    public function inline_load() {
         $inlinejs = $this->JQUERY;
         $inlinecss = $this->CSS;
         if ($inlinejs != '') :
@@ -103,13 +70,13 @@ class Old_Render
             endif;
         endif;
     }
-    public function admin_edit_panel($id)
-    {
+
+    public function admin_edit_panel($id) {
         $data = '';
         if ($this->user == 'admin') :
             $data = '<div class="oxi-addons-admin-absulote">
                         <div class="oxi-addons-admin-absulate-edit">
-                            <form method="post"> 
+                            <form method="post">
                                 <input type="hidden" name="item-id" value="' . $id . '">
                                 <button class="btn btn-primary" type="submit" value="edit" name="edit" title="Edit">Edit</button>
                                 ' . wp_nonce_field("oxitabseditdata") . '
@@ -127,15 +94,13 @@ class Old_Render
         return $data;
     }
 
-    public function JS_CSS()
-    {
+    public function JS_CSS() {
         $this->public_jquery_css();
         $this->inline_public_css();
         $this->inline_public_jquery();
     }
 
-    public function Template()
-    {
+    public function Template() {
         echo '<div class="oxi-addons-container ' . $this->WRAPPER . '">
                  <div class="oxi-addons-row">';
         $this->default_render();
@@ -143,8 +108,7 @@ class Old_Render
               </div>';
     }
 
-    public function special_charecter($data)
-    {
+    public function special_charecter($data) {
         $data = html_entity_decode($data);
         $data = str_replace("\'", "'", $data);
         $data = str_replace('\"', '"', $data);
@@ -152,8 +116,7 @@ class Old_Render
         return $data;
     }
 
-    public function font_familly($data)
-    {
+    public function font_familly($data) {
         wp_enqueue_style('' . $data . '', 'https://fonts.googleapis.com/css?family=' . $data . '');
         $data = str_replace('+', ' ', $data);
         $data = explode(':', $data);
@@ -161,4 +124,31 @@ class Old_Render
         $data = '"' . $data . '"';
         return $data;
     }
+
+    public function inline_public_jquery() {
+        echo '';
+    }
+
+    public function inline_public_css() {
+        echo '';
+    }
+
+    public function icon_font_selector($data) {
+        $icon = explode(' ', $data);
+        $fadata = get_option('oxi_addons_font_awesome');
+        $faversion = get_option('oxi_addons_font_awesome_version');
+        $faversion = explode('||', $faversion);
+        if ($fadata != 'no') {
+            wp_enqueue_style('font-awesome-' . $faversion[0], $faversion[1]);
+        }
+        $files = '<i class="' . $data . ' oxi-icons"></i>';
+        return $files;
+    }
+
+    public function public_jquery_css() {
+        wp_enqueue_script("jquery");
+        wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . 'assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
+        wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . 'assets/frontend/js/old.js', false, OXI_TABS_TEXTDOMAIN);
+    }
+
 }

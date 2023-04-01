@@ -38,28 +38,6 @@ class Installation {
         $database->update_database();
     }
 
-    public function Tabs_Datatase() {
-        $this->Datatase();
-        $headersize = 0;
-        add_option('oxi_addons_fixed_header_size', $headersize);
-    }
-
-   
-
-    /**
-     * Plugin activation hook
-     *
-     * @since 3.1.0
-     */
-    public function plugin_activation_hook() {
-
-        $this->Tabs_Datatase();
-        $this->Tabs_Post_Count();
-        
-        // Redirect to options page
-        set_transient('oxi_tabs_activation_redirect', true, 30);
-    }
-
     /**
      * Tabs Popular Post Count Query
      *
@@ -84,6 +62,26 @@ class Installation {
                 $this->Tabs_Post_Count();
             }
         }
+    }
+
+    public function Tabs_Datatase() {
+        $this->Datatase();
+        $headersize = 0;
+        add_option('oxi_addons_fixed_header_size', $headersize);
+    }
+
+    /**
+     * Plugin activation hook
+     *
+     * @since 3.1.0
+     */
+    public function plugin_activation_hook() {
+
+        $this->Tabs_Datatase();
+        $this->Tabs_Post_Count();
+
+        // Redirect to options page
+        set_transient('oxi_tabs_activation_redirect', true, 30);
     }
 
 }

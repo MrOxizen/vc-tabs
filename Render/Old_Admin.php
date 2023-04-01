@@ -93,46 +93,6 @@ class Old_Admin {
     public $itemid;
     public $css;
 
-    /**
-     * Constructor of Oxilab tabs Home Page
-     *
-     * @since 2.0.0
-     */
-    public function __construct() {
-        global $wpdb;
-        $this->wpdb = $wpdb;
-        $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
-        $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
-        $this->import_font = $this->wpdb->prefix . 'content_tabs_ultimate_import';
-        $this->styleid = (int) $_GET['styleid'];
-        if (!empty($_REQUEST['_wpnonce'])) {
-            $this->nonce = $_REQUEST['_wpnonce'];
-        }
-        $this->Database();
-        $this->CSS_JS();
-        $this->Templates();
-    }
-
-    public function Database() {
-        $this->style_data();
-        $this->child_save();
-        $this->child_edit();
-        $this->rename_shortcode();
-        $this->Delete_child_data();
-    }
-
-    public function rename_shortcode() {
-        if (!empty($_POST['oxi-addons-name-change']) && $_POST['oxi-addons-name-change'] == 'Save') {
-            if (!wp_verify_nonce($this->nonce, 'oxi-addons-name-change')) {
-                die('You do not have sufficient permissions to access this page.');
-            } else {
-                $styleid = (int) $_POST['oxi-addons-id'];
-                $name = sanitize_text_field($_POST['oxi-addons-name']);
-                $this->wpdb->query($this->wpdb->prepare("UPDATE $this->parent_table SET name = %s WHERE id = %d", $name, $styleid));
-            }
-        }
-    }
-
     public function style() {
         return '';
     }
@@ -238,11 +198,11 @@ class Old_Admin {
     }
 
     public function admin_field($styledata) {
-        
+
     }
 
     public function admin_child_field() {
-        
+
     }
 
     public function add_new_form_opener() {
@@ -277,7 +237,7 @@ class Old_Admin {
                             <input type="submit" class="btn btn-success" name="oxi-addons-name-change" value="Save">
                         </div>
                     </div>
-                    <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
+        <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
                 </form>
             </div>
         </div>
@@ -321,7 +281,7 @@ class Old_Admin {
                         </div>
                     </div>
                     <div id="modal-rearrange-store-file">
-                        <?php echo $this->admin_child_rearrange(); ?>
+        <?php echo $this->admin_child_rearrange(); ?>
                     </div>
                 </form>
 
@@ -668,7 +628,7 @@ class Old_Admin {
         $checking = apply_filters('oxi-tabs-plugin/pro_version', true);
 
         if ($checking == false) {
-            $data .= 'jQuery(".oxilab-vendor-color").each(function (index, value) {                             
+            $data .= 'jQuery(".oxilab-vendor-color").each(function (index, value) {
                             jQuery(this).closest(".col-sm-6").siblings(".col-sm-6.control-label").append(" <span class=\"oxi-pro-only\">Pro</span>");
                             var datavalue = jQuery(this).val();
                             jQuery(this).attr("oxivalue", datavalue);
@@ -702,12 +662,12 @@ class Old_Admin {
 
     public function Templates() {
         ?>
-        <div class="wrap oxi-template-old-admin-wrap">  
+        <div class="wrap oxi-template-old-admin-wrap">
             <div class="oxi-addons-row">
                 <div class="oxi-addons-wrapper ">
-                    <?php
-                    apply_filters('vc-tabs-support-and-comments', true);
-                    ?>
+        <?php
+        apply_filters('vc-tabs-support-and-comments', true);
+        ?>
                     <div class="oxi-addons-settings">
                         <div class="oxi-addons-style-left">
                             <form method="post" id="oxi-style-submit">
@@ -737,12 +697,12 @@ class Old_Admin {
                             </form>
                         </div>
                         <div class="oxi-addons-style-right">
-                            <?php
-                            echo $this->add_new_form_opener();
-                            echo $this->remane_shortcode();
-                            echo $this->shortcode_info();
-                            echo $this->rearrange_tab_opener();
-                            ?>
+        <?php
+        echo $this->add_new_form_opener();
+        echo $this->remane_shortcode();
+        echo $this->shortcode_info();
+        echo $this->rearrange_tab_opener();
+        ?>
                         </div>
                     </div>
                     <div class="oxi-addons-style-left-preview">
@@ -759,13 +719,13 @@ class Old_Admin {
                             </div>
                         </div>
                         <div class="oxi-addons-preview-data" id="oxi-addons-preview-data">
-                            <?php
-                            $style = ucfirst($this->style['style_name']);
-                            $cls = '\OXI_TABS_PLUGINS\Render\Old_Views\\' . $style;
-                            if (class_exists($cls)):
-                                new $cls($this->style, $this->child, 'admin');
-                            endif;
-                            ?>
+        <?php
+        $style = ucfirst($this->style['style_name']);
+        $cls = '\OXI_TABS_PLUGINS\Render\Old_Views\\' . $style;
+        if (class_exists($cls)):
+            new $cls($this->style, $this->child, 'admin');
+        endif;
+        ?>
                         </div>
                     </div>
                 </div>
@@ -778,9 +738,9 @@ class Old_Admin {
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <?php
-                                    echo $this->admin_child_field();
-                                    ?>
+        <?php
+        echo $this->admin_child_field();
+        ?>
                                 </div>
                                 <div class="modal-footer">
                                     <input type="hidden" id="item-id" name="item-id" value="<?php echo $this->itemid; ?>">
@@ -819,6 +779,46 @@ class Old_Admin {
 
         <?php
         $this->import_font_family();
+    }
+
+    /**
+     * Constructor of Oxilab tabs Home Page
+     *
+     * @since 2.0.0
+     */
+    public function __construct() {
+        global $wpdb;
+        $this->wpdb = $wpdb;
+        $this->parent_table = $this->wpdb->prefix . 'content_tabs_ultimate_style';
+        $this->child_table = $this->wpdb->prefix . 'content_tabs_ultimate_list';
+        $this->import_font = $this->wpdb->prefix . 'content_tabs_ultimate_import';
+        $this->styleid = (int) $_GET['styleid'];
+        if (!empty($_REQUEST['_wpnonce'])) {
+            $this->nonce = $_REQUEST['_wpnonce'];
+        }
+        $this->Database();
+        $this->CSS_JS();
+        $this->Templates();
+    }
+
+    public function Database() {
+        $this->style_data();
+        $this->child_save();
+        $this->child_edit();
+        $this->rename_shortcode();
+        $this->Delete_child_data();
+    }
+
+    public function rename_shortcode() {
+        if (!empty($_POST['oxi-addons-name-change']) && $_POST['oxi-addons-name-change'] == 'Save') {
+            if (!wp_verify_nonce($this->nonce, 'oxi-addons-name-change')) {
+                die('You do not have sufficient permissions to access this page.');
+            } else {
+                $styleid = (int) $_POST['oxi-addons-id'];
+                $name = sanitize_text_field($_POST['oxi-addons-name']);
+                $this->wpdb->query($this->wpdb->prepare("UPDATE $this->parent_table SET name = %s WHERE id = %d", $name, $styleid));
+            }
+        }
     }
 
 }
