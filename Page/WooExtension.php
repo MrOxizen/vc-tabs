@@ -29,10 +29,10 @@ class WooExtension {
         $this->admin_css_loader();
         ?>
         <div class="wrap">
-        <?php
-        echo apply_filters('oxi-tabs-plugin/admin_menu', true);
-        apply_filters('vc-tabs-support-and-comments', true);
-        ?>
+            <?php
+            echo apply_filters('oxi-tabs-plugin/admin_menu', true);
+            apply_filters('vc-tabs-support-and-comments', true);
+            ?>
             <div class="oxi-addons-row">
 
                 <div class="about-wrap text-center">
@@ -71,9 +71,9 @@ class WooExtension {
                                         <div class="oxi-sa-cards-switcher ">
                                             <select name="oxilab_tabs_woocommerce_default"
                                                     id="oxilab_tabs_woocommerce_default">
-        <?php foreach ($this->get_style as $key => $value) { ?>
+                                                        <?php foreach ($this->get_style as $key => $value) { ?>
                                                     <option value="<?php echo esc_attr($key); ?>" <?php selected($this->default_tabs, esc_attr($key)); ?>><?php echo esc_html($value); ?></option>
-                                                        <?php } ?>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
@@ -120,9 +120,9 @@ class WooExtension {
                                     <p>Customization default tabs globally, include tabs priority value and custom callback function if you want.</p>
                                 </div>
                                 <div class="woo-oxilab-tabs-admin-body">
-        <?php
-        foreach ($this->customize_default_tabs as $key => $value) {
-            ?>
+                                    <?php
+                                    foreach ($this->customize_default_tabs as $key => $value) {
+                                        ?>
                                         <div class="woo-oxilab-tabs-admin-tabs oxi-hidden">
                                             <div class="oxi-woo-header">
                                                 <div class="oxi-woo-header-text"><?php echo esc_html(ucfirst($key)) ?></div>
@@ -181,9 +181,9 @@ class WooExtension {
                                                 </p>
                                             </div>
                                         </div>
-            <?php
-        }
-        ?>
+                                        <?php
+                                    }
+                                    ?>
 
                                 </div>
                                 <div class="oxi-woo-tabs-add-rows">
@@ -201,6 +201,32 @@ class WooExtension {
             </div>
         </div>
         <?php
+    }
+
+    public function customize_default_tabs() {
+        $this->customize_default_tabs = [
+            'description' => [
+                'unset' => false,
+                'title' => '',
+                'icon' => '',
+                'priority' => '',
+                'callback' => '',
+            ],
+            'reviews' => [
+                'unset' => false,
+                'title' => '',
+                'icon' => '',
+                'priority' => '',
+                'callback' => '',
+            ],
+            'additional_information' => [
+                'unset' => false,
+                'title' => '',
+                'icon' => '',
+                'priority' => '',
+                'callback' => '',
+            ]
+        ];
     }
 
     public function __construct() {
@@ -249,31 +275,4 @@ class WooExtension {
         ]);
         wp_enqueue_style('oxilab_tabs_woo-styles', OXI_TABS_URL . 'assets/woocommerce/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
     }
-
-    public function customize_default_tabs() {
-        $this->customize_default_tabs = [
-            'description' => [
-                'unset' => false,
-                'title' => '',
-                'icon' => '',
-                'priority' => '',
-                'callback' => '',
-            ],
-            'reviews' => [
-                'unset' => false,
-                'title' => '',
-                'icon' => '',
-                'priority' => '',
-                'callback' => '',
-            ],
-            'additional_information' => [
-                'unset' => false,
-                'title' => '',
-                'icon' => '',
-                'priority' => '',
-                'callback' => '',
-            ]
-        ];
-    }
-
 }

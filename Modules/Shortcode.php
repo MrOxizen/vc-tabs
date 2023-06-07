@@ -71,31 +71,6 @@ class Shortcode {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
     }
 
-    public function get_all_style() {
-        $response = get_transient(self::RESPONSIVE_TABS_ALL_STYLE);
-        if (!$response) {
-            $rows = $this->database->wpdb->get_results("SELECT id, name FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
-            $response = ['' => 'Default Tabs'];
-            foreach ($rows as $key => $value):
-                $response[$value['id']] = !empty($value['name']) ? $value['name'] : 'Shortcode ' . $value['id'];
-            endforeach;
-            ksort($response);
-            set_transient(self::RESPONSIVE_TABS_ALL_STYLE, $response, 30 * DAY_IN_SECONDS);
-        }
-        return $response;
-    }
-
-    public function render($styleid, $user = 'public', $arg = [], $keys = []) {
-        if (empty((int) $styleid) || empty($user)):
-            return false;
-        endif;
-        $this->oxiid = $styleid;
-        $this->user = $user;
-        $this->arg = $arg;
-        $this->key = $keys;
-        $this->shortcode();
-    }
-
     /**
      * Template constructor.
      */
@@ -149,4 +124,28 @@ class Shortcode {
         endif;
     }
 
+    public function get_all_style() {
+        $response = get_transient(self::RESPONSIVE_TABS_ALL_STYLE);
+        if (!$response) {
+            $rows = $this->database->wpdb->get_results("SELECT id, name FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
+            $response = ['' => 'Default Tabs'];
+            foreach ($rows as $key => $value):
+                $response[$value['id']] = !empty($value['name']) ? $value['name'] : 'Shortcode ' . $value['id'];
+            endforeach;
+            ksort($response);
+            set_transient(self::RESPONSIVE_TABS_ALL_STYLE, $response, 30 * DAY_IN_SECONDS);
+        }
+        return $response;
+    }
+
+    public function render($styleid, $user = 'public', $arg = [], $keys = []) {
+        if (empty((int) $styleid) || empty($user)):
+            return false;
+        endif;
+        $this->oxiid = $styleid;
+        $this->user = $user;
+        $this->arg = $arg;
+        $this->key = $keys;
+        $this->shortcode();
+    }
 }

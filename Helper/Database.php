@@ -37,6 +37,16 @@ Class Database {
     public $child_table;
     protected static $lfe_instance = NULL;
 
+    /**
+     * Access plugin instance. You can create further instances by calling
+     */
+    public static function get_instance() {
+        if (NULL === self::$lfe_instance)
+            self::$lfe_instance = new self;
+
+        return self::$lfe_instance;
+    }
+
     public function __construct() {
         global $wpdb;
         $this->wpdb = $wpdb;
@@ -76,15 +86,4 @@ Class Database {
         dbDelta($sql2);
         dbDelta($sql3);
     }
-
-    /**
-     * Access plugin instance. You can create further instances by calling
-     */
-    public static function get_instance() {
-        if (NULL === self::$lfe_instance)
-            self::$lfe_instance = new self;
-
-        return self::$lfe_instance;
-    }
-
 }

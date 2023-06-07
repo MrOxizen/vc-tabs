@@ -44,33 +44,6 @@ class Old_Render {
         echo '';
     }
 
-    public function inline_load() {
-        $inlinejs = $this->JQUERY;
-        $inlinecss = $this->CSS;
-        if ($inlinejs != '') :
-            if ($this->user == 'admin') :
-                echo _('<script>
-                        (function ($) {
-                            setTimeout(function () {');
-                echo $inlinejs;
-                echo _('    }, 2000);
-                        })(jQuery)</script>');
-            else :
-                $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
-                wp_add_inline_script('vc-tabs-jquery', $jquery);
-            endif;
-        endif;
-        if ($inlinecss != '') :
-            if ($this->user == 'admin') :
-                echo _('<style>');
-                echo $inlinecss;
-                echo _('</style>');
-            else :
-                wp_add_inline_style('vc-tabs-style', $inlinecss);
-            endif;
-        endif;
-    }
-
     public function admin_edit_panel($id) {
         $data = '';
         if ($this->user == 'admin') :
@@ -125,6 +98,33 @@ class Old_Render {
         return $data;
     }
 
+    public function inline_load() {
+        $inlinejs = $this->JQUERY;
+        $inlinecss = $this->CSS;
+        if ($inlinejs != '') :
+            if ($this->user == 'admin') :
+                echo _('<script>
+                        (function ($) {
+                            setTimeout(function () {');
+                echo $inlinejs;
+                echo _('    }, 2000);
+                        })(jQuery)</script>');
+            else :
+                $jquery = '(function ($) {' . $inlinejs . '})(jQuery);';
+                wp_add_inline_script('vc-tabs-jquery', $jquery);
+            endif;
+        endif;
+        if ($inlinecss != '') :
+            if ($this->user == 'admin') :
+                echo _('<style>');
+                echo $inlinecss;
+                echo _('</style>');
+            else :
+                wp_add_inline_style('vc-tabs-style', $inlinecss);
+            endif;
+        endif;
+    }
+
     public function inline_public_jquery() {
         echo '';
     }
@@ -150,5 +150,4 @@ class Old_Render {
         wp_enqueue_style('vc-tabs-style', OXI_TABS_URL . 'assets/frontend/css/style.css', false, OXI_TABS_TEXTDOMAIN);
         wp_enqueue_script('vc-tabs-jquery', OXI_TABS_URL . 'assets/frontend/js/old.js', false, OXI_TABS_TEXTDOMAIN);
     }
-
 }

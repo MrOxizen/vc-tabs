@@ -42,26 +42,13 @@ class Settings {
         wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . 'assets/backend/custom/settings.js', false, OXI_TABS_TEXTDOMAIN);
     }
 
-    public function admin() {
-        global $wp_roles;
-        $this->roles = $wp_roles->get_names();
-        $this->saved_role = get_option('oxi_vc_tabs_permission');
-        $this->license = get_option('responsive_tabs_with_accordions_license_key');
-        $this->status = get_option('responsive_tabs_with_accordions_license_status');
-        $this->oxi_fixed_header = get_option('oxi_addons_fixed_header_size');
-        $this->installed_plugins = get_plugins();
-        if (empty($this->oxi_fixed_header)) {
-            update_option('oxi_addons_fixed_header_size', 0);
-        }
-    }
-
     public function Render() {
         $this->admin_css_loader();
         ?>
         <div class="wrap">
-            <?php
-            echo apply_filters('oxi-tabs-plugin/admin_menu', true);
-            ?>
+        <?php
+        echo apply_filters('oxi-tabs-plugin/admin_menu', true);
+        ?>
             <div class="oxi-addons-row oxi-addons-admin-settings">
                 <form method="post">
                     <h2>General</h2>
@@ -74,7 +61,7 @@ class Settings {
                                 <td>
                                     <fieldset>
                                         <select name="oxi_vc_tabs_permission" id="oxi_vc_tabs_permission">
-                                            <?php foreach ($this->roles as $key => $role) { ?>
+        <?php foreach ($this->roles as $key => $role) { ?>
                                                 <option value="<?php echo esc_attr($key); ?>" <?php selected($this->saved_role, $key); ?>><?php echo esc_html($role); ?></option>
                                             <?php } ?>
                                         </select>
@@ -165,30 +152,30 @@ class Settings {
                                            name="responsive_tabs_with_accordions_license_key"
                                            value="<?php echo esc_attr($this->license); ?>">
                                     <span class="oxi-addons-settings-connfirmation responsive_tabs_with_accordions_license_massage">
-                                        <?php
-                                        if ($this->status == 'valid' && empty($this->license)) :
-                                            echo '<span class="oxi-confirmation-success"></span>';
-                                        elseif ($this->status == 'valid' && !empty($this->license)) :
-                                            echo '<span class="oxi-confirmation-success"></span>';
-                                        elseif (!empty($this->license)) :
-                                            echo '<span class="oxi-confirmation-failed"></span>';
-                                        else :
-                                            echo '<span class="oxi-confirmation-blank"></span>';
-                                        endif;
-                                        ?>
+        <?php
+        if ($this->status == 'valid' && empty($this->license)) :
+            echo '<span class="oxi-confirmation-success"></span>';
+        elseif ($this->status == 'valid' && !empty($this->license)) :
+            echo '<span class="oxi-confirmation-success"></span>';
+        elseif (!empty($this->license)) :
+            echo '<span class="oxi-confirmation-failed"></span>';
+        else :
+            echo '<span class="oxi-confirmation-blank"></span>';
+        endif;
+        ?>
                                     </span>
                                     <span class="oxi-addons-settings-connfirmation responsive_tabs_with_accordions_license_text">
-                                        <?php
-                                        if ($this->status == 'valid' && empty($this->license)) :
-                                            echo '<span class="oxi-addons-settings-massage">Pre Active</span>';
-                                        elseif ($this->status == 'valid' && !empty($this->license)) :
-                                            echo '<span class="oxi-addons-settings-massage">Active</span>';
-                                        elseif (!empty($this->license)) :
-                                            echo '<span class="oxi-addons-settings-massage">' . esc_html__($this->status, 'vc-tabs') . '</span>';
-                                        else :
-                                            echo '<span class="oxi-addons-settings-massage"></span>';
-                                        endif;
-                                        ?>
+        <?php
+        if ($this->status == 'valid' && empty($this->license)) :
+            echo '<span class="oxi-addons-settings-massage">Pre Active</span>';
+        elseif ($this->status == 'valid' && !empty($this->license)) :
+            echo '<span class="oxi-addons-settings-massage">Active</span>';
+        elseif (!empty($this->license)) :
+            echo '<span class="oxi-addons-settings-massage">' . esc_html__($this->status, 'vc-tabs') . '</span>';
+        else :
+            echo '<span class="oxi-addons-settings-massage"></span>';
+        endif;
+        ?>
                                     </span>
                                     <p class="description">Activate your License to get direct plugin updates and official support.</p>
                                 </td>
@@ -201,4 +188,16 @@ class Settings {
         <?php
     }
 
+    public function admin() {
+        global $wp_roles;
+        $this->roles = $wp_roles->get_names();
+        $this->saved_role = get_option('oxi_vc_tabs_permission');
+        $this->license = get_option('responsive_tabs_with_accordions_license_key');
+        $this->status = get_option('responsive_tabs_with_accordions_license_status');
+        $this->oxi_fixed_header = get_option('oxi_addons_fixed_header_size');
+        $this->installed_plugins = get_plugins();
+        if (empty($this->oxi_fixed_header)) {
+            update_option('oxi_addons_fixed_header_size', 0);
+        }
+    }
 }

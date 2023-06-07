@@ -17,38 +17,12 @@ class Bootstrap {
     use \OXI_TABS_PLUGINS\Helper\Public_Helper;
     use \OXI_TABS_PLUGINS\Helper\Admin_helper;
 
-    // instance container
-    private static $instance = null;
-
     /**
      * Define $wpdb
      *
      * @since 3.1.0
      */
     public $database;
-
-    public static function instance() {
-        if (self::$instance == null) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
-    }
-
-    /**
-     * Shortcode loader
-     *
-     * @since 3.1.0
-     * @access public
-     */
-    protected function Shortcode_loader() {
-        add_shortcode('ctu_ultimate_oxi', [$this, 'tabs_shortcode']);
-        new \OXI_TABS_PLUGINS\Modules\Visual_Composer();
-        $Tabs_Widget = new \OXI_TABS_PLUGINS\Modules\Tabs_Widget();
-        add_filter('widget_text', 'do_shortcode');
-        add_action('widgets_init', array($Tabs_Widget, 'tabs_register_tabswidget'));
-        add_filter('the_content', [$this, 'view_count_jquery']);
-    }
 
     /**
      * Execute Shortcode
@@ -145,4 +119,29 @@ class Bootstrap {
         $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
     }
 
+    // instance container
+    private static $instance = null;
+
+    public static function instance() {
+        if (self::$instance == null) {
+            self::$instance = new self;
+        }
+
+        return self::$instance;
+    }
+
+    /**
+     * Shortcode loader
+     *
+     * @since 3.1.0
+     * @access public
+     */
+    protected function Shortcode_loader() {
+        add_shortcode('ctu_ultimate_oxi', [$this, 'tabs_shortcode']);
+        new \OXI_TABS_PLUGINS\Modules\Visual_Composer();
+        $Tabs_Widget = new \OXI_TABS_PLUGINS\Modules\Tabs_Widget();
+        add_filter('widget_text', 'do_shortcode');
+        add_action('widgets_init', array($Tabs_Widget, 'tabs_register_tabswidget'));
+        add_filter('the_content', [$this, 'view_count_jquery']);
+    }
 }

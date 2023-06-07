@@ -148,25 +148,6 @@ class Render {
      *
      * @since 3.3.0
      */
-    public function render() {
-
-        $this->public_attribute($this->style);
-
-        echo '<div class="oxi-addons-container ' . $this->WRAPPER . '" id="' . $this->WRAPPER . '">
-                 <div class="oxi-addons-row">';
-        if ($this->admin == 'admin') :
-            echo '<input type="hidden" id="oxi-addons-iframe-background-color" name="oxi-addons-iframe-background-color" value="' . (is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF') . '">';
-        endif;
-        $this->default_render($this->style, $this->child, $this->admin);
-        echo '   </div>
-              </div>';
-    }
-
-    /**
-     * load current element render since 3.3.0
-     *
-     * @since 3.3.0
-     */
     public function public_attribute($style) {
 
         $this->attribute = [
@@ -187,6 +168,25 @@ class Render {
             $responsive .= $style['oxi-tabs-header-vertical-mobile-alignment'] . '  ' . $style['oxi-tabs-header-vertical-mobile-alignment-horizontal'] . ' ';
         endif;
         $this->headerclass = $style['oxi-tabs-gen-event'] . ' ' . $style['oxi-tabs-heading-responsive-mode'] . ' ' . $style['oxi-tabs-heading-alignment'] . ' ' . $style['oxi-tabs-heading-horizontal-position'] . ' ' . $style['oxi-tabs-heading-vertical-position'] . ' ' . $responsive;
+    }
+
+    /**
+     * load current element render since 3.3.0
+     *
+     * @since 3.3.0
+     */
+    public function render() {
+
+        $this->public_attribute($this->style);
+
+        echo '<div class="oxi-addons-container ' . $this->WRAPPER . '" id="' . $this->WRAPPER . '">
+                 <div class="oxi-addons-row">';
+        if ($this->admin == 'admin') :
+            echo '<input type="hidden" id="oxi-addons-iframe-background-color" name="oxi-addons-iframe-background-color" value="' . (is_array($this->style) ? array_key_exists('oxilab-preview-color', $this->style) ? $this->style['oxilab-preview-color'] : '#FFF' : '#FFF') . '">';
+        endif;
+        $this->default_render($this->style, $this->child, $this->admin);
+        echo '   </div>
+              </div>';
     }
 
     /**
@@ -756,5 +756,4 @@ class Render {
             endif;
         endif;
     }
-
 }

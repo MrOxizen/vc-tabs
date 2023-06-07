@@ -18,6 +18,250 @@ use OXI_TABS_PLUGINS\Render\Controls as Controls;
 
 class Helper extends Admin {
 
+    public function register_header_title() {
+        $this->start_controls_section(
+                'oxi-tabs-head-title',
+                [
+                    'label' => esc_html__('Title Settings', OXI_TABS_TEXTDOMAIN),
+                    'showing' => TRUE,
+                ]
+        );
+
+        $this->add_group_control(
+                'oxi-tabs-head-title-typho',
+                $this->style,
+                [
+                    'type' => Controls::TYPOGRAPHY,
+                    'include' => Controls::ALIGNNORMAL,
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-main-title' => '',
+                    ],
+                    'description' => 'Customize the Typography options for the Tab’s Title.',
+                ]
+        );
+        $this->start_controls_tabs(
+                'oxi-tabs-head-title-tabs',
+                [
+                    'options' => [
+                        'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
+                    ]
+                ]
+        );
+        $this->start_controls_tab();
+
+        $this->add_control(
+                'oxi-tabs-head-title-color',
+                $this->style,
+                [
+                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::COLOR,
+                    'default' => '#ffffff',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-main-title' => 'color: {{VALUE}};',
+                    ],
+                    'description' => 'Set the Title Color on Normal Mode.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-head-title-tx-shadow',
+                $this->style,
+                [
+                    'type' => Controls::TEXTSHADOW,
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-main-title' => '',
+                    ],
+                    'description' => 'Add one or more shadows into Title Texts and customize other Text-Shadow Options.',
+                ]
+        );
+
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-head-title-ac-color',
+                $this->style,
+                [
+                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::COLOR,
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-main-title' => 'color: {{VALUE}};',
+                    ],
+                    'description' => 'Set the Title Color on Active Mode.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-head-title-ac-tx-shadow',
+                $this->style,
+                [
+                    'type' => Controls::TEXTSHADOW,
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-main-title' => '',
+                    ],
+                    'description' => 'Add one or more shadows into Title Texts and customize other Text-Shadow Options.',
+                ]
+        );
+
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+        $this->add_responsive_control(
+                'oxi-tabs-head-title-margin',
+                $this->style,
+                [
+                    'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::DIMENSIONS,
+                    'separator' => true,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => '',
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 500,
+                            'step' => 1,
+                        ],
+                        '%' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        'em' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => .1,
+                        ],
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-main-title' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                    'description' => 'Create some Space outside of the Title.',
+                ]
+        );
+        $this->end_controls_section();
+    }
+
+    public function register_header_sub_title() {
+        $this->start_controls_section(
+                'oxi-tabs-head-sub-title',
+                [
+                    'label' => esc_html__('Sub Title Settings', OXI_TABS_TEXTDOMAIN),
+                    'showing' => false,
+                ]
+        );
+
+        $this->add_group_control(
+                'oxi-tabs-head-sub-title-typho',
+                $this->style,
+                [
+                    'type' => Controls::TYPOGRAPHY,
+                    'include' => Controls::ALIGNNORMAL,
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-sub-title' => '',
+                    ],
+                    'description' => 'Customize the Typography options for the Tab’s Sub Title.',
+                ]
+        );
+        $this->start_controls_tabs(
+                'oxi-tabs-head-sub-title-tabs',
+                [
+                    'options' => [
+                        'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
+                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
+                    ]
+                ]
+        );
+        $this->start_controls_tab();
+
+        $this->add_control(
+                'oxi-tabs-head-sub-title-color',
+                $this->style,
+                [
+                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::COLOR,
+                    'default' => '#ffffff',
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-sub-title' => 'color: {{VALUE}};',
+                    ],
+                    'description' => 'Set the Sub Title Color on Normal Mode.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-head-sub-title-tx-shadow',
+                $this->style,
+                [
+                    'type' => Controls::TEXTSHADOW,
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-sub-title' => '',
+                    ],
+                    'description' => 'Add one or more shadows into Sub Title Texts and customize other Text-Shadow Options.',
+                ]
+        );
+
+        $this->end_controls_tab();
+        $this->start_controls_tab();
+        $this->add_control(
+                'oxi-tabs-head-sub-title-ac-color',
+                $this->style,
+                [
+                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::COLOR,
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-sub-title' => 'color: {{VALUE}};',
+                    ],
+                    'description' => 'Set the Sub Title Color on Active Mode.',
+                ]
+        );
+        $this->add_group_control(
+                'oxi-tabs-head-sub-title-ac-tx-shadow',
+                $this->style,
+                [
+                    'type' => Controls::TEXTSHADOW,
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-sub-title' => '',
+                    ],
+                    'description' => 'Add one or more shadows into Sub Title Texts and customize other Text-Shadow Options.',
+                ]
+        );
+
+        $this->end_controls_tab();
+        $this->end_controls_tabs();
+        $this->add_responsive_control(
+                'oxi-tabs-head-sub-title-margin',
+                $this->style,
+                [
+                    'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
+                    'type' => Controls::DIMENSIONS,
+                    'separator' => true,
+                    'default' => [
+                        'unit' => 'px',
+                        'size' => '',
+                    ],
+                    'range' => [
+                        'px' => [
+                            'min' => 0,
+                            'max' => 500,
+                            'step' => 1,
+                        ],
+                        '%' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => 1,
+                        ],
+                        'em' => [
+                            'min' => 0,
+                            'max' => 100,
+                            'step' => .1,
+                        ],
+                    ],
+                    'selector' => [
+                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-sub-title' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                    'description' => 'Create some Space outside of the Sub Title.',
+                ]
+        );
+        $this->end_controls_section();
+    }
+
     public function register_heading_parent() {
         //Heading Section
         $this->start_section_tabs(
@@ -289,250 +533,6 @@ class Helper extends Admin {
                         '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-ultimate-header' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     ],
                     'description' => 'Create some Space outside of the Header Section.',
-                ]
-        );
-        $this->end_controls_section();
-    }
-
-    public function register_header_title() {
-        $this->start_controls_section(
-                'oxi-tabs-head-title',
-                [
-                    'label' => esc_html__('Title Settings', OXI_TABS_TEXTDOMAIN),
-                    'showing' => TRUE,
-                ]
-        );
-
-        $this->add_group_control(
-                'oxi-tabs-head-title-typho',
-                $this->style,
-                [
-                    'type' => Controls::TYPOGRAPHY,
-                    'include' => Controls::ALIGNNORMAL,
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-main-title' => '',
-                    ],
-                    'description' => 'Customize the Typography options for the Tab’s Title.',
-                ]
-        );
-        $this->start_controls_tabs(
-                'oxi-tabs-head-title-tabs',
-                [
-                    'options' => [
-                        'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
-                    ]
-                ]
-        );
-        $this->start_controls_tab();
-
-        $this->add_control(
-                'oxi-tabs-head-title-color',
-                $this->style,
-                [
-                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::COLOR,
-                    'default' => '#ffffff',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-main-title' => 'color: {{VALUE}};',
-                    ],
-                    'description' => 'Set the Title Color on Normal Mode.',
-                ]
-        );
-        $this->add_group_control(
-                'oxi-tabs-head-title-tx-shadow',
-                $this->style,
-                [
-                    'type' => Controls::TEXTSHADOW,
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-main-title' => '',
-                    ],
-                    'description' => 'Add one or more shadows into Title Texts and customize other Text-Shadow Options.',
-                ]
-        );
-
-        $this->end_controls_tab();
-        $this->start_controls_tab();
-        $this->add_control(
-                'oxi-tabs-head-title-ac-color',
-                $this->style,
-                [
-                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::COLOR,
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-main-title' => 'color: {{VALUE}};',
-                    ],
-                    'description' => 'Set the Title Color on Active Mode.',
-                ]
-        );
-        $this->add_group_control(
-                'oxi-tabs-head-title-ac-tx-shadow',
-                $this->style,
-                [
-                    'type' => Controls::TEXTSHADOW,
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-main-title' => '',
-                    ],
-                    'description' => 'Add one or more shadows into Title Texts and customize other Text-Shadow Options.',
-                ]
-        );
-
-        $this->end_controls_tab();
-        $this->end_controls_tabs();
-        $this->add_responsive_control(
-                'oxi-tabs-head-title-margin',
-                $this->style,
-                [
-                    'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::DIMENSIONS,
-                    'separator' => true,
-                    'default' => [
-                        'unit' => 'px',
-                        'size' => '',
-                    ],
-                    'range' => [
-                        'px' => [
-                            'min' => 0,
-                            'max' => 500,
-                            'step' => 1,
-                        ],
-                        '%' => [
-                            'min' => 0,
-                            'max' => 100,
-                            'step' => 1,
-                        ],
-                        'em' => [
-                            'min' => 0,
-                            'max' => 100,
-                            'step' => .1,
-                        ],
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-main-title' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                    ],
-                    'description' => 'Create some Space outside of the Title.',
-                ]
-        );
-        $this->end_controls_section();
-    }
-
-    public function register_header_sub_title() {
-        $this->start_controls_section(
-                'oxi-tabs-head-sub-title',
-                [
-                    'label' => esc_html__('Sub Title Settings', OXI_TABS_TEXTDOMAIN),
-                    'showing' => false,
-                ]
-        );
-
-        $this->add_group_control(
-                'oxi-tabs-head-sub-title-typho',
-                $this->style,
-                [
-                    'type' => Controls::TYPOGRAPHY,
-                    'include' => Controls::ALIGNNORMAL,
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-sub-title' => '',
-                    ],
-                    'description' => 'Customize the Typography options for the Tab’s Sub Title.',
-                ]
-        );
-        $this->start_controls_tabs(
-                'oxi-tabs-head-sub-title-tabs',
-                [
-                    'options' => [
-                        'normal' => esc_html__('Normal ', OXI_TABS_TEXTDOMAIN),
-                        'active' => esc_html__('Active', OXI_TABS_TEXTDOMAIN),
-                    ]
-                ]
-        );
-        $this->start_controls_tab();
-
-        $this->add_control(
-                'oxi-tabs-head-sub-title-color',
-                $this->style,
-                [
-                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::COLOR,
-                    'default' => '#ffffff',
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-sub-title' => 'color: {{VALUE}};',
-                    ],
-                    'description' => 'Set the Sub Title Color on Normal Mode.',
-                ]
-        );
-        $this->add_group_control(
-                'oxi-tabs-head-sub-title-tx-shadow',
-                $this->style,
-                [
-                    'type' => Controls::TEXTSHADOW,
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-sub-title' => '',
-                    ],
-                    'description' => 'Add one or more shadows into Sub Title Texts and customize other Text-Shadow Options.',
-                ]
-        );
-
-        $this->end_controls_tab();
-        $this->start_controls_tab();
-        $this->add_control(
-                'oxi-tabs-head-sub-title-ac-color',
-                $this->style,
-                [
-                    'label' => __('Color', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::COLOR,
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-sub-title' => 'color: {{VALUE}};',
-                    ],
-                    'description' => 'Set the Sub Title Color on Active Mode.',
-                ]
-        );
-        $this->add_group_control(
-                'oxi-tabs-head-sub-title-ac-tx-shadow',
-                $this->style,
-                [
-                    'type' => Controls::TEXTSHADOW,
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-header-li.active .oxi-tabs-sub-title' => '',
-                    ],
-                    'description' => 'Add one or more shadows into Sub Title Texts and customize other Text-Shadow Options.',
-                ]
-        );
-
-        $this->end_controls_tab();
-        $this->end_controls_tabs();
-        $this->add_responsive_control(
-                'oxi-tabs-head-sub-title-margin',
-                $this->style,
-                [
-                    'label' => __('Margin', OXI_TABS_TEXTDOMAIN),
-                    'type' => Controls::DIMENSIONS,
-                    'separator' => true,
-                    'default' => [
-                        'unit' => 'px',
-                        'size' => '',
-                    ],
-                    'range' => [
-                        'px' => [
-                            'min' => 0,
-                            'max' => 500,
-                            'step' => 1,
-                        ],
-                        '%' => [
-                            'min' => 0,
-                            'max' => 100,
-                            'step' => 1,
-                        ],
-                        'em' => [
-                            'min' => 0,
-                            'max' => 100,
-                            'step' => .1,
-                        ],
-                    ],
-                    'selector' => [
-                        '{{WRAPPER}} > .oxi-tabs-ultimate-style > .oxi-tabs-ultimate-header-wrap .oxi-tabs-sub-title' => 'margin:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-                    ],
-                    'description' => 'Create some Space outside of the Sub Title.',
                 ]
         );
         $this->end_controls_section();
@@ -3656,5 +3656,4 @@ class Helper extends Admin {
 
         $this->end_controls_section();
     }
-
 }

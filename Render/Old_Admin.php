@@ -97,38 +97,6 @@ class Old_Admin {
         return '';
     }
 
-    public function style_data() {
-        if (!empty($_POST['data-submit']) && $_POST['data-submit'] == 'Save') {
-            if (!wp_verify_nonce($this->nonce, 'oxitabsstylecss')) {
-                die('You do not have sufficient permissions to access this page.');
-            } else {
-                $data = sanitize_post($this->style());
-                $this->wpdb->query($this->wpdb->prepare("UPDATE $this->parent_table SET css = %s WHERE id = %d", $data, $this->styleid));
-            }
-        }
-    }
-
-    public function clild() {
-        return ['title' => '', 'files' => ''];
-    }
-
-    public function child_save() {
-        if (!empty($_POST['item-submit']) && $_POST['item-submit'] == 'Submit') {
-            if (!wp_verify_nonce($this->nonce, 'oxitabschildnonce')) {
-                die('You do not have sufficient permissions to access this page.');
-            } else {
-                $id = $_POST['item-id'];
-                $child = $this->clild();
-                if ($id == '') {
-                    $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (title, files, css, styleid) VALUES ( %s, %s, %s, %d)", array($child['title'], $child['files'], $child['css'], $this->styleid)));
-                } else if ($id != '' && is_numeric($id)) {
-                    $item_id = (int) $id;
-                    $this->wpdb->update("$this->child_table", array("title" => $child['title'], "files" => $child['files'], "css" => $child['css']), array('id' => $item_id), array('%s', '%s', '%s'), array('%d'));
-                }
-            }
-        }
-    }
-
     public function Delete_child_data() {
         if (!empty($_POST['delete']) && is_numeric($_POST['item-id'])) {
             if (!wp_verify_nonce($this->nonce, 'oxitabsdeletedata')) {
@@ -165,6 +133,38 @@ class Old_Admin {
         $this->admin_load();
         $this->admin_database_data_loader();
         apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
+    }
+
+    public function style_data() {
+        if (!empty($_POST['data-submit']) && $_POST['data-submit'] == 'Save') {
+            if (!wp_verify_nonce($this->nonce, 'oxitabsstylecss')) {
+                die('You do not have sufficient permissions to access this page.');
+            } else {
+                $data = sanitize_post($this->style());
+                $this->wpdb->query($this->wpdb->prepare("UPDATE $this->parent_table SET css = %s WHERE id = %d", $data, $this->styleid));
+            }
+        }
+    }
+
+    public function clild() {
+        return ['title' => '', 'files' => ''];
+    }
+
+    public function child_save() {
+        if (!empty($_POST['item-submit']) && $_POST['item-submit'] == 'Submit') {
+            if (!wp_verify_nonce($this->nonce, 'oxitabschildnonce')) {
+                die('You do not have sufficient permissions to access this page.');
+            } else {
+                $id = $_POST['item-id'];
+                $child = $this->clild();
+                if ($id == '') {
+                    $this->wpdb->query($this->wpdb->prepare("INSERT INTO {$this->child_table} (title, files, css, styleid) VALUES ( %s, %s, %s, %d)", array($child['title'], $child['files'], $child['css'], $this->styleid)));
+                } else if ($id != '' && is_numeric($id)) {
+                    $item_id = (int) $id;
+                    $this->wpdb->update("$this->child_table", array("title" => $child['title'], "files" => $child['files'], "css" => $child['css']), array('id' => $item_id), array('%s', '%s', '%s'), array('%d'));
+                }
+            }
+        }
     }
 
     /**
@@ -237,7 +237,7 @@ class Old_Admin {
                             <input type="submit" class="btn btn-success" name="oxi-addons-name-change" value="Save">
                         </div>
                     </div>
-        <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
+                    <?php echo wp_nonce_field('oxi-addons-name-change'); ?>
                 </form>
             </div>
         </div>
@@ -281,7 +281,7 @@ class Old_Admin {
                         </div>
                     </div>
                     <div id="modal-rearrange-store-file">
-        <?php echo $this->admin_child_rearrange(); ?>
+                        <?php echo $this->admin_child_rearrange(); ?>
                     </div>
                 </form>
 
@@ -665,9 +665,9 @@ class Old_Admin {
         <div class="wrap oxi-template-old-admin-wrap">
             <div class="oxi-addons-row">
                 <div class="oxi-addons-wrapper ">
-        <?php
-        apply_filters('vc-tabs-support-and-comments', true);
-        ?>
+                    <?php
+                    apply_filters('vc-tabs-support-and-comments', true);
+                    ?>
                     <div class="oxi-addons-settings">
                         <div class="oxi-addons-style-left">
                             <form method="post" id="oxi-style-submit">
@@ -685,24 +685,24 @@ class Old_Admin {
                                             </li>
                                         </ul>
                                         <div class="oxilab-tabs-content">
-        <?php echo $this->admin_field($this->styledata); ?>
+                                            <?php echo $this->admin_field($this->styledata); ?>
                                         </div>
                                     </div>
                                     <div class="oxi-addons-setting-save">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         <input type="submit" class="btn btn-primary" name="data-submit" value="Save">
-        <?php wp_nonce_field("oxitabsstylecss") ?>
+                                        <?php wp_nonce_field("oxitabsstylecss") ?>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="oxi-addons-style-right">
-        <?php
-        echo $this->add_new_form_opener();
-        echo $this->remane_shortcode();
-        echo $this->shortcode_info();
-        echo $this->rearrange_tab_opener();
-        ?>
+                            <?php
+                            echo $this->add_new_form_opener();
+                            echo $this->remane_shortcode();
+                            echo $this->shortcode_info();
+                            echo $this->rearrange_tab_opener();
+                            ?>
                         </div>
                     </div>
                     <div class="oxi-addons-style-left-preview">
@@ -719,13 +719,13 @@ class Old_Admin {
                             </div>
                         </div>
                         <div class="oxi-addons-preview-data" id="oxi-addons-preview-data">
-        <?php
-        $style = ucfirst($this->style['style_name']);
-        $cls = '\OXI_TABS_PLUGINS\Render\Old_Views\\' . $style;
-        if (class_exists($cls)):
-            new $cls($this->style, $this->child, 'admin');
-        endif;
-        ?>
+                            <?php
+                            $style = ucfirst($this->style['style_name']);
+                            $cls = '\OXI_TABS_PLUGINS\Render\Old_Views\\' . $style;
+                            if (class_exists($cls)):
+                                new $cls($this->style, $this->child, 'admin');
+                            endif;
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -738,9 +738,9 @@ class Old_Admin {
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-        <?php
-        echo $this->admin_child_field();
-        ?>
+                                    <?php
+                                    echo $this->admin_child_field();
+                                    ?>
                                 </div>
                                 <div class="modal-footer">
                                     <input type="hidden" id="item-id" name="item-id" value="<?php echo $this->itemid; ?>">
@@ -748,7 +748,7 @@ class Old_Admin {
                                     <input type="submit" class="btn btn-primary" id="item-submit" name="item-submit" value="Submit">
                                 </div>
                             </div>
-        <?php wp_nonce_field("oxitabschildnonce") ?>
+                            <?php wp_nonce_field("oxitabschildnonce") ?>
                         </form>
                     </div>
                 </div>
@@ -820,5 +820,4 @@ class Old_Admin {
             }
         }
     }
-
 }

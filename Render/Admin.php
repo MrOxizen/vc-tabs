@@ -110,49 +110,6 @@ class Admin {
     public $Get_Nested_Tabs = [];
 
     /**
-     * Template hooks
-     *
-     * @since 3.3.0
-     */
-    public function hooks() {
-        $this->admin_elements_frontend_loader();
-        $this->dbdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $this->oxiid), ARRAY_A);
-        $Get_Nested_Tabs = $this->database->wpdb->get_results("SELECT id, name FROM {$this->database->parent_table} ORDER by id ASC", ARRAY_A);
-        foreach ($Get_Nested_Tabs as $key => $value) {
-            if ($value['id'] != $this->oxiid) :
-                $this->Get_Nested_Tabs[$value['id']] = !empty($value['name']) ? $value['name'] : 'Tabs id ' . $value['id'];
-            endif;
-        }
-
-        $this->child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->oxiid), ARRAY_A);
-        if (!empty($this->dbdata['rawdata'])) :
-            $s = json_decode(stripslashes($this->dbdata['rawdata']), true);
-            if (is_array($s)) :
-                $this->style = $s;
-            endif;
-        endif;
-        $this->StyleName = ucfirst($this->dbdata['style_name']);
-        $this->import_font_family();
-        $transient = 'oxi-responsive-tabs-transient-' . $this->oxiid;
-        delete_transient($transient);
-    }
-
-    /**
-     * Template Modal opener
-     * Define Multiple Data With Single Data
-     *
-     * @since 3.3.0
-     */
-    public function modal_opener() {
-        $this->add_substitute_control('', [], [
-            'type' => Controls::MODALOPENER,
-            'title' => __('Tabs Data Form', OXI_TABS_TEXTDOMAIN),
-            'sub-title' => __('Open Form', OXI_TABS_TEXTDOMAIN),
-            'showing' => TRUE,
-        ]);
-    }
-
-    /**
      * Template Name
      * Define Name
      *
@@ -212,6 +169,49 @@ class Admin {
                     </form>
                 </div>
               </div>';
+    }
+
+    /**
+     * Template hooks
+     *
+     * @since 3.3.0
+     */
+    public function hooks() {
+        $this->admin_elements_frontend_loader();
+        $this->dbdata = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $this->oxiid), ARRAY_A);
+        $Get_Nested_Tabs = $this->database->wpdb->get_results("SELECT id, name FROM {$this->database->parent_table} ORDER by id ASC", ARRAY_A);
+        foreach ($Get_Nested_Tabs as $key => $value) {
+            if ($value['id'] != $this->oxiid) :
+                $this->Get_Nested_Tabs[$value['id']] = !empty($value['name']) ? $value['name'] : 'Tabs id ' . $value['id'];
+            endif;
+        }
+
+        $this->child = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->child_table} WHERE styleid = %d ORDER by id ASC", $this->oxiid), ARRAY_A);
+        if (!empty($this->dbdata['rawdata'])) :
+            $s = json_decode(stripslashes($this->dbdata['rawdata']), true);
+            if (is_array($s)) :
+                $this->style = $s;
+            endif;
+        endif;
+        $this->StyleName = ucfirst($this->dbdata['style_name']);
+        $this->import_font_family();
+        $transient = 'oxi-responsive-tabs-transient-' . $this->oxiid;
+        delete_transient($transient);
+    }
+
+    /**
+     * Template Modal opener
+     * Define Multiple Data With Single Data
+     *
+     * @since 3.3.0
+     */
+    public function modal_opener() {
+        $this->add_substitute_control('', [], [
+            'type' => Controls::MODALOPENER,
+            'title' => __('Tabs Data Form', OXI_TABS_TEXTDOMAIN),
+            'sub-title' => __('Open Form', OXI_TABS_TEXTDOMAIN),
+            'showing' => TRUE,
+        ]);
     }
 
     /**
@@ -521,5 +521,4 @@ class Admin {
         $this->end_controls_section();
         $this->end_section_tabs();
     }
-
 }

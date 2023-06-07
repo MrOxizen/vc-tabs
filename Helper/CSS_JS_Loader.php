@@ -8,6 +8,45 @@ namespace OXI_TABS_PLUGINS\Helper;
  */
 trait CSS_JS_Loader {
 
+    public function loader_font_familly_validation($data = []) {
+        foreach ($data as $value) {
+            wp_enqueue_style('' . $value . '', 'https://fonts.googleapis.com/css?family=' . $value . '');
+        }
+    }
+
+    public function admin_css() {
+        $this->loader_font_familly_validation(['Bree+Serif', 'Source+Sans+Pro']);
+        wp_enqueue_style('oxilab-tabs-bootstrap', OXI_TABS_URL . 'assets/backend/css/bootstrap.min.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_style('oxilab-admin-css', OXI_TABS_URL . 'assets/backend/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
+    }
+
+    public function admin_js() {
+        wp_enqueue_script("jquery");
+        wp_enqueue_script('oxilab-popper', OXI_TABS_URL . 'assets/backend/js/popper.min.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('oxilab-bootstrap', OXI_TABS_URL . 'assets/backend/js/bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('jquery.serializejson.min', OXI_TABS_URL . 'assets/backend/js/jquery.serializejson.min.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_localize_script('oxilab-bootstrap',
+                'oxi_vc_tabs_settings',
+                [
+                    'ajaxurl' => admin_url('admin-ajax.php'),
+                    'nonce' => wp_create_nonce('oxi_vc_tabs_settings')
+        ]);
+    }
+
+    public function admin_home() {
+        wp_enqueue_script("jquery");
+        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui-widget');
+        wp_enqueue_script('jquery-ui-mouse');
+        wp_enqueue_script('jquery-ui-accordion');
+        wp_enqueue_script('jquery-ui-autocomplete');
+        wp_enqueue_script('jquery-ui-slider');
+        wp_enqueue_script('jquery-ui-draggable');
+        wp_enqueue_script('jquery.dataTables.min', OXI_TABS_URL . 'assets/backend/js/jquery.dataTables.min.js', false, OXI_TABS_PLUGIN_VERSION);
+        wp_enqueue_script('dataTables.bootstrap.min', OXI_TABS_URL . 'assets/backend/js/dataTables.bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
+    }
+
     public function import_font_family() {
         $this->font_family = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by id ASC", 'shortcode-addons'), ARRAY_A);
         $google = $custom = '';
@@ -356,45 +395,6 @@ trait CSS_JS_Loader {
         wp_add_inline_script('oxi-tabs-editor', $data);
     }
 
-    public function loader_font_familly_validation($data = []) {
-        foreach ($data as $value) {
-            wp_enqueue_style('' . $value . '', 'https://fonts.googleapis.com/css?family=' . $value . '');
-        }
-    }
-
-    public function admin_css() {
-        $this->loader_font_familly_validation(['Bree+Serif', 'Source+Sans+Pro']);
-        wp_enqueue_style('oxilab-tabs-bootstrap', OXI_TABS_URL . 'assets/backend/css/bootstrap.min.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_style('font-awsome.min', OXI_TABS_URL . 'assets/frontend/css/font-awsome.min.css', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_style('oxilab-admin-css', OXI_TABS_URL . 'assets/backend/css/admin.css', false, OXI_TABS_PLUGIN_VERSION);
-    }
-
-    public function admin_js() {
-        wp_enqueue_script("jquery");
-        wp_enqueue_script('oxilab-popper', OXI_TABS_URL . 'assets/backend/js/popper.min.js', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('oxilab-bootstrap', OXI_TABS_URL . 'assets/backend/js/bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('jquery.serializejson.min', OXI_TABS_URL . 'assets/backend/js/jquery.serializejson.min.js', false, OXI_TABS_PLUGIN_VERSION);
-        wp_localize_script('oxilab-bootstrap',
-                'oxi_vc_tabs_settings',
-                [
-                    'ajaxurl' => admin_url('admin-ajax.php'),
-                    'nonce' => wp_create_nonce('oxi_vc_tabs_settings')
-        ]);
-    }
-
-    public function admin_home() {
-        wp_enqueue_script("jquery");
-        wp_enqueue_script('jquery-ui-core');
-        wp_enqueue_script('jquery-ui-widget');
-        wp_enqueue_script('jquery-ui-mouse');
-        wp_enqueue_script('jquery-ui-accordion');
-        wp_enqueue_script('jquery-ui-autocomplete');
-        wp_enqueue_script('jquery-ui-slider');
-        wp_enqueue_script('jquery-ui-draggable');
-        wp_enqueue_script('jquery.dataTables.min', OXI_TABS_URL . 'assets/backend/js/jquery.dataTables.min.js', false, OXI_TABS_PLUGIN_VERSION);
-        wp_enqueue_script('dataTables.bootstrap.min', OXI_TABS_URL . 'assets/backend/js/dataTables.bootstrap.min.js', false, OXI_TABS_PLUGIN_VERSION);
-    }
-
     public function admin_elements_frontend_loader() {
         $this->admin_css_loader();
         wp_enqueue_script("jquery");
@@ -440,5 +440,4 @@ trait CSS_JS_Loader {
         $this->admin_css();
         $this->admin_js();
     }
-
 }

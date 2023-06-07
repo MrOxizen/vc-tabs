@@ -33,18 +33,6 @@ class Plugins {
         return self::$instance;
     }
 
-    public function Admin_header() {
-        ?>
-        <div class="oxi-addons-wrapper">
-            <div class="oxi-addons-import-layouts">
-                <h1>Oxilab Plugins
-                </h1>
-                <p> We Develop Couple of plugins which will help you to Create Your Modern and Dynamic Websites. Just click and Install </p>
-            </div>
-        </div>
-        <?php
-    }
-
     public function Render() {
         ?>
         <div class="oxi-addons-wrapper">
@@ -112,6 +100,18 @@ class Plugins {
         wp_add_inline_script('oxilab-bootstrap', $data);
     }
 
+    public function Admin_header() {
+        ?>
+        <div class="oxi-addons-wrapper">
+            <div class="oxi-addons-import-layouts">
+                <h1>Oxilab Plugins
+                </h1>
+                <p> We Develop Couple of plugins which will help you to Create Your Modern and Dynamic Websites. Just click and Install </p>
+            </div>
+        </div>
+        <?php
+    }
+
     /**
      * Constructor of Oxilab tabs Home Page
      *
@@ -150,5 +150,4 @@ class Plugins {
         }
         $this->get_plugins = $response;
     }
-
 }

@@ -11,6 +11,16 @@ class Welcome {
 
     use \OXI_TABS_PLUGINS\Helper\CSS_JS_Loader;
 
+    public function __construct() {
+        $this->header();
+        $this->Public_Render();
+    }
+
+    public function header() {
+        $this->admin_css();
+        apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
+    }
+
     public function Public_Render() {
         ?>
         <div class="oxi-addons-wrapper">
@@ -85,15 +95,4 @@ class Welcome {
 
         <?php
     }
-
-    public function __construct() {
-        $this->header();
-        $this->Public_Render();
-    }
-
-    public function header() {
-        $this->admin_css();
-        apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
-    }
-
 }

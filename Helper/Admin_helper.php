@@ -4,52 +4,6 @@ namespace OXI_TABS_PLUGINS\Helper;
 
 trait Admin_helper {
 
-    public function Admin_Menu() {
-        $user_role = get_option('oxi_vc_tabs_permission');
-        $role_object = get_role($user_role);
-        $first_key = '';
-        if (isset($role_object->capabilities) && is_array($role_object->capabilities)) {
-            reset($role_object->capabilities);
-            $first_key = key($role_object->capabilities);
-        } else {
-            $first_key = 'manage_options';
-        }
-        add_menu_page('Content Tabs', 'Content Tabs', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
-        add_submenu_page('oxi-tabs-ultimate', 'Content Tabs', 'Shortcode', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
-        add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'tabs_create']);
-        add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-settings', [$this, 'tabs_settings']);
-
-        add_submenu_page('oxi-tabs-ultimate', 'Oxilab Plugins', 'Oxilab Plugins', $first_key, 'oxi-tabs-ultimate-plugins', [$this, 'oxilab_plugins']);
-        add_submenu_page('oxi-tabs-ultimate', 'Welcome To Responsive Tabs with  Accordions', 'Support', $first_key, 'oxi-tabs-ultimate-welcome', [$this, 'oxi_tabs_welcome']);
-    }
-
-    public function tabs_home() {
-        new \OXI_TABS_PLUGINS\Page\Home();
-    }
-
-    public function tabs_create() {
-        $styleid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
-        if (!empty($styleid) && $styleid > 0) :
-            $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
-            $template = ucfirst($style['style_name']);
-            if (!array_key_exists('rawdata', $style)) :
-                $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
-                $Installation->Datatase();
-                new \OXI_TABS_PLUGINS\Page\Create();
-                return;
-            endif;
-            $row = json_decode(stripslashes($style['rawdata']), true);
-            if (is_array($row)) :
-                $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $template;
-            else :
-                $cls = '\OXI_TABS_PLUGINS\Render\Old_Admin\\' . $template;
-            endif;
-            new $cls();
-        else :
-            new \OXI_TABS_PLUGINS\Page\Create();
-        endif;
-    }
-
     public function tabs_settings() {
         new \OXI_TABS_PLUGINS\Page\Settings();
     }
@@ -122,6 +76,52 @@ trait Admin_helper {
         new \OXI_TABS_PLUGINS\Classes\Support_Reviews();
     }
 
+    public function Admin_Menu() {
+        $user_role = get_option('oxi_vc_tabs_permission');
+        $role_object = get_role($user_role);
+        $first_key = '';
+        if (isset($role_object->capabilities) && is_array($role_object->capabilities)) {
+            reset($role_object->capabilities);
+            $first_key = key($role_object->capabilities);
+        } else {
+            $first_key = 'manage_options';
+        }
+        add_menu_page('Content Tabs', 'Content Tabs', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
+        add_submenu_page('oxi-tabs-ultimate', 'Content Tabs', 'Shortcode', $first_key, 'oxi-tabs-ultimate', [$this, 'tabs_home']);
+        add_submenu_page('oxi-tabs-ultimate', 'Create New', 'Create New', $first_key, 'oxi-tabs-ultimate-new', [$this, 'tabs_create']);
+        add_submenu_page('oxi-tabs-ultimate', 'Settings', 'Settings', $first_key, 'oxi-tabs-ultimate-settings', [$this, 'tabs_settings']);
+
+        add_submenu_page('oxi-tabs-ultimate', 'Oxilab Plugins', 'Oxilab Plugins', $first_key, 'oxi-tabs-ultimate-plugins', [$this, 'oxilab_plugins']);
+        add_submenu_page('oxi-tabs-ultimate', 'Welcome To Responsive Tabs with  Accordions', 'Support', $first_key, 'oxi-tabs-ultimate-welcome', [$this, 'oxi_tabs_welcome']);
+    }
+
+    public function tabs_home() {
+        new \OXI_TABS_PLUGINS\Page\Home();
+    }
+
+    public function tabs_create() {
+        $styleid = (!empty($_GET['styleid']) ? (int) $_GET['styleid'] : '');
+        if (!empty($styleid) && $styleid > 0) :
+            $style = $this->database->wpdb->get_row($this->database->wpdb->prepare('SELECT * FROM ' . $this->database->parent_table . ' WHERE id = %d ', $styleid), ARRAY_A);
+            $template = ucfirst($style['style_name']);
+            if (!array_key_exists('rawdata', $style)) :
+                $Installation = new \OXI_TABS_PLUGINS\Classes\Installation();
+                $Installation->Datatase();
+                new \OXI_TABS_PLUGINS\Page\Create();
+                return;
+            endif;
+            $row = json_decode(stripslashes($style['rawdata']), true);
+            if (is_array($row)) :
+                $cls = '\OXI_TABS_PLUGINS\Render\Admin\\' . $template;
+            else :
+                $cls = '\OXI_TABS_PLUGINS\Render\Old_Admin\\' . $template;
+            endif;
+            new $cls();
+        else :
+            new \OXI_TABS_PLUGINS\Page\Create();
+        endif;
+    }
+
     public function SupportAndComments($agr) {
 
         if (get_option('oxi_tabs_support_massage') == 'no') :
@@ -185,9 +185,9 @@ trait Admin_helper {
                         foreach ($response as $key => $value) {
                             ?>
                             <li <?php
-                if ($GETPage == $value['homepage']) :
-                    echo ' class="active" ';
-                endif;
+                            if ($GETPage == $value['homepage']) :
+                                echo ' class="active" ';
+                            endif;
                             ?>>
                                 <a href="<?php echo esc_url($this->admin_url_convert($value['homepage'])) ?>"><?php echo esc_html($this->name_converter($value['name'])) ?></a>
                             </li>
@@ -271,5 +271,4 @@ trait Admin_helper {
     public function admin_url_convert($agr) {
         return admin_url(strpos($agr, 'edit') !== false ? $agr : 'admin.php?page=' . $agr);
     }
-
 }

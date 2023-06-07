@@ -30,35 +30,6 @@ class Create {
     public $IMPORT = [];
     public $TEMPLATE;
 
-    public function Render() {
-        ?>
-        <div class="oxi-addons-row">
-        <?php
-        if (array_key_exists('import', $this->layouts)) :
-            $this->Import_header();
-            $this->Import_template();
-        else :
-            $this->Create_header();
-            $this->Create_template();
-        endif;
-        ?>
-        </div>
-            <?php
-        }
-
-        public function Import_header() {
-            apply_filters('vc-tabs-support-and-comments', TRUE);
-            ?>
-        <div class="oxi-addons-wrapper">
-            <div class="oxi-addons-import-layouts">
-                <h1>Responsive Tabs › Import Template
-                </h1>
-                <p> Select Tabs layout and import for future use. </p>
-            </div>
-        </div>
-        <?php
-    }
-
     public function Create_header() {
         apply_filters('vc-tabs-support-and-comments', TRUE);
         ?>
@@ -134,31 +105,60 @@ class Create {
         <?php
     }
 
+    public function Render() {
+        ?>
+        <div class="oxi-addons-row">
+            <?php
+            if (array_key_exists('import', $this->layouts)) :
+                $this->Import_header();
+                $this->Import_template();
+            else :
+                $this->Create_header();
+                $this->Create_template();
+            endif;
+            ?>
+        </div>
+        <?php
+    }
+
+    public function Import_header() {
+        apply_filters('vc-tabs-support-and-comments', TRUE);
+        ?>
+        <div class="oxi-addons-wrapper">
+            <div class="oxi-addons-import-layouts">
+                <h1>Responsive Tabs › Import Template
+                </h1>
+                <p> Select Tabs layout and import for future use. </p>
+            </div>
+        </div>
+        <?php
+    }
+
     public function Create_template() {
         $create_new = 'false';
         ?>
         <div class="oxi-addons-row">
-        <?php
-        foreach ($this->IMPORT as $value) {
-            $Style = 'Style' . $value;
+            <?php
+            foreach ($this->IMPORT as $value) {
+                $Style = 'Style' . $value;
 
-            if (array_key_exists($value, $this->local_template)) :
-                $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
-                $template_data = json_decode(file_get_contents($folder . $this->local_template[$value]), true);
-                $C = 'OXI_TABS_PLUGINS\Render\Views\\' . $Style;
-                ?>
+                if (array_key_exists($value, $this->local_template)) :
+                    $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
+                    $template_data = json_decode(file_get_contents($folder . $this->local_template[$value]), true);
+                    $C = 'OXI_TABS_PLUGINS\Render\Views\\' . $Style;
+                    ?>
                     <div class="oxi-addons-col-1" id="<?php echo esc_attr($Style); ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
-                <?php
-                if (class_exists($C) && isset($template_data['style']['rawdata'])) :
-                    new $C($template_data['style'], $template_data['child']);
-                endif;
-                ?>
+                                <?php
+                                if (class_exists($C) && isset($template_data['style']['rawdata'])) :
+                                    new $C($template_data['style'], $template_data['child']);
+                                endif;
+                                ?>
                             </div>
                             <div class="oxi-addons-style-preview-bottom">
                                 <div class="oxi-addons-style-preview-bottom-left">
-                <?php echo esc_attr($template_data['style']['name']); ?>
+                                    <?php echo esc_attr($template_data['style']['name']); ?>
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
                                     <form method="post" style=" display: inline-block; " class="shortcode-addons-template-deactive">
@@ -171,136 +171,135 @@ class Create {
                             </div>
                         </div>
                     </div>
-                <?php
-            endif;
-        }
-        ?>
-        </div>
-            <?php
-            $this->Create_new();
-        }
-
-        public function Import_template() {
+                    <?php
+                endif;
+            }
             ?>
-        <div class="oxi-addons-row">
+        </div>
         <?php
-        foreach ($this->local_template as $id => $value) {
-            if (!array_key_exists($id, $this->IMPORT)) :
-                $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
+        $this->Create_new();
+    }
 
-                $template_data = json_decode(file_get_contents($folder . $value), true);
-                $C = 'OXI_TABS_PLUGINS\Render\Views\\Style' . ucfirst($id);
-                ?>
+    public function Import_template() {
+        ?>
+        <div class="oxi-addons-row">
+            <?php
+            foreach ($this->local_template as $id => $value) {
+                if (!array_key_exists($id, $this->IMPORT)) :
+                    $folder = $this->safe_path(OXI_TABS_PATH . 'Render/Json/');
+
+                    $template_data = json_decode(file_get_contents($folder . $value), true);
+                    $C = 'OXI_TABS_PLUGINS\Render\Views\\Style' . ucfirst($id);
+                    ?>
                     <div class="oxi-addons-col-1" id="Style<?php echo esc_attr($id); ?>">
                         <div class="oxi-addons-style-preview">
                             <div class="oxi-addons-style-preview-top oxi-addons-center">
-                <?php
-                if (class_exists($C) && isset($template_data['style']['rawdata'])) :
-                    new $C($template_data['style'], $template_data['child']);
-                endif;
-                ?>
+                                <?php
+                                if (class_exists($C) && isset($template_data['style']['rawdata'])) :
+                                    new $C($template_data['style'], $template_data['child']);
+                                endif;
+                                ?>
                             </div>
                             <div class="oxi-addons-style-preview-bottom">
                                 <div class="oxi-addons-style-preview-bottom-left">
-                <?php echo esc_attr($template_data['style']['name']); ?>
+                                    <?php echo esc_attr($template_data['style']['name']); ?>
                                 </div>
                                 <div class="oxi-addons-style-preview-bottom-right">
-                <?php
-                if ($id > 7 && apply_filters('oxi-tabs-plugin/pro_version', true) == false) :
-                    ?>
+                                    <?php
+                                    if ($id > 7 && apply_filters('oxi-tabs-plugin/pro_version', true) == false) :
+                                        ?>
                                         <form method="post" style=" display: inline-block; " class="shortcode-addons-template-pro-only">
                                             <button class="btn btn-warning oxi-addons-addons-style-btn-warning" title="Pro Only" type="submit" value="pro only" name="addonsstyleproonly">Pro Only</button>
                                         </form>
-                    <?php
-                else :
-                    ?>
+                                        <?php
+                                    else :
+                                        ?>
                                         <form method="post" style=" display: inline-block; " class="shortcode-addons-template-import">
                                             <input type="hidden" name="oxiimportstyle" value="<?php echo esc_attr($id); ?>">
                                             <button class="btn btn-success oxi-addons-addons-template-create" title="import" type="submit" value="Import" name="addonsstyleimport">Import</button>
                                         </form>
-                <?php
-                endif;
-                ?>
+                                    <?php
+                                    endif;
+                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <?php
-            endif;
-        }
-        ?>
-        </div>
-            <?php
-        }
-
-        /**
-         * Constructor of Oxilab tabs Home Page
-         *
-         * @since 2.0.0
-         */
-        public function __construct() {
-            $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
-            $this->layouts = (isset($_GET) ? $_GET : '');
-            $this->CSSJS_load();
-            $this->Render();
-        }
-
-        public function get_local_tempalte() {
-            $basename = array_map('basename', glob(OXI_TABS_PATH . 'Render/Json/' . '*.json', GLOB_BRACE));
-            foreach ($basename as $key => $value) {
-                $onlyname = explode('ultimateand', str_replace('.json', '', $value))[1];
-                if ((int) $onlyname) :
-                    $this->local_template[$onlyname] = $value;
+                    <?php
                 endif;
             }
-            ksort($this->local_template);
-            return;
-        }
-
-        /**
-         * Generate safe path
-         * @since v1.0.0
-         */
-        public function safe_path($path) {
-
-            $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
-            return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
-        }
-
-        public function CSSJS_load() {
-            $this->admin_css_loader();
-            $this->admin_ajax_load();
-            apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
-            $template = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by name ASC", 'responsive-tabs'), ARRAY_A);
-            if (count($template) < 1) :
-                for ($i = 1; $i < 5; $i++) {
-                    $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array('responsive-tabs', $i)));
-                    $this->IMPORT[$i] = $i;
-                }
-            else :
-                foreach ($template as $value) {
-                    $this->IMPORT[(int) $value['name']] = $value['name'];
-                }
-            endif;
-            ksort($this->IMPORT);
-            $this->get_local_tempalte();
-        }
-
-        /**
-         * Admin Notice JS file loader
-         * @return void
-         */
-        public function admin_ajax_load() {
-            wp_enqueue_script("jquery");
-            wp_enqueue_script('jquery-ui-core');
-            wp_enqueue_script('jquery-ui-widget');
-            wp_enqueue_script('jquery-ui-mouse');
-            wp_enqueue_script('jquery-ui-accordion');
-            wp_enqueue_script('jquery-ui-autocomplete');
-            wp_enqueue_script('jquery-ui-slider');
-            wp_enqueue_script('jquery-ui-draggable');
-            wp_enqueue_script('jquery-ui-sortable');
-            wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . 'assets/backend/custom/create.js', false, OXI_TABS_PLUGIN_VERSION);
-        }
-
+            ?>
+        </div>
+        <?php
     }
+
+    /**
+     * Constructor of Oxilab tabs Home Page
+     *
+     * @since 2.0.0
+     */
+    public function __construct() {
+        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
+        $this->layouts = (isset($_GET) ? $_GET : '');
+        $this->CSSJS_load();
+        $this->Render();
+    }
+
+    public function get_local_tempalte() {
+        $basename = array_map('basename', glob(OXI_TABS_PATH . 'Render/Json/' . '*.json', GLOB_BRACE));
+        foreach ($basename as $key => $value) {
+            $onlyname = explode('ultimateand', str_replace('.json', '', $value))[1];
+            if ((int) $onlyname) :
+                $this->local_template[$onlyname] = $value;
+            endif;
+        }
+        ksort($this->local_template);
+        return;
+    }
+
+    /**
+     * Generate safe path
+     * @since v1.0.0
+     */
+    public function safe_path($path) {
+
+        $path = str_replace(['//', '\\\\'], ['/', '\\'], $path);
+        return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+    }
+
+    public function CSSJS_load() {
+        $this->admin_css_loader();
+        $this->admin_ajax_load();
+        apply_filters('oxi-tabs-plugin/admin_menu', TRUE);
+        $template = $this->database->wpdb->get_results($this->database->wpdb->prepare("SELECT * FROM {$this->database->import_table} WHERE type = %s ORDER by name ASC", 'responsive-tabs'), ARRAY_A);
+        if (count($template) < 1) :
+            for ($i = 1; $i < 5; $i++) {
+                $this->database->wpdb->query($this->database->wpdb->prepare("INSERT INTO {$this->database->import_table} (type, name) VALUES (%s, %s)", array('responsive-tabs', $i)));
+                $this->IMPORT[$i] = $i;
+            }
+        else :
+            foreach ($template as $value) {
+                $this->IMPORT[(int) $value['name']] = $value['name'];
+            }
+        endif;
+        ksort($this->IMPORT);
+        $this->get_local_tempalte();
+    }
+
+    /**
+     * Admin Notice JS file loader
+     * @return void
+     */
+    public function admin_ajax_load() {
+        wp_enqueue_script("jquery");
+        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui-widget');
+        wp_enqueue_script('jquery-ui-mouse');
+        wp_enqueue_script('jquery-ui-accordion');
+        wp_enqueue_script('jquery-ui-autocomplete');
+        wp_enqueue_script('jquery-ui-slider');
+        wp_enqueue_script('jquery-ui-draggable');
+        wp_enqueue_script('jquery-ui-sortable');
+        wp_enqueue_script('oxi-tabs-create', OXI_TABS_URL . 'assets/backend/custom/create.js', false, OXI_TABS_PLUGIN_VERSION);
+    }
+}

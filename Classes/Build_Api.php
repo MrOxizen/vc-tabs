@@ -33,33 +33,6 @@ class Build_Api {
         $this->build_api();
     }
 
-    public function fixed_data($agr) {
-        return hex2bin($agr);
-    }
-
-    public function build_api() {
-        add_action('wp_ajax_oxi_vc_tabs_settings', [$this, 'save_action']);
-    }
-
-    public function get_permissions_check() {
-        $transient = get_transient('oxi_vc_tabs_permission_role');
-        if (false === $transient) {
-            $user_role = get_option('oxi_vc_tabs_permission');
-            $role_object = get_role($user_role);
-            $first_key = '';
-            if (isset($role_object->capabilities) && is_array($role_object->capabilities)) {
-                reset($role_object->capabilities);
-                $first_key = key($role_object->capabilities);
-            } else {
-                $first_key = 'manage_options';
-            }
-            $transient = 'oxi_vc_tabs_permission_role';
-            set_transient($transient, $first_key, 1 * HOUR_IN_SECONDS);
-            return current_user_can($first_key);
-        }
-        return current_user_can($transient);
-    }
-
     public function save_action() {
         if (!$this->get_permissions_check()) {
             return new WP_REST_Request('Invalid URL', 422);
@@ -753,4 +726,30 @@ class Build_Api {
 
     }
 
+    public function fixed_data($agr) {
+        return hex2bin($agr);
+    }
+
+    public function build_api() {
+        add_action('wp_ajax_oxi_vc_tabs_settings', [$this, 'save_action']);
+    }
+
+    public function get_permissions_check() {
+        $transient = get_transient('oxi_vc_tabs_permission_role');
+        if (false === $transient) {
+            $user_role = get_option('oxi_vc_tabs_permission');
+            $role_object = get_role($user_role);
+            $first_key = '';
+            if (isset($role_object->capabilities) && is_array($role_object->capabilities)) {
+                reset($role_object->capabilities);
+                $first_key = key($role_object->capabilities);
+            } else {
+                $first_key = 'manage_options';
+            }
+            $transient = 'oxi_vc_tabs_permission_role';
+            set_transient($transient, $first_key, 1 * HOUR_IN_SECONDS);
+            return current_user_can($first_key);
+        }
+        return current_user_can($transient);
+    }
 }

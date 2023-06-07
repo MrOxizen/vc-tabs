@@ -15,30 +15,6 @@ class Installation {
     protected static $lfe_instance = NULL;
 
     /**
-     * Constructor of Shortcode Addons
-     *
-     * @since 2.0.0
-     */
-    public function __construct() {
-
-    }
-
-    /**
-     * Access plugin instance. You can create further instances by calling
-     */
-    public static function get_instance() {
-        if (NULL === self::$lfe_instance)
-            self::$lfe_instance = new self;
-
-        return self::$lfe_instance;
-    }
-
-    public function Datatase() {
-        $database = new \OXI_TABS_PLUGINS\Helper\Database();
-        $database->update_database();
-    }
-
-    /**
      * Tabs Popular Post Count Query
      *
      * @since 3.3.0
@@ -84,4 +60,27 @@ class Installation {
         set_transient('oxi_tabs_activation_redirect', true, 30);
     }
 
+    /**
+     * Constructor of Shortcode Addons
+     *
+     * @since 2.0.0
+     */
+    public function __construct() {
+
+    }
+
+    /**
+     * Access plugin instance. You can create further instances by calling
+     */
+    public static function get_instance() {
+        if (NULL === self::$lfe_instance)
+            self::$lfe_instance = new self;
+
+        return self::$lfe_instance;
+    }
+
+    public function Datatase() {
+        $database = new \OXI_TABS_PLUGINS\Helper\Database();
+        $database->update_database();
+    }
 }

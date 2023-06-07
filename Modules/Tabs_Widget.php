@@ -10,6 +10,17 @@ class Tabs_Widget extends \WP_Widget {
         );
     }
 
+    public function tabs_register_tabswidget() {
+        register_widget($this);
+    }
+
+    public function widget($args, $instance) {
+        $title = apply_filters('widget_title', $instance['title']);
+        echo $args['before_widget'];
+        echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($title, 'user');
+        echo $args['after_widget'];
+    }
+
     public function update($new_instance, $old_instance) {
         $instance = array();
         $instance['title'] = (!empty($new_instance['title']) ) ? strip_tags($new_instance['title']) : '';
@@ -29,16 +40,4 @@ class Tabs_Widget extends \WP_Widget {
         </p>
         <?php
     }
-
-    public function tabs_register_tabswidget() {
-        register_widget($this);
-    }
-
-    public function widget($args, $instance) {
-        $title = apply_filters('widget_title', $instance['title']);
-        echo $args['before_widget'];
-        echo \OXI_TABS_PLUGINS\Classes\Bootstrap::instance()->shortcode_render($title, 'user');
-        echo $args['after_widget'];
-    }
-
 }

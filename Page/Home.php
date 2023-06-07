@@ -29,79 +29,79 @@ class Home {
         return str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
     }
 
-    public function manual_import_style() {
-        if (!empty($_REQUEST['_wpnonce'])) {
-            $nonce = $_REQUEST['_wpnonce'];
-        }
-
-        if (!empty($_POST['importdatasubmit']) && $_POST['importdatasubmit'] == 'Save') {
-            if (!wp_verify_nonce($nonce, 'vc-tabs-ultimate-import')) {
-                die('You do not have sufficient permissions to access this page.');
-            } else {
-                if (apply_filters('oxi-tabs-plugin/pro_version', false) == true) :
-                    if (isset($_FILES['importtabsfilefile'])) :
-                        $filename = $_FILES["importtabsfilefile"]["name"];
-                        $folder = $this->safe_path(OXI_TABS_PATH . 'assets/export/');
-                        if (!is_dir($folder)) :
-                            mkdir($folder, 0777);
-                        endif;
-                        if (is_file($folder . $filename)) :
-                            unlink($folder . $filename); // delete file
-                        endif;
-
-                        move_uploaded_file($_FILES['importtabsfilefile']['tmp_name'], $folder . $filename);
-                        $ImportApi = new \OXI_TABS_PLUGINS\Classes\Build_Api;
-                        $ImportApi->post_json_import($folder, $filename);
-                        if (is_file($folder . $filename)) :
-                            unlink($folder . $filename); // delete file
-                        endif;
-                    endif;
-                endif;
-            }
-        }
-    }
-
     public function Render() {
         ?>
         <div class="oxi-addons-row">
-            <?php
-            $this->Admin_header();
-            $this->created_shortcode();
-            $this->create_new();
-            ?>
-        </div>
         <?php
-    }
-
-    public function __construct() {
-        $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
-        $this->CSSJS_load();
-        $this->Render();
-    }
-
-    public function database_data() {
-        return $this->database->wpdb->get_results("SELECT * FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
-    }
-
-    public function CSSJS_load() {
-        $this->manual_import_style();
-        $this->admin_css_loader();
-        $this->admin_home();
-        $this->admin_ajax_load();
-        apply_filters('oxi-tabs-plugin/admin_menu', true);
-    }
-
-    /**
-     * Admin Notice JS file loader
-     * @return void
-     */
-    public function admin_ajax_load() {
-        wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . 'assets/backend/custom/home.js', false, OXI_TABS_TEXTDOMAIN);
-    }
-
-    public function Admin_header() {
-        apply_filters('vc-tabs-support-and-comments', true);
+        $this->Admin_header();
+        $this->created_shortcode();
+        $this->create_new();
         ?>
+        </div>
+            <?php
+        }
+
+        public function manual_import_style() {
+            if (!empty($_REQUEST['_wpnonce'])) {
+                $nonce = $_REQUEST['_wpnonce'];
+            }
+
+            if (!empty($_POST['importdatasubmit']) && $_POST['importdatasubmit'] == 'Save') {
+                if (!wp_verify_nonce($nonce, 'vc-tabs-ultimate-import')) {
+                    die('You do not have sufficient permissions to access this page.');
+                } else {
+                    if (apply_filters('oxi-tabs-plugin/pro_version', false) == true) :
+                        if (isset($_FILES['importtabsfilefile'])) :
+                            $filename = $_FILES["importtabsfilefile"]["name"];
+                            $folder = $this->safe_path(OXI_TABS_PATH . 'assets/export/');
+                            if (!is_dir($folder)) :
+                                mkdir($folder, 0777);
+                            endif;
+                            if (is_file($folder . $filename)) :
+                                unlink($folder . $filename); // delete file
+                            endif;
+
+                            move_uploaded_file($_FILES['importtabsfilefile']['tmp_name'], $folder . $filename);
+                            $ImportApi = new \OXI_TABS_PLUGINS\Classes\Build_Api;
+                            $ImportApi->post_json_import($folder, $filename);
+                            if (is_file($folder . $filename)) :
+                                unlink($folder . $filename); // delete file
+                            endif;
+                        endif;
+                    endif;
+                }
+            }
+        }
+
+        public function __construct() {
+            $this->database = new \OXI_TABS_PLUGINS\Helper\Database();
+            $this->CSSJS_load();
+            $this->Render();
+        }
+
+        public function database_data() {
+            return $this->database->wpdb->get_results("SELECT * FROM " . $this->database->parent_table . " ORDER BY id DESC", ARRAY_A);
+        }
+
+        public function CSSJS_load() {
+            $this->manual_import_style();
+            $this->admin_css_loader();
+            $this->admin_home();
+            $this->admin_ajax_load();
+            apply_filters('oxi-tabs-plugin/admin_menu', true);
+        }
+
+        /**
+         * Admin Notice JS file loader
+         * @return void
+         */
+        public function admin_ajax_load() {
+            wp_enqueue_script('oxi-tabs-home', OXI_TABS_URL . 'assets/backend/custom/home.js', false, OXI_TABS_TEXTDOMAIN);
+        }
+
+        public function Admin_header() {
+            apply_filters('vc-tabs-support-and-comments', true);
+            ?>
         <div class="oxi-addons-wrapper">
             <div class="oxi-addons-import-layouts">
                 <h1>Responsive Tabs › Home
@@ -237,5 +237,4 @@ class Home {
             <br></div>');
         echo $return;
     }
-
 }

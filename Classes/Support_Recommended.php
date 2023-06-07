@@ -16,65 +16,6 @@ class Support_Recommended {
     public $current_plugins = 'vc-tabs/index.php';
 
     /**
-     * First Installation Track
-     * @return void
-     */
-    public function first_install() {
-
-        $installed_plugins = get_plugins();
-
-        $plugin = [];
-        $i = 1;
-
-        foreach ($this->get_plugins as $key => $value) {
-            if (!isset($installed_plugins[$value['modules-path']])):
-                $plugin[$i] = $value;
-                $i++;
-            endif;
-        }
-
-        $recommend = [];
-
-        for ($p = 1; $p < 100; $p++):
-            if (isset($plugin[$p])):
-                if (isset($plugin[$p]['dependency']) && $plugin[$p]['dependency'] != ''):
-                    if (isset($installed_plugins[$plugin[$p]['dependency']])):
-                        $recommend = $plugin[$p];
-                        $p = 100;
-                    endif;
-                elseif ($plugin[$p]['modules-path'] != $this->current_plugins):
-                    $recommend = $plugin[$p];
-                    $p = 100;
-                endif;
-            else:
-                $p = 100;
-            endif;
-        endfor;
-
-        if (count($recommend) > 2 && $recommend['modules-path'] != ''):
-            $plugin = explode('/', $recommend['modules-path'])[0];
-
-            $massage = '<p>Thank you for using my Responsive Tabs with Accordions. ' . $recommend['modules-massage'] . '</p>';
-
-            $install_url = wp_nonce_url(add_query_arg(array('action' => 'install-plugin', 'plugin' => $plugin), admin_url('update.php')), 'install-plugin' . '_' . $plugin);
-            echo '<div class="wrap oxi-addons-admin-notifications" style=" width: auto;">
-                        <h3>
-                            <span class="dashicons dashicons-flag"></span>
-                            Notifications
-                        </h3>
-                        <p></p>
-                        <div class="oxi-addons-admin-notifications-holder">
-                            <div class="oxi-addons-admin-notifications-alert">
-                                ' . $massage . '
-                                <p>' . sprintf('<a href="%s" class="button button-large button-primary">%s</a>', $install_url, __('Install Now', OXI_TABS_TEXTDOMAIN)) . ' &nbsp;&nbsp;<a href="#" class="button button-large button-secondary oxi-tabs-admin-recommended-dismiss" sup-data="done">No, Thanks</a></p>
-                            </div>
-                        </div>
-                        <p></p>
-                    </div>';
-        endif;
-    }
-
-    /**
      * Admin Notice CSS file loader
      * @return void
      */
@@ -144,4 +85,62 @@ class Support_Recommended {
         die();
     }
 
+    /**
+     * First Installation Track
+     * @return void
+     */
+    public function first_install() {
+
+        $installed_plugins = get_plugins();
+
+        $plugin = [];
+        $i = 1;
+
+        foreach ($this->get_plugins as $key => $value) {
+            if (!isset($installed_plugins[$value['modules-path']])):
+                $plugin[$i] = $value;
+                $i++;
+            endif;
+        }
+
+        $recommend = [];
+
+        for ($p = 1; $p < 100; $p++):
+            if (isset($plugin[$p])):
+                if (isset($plugin[$p]['dependency']) && $plugin[$p]['dependency'] != ''):
+                    if (isset($installed_plugins[$plugin[$p]['dependency']])):
+                        $recommend = $plugin[$p];
+                        $p = 100;
+                    endif;
+                elseif ($plugin[$p]['modules-path'] != $this->current_plugins):
+                    $recommend = $plugin[$p];
+                    $p = 100;
+                endif;
+            else:
+                $p = 100;
+            endif;
+        endfor;
+
+        if (count($recommend) > 2 && $recommend['modules-path'] != ''):
+            $plugin = explode('/', $recommend['modules-path'])[0];
+
+            $massage = '<p>Thank you for using my Responsive Tabs with Accordions. ' . $recommend['modules-massage'] . '</p>';
+
+            $install_url = wp_nonce_url(add_query_arg(array('action' => 'install-plugin', 'plugin' => $plugin), admin_url('update.php')), 'install-plugin' . '_' . $plugin);
+            echo '<div class="wrap oxi-addons-admin-notifications" style=" width: auto;">
+                        <h3>
+                            <span class="dashicons dashicons-flag"></span>
+                            Notifications
+                        </h3>
+                        <p></p>
+                        <div class="oxi-addons-admin-notifications-holder">
+                            <div class="oxi-addons-admin-notifications-alert">
+                                ' . $massage . '
+                                <p>' . sprintf('<a href="%s" class="button button-large button-primary">%s</a>', $install_url, __('Install Now', OXI_TABS_TEXTDOMAIN)) . ' &nbsp;&nbsp;<a href="#" class="button button-large button-secondary oxi-tabs-admin-recommended-dismiss" sup-data="done">No, Thanks</a></p>
+                            </div>
+                        </div>
+                        <p></p>
+                    </div>';
+        endif;
+    }
 }
